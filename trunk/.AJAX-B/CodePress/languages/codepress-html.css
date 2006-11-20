@@ -1,0 +1,12 @@
+/*
+ * CodePress color styles for HTML syntax highlighting
+ */
+
+/* fonts with bold and italic must have size 12px */
+b,i,s,em,u {display:inline;font-weight:normal;text-decoration:none;}
+b {color:#000080;} /* tags */
+i, i b, i s, i em, i u {color:gray;font-size:12px;letter-spacing:1px} /* comments */
+s, s b {color:#0000ff;} /* attributes */
+em {color:#800080;font-style:normal;} /* style */
+u {color:#800000;text-decoration:none;} /* script */
+

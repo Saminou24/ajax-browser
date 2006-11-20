@@ -1,0 +1,15 @@
+/*
+ * CodePress color styles for Perl syntax highlighting
+ * By J. Nick Koston
+ */
+
+/* fonts with bold and italic must have size 12px */
+b,i,ss,s,u {display:inline;font-size:12px;font-weight:bold;text-decoration:none;letter-spacing:1px}
+b {color:#7F0055;} /* reserved words */
+ss var {color:#2A00FF;font-weight:normal;}
+i, i b, i s, ss, i u {color:gray;font-weight:normal;} /* comments */
+ss, s, ss, s b {color:#2A00FF;font-weight:normal;} /* strings */
+i var, i ss, i s {color:green:font-weight:normal;}
+var {color:#006700;font-weight:bold;font-size:12px;letter-spacing:1px;font-style:normal;} /* variables */
+u {color:darkblue;}
+em {font-weight:bold;font-style:normal;}
