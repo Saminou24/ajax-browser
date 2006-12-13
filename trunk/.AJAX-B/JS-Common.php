@@ -18,7 +18,19 @@ var MoveList = new Array();
 	Para_GET = window.location.search.slice(1,window.location.search.length).split("&");
 	for(i=0;Para_GET[i];i++)
 		GET[(Para_GET[i].split("="))[0]] = Para_GET[i];
-
+function FindFilter()
+{
+	if ((FF=ID('FindFilter')).style.visibility == 'visible')
+		FF.style.visibility = 'hidden';
+	else
+	{
+		FF.style.visibility = 'visible';
+		ID('matchFilter').defaultValue = ((GET['match'].split("="))[1]).replace(/%2C/g,',');
+		ID('matchFilter').focus();
+		ID('matchFilter').selectionStart = 0;
+		ID('matchFilter').selectionEnd = document.matchform.matchFilter.value.length;
+	}
+}
 function fastRename (Ptr)
 {
 	if (ID("NewFastName"))
@@ -38,20 +50,14 @@ function fastRename (Ptr)
 function RestorFastRen()
 {
 	divName = document.BrowsAct.New.parentNode;
+	idName = divName.parentNode.parentNode.parentNode.parentNode.id;
 		divName.setAttribute('onclick',"fastRename(this);");
 		divName.parentNode.parentNode.parentNode.childNodes[1].childNodes[4].onmousedown=thisOnMouseDown;
 		divName.parentNode.parentNode.parentNode.onmouseup=thisPaste;
 		divName.parentNode.onmousedown=thisOnMouseDown;//	divName.parentNode.setAttribute('onmousedown', "thisOnMouseDown;alert('onmousedown');");
 		divName.innerHTML = document.BrowsAct.New.defaultValue;
 	if (document.BrowsAct.New)
-	{
-	document.body.style.background="red";
-	ReloadDir (dirname(document.BrowsAct.New.parentNode.parentNode.parentNode.parentNode.parentNode.id));
-	document.body.style.background="white";
-		alert("JS-Common.php\ndocument.BrowsAct.New , est mal effacé !!!\n"+
-			document.BrowsAct.New.id+"\n"+document.BrowsAct.New.value+"\n"+document.BrowsAct.New.name+
-				"\n"+document.BrowsAct.New.nodeValue);
-	}
+		ReloadDir (dirname(idName));
 }
 function EndFastRen(e)
 {
@@ -95,8 +101,7 @@ function FileIco (File)			// choisi l'icone le mieu adapté parmis ceux present
 function flux(titre, str)
 {
 	ptr = ID("BavarZone");
-	while (str.length != (str=str.replace('<','&lt;').replace('>','&gt;')).length);
-	while (str.length != (str=str.replace('\n','<br>')).length);
+	str=str.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')
 <?
 if ($_SESSION['level']>=3) echo 	"ptr.innerHTML = \"<div class='titleflux'>\"+titre+\"</div>\"+str+\"<br>\\n\"+ptr.innerHTML;";
 else echo 	"	ptr.innerHTML = \"<div class='titleflux'>\"+titre+\"</div><br>\\n\"+ptr.innerHTML;";
@@ -211,8 +216,7 @@ function SizeConvert (Size)		// converti un nombre d'octés en taille en Ko, Mo,
 }
 function UrlFormat (url)
 {
-	while ( url.length != (url = url.replace("'","%27").replace("#","%23").replace("\"","%22").replace("&","%26").replace("=","%3d").replace("?","%3f").replace(" ","%20")).length);
-	return url;
+	return url.replace(/%22/g,"\"").replace(/%27/g,"'"); // eccape()
 }
 function PopBox(para)
 {

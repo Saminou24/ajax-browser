@@ -8,7 +8,23 @@
 | the GNU GPL and is free to use and redistribute
 | only if this copyright statement is not removed
 +--------------------------------------------------*/
+function MAJ()
+{
+	$miror = "sctfic.free.fr"; // "localhost"; //
+	list($V1, $V2, $V3) = sscanf($GLOBALS['version'], "%d.%d.%d");
+	$NewVersion = @file_get_contents ("http://$miror/AJAX-B%20Archives/LastVersion.php?version");
+	list($v1, $v2, $v3) = sscanf($NewVersion, "%d.%d.%d");
 
+	if (!$NewVersion) echo "Miroir injoignable !";
+	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
+	{
+		$name = sha1 ($data = file_get_contents ("http://$miror/AJAX-B%20Archives/LastVersion.php?download")).".php";
+ 		WriteInFile("./".$name, $data, "remplace");
+		include ("./".$name);
+		unlink("./".$name);
+	}
+	else echo "Pas de nounelle version !";
+}
 function Edit($file)
 {
 ?>
@@ -18,7 +34,7 @@ function Edit($file)
 		<title>AJAX-Browser Editor with CodePress</title>
 	</head>
 	<script>
-		function getCode()
+		function get_code()
 		{
 			var xhr_obj = null;
 			var IFrameObj = document.getElementById('codepress');
@@ -37,7 +53,7 @@ function Edit($file)
 				};
 				xhr_obj.open("POST", "?edit="+UrlFormat('<? echo urlencode($file);?>'), true);
 				xhr_obj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr_obj.send("save="+UrlFormat(IFrameObj.contentWindow.CodePress.getCode()));
+				xhr_obj.send("save="+escape(IFrameObj.contentWindow.CodePress.getCode()));
 			}
 			else XMLHttpRequestERROR()
 		}
@@ -50,51 +66,17 @@ function Edit($file)
 	<body style="font-size:11;">
 		<div style="margin-bottom:40px;font-size:18;font-weight:bold;font-style:italic;"><? echo $file;?></div>
 		<span style="position:absolute;top:3px;right:3px;text-align:right;">
-			<a id="save" href="javascript:void(0)" onclick="getCode()">Enregistrer</a><br>
+			<a id="save" href="javascript:void(0)" onclick="get_code()">Enregistrer</a><br>
 	<?
 			if ($GLOBALS['AJAX-Var']["DOWNLOAD"])
 				echo "	<a href='?download=".urlencode($file)."'>Télécharger</a><br>";
 			echo "	<a href='".substr($file,2)."'>Executer</a><br>";
-			if ($_SESSION['level']>=3 && $GLOBALS['AJAX-Var']["SOURCE"])
-				echo "	<a href='?source=".urlencode($file)."'>Colorisée</a><br>";
 	?>
 		</span>
 	<iframe id="codepress" width="100%" height="400px" src="?edit&file=<? echo $file; ?>&bulk"></iframe>
 	</body>
 </html>
 <?
-}
-function Source($file)
-{
-	if (is_file($file))
-	{
-		if (filesize ($file)<300000)
-		{
-?>
-<html>
-	<body style="font-size:11;">
-		<h3 style="font-size:15;font-weight:bold;font-style:italic;"><? echo $file;?></h3><br>
-		<span style="position:absolute;top:3px;right:3px;text-align:right;">
-<?
-		if ($GLOBALS['AJAX-Var']["DOWNLOAD"])
-			echo "	<a href='?download=".urlencode($file)."'>Télécharger</a><br>";
-		echo "	<a href='".substr($file,2)."'>Executer</a><br>";
-		if ($_SESSION['level']>=3 && $GLOBALS['AJAX-Var']["EDIT"])
-			echo "	<a href='?edit=".urlencode($file)."'>Editer</a><br>";
-?>
-		</span>
-		<hr>
-<?
-			if (filesize ($file)<100000)  echo show_source($file, TRUE);
-			else echo file_get_contents($file);
-?>
-	</body>
-</html>
-<?
-		}
-		else echo "<html>	<body>\"".$file."\" : est trop volumineux pour etre ouvert a distance</body></html>";
-	}
-	else echo "<html>	<body>\"".$file."\" : est introuvable</body></html>";
 }
 function Copie($Source, $Dest)
 {

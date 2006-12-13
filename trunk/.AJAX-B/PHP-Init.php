@@ -9,13 +9,13 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-	$version = "0.8.23";
+	$version = "0.9.00";
 	include ("./.AJAX-B/PHP-Common.php");
 	ini_set('php_admin_flag engine','on');
 	$StartPhpScripte = microtime_float();
 	foreach ($_GET as $key=>$para)
 	{
-		$_GET[$key] = urldecode($para);
+		$_GET[$key] = rawurldecode(($para));
 	}
 	if (!is_dir(session_save_path()))
 	{
@@ -105,13 +105,6 @@
 		readfile(realpath(urldecode($_GET['open'])));
 		exit();
 	}
-	elseif (isset($_GET['source']))
-	{
-		if ($GLOBALS['AJAX-Var']["SOURCE"])
-			Source($_GET['source']);
-		else echo "Fonction source desactivée...";
-		exit();
-	}
 	elseif (isset($_GET['edit']))
 	{
 		if ($_SESSION['level']>=3 && $GLOBALS['AJAX-Var']["EDIT"])
@@ -121,10 +114,10 @@
 				include ("./.AJAX-B/CodePress/codepress.php");
 			}
 			elseif (isset($_POST['save']))
-			{// NewFile($New,($_SESSION['level']>2?true:false))
-				//WriteInFile ($_GET['edit'], urldecode($_POST['save']), "remplace");
-				//echo date( 'd/m/y - H:i:s', time() );
-				echo "SAVE is Under devellopement";
+			{
+				WriteInFile ($_GET['edit'].date( ' - H:i:s', time() ), urldecode($_POST['save']), "remplace");
+				echo date( 'd/m/y - H:i:s', time() );
+//				echo "SAVE is Under devellopement";
 			}
 			else Edit($_GET['edit']);
 		}
@@ -197,6 +190,12 @@
 			ManageUpload($_GET['upload']);
 		exit();
 	}
+	elseif (isset($_GET['update']))
+	{
+		if ($_SESSION['level']==4)
+			echo MAJ();
+		exit();
+	}
 	elseif (isset($_GET['download']))
 	{
 		if ((count(($Downlod_List=explode('%;',$_GET['download'])))>1 || is_dir($_GET['download'])) && $GLOBALS['AJAX-Var']["DOWNLOAD"])
@@ -221,15 +220,14 @@
 			}
 			$Download -> set_options(array('inmemory' => 1, 'prepend' => 'Downloaded@'.$_SERVER['SERVER_NAME']));
 			$Download -> add_files($Downlod_List);
-//			$Download -> store_files(array("*.jpg","*.png","*.zip"));
 			$Download -> create_archive();
-			$Download -> download_file();
 			if (count($test->errors) > 0)
 			{
 				echo "<html><body><pre>";
 				print_r ($test->errors); // Process errors here
 				echo "</pre></body></html>";
 			}
+			else $Download -> download_file();
 		}
 		elseif (is_file($_GET['download']) && $GLOBALS['AJAX-Var']["DOWNLOAD"])
 		{
@@ -251,5 +249,13 @@
 		header("Location:?".$_SERVER['QUERY_STRING']."&racine=".(is_dir($_SESSION['def-racine']) ? $_SESSION['def-racine'] : "./"));
 		exit ();
 	}
+
 	$racine = UrlSimplied($_GET['racine']);
+
+	if ($_SESSION['level']<4 && is_dir($_SESSION['def-racine']) && strpos($racine, $_SESSION['def-racine'])===false)
+	{
+		$Other_GET = str_replace("racine=".$_GET['racine']."&", "", str_replace("&racine=".$_GET['racine'], "", $_SERVER['QUERY_STRING']));
+		header("Location:?".$Other_GET."&racine=".$_SESSION['def-racine']);
+		exit ();
+	}
 ?>

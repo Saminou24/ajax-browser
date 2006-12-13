@@ -1,11 +1,11 @@
 /*
  * CodePress - Real Time Syntax Highlighting Editor written in JavaScript - http://codepress.fermads.net/
- *
+ * 
  * Copyright (C) 2006 Fernando M.A.d.S. <fermads@gmail.com>
  *
- * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * This program is free software; you can redistribute it and/or modify it under the terms of the 
  * GNU Lesser General Public License as published by the Free Software Foundation.
- *
+ * 
  * Read the full licence: http://www.opensource.org/licenses/lgpl-license.php
  */
 
@@ -13,32 +13,31 @@ CodePress = {
 	range : null,
 	language : null,
 	scrolling : false,
-
+		
 	// set initial vars and start sh
 	initialize : function() {
 		if(typeof(editor)=='undefined'&&!arguments[0]) return;
 		this.detect();
 		chars = '|13|32|191|57|48|187|188|'; // charcodes that trigger syntax highlighting
 		cc = '&shy;'; // control char
-		if(browser.ie) {
-			editor = document.getElementById('ieedt');
-			editor.contentEditable = 'true';
-			document.onkeydown = this.keyHandler;
-			window.onscroll = function() { if(!CodePress.scrolling) CodePress.syntaxHighlight('scroll'); }
-		}
-		else /*if(browser.ff)*/
-		{
+		if(browser.ff) {
 			editor = document.getElementById('ffedt');
 			document.designMode = 'on';
 			document.addEventListener('keydown', this.keyHandler, true);
 			window.addEventListener('scroll', function() { if(!CodePress.scrolling) CodePress.syntaxHighlight('scroll'); }, false);
 			//document.body.focus();
 		}
-/*		else {
+		else if(browser.ie) {
+			editor = document.getElementById('ieedt');
+			editor.contentEditable = 'true';
+			document.onkeydown = this.keyHandler;
+			window.onscroll = function() { if(!CodePress.scrolling) CodePress.syntaxHighlight('scroll'); }
+		}
+		else {
 			// TODO: textarea without syntax highlighting for non supported browsers
 			alert('your browser is not supported at the moment');
 			return;
-		}*/
+		}
 		this.syntaxHighlight('init');
 		setTimeout(function() { window.scroll(0,0) },50);
 	},
@@ -86,7 +85,7 @@ CodePress = {
 			}
 		}
 	},
-
+	
 	// split big files, highlighting parts of it
 	split : function(code,flag) {
 		if(flag=='scroll') {
@@ -95,7 +94,7 @@ CodePress = {
 		}
 		else {
 			this.scrolling = false;
-			mid = code.indexOf("&amp;shy;");
+			mid = code.indexOf("&amp;shy;"); 
 			if(mid-2000<0) {ini=0;end=4000;}
 			else if(mid+2000>code.length) {ini=code.length-4000;end=code.length;}
 			else {ini=mid-2000;end=mid+2000;}
@@ -105,7 +104,7 @@ CodePress = {
 		}
 	},
 
-
+	
 	// syntax highlighting parser
 	syntaxHighlight : function(flag) {
 		if(browser.ff) {
@@ -131,7 +130,7 @@ CodePress = {
 			x = z = this.split(o,flag);
 		}
 
-		for(i=0;i<syntax.length;i++)
+		for(i=0;i<syntax.length;i+=2) 
 			x = x.replace(syntax[i],syntax[i+1]);
 
 		editor.innerHTML = this.actions.history[this.actions.next()] = (flag=='scroll') ? x : o.replace(z,x);
@@ -143,7 +142,7 @@ CodePress = {
 	actions : {
 		pos : -1, // actual history position
 		history : [], // history vector
-
+		
 		undo : function() {
 			if(editor.innerHTML.indexOf(cc)==-1){
 				if(browser.ff) window.getSelection().getRangeAt(0).insertNode(document.createTextNode(cc));
@@ -155,20 +154,20 @@ CodePress = {
 			editor.innerHTML = this.history[this.pos];
 			CodePress.findString();
 		},
-
+		
 		redo : function() {
 			this.pos++;
 			if(typeof(this.history[this.pos])=='undefined') this.pos--;
 			editor.innerHTML = this.history[this.pos];
 			CodePress.findString();
 		},
-
+		
 		next : function() { // get next vector position and clean old ones
 			if(this.pos>20) this.history[this.pos-21] = undefined;
 			return ++this.pos;
 		}
-	},
-
+	},	
+	
 	// transform syntax highlighted code to original code
 	getCode : function() {
 		code = editor.innerHTML;
@@ -191,7 +190,7 @@ CodePress = {
 		if(typeof(arguments[1])=='undefined') {
 			language = top.document.getElementById(arguments[0]).lang.toLowerCase();
 			code = top.document.getElementById(arguments[0]).value;
-		}
+		} 
 		else {
 			language = arguments[0];
 			code = arguments[1];
@@ -204,7 +203,7 @@ CodePress = {
 		head.appendChild(script)
 		document.getElementById('cp-lang-style').href = 'languages/codepress-'+language+'.css';
 		code = code.replace(/&shy;|&amp;shy;/gi,'\xad');
-		code = code.replace(/&/gi,'&amp;');
+		code = code.replace(/&/gi,'&amp;');		
        	code = code.replace(/</g,'&lt;');
         code = code.replace(/>/g,'&gt;');
 		editor.innerHTML = "<pre>"+code+"</pre>";
@@ -218,13 +217,13 @@ onload = function() {
 		cpWindow.style.border = '1px solid gray';
 		cpWindow.style.frameBorder = '0';
 	}
-
+	
 	top.CodePress = CodePress;
 	CodePress.initialize('new');
-
+	
 	cpOnload = top.document.getElementById('codepress-onload');
 	cpOndemand = top.document.getElementById('codepress-ondemand');
-
+	
 	if(cpOnload!=null) {
 		cpOnload.style.display = 'none';
 		cpOnload.id = 'codepress-loaded';

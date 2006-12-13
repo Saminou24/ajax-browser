@@ -9,14 +9,9 @@
  *
  * Read the full licence: http://www.opensource.org/licenses/lgpl-license.php
  *
- *
  * Very simple implementation of server side script
  * to open files and send to CodePress interface
  */
-
-/* For future use
-$action = $_GET['action'];
-if($action == 'edit') { } */
 
 $code = "";
 $language = "php";
@@ -60,6 +55,8 @@ function getLanguage($file)
 	switch(pathinfo($file, PATHINFO_EXTENSION))
 	{
 		case 'php':
+		case 'php4':
+		case 'php5':
 		case 'phtml':
 			$ext =  'php';
 			break;

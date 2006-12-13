@@ -64,6 +64,8 @@ SELECT {width:100%;}
 #zipper {position:absolute;top:60px;left:70px;visibility:hidden;width:90px;z-index:10;background:#ffffff;border:1px solid gray;padding:1px;}
 #zipper div:hover {background:rgb(220,230,255);}
 
+#FindFilter {position:absolute;visibility:hidden;top:48px;left:186px;height:17px;width:150px;z-index:10;background:#ffffff;border:outset 1px gray;padding:1px;}
+#FindFilter input {width:150px;border:inset 1px gray;}
 
 #BavarZone {background-color:white;font-size:9px;display:none;border-top:1px solid gray;border-right:1px solid gray;border-left:1px solid gray;overflow:auto;max-height:200px;}
 .bottomleft {position:fixed;bottom:0px;left:0px;margin:2px;z-index:6;}

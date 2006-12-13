@@ -8,12 +8,6 @@
  | the GNU GPL and is free to use and redistribute
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
-
-function Source (SelFile)
-{
-	window.open(GET_add("source="+UrlFormat (SelFile)));
-	flux("Source :",SelFile);
-}
 function Edit (SelFile)
 {
 	window.open(GET_add("edit="+UrlFormat (SelFile)));
@@ -197,7 +191,7 @@ function submitMy(para)
 "SPEED="+(FORM.SPEED.value)+
 (FORM.FICHIER_CACHER ? "&FICHIER_CACHER="+FORM.FICHIER_CACHER.checked : '')+
 "&DEF_VIEW="+FORM.DEF_VIEW.value+
-"&DEF_DIR="+UrlFormat(FORM.DEF_DIR.value)+
+(FORM.DEF_DIR ? "&DEF_DIR="+UrlFormat(FORM.DEF_DIR.value) : '')+
 "&MINI_SIZE="+FORM.MINI_SIZE.value);
 	}
 	else XMLHttpRequestERROR()
@@ -253,7 +247,6 @@ function submitSetting(para)
 "&RESTRICT_TYPE="+UrlFormat(FORM.RESTRICT_TYPE.value)+
 "&ALWAYS_TYPE="+UrlFormat(FORM.ALWAYS_TYPE.value)+
 "&IP_SPY="+(FORM.IP_SPY.checked)+
-"&SOURCE="+(FORM.SOURCE.checked)+
 "&EDIT="+(FORM.EDIT.checked)+
 "&DEL="+(FORM.DEL.checked)+
 "&DOWNLOAD="+(FORM.DOWNLOAD.checked)+

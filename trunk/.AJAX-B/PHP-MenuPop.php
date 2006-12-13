@@ -42,20 +42,37 @@
 <div id="mover"></div>
 <?
 	if ($_SESSION['level'] >= $MOVE->level || $_SESSION['level'] >= $COPY->level)
-{
-	echo "<div id='CpMv'>\n";
-	if ($_SESSION['level'] >= $MOVE->level)
-		echo "	<div class='action' title=\"".$MOVE->info."\"><IMG src=\"".$MOVE->img."\"/>Deplacer</div>\n";
-	if ($_SESSION['level'] >= $COPY->level)
-		echo "	<div class='action' title=\"".$COPY->info."\"><IMG src=\"".$COPY->img."\"/>Copier</div>\n";
+	{
+		echo "<div id='CpMv'>\n";
+		if ($_SESSION['level'] >= $MOVE->level)
+			echo "	<div class='action' title=\"".$MOVE->info."\"><IMG src=\"".$MOVE->img."\"/>Deplacer</div>\n";
+		if ($_SESSION['level'] >= $COPY->level)
+			echo "	<div class='action' title=\"".$COPY->info."\"><IMG src=\"".$COPY->img."\"/>Copier</div>\n";
+	}
 ?>
 	<div class='action'><IMG src="./.AJAX-Ico/CloseX.png"/>Annuler</div>
 </div>
+<div id="FindFilter">
+	<form METHOD='get' name="matchform" action="" enctype='multipart/form-data'>
+		<input name='match' id='matchFilter'>
+	</form>
+</div>
 <div id="zipper">
-	<div class='action' title="" onclick="Lst=OneOrSelect();NewWin=window.open(GET_add('format=zip&download='+UrlFormat (Lst.join('%;'))), 'download','top=0,left=0,width=100,height=20');flux('Download :',Lst.join('\n'));NewWin.setTimeout('close()',60000);this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/type-zip.png"/>ZIP</div>
-	<div class='action' title="" onclick="Lst=OneOrSelect();NewWin=window.open(GET_add('format=tar&download='+UrlFormat (Lst.join('%;'))), 'download','top=0,left=0,width=100,height=20');flux('Download :',Lst.join('\n'));NewWin.setTimeout('close()',60000);this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/type-tar.png"/>TAR</div>
-	<div class='action' title="" onclick="Lst=OneOrSelect();NewWin=window.open(GET_add('format=gzip&download='+UrlFormat (Lst.join('%;'))), 'download','top=0,left=0,width=100,height=20');flux('Download :',Lst.join('\n'));NewWin.setTimeout('close()',60000);this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/type-gz.png"/>TAR.GZIP</div>
-	<div class='action' title="" onclick="Lst=OneOrSelect();NewWin=window.open(GET_add('format=bzip2&download='+UrlFormat (Lst.join('%;'))), 'download','top=0,left=0,width=100,height=20');flux('Download :',Lst.join('\n'));NewWin.setTimeout('close()',60000);this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/type-bz2.png"/>TAR.BZIP2</div>
+<?	if (function_exists('gzwrite')) { ?>
+	<div class='action' title="Telechargement de la selection au format *.ZIP" onclick="Lst=OneOrSelect();NewWin=window.open(GET_add('format=zip&download='+UrlFormat (Lst.join('%;'))), 'download','top=0,left=0,width=100,height=20');flux('Download :',Lst.join('\n'));NewWin.setTimeout('close()',60000);this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/type-zip.png"/>ZIP</div>
+<? } else { ?>
+	<div class='action' title="Telechargement de la selection au format *.ZIP" onclick="alert('ZLIB() => Impossible! Vous devriez intaller la bibliothèque ZLIB')"><IMG src="./.AJAX-Ico/type-zip.png"/>ZIP</div>
+<? } ?>
+	<div class='action' title="Telechargement de la selection au format *.TAR" onclick="Lst=OneOrSelect();NewWin=window.open(GET_add('format=tar&download='+UrlFormat (Lst.join('%;'))), 'download','top=0,left=0,width=100,height=20');flux('Download :',Lst.join('\n'));NewWin.setTimeout('close()',60000);this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/type-tar.png"/>TAR</div>
+<?	if (function_exists('gzwrite')) { ?>
+	<div class='action' title="Telechargement de la selection au format *.GZIP" onclick="Lst=OneOrSelect();NewWin=window.open(GET_add('format=gzip&download='+UrlFormat (Lst.join('%;'))), 'download','top=0,left=0,width=100,height=20');flux('Download :',Lst.join('\n'));NewWin.setTimeout('close()',60000);this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/type-gz.png"/>TAR.GZIP</div>
+<? } else { ?>
+	<div class='action' title="Telechargement de la selection au format *.GZIP" onclick="alert('ZLIB() => Impossible! Vous devriez intaller la bibliothèque ZLIB')"><IMG src="./.AJAX-Ico/type-gz.png"/>TAR.GZIP</div>
+<? }
+	if (function_exists('bzwrite')) { ?>
+	<div class='action' title="Telechargement de la selection au format *.BZIP2" onclick="Lst=OneOrSelect();NewWin=window.open(GET_add('format=bzip2&download='+UrlFormat (Lst.join('%;'))), 'download','top=0,left=0,width=100,height=20');flux('Download :',Lst.join('\n'));NewWin.setTimeout('close()',60000);this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/type-bz2.png"/>TAR.BZIP2</div>
+<? } else { ?>
+	<div class='action' title="Telechargement de la selection au format *.BZIP2" onclick="alert('BZIP2() => Impossible! Vous devriez intaller la bibliothèque BZIP2')"><IMG src="./.AJAX-Ico/type-bz2.png"/>TAR.BZIP2</div>
+<? } ?>
 	<div class='action' onclick="this.parentNode.style.visibility='hidden';"><IMG src="./.AJAX-Ico/CloseX.png"/>Annuler</div>
 </div>
-<? } ?>

@@ -88,7 +88,7 @@ function LOHD (id) // LOHD pour Load Or Hide Dir
 				{
 					if (xhr_arbs.readyState == 4 && xhr_arbs.status == 200)
 					{
-						var i, StrContent="", SubLst = xhr_arbs.responseText.split("\n");
+						var i, StrContent="", SubLst = xhr_arbs.responseText.replace(/%2F/g,'/').split("\n");
 						for (i=0; SubLst[i]; i++)
 							StrContent += AddContent (SubLst[i].split("\t"), IndentLstImg, SubLst.length-2-i ? "" : "End").join('\n')+"\n";
 						Ptr.childNodes[3].innerHTML = StrContent;
@@ -127,7 +127,7 @@ function AddContent (infos, Indent, ImgPrefix)// oncontextmenu='return false;'
 		INFOS[i++] = "		<div class='This' onmousedown='MCE(this.parentNode,event);' onmouseover=\"this.childNodes[1].childNodes[4].onmousedown = thisOnMouseDown;this.onmouseup = thisPaste;\">";
 		INFOS[i++] = "			<span class='left' title='"+infos[10]+"'>";
 		INFOS[i++] = "				<input onchange='SDGCA(this);' type=\"checkbox\" name=\"Lst[]\" value='"+infos[0]+infos[1]+"'/>";
-		INFOS[i++] = "				<span class='IndentImg'>"+Indent+"<IMG src='./.AJAX-Ico/"+ImgPrefix+"File.png'/></span><span class='IcoName'><IMG onclick='OpenClick(this.parentNode.parentNode.parentNode.parentNode.id);' src='./.AJAX-Ico/"+FileIco (infos[1])+".png' />";
+		INFOS[i++] = "				<span class='IndentImg'>"+Indent+"<IMG src='./.AJAX-Ico/"+ImgPrefix+"File.png'/></span><span class='IcoName'><IMG onclick='window.open(this.parentNode.parentNode.parentNode.parentNode.id);' src='./.AJAX-Ico/"+FileIco (infos[1])+".png' />";
 	}
 	else						// ici nous somme face a une a un fichier "normal"
 	{
@@ -136,7 +136,7 @@ function AddContent (infos, Indent, ImgPrefix)// oncontextmenu='return false;'
 		INFOS[i++] = "				<input onchange='SDGCA(this);' type=\"checkbox\" name=\"Lst[]\" value='"+infos[0]+infos[1]+"'/>";
 		INFOS[i++] = "				<span class='IndentImg'>"+Indent+"<IMG src='./.AJAX-Ico/"+ImgPrefix+"File.png'/></span><span class='IcoName'><IMG onclick='window.open(this.parentNode.parentNode.parentNode.parentNode.id);' src='./.AJAX-Ico/"+FileIco(infos[1])+".png' />";
 	}
-	INFOS[i++] = "					<span class='Name' onclick=\"fastRename(this);\">"+basename(infos[1])+"</span>";
+	INFOS[i++] = "					<span class='Name' onclick=\"fastRename(this);\">"+unescape(basename(infos[1]))+"</span>";
 	INFOS[i++] = "				</span>";
 	INFOS[i++] = "			</span>";
 	INFOS[i++] = "			<span class=\"right\">";

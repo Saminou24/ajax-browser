@@ -13,11 +13,12 @@ $GLOBALS['AJAX-Var'] = unserialize(file_get_contents($File));
 if (isset($_GET['usrconf']) && isset($_GET['save']))
 {
 	$UserName = $_SESSION['name'];
-	if (!empty($_POST['NewCode'])){ echo "code modifier => ".$_POST['NewCode'];
+	if (!empty($_POST['NewCode'])){ echo "Code modifier => ".$_POST['NewCode'];
 		$GLOBALS['AJAX-Var']["users-infos"][$UserName]["code"] = crypt($_POST['CODE'],$UserName);}
 	$GLOBALS['AJAX-Var']["users-infos"][$UserName]["hidden-file"] = $_POST['FICHIER_CACHER']=='true'?true:false;
 	$GLOBALS['AJAX-Var']["users-infos"][$UserName]["def-mode"] = $_POST['DEF_VIEW'];
-	$GLOBALS['AJAX-Var']["users-infos"][$UserName]["def-racine"] = $_POST['DEF_DIR'];
+	if (isset($_POST['DEF_DIR']))
+		$GLOBALS['AJAX-Var']["users-infos"][$UserName]["def-racine"] = $_POST['DEF_DIR'];
 	list($GLOBALS['AJAX-Var']["users-infos"][$UserName]["mini-size"]) = sscanf($_POST['MINI_SIZE'], "%d");
 	$GLOBALS['AJAX-Var']["users-infos"][$UserName]["speed"] = $_POST['SPEED'];
 	WriteInFile ($File, serialize($GLOBALS['AJAX-Var']), "remplace");
@@ -37,9 +38,7 @@ elseif (isset($_GET['usrconf']))
 						<OPTION VALUE="arborescence" <? echo ($GLOBALS['AJAX-Var']['users-infos'][$UserName]['def-mode']=='arborescence') ? "selected=true" : ""; ?> >Arborescence</OPTION>
 						<OPTION VALUE="gallerie" <? echo ($GLOBALS['AJAX-Var']['users-infos'][$UserName]['def-mode']=='gallerie') ? "selected=true" : ""; ?> >Gallerie</OPTION>
 				</SELECT></td></tr>
-			<tr><td colspan=2 title="Repertoire par defaut">
-					<INPUT style="float:left;" type='text' name="DEF_DIR" VALUE="<? echo $GLOBALS['AJAX-Var']['users-infos'][$UserName]['def-racine']; ?>"/><span style="float:right;" class="button" onclick="this.previousSibling.value=(GET['racine'].split('='))[1];">ici</span>
-				</td></tr>
+			<? if ($_SESSION['level']==4) echo "<tr><td colspan=2 title='Repertoire par defaut'><INPUT style='float:left;' type='text' name='DEF_DIR' VALUE='".$GLOBALS['AJAX-Var']['users-infos'][$UserName]['def-racine']."'/><span style='float:right;' class='button' onclick=\"this.previousSibling.value=(GET['racine'].split('='))[1];\">ici</span></td></tr>"; ?>
 			<tr><td colspan=2 title="Taille des miniature de la gallerie"><SELECT name="MINI_SIZE">
 						<OPTION VALUE="100" <? echo ($GLOBALS['AJAX-Var']['users-infos'][$UserName]['mini-size']==100)?"selected=true":"";?> >Moyenne (100px)</OPTION>
 						<OPTION VALUE="200" <? echo ($GLOBALS['AJAX-Var']['users-infos'][$UserName]['mini-size']==200)?"selected=true":"";?> >Grande (200px)</OPTION>

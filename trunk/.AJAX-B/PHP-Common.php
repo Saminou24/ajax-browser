@@ -14,15 +14,15 @@ function InfosByURL ($url)
 	$infos = array();
 	if (is_file($url))
 	{
-		$infos[] = dirname($url)."/";				// dirname
-		$infos[] = basename($url);					// name
+		$infos[] = str_replace('%2F','/',strurlencode(dirname($url)."/"));				// dirname
+		$infos[] = str_replace('%2F','/',strurlencode(basename($url)));				// name
 		$infos[] = @filesize($url);					// size
 		$infos[] = function_exists("mime_content_type") ? @mime_content_type($url) : "mime_type()";			// type mime
 	}
 	else
 	{
-		$infos[] = UrlSimplied($url."../");				// dirname
-		$infos[] = basename($url)."/";					// name
+		$infos[] = str_replace('%2F','/',strurlencode(UrlSimplied($url."../")));				// dirname
+		$infos[] = str_replace('%2F','/',strurlencode(basename($url)."/"));					// name
 		$infos[] = SizeDir ($url);						// size
 		$infos[] = "Dossier";	// filetype($url);		// type mime
 	}
@@ -45,7 +45,10 @@ function InfosByURL ($url)
 		$infos[] = ($tmp=DirSort ($url,'file'))?count ($tmp):0;	// count(subfile)
 	}
 	return $infos;
-
+}
+function strurlencode($str)
+{
+	return str_replace(array("\"","'"), array("%22","%27"), $str);
 }
 function mkdirs($dirName)
 {
@@ -196,14 +199,14 @@ function ListDirShort ($Folder)
 	{
 		foreach ($dirLst as $dir)
 			if ($_SESSION['hidden-file'] || !ereg ('^\.',$dir))
-				$INFOS .= DirUrl($Folder)."\t".$dir."/\n";	// name
+				$INFOS .= str_replace('%2F','/',strurlencode(DirUrl($Folder)))."\t".str_replace('%2F','/',strurlencode($dir))."/\n";	// name
 	}
 	$fileLst = DirSort ($Folder,  isset($_GET['match']) ? explode(',',$_GET['match']) : 'file');
 	if ($fileLst)
 	{
 		foreach ($fileLst as $file)
 			if ($_SESSION['hidden-file'] || !ereg ('^\.',$file))
-				$INFOS .= DirUrl($Folder)."\t".$file."\n";
+				$INFOS .= str_replace('%2F','/',strurlencode(DirUrl($Folder)))."\t".str_replace('%2F','/',strurlencode($file))."\n";
 	}
 	return $INFOS;
 }

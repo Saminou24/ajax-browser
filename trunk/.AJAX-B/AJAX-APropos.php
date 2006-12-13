@@ -10,12 +10,11 @@
  +--------------------------------------------------*/
 ?>
 <center style="padding:20px;">
-<b>AJAX-Browser V<? echo $version; ?></b><br>
-Gestionnaire de fichier via http<br>
-<br>Copyright (C) 2006 : Lopez Alban<br>
-<br>Signaler Bug ou suggestion à :<br>
-alban.lopez@gmail.com
-</center>
+	<b>AJAX-Browser V<? echo $version; ?></b><br>
+	Gestionnaire de fichier via http<br>
+	<br>Copyright (C) 2006 : Lopez Alban<br>
+	<br>Signaler Bug ou suggestion à :<br>
+	alban.lopez@gmail.com<br><br>
 <hr><div>Ce programme est distribué selon les termes de la LGPL v2.<br>
 <br>
 		 GNU GENERAL PUBLIC LICENSE<br>
@@ -24,7 +23,6 @@ alban.lopez@gmail.com
  Copyright (C) 1991 Free Software Foundation, Inc.<br>
  51 Franklin Street, Fifth Floor<br>
  Boston, MA 02110-1301, USA.<br>
-
  Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.<br>
 <br>
 			 Preamble<br>
@@ -32,7 +30,6 @@ alban.lopez@gmail.com
  The licenses for most software are designed to take away your freedom to share and change it. By contrast, the GNU General Public Licenses are intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users.<br>
 <br>
  This license, the Library General Public License, applies to some specially designated Free Software Foundation software, and to any other libraries whose authors decide to use it. You can use it for your libraries, too.<br>
-
 <br>
  When we speak of free software, we are referring to freedom, not price. Our General Public Licenses are designed to make sure that you have the freedom to distribute copies of free software (and charge for this service if you wish), that you receive source code or can get it if you want it, that you can change the software or use pieces of it in new free programs; and that you know you can do these things.<br>
 <br>
@@ -42,7 +39,6 @@ alban.lopez@gmail.com
 <br>
  Our method of protecting your rights has two steps: (1) copyright the library, and (2) offer you this license which gives you legal permission to copy, distribute and/or modify the library.<br>
 <br>
-
  Also, for each distributor's protection, we want to make certain that everyone understands that there is no warranty for this free library. If the library is modified by someone else and passed on, we want its recipients to know that what they have is not the original version, so that any problems introduced by others will not reflect on the original authors' reputations.<br>
 <br>
  Finally, any free program is threatened constantly by software patents. We wish to avoid the danger that companies distributing free software will individually obtain patent licenses, thus in effect transforming the program into proprietary software. To prevent this, we have made it clear that any patent must be licensed for everyone's free use or not licensed at all.<br>
@@ -52,7 +48,6 @@ alban.lopez@gmail.com
  The reason we have a separate public license for some libraries is that they blur the distinction we usually make between modifying or adding to a program and simply using it. Linking a program with a library, without changing the library, is in some sense simply using the library, and is analogous to running a utility program or application program. However, in a textual and legal sense, the linked executable is a combined work, a derivative of the original library, and the ordinary General Public License treats it as such.<br>
 <br>
  Because of this blurred distinction, using the ordinary General Public License for libraries did not effectively promote software sharing, because most developers did not use the libraries. We concluded that weaker conditions might promote sharing better.<br>
-
 <br>
  However, unrestricted linking of non-free programs would deprive the users of those programs of all benefit from the free status of the libraries themselves. This Library General Public License is intended to permit developers of non-free programs to use free libraries, while preserving your freedom as a user of such programs to change the free libraries that are incorporated in them. (We have not seen how to achieve this as regards changes in header files, but we have achieved it as regards changes in the actual functions of the Library.) The hope is that this will lead to faster development of free libraries.<br>
 <br>
@@ -62,7 +57,6 @@ alban.lopez@gmail.com
 <br>
 		 GNU LIBRARY GENERAL PUBLIC LICENSE<br>
  TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION<br>
-
 <br>
  0. This License Agreement applies to any software library which contains a notice placed by the copyright holder or other authorized party saying it may be distributed under the terms of this Library General Public License (also called "this License"). Each licensee is addressed as "you".<br>
 <br>
@@ -72,7 +66,6 @@ alban.lopez@gmail.com
 <br>
  "Source code" for a work means the preferred form of the work for making modifications to it. For a library, complete source code means all the source code for all modules it contains, plus any associated interface definition files, plus the scripts used to control compilation and installation of the library.<br>
 <br>
-
  Activities other than copying, distribution and modification are not overed by this License; they are outside its scope. The act of running a program using the Library is not restricted, and output from such a program is covered only if its contents constitute a work based on the Library (independent of the use of the Library in a tool for writing it). Whether that is true depends on what the Library does and what the program that uses the Library does.<br>
 <br>
  1. You may copy and distribute verbatim copies of the Library's complete source code as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice and disclaimer of warranty; keep intact all the notices that refer to this License and to the absence of any warranty; and distribute a copy of this License along with the Library.<br>
@@ -82,7 +75,6 @@ alban.lopez@gmail.com
  2. You may modify your copy or copies of the Library or any portion of it, thus forming a work based on the Library, and copy and distribute such modifications or work under the terms of Section 1 above, provided that you also meet all of these conditions:<br>
 <br>
  a) The modified work must itself be a software library.<br>
-
 <br>
  b) You must cause the files modified to carry prominent notices stating that you changed the files and the date of any change.<br>
 <br>
@@ -92,7 +84,6 @@ alban.lopez@gmail.com
 <br>
  (For example, a function in a library to compute square roots has a purpose that is entirely well-defined independent of the application. Therefore, Subsection 2d requires that any application-supplied function or table used by this function must be optional: if the application does not supply it, the square root function must still compute square roots.)<br>
 <br>
-
 These requirements apply to the modified work as a whole. If identifiable sections of that work are not derived from the Library, and can be reasonably considered independent and separate works in themselves, then this License, and its terms, do not apply to those sections when you distribute them as separate works. But when you distribute the same sections as part of a whole which is a work based on the Library, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it.<br>
 <br>
 Thus, it is not the intent of this section to claim rights or contest your rights to work written entirely by you; rather, the intent is to exercise the right to control the distribution of derivative or collective works based on the Library.<br>
@@ -103,7 +94,6 @@ In addition, mere aggregation of another work not based on the Library with the 
 <br>
  Once this change is made in a given copy, it is irreversible for that copy, so the ordinary GNU General Public License applies to all subsequent copies and derivative works made from that copy.<br>
 <br>
-
  This option is useful when you wish to copy part of the code of the Library into a program that is not a library.<br>
 <br>
  4. You may copy and distribute the Library (or a portion or derivative of it, under Section 2) in object code or executable form under the terms of Sections 1 and 2 above provided that you accompany it with the complete corresponding machine-readable source code, which must be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange.<br>
@@ -113,7 +103,6 @@ In addition, mere aggregation of another work not based on the Library with the 
  5. A program that contains no derivative of any portion of the Library, but is designed to work with the Library by being compiled or linked with it, is called a "work that uses the Library". Such a work, in isolation, is not a derivative work of the Library, and therefore falls outside the scope of this License.<br>
 <br>
  However, linking a "work that uses the Library" with the Library creates an executable that is a derivative of the Library (because it contains portions of the Library), rather than a "work that uses the library". The executable is therefore covered by this License. Section 6 states terms for distribution of such executables.<br>
-
 <br>
  When a "work that uses the Library" uses material from a header file that is part of the Library, the object code for the work may be a derivative work of the Library even though the source code is not. Whether this is true is especially significant if the work can be linked without the Library, or if the work is itself a library. The threshold for this to be true is not precisely defined by law.<br>
 <br>
@@ -123,7 +112,6 @@ In addition, mere aggregation of another work not based on the Library with the 
 <br>
  6. As an exception to the Sections above, you may also compile or link a "work that uses the Library" with the Library to produce a work containing portions of the Library, and distribute that work under terms of your choice, provided that the terms permit modification of the work for the customer's own use and reverse engineering for debugging such modifications.<br>
 <br>
-
  You must give prominent notice with each copy of the work that the Library is used in it and that the Library and its use are covered by this License. You must supply a copy of this License. If the work during execution displays copyright notices, you must include the copyright notice for the Library among them, as well as a reference directing the user to the copy of this License. Also, you must do one of these things:<br>
 <br>
  a) Accompany the work with the complete corresponding machine-readable source code for the Library including whatever changes were used in the work (which must be distributed under Sections 1 and 2 above); and, if the work is an executable linked with the Library, with the complete machine-readable "work that uses the Library", as object code and/or source code, so that the user can modify the Library and then relink to produce a modified executable containing the modified Library. (It is understood that the user who changes the contents of definitions files in the Library will not necessarily be able to recompile the application to use the modified definitions.)<br>
@@ -133,7 +121,6 @@ In addition, mere aggregation of another work not based on the Library with the 
  c) If distribution of the work is made by offering access to copy from a designated place, offer equivalent access to copy the above specified materials from the same place.<br>
 <br>
  d) Verify that the user has already received a copy of these materials or that you have already sent this user a copy.<br>
-
 <br>
  For an executable, the required form of the "work that uses the Library" must include any data and utility programs needed for reproducing the executable from it. However, as a special exception, the source code distributed need not include anything that is normally distributed (in either source or binary form) with the major components (compiler, kernel, and so on) of the operating system on which the executable runs, unless that component itself accompanies the executable.<br>
 <br>
@@ -143,7 +130,6 @@ In addition, mere aggregation of another work not based on the Library with the 
 <br>
  a) Accompany the combined library with a copy of the same work based on the Library, uncombined with any other library facilities. This must be distributed under the terms of the Sections above.<br>
 <br>
-
  b) Give prominent notice with the combined library of the fact that part of it is a work based on the Library, and explaining where to find the accompanying uncombined form of the same work.<br>
 <br>
  8. You may not copy, modify, sublicense, link with, or distribute the Library except as expressly provided under this License. Any attempt otherwise to copy, modify, sublicense, link with, or distribute the Library is void, and will automatically terminate your rights under this License. However, parties who have received copies, or rights, from you under this License will not have their licenses terminated so long as such parties remain in full compliance.<br>
@@ -153,7 +139,6 @@ In addition, mere aggregation of another work not based on the Library with the 
  10. Each time you redistribute the Library (or any work based on the Library), the recipient automatically receives a license from the original licensor to copy, distribute, link with or modify the Library subject to these terms and conditions. You may not impose any further restrictions on the recipients' exercise of the rights granted herein. You are not responsible for enforcing compliance by third parties to this License.<br>
 <br>
  11. If, as a consequence of a court judgment or allegation of patent infringement or for any other reason (not limited to patent issues), conditions are imposed on you (whether by court order, agreement or otherwise) that contradict the conditions of this License, they do not excuse you from the conditions of this License. If you cannot distribute so as to satisfy simultaneously your obligations under this License and any other pertinent obligations, then as a consequence you may not distribute the Library at all. For example, if a patent license would not permit royalty-free redistribution of the Library by all those who receive copies directly or indirectly through you, then the only way you could satisfy both it and this License would be to refrain entirely from distribution of the Library.<br>
-
 <br>
 If any portion of this section is held invalid or unenforceable under any particular circumstance, the balance of the section is intended to apply, and the section as a whole is intended to apply in other circumstances.<br>
 <br>
@@ -164,7 +149,6 @@ This section is intended to make thoroughly clear what is believed to be a conse
  12. If the distribution and/or use of the Library is restricted in certain countries either by patents or by copyrighted interfaces, the original copyright holder who places the Library under this License may add an explicit geographical distribution limitation excluding those countries, so that distribution is permitted only in or among countries not thus excluded. In such case, this License incorporates the limitation as if written in the body of this License.<br>
 <br>
  13. The Free Software Foundation may publish revised and/or new versions of the Library General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.<br>
-
 <br>
 Each version is given a distinguishing version number. If the Library specifies a version number of this License which applies to it and "any later version", you have the option of following the terms and conditions either of that version or of any later version published by the Free Software Foundation. If the Library does not specify a license version number, you may choose any version ever published by the Free Software Foundation.<br>
 <br>
@@ -175,7 +159,6 @@ Each version is given a distinguishing version number. If the Library specifies 
  15. BECAUSE THE LIBRARY IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE LIBRARY, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE LIBRARY "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE LIBRARY IS WITH YOU. SHOULD THE LIBRARY PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.<br>
 <br>
  16. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THE LIBRARY AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE LIBRARY (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE LIBRARY TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.<br>
-
 <br>
 		 END OF TERMS AND CONDITIONS<br>
 <br>
@@ -185,7 +168,6 @@ Each version is given a distinguishing version number. If the Library specifies 
 <br>
  To apply these terms, attach the following notices to the library. It is safest to attach them to the start of each source file to most effectively convey the exclusion of warranty; and each file should have at least the "copyright" line and a pointer to where the full notice is found.<br>
 <br>
-
  <one line="" to="" give="" the="" library="" s="" name="" and="" a="" brief="" idea="" of="" what="" it="" does=""><br>
  Copyright (C) <year> <name of="" author=""><br>
 <br>
@@ -194,7 +176,6 @@ Each version is given a distinguishing version number. If the Library specifies 
  This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.<br>
 <br>
  You should have received a copy of the GNU Lesser General Public<br>
-
  License along with this library; if not, write to the Free Software<br>
  Foundation, Inc.,<br>
  51 Franklin Street,<br>
@@ -208,11 +189,17 @@ You should also get your employer (if you work as a programmer) or your school, 
 <br>
  Yoyodyne, Inc., hereby disclaims all copyright interest in the<br>
  library `Frob' (a library for tweaking knobs) written by James Random Hacker.<br>
-
 <br>
  <signature of="" ty="" coon="">, 1 April 1990<br>
  Ty Coon, President of Vice<br>
 <br>
 That's all there is to it!<br>
 </signature></name></year></one>
-<div>
+</div>
+<br>
+CodePress - Real Time Syntax Highlighting Editor<br>
+by Fernando M.A.d.S. fermads@gmail.com<br>
+<br>
+TAR/GZIP/BZIP2/ZIP ARCHIVE CLASSES 2.1<br>
+By Devin Doucette darksnoopy@shaw.ca<br>
+</center>

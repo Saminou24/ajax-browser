@@ -23,7 +23,6 @@ if (isset($_GET['save']))
 		$GLOBALS['AJAX-Var']["MOVE"] = $_POST['MOVE']=='true'?true:false;
 		$GLOBALS['AJAX-Var']["COPY"] = $_POST['COPY']=='true'?true:false;
 		$GLOBALS['AJAX-Var']["EDIT"] = $_POST['EDIT']=='true'?true:false;
-		$GLOBALS['AJAX-Var']["SOURCE"] = $_POST['SOURCE']=='true'?true:false;
 		$GLOBALS['AJAX-Var']["MAIL"] = $_POST['CONTACT']=='true'?true:false;
 		$GLOBALS['AJAX-Var']["LINK"] = $_POST['LINK']=='true'?true:false;
 	WriteInFile ($File, serialize($GLOBALS['AJAX-Var']), "remplace");
@@ -66,19 +65,16 @@ else
 		<td style="text-align:right;"><label for='MOVE'>DEPLACER<IMG src="./.AJAX-Ico/Move.png"></label><input type='checkbox' name='MOVE' id='MOVE' <? echo ($GLOBALS['AJAX-Var']['MOVE'] ? "checked": "");?>></td>
 	</tr>
 	<tr>
-		<td><input type='checkbox' name='SOURCE' id='SOURCE' <? echo ($GLOBALS['AJAX-Var']['SOURCE'] ? "checked": "");?>><label for='SOURCE'><IMG src="./.AJAX-Ico/View.png">VISUALISER LES SOURCES</label></td>
-		<td style="text-align:right;"><label for='EDIT'>EDITER<IMG src="./.AJAX-Ico/Edit.png"></label><input type='checkbox' name='EDIT' id='EDIT' <? echo ($GLOBALS['AJAX-Var']['EDIT'] ? "checked": "");?>></td>
-	</tr>
-	<tr>
 		<td><input type='checkbox' name='RENAME' id='RENAME' <? echo ($GLOBALS['AJAX-Var']['REN'] ? "checked": "");?>><label for='RENAME'><IMG src="./.AJAX-Ico/Ren.png">RENOMER</label></td>
-		<td style="text-align:right;"></td>
+		<td style="text-align:right;"><label for='EDIT'>EDITER<IMG src="./.AJAX-Ico/Edit.png"></label><input type='checkbox' name='EDIT' id='EDIT' <? echo ($GLOBALS['AJAX-Var']['EDIT'] ? "checked": "");?>></td>
 	</tr>
 	<tr>
 		<td><input type='checkbox' name='CONTACT' id='CONTACT' <? echo ($GLOBALS['AJAX-Var']['MAIL'] ? "checked": "");?>><label for='CONTACT'><IMG src="./.AJAX-Ico/E-mail.png">CONTACTER L'ADMIN</label></td>
 		<td style="text-align:right;"><label for='LINK'>OBTENIR L'URL DIRECT<IMG src="./.AJAX-Ico/LinkAdd.png"></label><input type='checkbox' name='LINK' id='LINK' <? echo ($GLOBALS['AJAX-Var']['LINK'] ? "checked": "");?>></td>
 	</tr>
 </table>
-<table width="400px"><tr><td style="width:50%;"></td><td class="button center" style="width:50%;" onclick="submitSetting('setting&save');this.parentNode.parentNode.parentNode.parentNode.parentNode.style.display='none';">OK</td></tr></table>
+<table width="400px"><tr><td style="width:50%;"><a href="javascript:void(0)" onclick="location.href='?update'">Update Now !</a>
+</td><td class="button center" style="width:50%;" onclick="submitSetting('setting&save');this.parentNode.parentNode.parentNode.parentNode.parentNode.style.display='none';">OK</td></tr></table>
 <?
 }
 ?>

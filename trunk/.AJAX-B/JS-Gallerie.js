@@ -17,17 +17,17 @@ function SDGCG(ptr,childNode)		// SBGC    to    Select BackGround Color Gallerie
 }
 function ASDG (xhr_obj)			// ASDG    to    Answer SubDir to Gallerie
 {
-	var SubLst = xhr_obj.responseText.split("\n");
+	var SubLst = xhr_obj.responseText.replace(/%2F/g,'/').split("\n");
 	var File = new Array(), Infos, f = 0;
 	for (i=0; SubLst[i]; i++)
 	{
 		Infos = SubLst[i].split("\t");
-		File[f++] = "<div id='"+Infos[0]+Infos[1]+"' title='"+Infos[1]+"' onmousedown='MCE(this,event);' ondblclick='OpenClick(this);'>\n\t<table><td>";
+		File[f++] = "<div id='"+Infos[0]+Infos[1]+"' title='"+unescape(Infos[1])+"' onmousedown='MCE(this,event);' ondblclick='OpenClick(this);'>\n\t<table><td>";
 		if (Infos[1].charAt(Infos[1].length-1)=="/")		// Nous somme face a un dossier
 			File[f++] = "<img src='./.AJAX-Ico/type-folder..png' />";
 		else							// ici nous somme face a une a un fichier "normal"
 			File[f++] = "<img src='./.AJAX-Ico/"+FileIco (Infos[1])+".png' />";
-		File[f++] = "<br /><p class='name'>"+basename(Infos[1])+"</p></td></table>\n\t<input onchange='SDGCG(this);' type='checkbox' name='Lst[]' value='"+Infos[0]+Infos[1]+"'/>\n";
+		File[f++] = "<br /><p class='name'>"+unescape(basename(Infos[1]))+"</p></td></table>\n\t<input onchange='SDGCG(this);' type='checkbox' name='Lst[]' value='"+Infos[0]+Infos[1]+"'/>\n";
 		File[f++] = "<span class='menu'><span class='info'>";
 		File[f++] = "<span class='menuClicker' onclick=\"ShowMenuMAI (this.parentNode.parentNode.parentNode.id, event);\"></span>\n";
 		File[f++] = "<span class='infoClicker' onclick=\"PopBox('infos='+UrlFormat(this.parentNode.parentNode.parentNode.id));\"></span>\n";
