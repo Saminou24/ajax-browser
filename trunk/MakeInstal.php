@@ -34,8 +34,7 @@ $InstallerScript = "<html><head>
  | Email bugs/suggestions to alban.lopez@gmail.com
  +--------------------------------------------------
  | This script has been created and released under
- | the GNU GPL and is free to use and redistribute
- | only if this copyright statement is not removed
+ | the GNU GPL.
  +--------------------------------------------------*/
 \$NoReplace = array('".$_GET["NoReplace"]."');
 \$lst64 = array(".$str.");
