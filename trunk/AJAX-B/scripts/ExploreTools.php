@@ -15,7 +15,7 @@ $modelArbs = '
 		<span class="left" title="%content%">
 			<span class="IndentImg">%IndOffset%%ArbImg%</span>
 			<span class="IcoName">
-				<IMG src="./.AJAX-B/icones/type-%icone%.png" ondblclick="location.href=\'%link%\'"/>
+				<IMG src="'.$InstallDir.'icones/type-%icone%.png" ondblclick="location.href=\'%link%\'"/>
 				<span class="Name">%item%</span>
 			</span>
 		</span>

@@ -1,5 +1,3 @@
-<!--<link type="application/x-troff" rel="stylesheet" href="./.AJAX-B/scripts/gal.css.php"/>-->
-<!--<script type="text/javascript" src="./.AJAX-B/scripts/gal.js.php"></script>-->
 <script type="text/javascript">
 /**-------------------------------------------------
  | AJAX-Browser  -  by Alban LOPEZ
@@ -37,7 +35,7 @@ function loadMini()
 	if (MiniLst.length>0)
 	{
 		first = MiniLst.shift();
-		ID(first).childNodes[1].firstChild.firstChild.firstChild.firstChild.src = './.AJAX-B/icones/Loading.gif';
+		ID(first).childNodes[1].firstChild.firstChild.firstChild.firstChild.src = InstallDir+'icones/Loading.gif';
 		RQT.get
 		(ServActPage, // on joint la page en cour
 			{
@@ -59,7 +57,7 @@ function AddItem(dir, element)
 	var ext = item[0].split(".");
 	Item = model.replace(/%item%/g, escape(item[0]));
 	Item = Item.replace(/%item64%/g, encode64(dir+item[0]));
-	Item = Item.replace(/%icone%/g,'./.AJAX-B/icones/type-'+FileIco(item[0])+'.png');
+	Item = Item.replace(/%icone%/g,InstallDir+'icones/type-'+FileIco(item[0])+'.png');
 	typeMime = item[2].replace(/^(\w+)[/](\w+)$/, "$2");
 	if (typeMime=="png" || typeMime=="jpg" || typeMime=="gif" || typeMime=="bmp")
 	{

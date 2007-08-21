@@ -104,6 +104,6 @@ function saveSetting ()
 			),
 		'accounts' => $GLOBALS['AJAX-Var']["accounts"]
 	);
-	WriteInFile ('./.AJAX-B/AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+	WriteInFile ($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
 }
 ?>

@@ -24,13 +24,13 @@ $version="0.9.20-Rename(alpha)_More_Stable";
 			$SESSION->exemple['droits']['GLOBAL_ACCOUNTS']=true;
 			$SESSION->exemple["IP_count"][$_SERVER['REMOTE_ADDR']]++;
 			$SESSION->DefConfFile=addUser($SESSION->exemple, $SESSION->DefConfFile, $login, $code1);
-			if (!WriteInFile('./.AJAX-B/AJAX-Array.var', serialize($SESSION->DefConfFile), "sup"))
+			if (!WriteInFile($InstallDir.'AJAX-Array.var', serialize($SESSION->DefConfFile), "sup"))
 			{
 				echo $ABS[100].'<br/>';
 				exit ();
 			}
 		}
-		elseif (!file_exists('./.AJAX-B/AJAX-Array.var'))
+		elseif (!file_exists($InstallDir.'AJAX-Array.var'))
 		{
 ?>
 <html>
@@ -69,7 +69,7 @@ $version="0.9.20-Rename(alpha)_More_Stable";
 <?php
 			exit ();
 		}
-		$GLOBALS['AJAX-Var'] = unserialize(file_get_contents('./.AJAX-B/AJAX-Array.var'));
+		$GLOBALS['AJAX-Var'] = unserialize(file_get_contents($InstallDir.'AJAX-Array.var'));
 		if (isset($code) && isset($login) && $GLOBALS['AJAX-Var']['accounts'][$login]["code"]==crypt($code,$login))
 			$SESSION->load();
 		else

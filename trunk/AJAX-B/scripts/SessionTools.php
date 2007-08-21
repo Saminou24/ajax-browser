@@ -64,7 +64,7 @@ class SESSION
 	}
 	function request_log()
 	{
-		global $ABS, $code, $login;
+		global $ABS, $code, $login, $InstallDir;
 ?>
 <html>
 	<head>
@@ -79,9 +79,9 @@ class SESSION
 		 td, tr {vertical-align:middle;text-align:center;}
 		div {margin-left: auto;margin-right:auto;background-color:rgb(220,230,255);padding:2px 10px;width:250px;-moz-border-radius:8px;font-weight:bold;border:1px solid gray;}
 	</style>
-	<script type="text/javascript" src="./.AJAX-B/scripts/Dom-drag.js"></script>
-	<script type="text/javascript" src="./.AJAX-B/scripts/Dom-event.js"></script>
-	<script type="text/javascript" src="./.AJAX-B/scripts/Common.js"></script>
+	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Dom-drag.js"></script>
+	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Dom-event.js"></script>
+	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Common.js"></script>
 	<body onLoad="document.getElementById('login').focus()">
 	<form method="post" action="?">
 		<table >
@@ -114,14 +114,14 @@ class SESSION
 	}
 	function load()
 	{
-		global $login;
+		global $login, $InstallDir;
 		$GLOBALS['AJAX-Var']["accounts"][$login]["IP_count"][$_SERVER['REMOTE_ADDR']]++;
 		$GLOBALS['AJAX-Var']["accounts"][$login]["last"] = date ("d/m/y H:i:s",time());
 		$_SESSION['AJAX-B'] = $GLOBALS['AJAX-Var'];
 			unset ($_SESSION['AJAX-B']["accounts"]);
 				$_SESSION['AJAX-B'] = array_merge(array('login' => $login), $GLOBALS['AJAX-Var']["accounts"][$login], $_SESSION['AJAX-B']);
 			unset ($_SESSION['AJAX-B']['code']);
-		WriteInFile ('./.AJAX-B/AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+		WriteInFile ($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
 		if ($_SESSION['AJAX-B']['spy']['log'])
 			WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/Log.spy', $login.($_SESSION['AJAX-B']['spy']['ip']?' » '.$_SERVER['REMOTE_ADDR']:'').' ['.date ("d/m/y H:i:s",time()).'] » '.$_SERVER['HTTP_USER_AGENT']."\n", "add");
 	}

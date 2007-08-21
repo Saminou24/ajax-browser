@@ -18,7 +18,7 @@
 		else
 		{?>
 			<td>
-				<img class="cadre" src="./.AJAX-B/icones/type-<?php echo FileIco($item);?>.png">
+				<img class="cadre" src="<?php echo $InstallDir; ?>icones/type-<?php echo FileIco($item);?>.png">
 			</td>
 		<?php
 		}
@@ -71,7 +71,7 @@
 <?php
 		foreach ($lst as $item)
 		{?>
-<tr><td colspan=2>relativ URL (<IMG onclick="PopBox('mode=request&infos=<?php echo $item;?>','OpenBox(request.responseText);');" src="./.AJAX-B/icones/Infos.png" title="Propriete de cet element."/>) :<?php echo '<a href="'.ereg_replace('^'.realpath('./'),'.',realpath(decode64($item))).'">'.decode64($item);?></td></tr>
+<tr><td colspan=2>relativ URL (<IMG onclick="PopBox('mode=request&infos=<?php echo $item;?>','OpenBox(request.responseText);');" src="<?php echo $InstallDir; ?>icones/Infos.png" title="Propriete de cet element."/>) :<?php echo '<a href="'.ereg_replace('^'.realpath('./'),'.',realpath(decode64($item))).'">'.decode64($item);?></td></tr>
 <?php	}?>
 					</tbody>
 				</table>

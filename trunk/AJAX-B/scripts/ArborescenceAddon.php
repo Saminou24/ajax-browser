@@ -31,9 +31,9 @@ function OpenDir (dir64, array)
 	for (i=0;i<IndentImg.childNodes.length-1;i++)
 		LstIndent += "<IMG  src='"+IndentImg.childNodes[i].src+"' />";
 	if (IndentImg.lastChild.src.indexOf("End")!=-1)
-		LstIndent += "<IMG  src='./.AJAX-B/icones/Vide.png' />";
+		LstIndent += "<IMG  src='"+InstallDir+"icones/Vide.png' />";
 	else
-		LstIndent += "<IMG  src='./.AJAX-B/icones/Next.png' />";
+		LstIndent += "<IMG  src='"+InstallDir+"icones/Next.png' />";
 	
 	for (i=1;i<array.length;i++)
 		Include += AddItem (decode64(dir64), array[i],LstIndent, (i==array.length-1)?"End":"");
@@ -48,7 +48,7 @@ function AddItem (dir, element, LstIndent, end)
 	Item = Item.replace(/%item64%/g, encode64(dir+item[0]));
 	Item = Item.replace(/%icone%/g,FileIco(item[0]));
 	Item = Item.replace(/%IndOffset%/g, LstIndent);
-	Item = Item.replace(/%ArbImg%/g, '<IMG '+(is_dir(item[0])?'class="curshand" ':'')+'src="./.AJAX-B/icones/'+end+(is_dir(item[0])?'DirPlus':'File')+'.png" onclick="RequestLoad(\''+encode64(dir+item[0])+'\');"/>');
+	Item = Item.replace(/%ArbImg%/g, '<IMG '+(is_dir(item[0])?'class="curshand" ':'')+'src="'+InstallDir+'icones/'+end+(is_dir(item[0])?'DirPlus':'File')+'.png" onclick="RequestLoad(\''+encode64(dir+item[0])+'\');"/>');
 	Item = Item.replace(/%content%/g, is_dir(item[0])?item[9]+' Dossier(s), '+item[10]+' Fichier(s)':(item[9]?'[X='+item[9]+'px, Y='+item[10]+'px]':''));
 	Item = Item.replace(/%real_size%/g, item[1]);
 	Item = Item.replace(/%size%/g, SizeConvert (item[1]));
