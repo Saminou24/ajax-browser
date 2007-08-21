@@ -43,9 +43,6 @@ elseif(isset($miniof))
 elseif(isset($addusr) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
 	if (WriteInFile('./.AJAX-B/AJAX-Array.var', serialize(addUser($SESSION->exemple, $GLOBALS['AJAX-Var'], $addusr)), 'sup'))
-		echo $addusr.$ABS[401];
-	else
-		echo $ABS[401].'<br/>';
 }
 elseif(isset($view))
 {
