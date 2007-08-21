@@ -14,18 +14,20 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-require ('./.AJAX-B/Language.php');
-require ('./.AJAX-B/scripts/PHPTools.php');
-require ('./.AJAX-B/scripts/ExploreTools.php');
-require ('./.AJAX-B/scripts/ArchiveTools.php');
-require ('./.AJAX-B/scripts/SessionTools.php');
-require ('./.AJAX-B/scripts/ManageSuperGlobales.php');
+$InstallDir = './.AJAX-B/';
+
+require ($InstallDir . 'Language.php');
+require ($InstallDir . 'scripts/PHPTools.php');
+require ($InstallDir . 'scripts/ExploreTools.php');
+require ($InstallDir . 'scripts/ArchiveTools.php');
+require ($InstallDir . 'scripts/SessionTools.php');
+require ($InstallDir . 'scripts/ManageSuperGlobales.php');
 
 $StartPhpScripte = microtime_float();
 
 if (strpos($mode,'request')!==false)
 {
-	require ('./.AJAX-B/scripts/Command.php');
+	require ($InstallDir . 'scripts/Command.php');
 	exit();
 }
 else
@@ -33,18 +35,19 @@ else
 	if (strpos($mode,'gallerie')!==false)
 	{
 		$ChangeMode=array('current'=>'gallerie','next'=>'arborescence', 'change'=>$ABS[12]);
-		require ('./.AJAX-B/scripts/InitHTML.php');
-		require ('./.AJAX-B/scripts/GallerieAddon.php');
-		require ('./.AJAX-B/scripts/Gallerie.php');
+		require ($InstallDir . 'scripts/InitHTML.php');
+		require ($InstallDir . 'scripts/GallerieAddon.php');
+		require ($InstallDir . 'scripts/Gallerie.php');
 	}
 	elseif (strpos($mode,'arborescence')!==false)
 	{
 		$ChangeMode=array('current'=>'arborescence','next'=>'gallerie', 'change'=>$ABS[13]);
-		require ('./.AJAX-B/scripts/InitHTML.php');
-		require ('./.AJAX-B/scripts/ArborescenceAddon.php');
-		require ('./.AJAX-B/scripts/Arborescence.php');
+		require ($InstallDir . 'scripts/InitHTML.php');
+		require ($InstallDir . 'scripts/ArborescenceAddon.php');
+		require ($InstallDir . 'scripts/Arborescence.php');
 	}
 	else exit ();
-	require ('./.AJAX-B/scripts/CloseHTML.php');
+	require ($InstallDir . 'scripts/CloseHTML.php');
 }
 ?>
+
