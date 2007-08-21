@@ -9,7 +9,7 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-$GLOBALS['AJAX-Var'] = unserialize(file_get_contents('./.AJAX-B/AJAX-Array.var'));
+$GLOBALS['AJAX-Var'] = unserialize(file_get_contents($InstallDir.'AJAX-Array.var'));
 if(isset($sublstof))
 {
 	$LstDir=array();
@@ -42,7 +42,7 @@ elseif(isset($miniof))
 }
 elseif(isset($addusr) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
-	if (WriteInFile('./.AJAX-B/AJAX-Array.var', serialize(addUser($SESSION->exemple, $GLOBALS['AJAX-Var'], $addusr)), 'sup'))
+	WriteInFile($InstallDir.'AJAX-Array.var', serialize(addUser($SESSION->exemple, $GLOBALS['AJAX-Var'], $addusr)), 'sup');
 }
 elseif(isset($view))
 {
@@ -54,7 +54,7 @@ elseif(isset($view))
 			readfile(realpath(urldecode($file)));
 		}
 		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))
-			include ('./.AJAX-B/scripts/CP_Editor.php');
+			include ($InstallDir.'scripts/CP_Editor.php');
 		else header('Location:'.implode('/', array_map('rawurlencode', explode('/', $file))));
 		if ($_SESSION['AJAX-B']['spy']['action'])
 			WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/view.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.$file."\n", "add");
@@ -69,7 +69,7 @@ elseif (isset($cpsave))
 }
 elseif (isset($upload))
 {
-	include ('./.AJAX-B/scripts/ManageUpload.php');
+	include ($InstallDir.'scripts/ManageUpload.php');
 }
 elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 {
@@ -120,7 +120,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 }
 elseif (isset($usrconf))
 {
-	include ('./.AJAX-B/scripts/Accounts.php');
+	include ($InstallDir.'scripts/Accounts.php');
 	if ($usrconf=='save')
 		saveAccount($_SESSION['AJAX-B']['login']);
 	else
@@ -128,16 +128,16 @@ elseif (isset($usrconf))
 }
 elseif (isset($accounts) && $_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 {
-	include ('./.AJAX-B/scripts/Accounts.php');
+	include ($InstallDir.'scripts/Accounts.php');
 	if ($accounts=='adduser' && !empty($user))
 	{
 		$GLOBALS['AJAX-Var']=addUser($SESSION->exemple, $GLOBALS['AJAX-Var'], $user);
-		WriteInFile('./.AJAX-B/AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+		WriteInFile($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
 	}
 	elseif ($accounts=='removeuser' && !empty($GLOBALS['AJAX-Var']['accounts'][$user]))
 	{
 		unset ($GLOBALS['AJAX-Var']['accounts'][$user]);
-		WriteInFile('./.AJAX-B/AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+		WriteInFile($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
 	}
 	elseif ($accounts=='edituser' && isset($GLOBALS['AJAX-Var']['accounts'][$user]))
 		editAccount($user, '&accounts=saveuser&user='.$user, 'PopBox(\\\'mode=request&accounts=\\\',\\\'OpenBox(request.responseText);\\\');');
@@ -147,16 +147,16 @@ elseif (isset($accounts) && $_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 }
 elseif (isset($setting) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
-	include ('./.AJAX-B/scripts/Setting.php');
+	include ($InstallDir.'scripts/Setting.php');
 	if ($setting=='save')
 		saveSetting ();
 	else
 		editSetting ();
 }
 elseif (isset($apropos))
-	include ('./.AJAX-B/scripts/APropos.php');
+	include ($InstallDir.'scripts/APropos.php');
 elseif (isset($contact))
-	include ('./.AJAX-B/scripts/Contact.php');
+	include ($InstallDir.'scripts/Contact.php');
 elseif (isset($newitem) && $_SESSION['AJAX-B']['droits']['NEW'])
 {
 	if (substr($new=decode64($newitem), -1, 1)=='/') mkdirs($new);
@@ -216,7 +216,7 @@ elseif (isset($renitems) && $_SESSION['AJAX-B']['droits']['REN'])
 }
 elseif (isset($infos))
 {
-	include ('./.AJAX-B/scripts/Proprietes.php');
+	include ($InstallDir.'scripts/Proprietes.php');
 }
 elseif(isset($maj) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {

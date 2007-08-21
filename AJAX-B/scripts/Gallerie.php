@@ -25,7 +25,7 @@ function DegradeMode ($Item)
 	$ReplaceLst = array (
 		'%item%' => $item['basename'],
 		'%item64%' => encode64($Item),
-				       '%icone%' =>(is_dir($Item) || !isset($item['content0'])) ? "./.AJAX-B/icones/type-".FileIco($Item).".png" : CreatMini($Item,$_SESSION['AJAX-B']['mini_dir'], $_SESSION['AJAX-B']['mini_size']),
+				       '%icone%' =>(is_dir($Item) || !isset($item['content0'])) ? $InstallDir."icones/type-".FileIco($Item).".png" : CreatMini($Item,$_SESSION['AJAX-B']['mini_dir'], $_SESSION['AJAX-B']['mini_size']),
 		'%name%' =>(is_dir($Item) || !isset($item['content0'])) ? '<p class="name">'.$item['basename'].'</p>' : '',
 		'%real_size%' => $item['size'],
 		'%size%' => SizeConvert ($item['size']),

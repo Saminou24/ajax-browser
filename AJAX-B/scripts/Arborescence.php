@@ -12,7 +12,7 @@ $parent64=encode64(ereg_replace('^'.realpath('./'),'.',realpath(decode64($racine
 <div class="DivGroup" id="<?php echo $parent64;?>">
 	<div class="This">
 		<span class="left">
-			<span class="IndentImg"><IMG class="curshand" src="./.AJAX-B/icones/type-folder...png" onclick="location.href='<?php echo str_replace($racine64, $parent64, RebuildURL())?>'"/></span>
+			<span class="IndentImg"><IMG class="curshand" src="<?php echo $InstallDir; ?>icones/type-folder...png" onclick="location.href='<?php echo str_replace($racine64, $parent64, RebuildURL())?>'"/></span>
 			<span class="IcoName">
 				<span class="Name"><?php echo decode64($parent64)?></span>
 			</span>
@@ -34,10 +34,10 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE || isset($ie))
 	{
 		$last=array_pop($Lst);
 		foreach ($Lst as $item)
-			echo DegradeMode ($item, '<IMG src="./.AJAX-B/icones/Vide.png"/>');
-		echo DegradeMode ($last, '<IMG src="./.AJAX-B/icones/Vide.png"/>','End');
+			echo DegradeMode ($item, '<IMG src="'.$InstallDir.'icones/Vide.png"/>');
+		echo DegradeMode ($last, '<IMG src="'.$InstallDir.'icones/Vide.png"/>','End');
 	}
-	echo '<a href="">'.$ABS['getFF'].'</a>';
+	echo '<a href="http://www.mozilla-europe.org/">'.$ABS['getFF'].'</a>';
 }
 ?>
 		</div>
@@ -45,14 +45,14 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE || isset($ie))
 <?php
 function DegradeMode ($Item, $IndOffset, $end='', $force=false)
 {
-	global $racine64, $modelArbs;
+	global $racine64, $modelArbs, $InstallDir;
 	$item=InfosByURL($Item);
 	$ReplaceLst = array (
 		'%item%' => $item['basename'],
 		'%item64%' => encode64($Item),
 		'%icone%' =>FileIco($Item),
 		'%IndOffset%' => $IndOffset,
-		'%ArbImg%' => '<IMG '.(is_dir($Item)?'class="curshand" ':'').'src="./.AJAX-B/icones/'.$end.(is_dir($Item)?'DirPlus':'File').'.png" onclick="RequestLoad(\''.encode64($Item).'\')"/>',
+		'%ArbImg%' => '<IMG '.(is_dir($Item)?'class="curshand" ':'').'src="'.$InstallDir.'icones/'.$end.(is_dir($Item)?'DirPlus':'File').'.png" onclick="RequestLoad(\''.encode64($Item).'\')"/>',
 		'%content%' => is_dir($Item)?$item['content0'].' Dossier(s), '.$item['content1'].' Fichier(s).':(isset($item['content0'])?'[X='.$item['content0'].'px, Y='.$item['content1'].'px]':''),
 		'%real_size%' => $item['size'],
 		'%size%' => SizeConvert ($item['size']),

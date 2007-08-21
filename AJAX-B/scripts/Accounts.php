@@ -1,7 +1,7 @@
 <?php
 function LstAccount ()
 {
-	global $ABS;
+	global $ABS, $InstallDir;
 ?>
 <table id='UsrLst' class="LstArray">
 	<colgroup><col width='130px'><col width='30px'></colgroup>
@@ -12,8 +12,8 @@ function LstAccount ()
 		<tr title="<?php echo $ABS[3].' : '.$UserConf['last']; ?>">
 			<td class="bold italic"><?php echo $UserName.' ( '.array_sum ($UserConf['IP_count']).' )';?></td>
 			<td>
-				<IMG src='./.AJAX-B/icones/Infos.png' title='<?php echo $ABS[601]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=edituser&user=<?php echo $UserName;?>', onEnd:'OpenBox(request.responseText);'});"/>
-				<IMG src='./.AJAX-B/icones/Trash.png' title='<?php echo $ABS[602]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=removeuser&user=<?php echo $UserName;?>', onEnd:'PopBox(\'mode=request&accounts=\',\'OpenBox(request.responseText);\');'});"/>
+				<IMG src='<?php echo $InstallDir; ?>icones/Infos.png' title='<?php echo $ABS[601]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=edituser&user=<?php echo $UserName;?>', onEnd:'OpenBox(request.responseText);'});"/>
+				<IMG src='<?php echo $InstallDir; ?>icones/Trash.png' title='<?php echo $ABS[602]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=removeuser&user=<?php echo $UserName;?>', onEnd:'PopBox(\'mode=request&accounts=\',\'OpenBox(request.responseText);\');'});"/>
 			</td>
 		</tr>
   <?php
@@ -147,7 +147,7 @@ echo "+ '&def_racine='+encode64(form.def_racine.value)+ '&VIEWhiden='+form.VIEWh
 }
 function saveAccount($UserName)
 {
-	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD;
+	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $InstallDir;
 	$droit = $_SESSION['AJAX-B']['droits'];
 	$is_admin = $droit['GLOBAL_ACCOUNTS'];
 
@@ -175,7 +175,7 @@ function saveAccount($UserName)
 			'UPLOAD' => $is_admin?$UPLOAD:$droit['UPLOAD'],
 			),
 		);
-	WriteInFile ('./.AJAX-B/AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+	WriteInFile ($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
 	if ($_SESSION['AJAX-B']['login'] == $UserName)
 	{
 		$_SESSION['AJAX-B'] = $GLOBALS['AJAX-Var'];

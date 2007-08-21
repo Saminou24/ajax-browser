@@ -59,9 +59,10 @@ function microtime_float()
 }
 function FileIco ($item)			// choisi l'icone le mieu adapté parmis ceux present
 {
+	global $InstallDir;
 	$ext=strtolower(pathinfo($item, PATHINFO_EXTENSION));
 	if (is_dir($item)) return 'folder.';
-	elseif (is_file('./.AJAX-B/icones/type-'.$ext.'.png'))
+	elseif (is_file($InstallDir.'icones/type-'.$ext.'.png'))
 		return $ext;
 	elseif (substr($ext,-1,1)=='~')
 		return 'recycled';
@@ -69,6 +70,7 @@ function FileIco ($item)			// choisi l'icone le mieu adapté parmis ceux present
 }
 function CreatMini( $File, $dir, $Max=100, $Force=false)
 {
+	global $InstallDir;
 	$FileDest = $dir.$Max.'@'.md5_file($File).'.png';
 	if ($Force == true || !file_exists($FileDest))
 	{
@@ -99,7 +101,7 @@ function CreatMini( $File, $dir, $Max=100, $Force=false)
 				imagesavealpha ( $dst_img , true );			// indispensable pour les image avec transparence
 				imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $dest_l, $dest_h, $size[0], $size[1]);// creation de la miniature ( en RAM )
 				if (!imagepng($dst_img, $FileDest)) // Envoie une image JPEG de la RAM vers un fichier
-					return './.AJAX-B/unknown.png\' title=\'echec de la miniature';
+					return $InstallDir.'unknown.png';
 				imagedestroy($dst_img);// Vide la memoire RAM allouee a l'image $dst_img
 				imagedestroy($src_img);// Vide la memoire RAM allouee a l'image $src_img
 				return $FileDest;
