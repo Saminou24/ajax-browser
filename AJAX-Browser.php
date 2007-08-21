@@ -14,7 +14,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$InstallDir = './.AJAX-B/';
+$InstallDir = './AJAX-B/';
 
 require ($InstallDir . 'Language.php');
 require ($InstallDir . 'scripts/PHPTools.php');
