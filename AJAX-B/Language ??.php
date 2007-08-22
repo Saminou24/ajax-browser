@@ -1,10 +1,12 @@
 <?php
 $ABS = array (
-  'getFF' => '?',
-  'language_in_English' => 'None',
-  'language_in_Language' => 'Rien',
-  'language_src_flag' => 'src="data:image/png;base64,"',
-  'language_version' => '0.1',
+'getFF' => '?',
+'language_in_English' => 'None',
+'language_in_Language' => 'Rien',
+'language_abbreviation' => '??',
+'language_translator' => 'alban.lopez@gmail.com',
+'language_version' => '0.1',
+'language_src_flag' => 'src="data:image/png;base64,"',
   0 => '?',
   1 => '?',
   2 => '?',
