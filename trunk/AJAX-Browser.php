@@ -16,10 +16,12 @@ foreach($_GET as $key=>$val)
 
 $InstallDir = './AJAX-B/';
 
-require ($InstallDir . 'Language.php');
 require ($InstallDir . 'scripts/PHPTools.php');
 require ($InstallDir . 'scripts/ExploreTools.php');
 require ($InstallDir . 'scripts/ArchiveTools.php');
+
+// require ($InstallDir . 'Language.php');
+
 require ($InstallDir . 'scripts/SessionTools.php');
 require ($InstallDir . 'scripts/ManageSuperGlobales.php');
 

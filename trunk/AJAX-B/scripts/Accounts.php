@@ -44,6 +44,25 @@ function editAccount($UserName, $StrToSaveThis, $onend)
 					<td><input class="border" type='text' name='usr_email' value="<?php echo $GLOBALS['AJAX-Var']['accounts'][$UserName]['usr_email']; ?>"/></td>
 					<td><input class="border" title="<?php echo $ABS[609]; ?>" disabled=true type='text' name='code' id="ChgCODE" value="<?php echo $ABS[608]; ?>"/></td>
 				</tr>
+<?php
+	$LangLst = DirSort ($InstallDir, array($InstallDir.'Language*.php'), $InstallDir);
+	if ($LangLst)
+	{
+		$realABS = $ABS;
+		foreach ($LangLst as $Lang)
+		{
+			include ($Lang);
+			echo "	<tr><td  colspan=\"2\">
+		<INPUT type=radio name=\"LANG\" value=\"".encode64($Lang)."\" id=\"".encode64($Lang)."\" ".(($GLOBALS['AJAX-Var']['accounts'][$UserName]['language_file']==$Lang) ? "checked" : "").">
+			<label for=\"".encode64($Lang)."\">".$ABS['language_in_Language'].' ('.$ABS['language_in_English'].') V'.$ABS['language_version'].' <img  '.$ABS['language_src_flag']."></label><br/>
+	</td></tr>\n";
+			
+		}
+		$ABS = $realABS;
+	}
+	elseif ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
+		echo '<a href="http://ajaxbrowser.free.fr/Docs/download.php#lang"></a>';
+?>
 			</table>
 		</td>
 	</tr>

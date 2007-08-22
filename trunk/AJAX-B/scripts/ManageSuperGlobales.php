@@ -9,7 +9,7 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
  
-$version="0.9.20-Rename(alpha)_More_Stable";
+$version="0.9.21-Language_Pack";
 
 	$reload=false;
 

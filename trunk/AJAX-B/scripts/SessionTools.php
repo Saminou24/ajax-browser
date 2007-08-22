@@ -14,6 +14,7 @@ class SESSION
 	var $exemple = array (
 	'code' => '',
 	'usr_email' => '',
+	'language_file' => './AJAX-B/Language en.php',
 	'def_mode' => 'arborescence',		// ['arborescence', 'gallerie']
 	'def_racine' => 'Li8.',
 	'mini_size' => 100,					// [75, 100, 200, 300, 400]
@@ -42,9 +43,10 @@ class SESSION
 	'restrict_mask' => array ('*.php','*.php5','*.asp','*.bin','*.exe'),
 	'always_mask' => array ('*.html','*.avi','*.png','*.jpg','*.txt'),
 	'codepress_mask' => array ('*.html','*.txt','*.php','*.php5','*.asp','*.*~'),
-	'mini_dir' => './.AJAX-Mini/',
+	'default_language_file' => './AJAX-B/Language en.php'
+	'mini_dir' => './Mini/',
 	'mini_intervale' => 250,
-	'spy_dir' => './.AJAX-Spy/',
+	'spy_dir' => './Spy/',
 	'spy' => array (
 		'ip' => false,
 		'log' => false,
@@ -53,10 +55,12 @@ class SESSION
 		),
 	'accounts' => array ()
 	);
-	
+
 	function SESSION ($name)
 	{
+		global $InstallDir;
 		$this->name=$name;
+		require ();
 		if (!is_dir(session_save_path()))
 			if (!is_dir(mkdirs(str_replace(realpath('./'), '.', session_save_path()))))
 				echo $ABS[100].' ("'.session_save_path().'").<br>';
