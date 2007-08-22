@@ -63,7 +63,7 @@ $ABS = array( // Ajax Browser Sentences
 210 => 'Configurer AJAX-Browser',
 211 => 'Gestion des comptes Utilisateurs',
 212 => 'Gestion de mon profil Utilisateur',
-213 => 'A Propos de AJAX-Browser',
+213 => 'A Propos de : AJAX-Browser',
 
 // fichier ExplorerTools.php
 // fichier ArchiveTools.php
@@ -153,6 +153,8 @@ $ABS = array( // Ajax Browser Sentences
 645 => 'Configuration générale d\'AJAX-Browser',
 646 => 'Configuration de tous les comptes utilisateur',
 647 => 'Détail des connexions',
+648 => 'Obtenir d\'autres langue',
+649 => 'Demander d\'autres langue a l\'admin',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php
