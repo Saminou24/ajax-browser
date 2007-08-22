@@ -31,7 +31,7 @@
 <li>Remaniement du code pour la gestion des langues (j\'en appelle aux bilingues, help me...)</li>',
 
 			'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
-			'excludes'=>array('*~','*.var'),
+			'excludes'=>array('*~','*.var','*.svn/*'),
 			'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
 			'no_replace'=>array('*.var','*.png','*.gif'),
 			
@@ -114,8 +114,9 @@ class MakeIntall
 		{
 			$no = 0;
 			foreach ($this->options['excludes'] as $out)
-				if (fnmatch($out, basename($item))) $no++;
-			if (!$no && !in_array($item,$this->files_list)) $this->files_list[$item] = base64_encode(file_get_contents($item));
+				if (fnmatch($out, $item)) $no++;
+			if (!$no && !in_array($item,$this->files_list))
+				$this->files_list[$item] = base64_encode(file_get_contents($item));
 		}
 		foreach ($this->options['includes'] as $item)
 		{
