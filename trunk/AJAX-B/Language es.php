@@ -155,6 +155,8 @@ $ABS = array( // Ajax Browser Sentences
 645 => '?',// 'Configuration generale d\'AJAX-Browser',
 646 => '?',// 'Configuration de tous les comptes utilisateur',
 647 => '?',// 'Detail des connection',
+648 => '?',// 'Obtenir d\'autres langue',
+649 => '?',// 'Demander d\'autres langue a l\'admin',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php

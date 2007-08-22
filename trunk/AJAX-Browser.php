@@ -13,17 +13,17 @@ foreach($_POST as $key=>$val)
 	${$key}=$val;
 foreach($_GET as $key=>$val)
 	${$key}=$val;
-
 $InstallDir = './AJAX-B/';
 
 require ($InstallDir . 'scripts/PHPTools.php');
 require ($InstallDir . 'scripts/ExploreTools.php');
 require ($InstallDir . 'scripts/ArchiveTools.php');
-
-// require ($InstallDir . 'Language.php');
-
+	require ($InstallDir . 'Language.php');
 require ($InstallDir . 'scripts/SessionTools.php');
 require ($InstallDir . 'scripts/ManageSuperGlobales.php');
+
+if (isset($_SESSION['AJAX-B']['language_file']) && is_file($InstallDir . $_SESSION['AJAX-B']['language_file']))
+	require ($InstallDir . $_SESSION['AJAX-B']['language_file']);
 
 $StartPhpScripte = microtime_float();
 

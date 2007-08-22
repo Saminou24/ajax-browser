@@ -29,7 +29,7 @@ function LstAccount ()
 }
 function editAccount($UserName, $StrToSaveThis, $onend)
 {
-	global $ABS;
+	global $ABS, $InstallDir;
 ?>
 <table style="width:400px;margin:3px;margin-right:15px;">
 	<tr>
@@ -45,23 +45,26 @@ function editAccount($UserName, $StrToSaveThis, $onend)
 					<td><input class="border" title="<?php echo $ABS[609]; ?>" disabled=true type='text' name='code' id="ChgCODE" value="<?php echo $ABS[608]; ?>"/></td>
 				</tr>
 <?php
-	$LangLst = DirSort ($InstallDir, array($InstallDir.'Language*.php'), $InstallDir);
+	$LangLst = DirSort ($InstallDir, array('Language*.php'));
 	if ($LangLst)
 	{
 		$realABS = $ABS;
 		foreach ($LangLst as $Lang)
-		{
-			include ($Lang);
-			echo "	<tr><td  colspan=\"2\">
-		<INPUT type=radio name=\"LANG\" value=\"".encode64($Lang)."\" id=\"".encode64($Lang)."\" ".(($GLOBALS['AJAX-Var']['accounts'][$UserName]['language_file']==$Lang) ? "checked" : "").">
-			<label for=\"".encode64($Lang)."\">".$ABS['language_in_Language'].' ('.$ABS['language_in_English'].') V'.$ABS['language_version'].' <img  '.$ABS['language_src_flag']."></label><br/>
+		{ // checked="checked"
+			include ($InstallDir.$Lang);
+			echo "	<tr><td  colspan=\"2\" class=\"center\">
+		<INPUT type=radio name=\"LANG\" value=\"".encode64($Lang)."\" id=\"".encode64($Lang)."\" ".(($GLOBALS['AJAX-Var']['accounts'][$UserName]['language_file']==$Lang) ? "checked=\"checked\"" : "").">
+			<label for=\"".encode64($Lang)."\">".$ABS['language_in_Language'].' ('.$ABS['language_in_English'].') V'.$ABS['language_version'].' <img  '.$ABS['language_src_flag']." title=\"".$ABS['language_abbreviation']."\"></label><br/>
 	</td></tr>\n";
-			
 		}
 		$ABS = $realABS;
+		if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
+			echo '<tr><td colspan="2"><a href="http://ajaxbrowser.free.fr/Docs/download.php#lang">'.$ABS[648].'</a></td></tr>';
+		else
+			echo '<tr><td colspan="2">'.$ABS[649].'</td></tr>';
 	}
 	elseif ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
-		echo '<a href="http://ajaxbrowser.free.fr/Docs/download.php#lang"></a>';
+		echo '<tr><td colspan="2"><a href="http://ajaxbrowser.free.fr/Docs/download.php#lang">Get Languages</a></td></tr>'; // ne pas utiliser de variable $ABS[...]
 ?>
 			</table>
 		</td>
@@ -136,7 +139,7 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
 			<INPUT type=radio name="UPLOAD" value="NO" id="NO" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UPLOAD']=='NO') ? "checked" : ""; ?>>
 				<label for="NO"><?php echo $ABS[640]; ?></label><br/>
 			<INPUT type=radio name="UPLOAD" value="OnlyAlways" id="OA" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UPLOAD']=='OnlyAlways') ? "checked" : ""; ?>>
-				<label for="OA"><?php echo $ABS[640].' : '.implode(', ',$GLOBALS['AJAX-Var']['always_mask']);?> (<?php echo $ABS[14]; ?>)</label><br/>
+				<label for="OA"><?php echo $ABS[641].' : '.implode(', ',$GLOBALS['AJAX-Var']['always_mask']);?> (<?php echo $ABS[14]; ?>)</label><br/>
 			<INPUT type=radio name="UPLOAD" value="ExceptRestrict" id="ER" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UPLOAD']=='ExceptRestrict') ? "checked" : ""; ?>>
 				<label for="ER"><?php echo $ABS[642].' : '.implode(', ',$GLOBALS['AJAX-Var']['restrict_mask']);?></label><br/>
 			<INPUT type=radio name="UPLOAD" value="ALL" id="all" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UPLOAD']=='ALL') ? "checked" : ""; ?>>
@@ -158,7 +161,7 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
 	<tr>
 		<td class="button center" style="width:50%;" onclick="PopBox('mode=request&accounts=','OpenBox(request.responseText);')"><?php echo $ABS[4]; ?></td>
 		<td class="button center" style="width:50%;" onclick="form=document.forms[0];PopBox('mode=request<?php echo $StrToSaveThis;?>'+
-(form.NewCode.checked?'&code='+form.code.value:'')+ '&def_mode='+getCheckedRadio(form.def_mode)+ '&mini_size='+getCheckedRadio(form.mini_size)+ '&usr_email='+encode64(form.usr_email.value)<?php if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['AJAX-B']['login'] && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING']))
+(form.NewCode.checked?'&code='+form.code.value:'')+ '&def_mode='+getCheckedRadio(form.def_mode)+ '&mini_size='+getCheckedRadio(form.mini_size)+ '&usr_email='+encode64(form.usr_email.value)+ '&LANG='+getCheckedRadio(form.LANG)<?php if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['AJAX-B']['login'] && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING']))
 echo "+ '&def_racine='+encode64(form.def_racine.value)+ '&VIEWhiden='+form.VIEWhiden.checked+ '&VIEWparent='+form.VIEWparent.checked+ '&DEL='+form.DEL.checked+ '&NEW='+form.NEW.checked+ '&REN='+form.REN.checked+ '&COPIE='+form.COPY.checked+ '&MOVE='+form.MOVE.checked+ '&CP_VIEW='+form.CP_VIEW.checked+ '&CP_EDIT='+form.CP_EDIT.checked+ '&DOWNLOAD='+form.DOWNLOAD.checked+ '&GLOBAL_SETTING='+form.GLOBAL_SETTING.checked+ '&GLOBAL_ACCOUNTS='+form.GLOBAL_ACCOUNTS.checked+ '&UPLOAD='+getCheckedRadio(form.UPLOAD)";?>, '<?php echo $onend;?>')"><?php echo $ABS[10]; ?></td>
 	</tr>
 </table>
@@ -166,13 +169,14 @@ echo "+ '&def_racine='+encode64(form.def_racine.value)+ '&VIEWhiden='+form.VIEWh
 }
 function saveAccount($UserName)
 {
-	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $InstallDir;
+	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $InstallDir, $LANG;
 	$droit = $_SESSION['AJAX-B']['droits'];
 	$is_admin = $droit['GLOBAL_ACCOUNTS'];
 
 	$GLOBALS['AJAX-Var']['accounts'][$UserName] = array (
 		'code' => $code?crypt($code,$UserName):$GLOBALS['AJAX-Var']['accounts'][$UserName]['code'],
 		'usr_email' => decode64($usr_email),
+		'language_file' => decode64($LANG),
 		'def_mode' => $def_mode,
 		'def_racine' => $def_racine,
 		'mini_size' => eval('return '.$mini_size.';'),

@@ -37,7 +37,7 @@
 			
 			'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
 			'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>";
-echo "ALWAYS Use this <h2><a href=\"AJAX-Browser.php\">link</a></h2> for run ! <br/><br/>";',
+echo "<b>ALWAYS Use this <a href=\"AJAX-Browser.php\">link</a> for run !</b><br/><br/>";',
 			'install_onFile'=>'echo "OK => $thisFileName<br/>";',
 			'install_onNoFile'=>'echo "SKIP => $thisFileName<br/>";',
 			'install_onEnd'=>'@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
@@ -96,7 +96,7 @@ class MakeIntall
 		else $this->download_file();
 		if (!count($this->error))
 			return 'Make Succefull !<br>'.$n.' files in '.$this->options['projetName'].'<br>Total size : '.strlen($this->result_file).' Octs<br/>'.
-			ereg_replace("[a-zA-Z]+://([(]?[)]?[.]?[a-zA-Z0-9_/-])*", "<a href=\"\\0\">\\0</a>", 'http://'.$_SERVER['SERVER_NAME'].'/'.$f[0]);
+			ereg_replace("[a-zA-Z]+://([(]?[)]?[.]?[..]?[a-zA-Z0-9_/-])*", "<a href=\"\\0\">\\0</a>", 'http://'.$_SERVER['SERVER_NAME'].'/'.$f[0]);
 		else
 			return '<pre>'.var_export($this->error, true).'</pre>';
 	}
