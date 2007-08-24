@@ -9,13 +9,15 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-	$intaller = new MakeIntall (
-		array
-		(
-			'projetName'=> 'AJAX-Browser',
-			'version' => $_GET['version'],
+/// ************ My exemple of use *************
 
-			'comment' => '-------------------------------------------------
+$intaller = new MakeIntall (
+	array
+	(
+	'projetName'=> 'AJAX-Browser',
+	'version' => $_GET['version'],
+
+	'comment' => '-------------------------------------------------
  | AJAX-Browser  -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
  | Email bugs/suggestions to alban.lopez@gmail.com
@@ -25,25 +27,32 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-			'addons' => '<li>Bug corrections</li>
+	'addons' => '<li>Bug corrections</li>
 <li>Augmentation de la compatibilité Serveur (remerciment a Dkø)</li>
 <li>Amelioration des fonctions rename et MultiRename</li>
 <li>Remaniement du code pour la gestion des langues (j\'en appelle aux bilingues, help me...)</li>',
 
-			'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
-			'excludes'=>array('*~','*.var','*.svn/*'),
-			'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
-			'no_replace'=>array('*.var','*.png','*.gif'),
-			
-			'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
-			'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>";
+	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
+	'excludes'=>array('*~','*.var','* ??.php','* es.php','*.svn/*','*Mini/*','*Spy/*'),
+	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
+	'no_replace'=>array('*.var','*.png','*.gif'),
+
+	'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
+	'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>";
 echo "<b>ALWAYS Use this <a href=\"AJAX-Browser.php\">link</a> for run !</b><br/><br/>";',
-			'install_onFile'=>'echo "OK => $thisFileName<br/>";',
-			'install_onNoFile'=>'echo "SKIP => $thisFileName<br/>";',
-			'install_onEnd'=>'@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
-		)
-	);
-	echo $intaller->Make();
+	'install_onFile'=>'echo "OK => $thisFileName<br/>";',
+	'install_onNoFile'=>'echo "SKIP => $thisFileName<br/>";',
+	'install_onEnd'=>'@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
+	)
+);
+echo $intaller->Make();
+
+/// ************ End of My exemple of use *************
+
+/// **************************************************
+
+/// ************** Real code of this class ***************
+
 if (!function_exists('fnmatch'))
 {
 	function fnmatch($pattern, $string)

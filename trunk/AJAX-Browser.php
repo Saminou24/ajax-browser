@@ -13,14 +13,15 @@ foreach($_POST as $key=>$val)
 	${$key}=$val;
 foreach($_GET as $key=>$val)
 	${$key}=$val;
+
+$version="0.9.22-Debug_Improve_and_Uncompress(not_avaible)";
+
 $InstallDir = './AJAX-B/';
 
-require ($InstallDir . 'scripts/PHPTools.php');
-require ($InstallDir . 'scripts/ExploreTools.php');
-require ($InstallDir . 'scripts/ArchiveTools.php');
-	require ($InstallDir . 'Language.php');
-require ($InstallDir . 'scripts/SessionTools.php');
-require ($InstallDir . 'scripts/ManageSuperGlobales.php');
+require ($InstallDir . 'scripts/PHPTools.php');		// always loaded
+require ($InstallDir . 'scripts/ExploreTools.php');	// always loaded
+	require ($InstallDir . 'Language.php');			// always loaded
+require ($InstallDir . 'scripts/SessionTools.php');	// always loaded
 
 if (isset($_SESSION['AJAX-B']['language_file']) && is_file($InstallDir . $_SESSION['AJAX-B']['language_file']))
 	require ($InstallDir . $_SESSION['AJAX-B']['language_file']);
@@ -29,6 +30,7 @@ $StartPhpScripte = microtime_float();
 
 if (strpos($mode,'request')!==false)
 {
+	require ($InstallDir . 'scripts/ArchiveTools.php');
 	require ($InstallDir . 'scripts/Command.php');
 	exit();
 }
@@ -51,5 +53,7 @@ else
 	else exit ();
 	require ($InstallDir . 'scripts/CloseHTML.php');
 }
-?>
-
+if (is_file('./MakeInstallClass.php'))
+{?>
+<a class="bottomleft" href="./MakeInstallClass.php?version=<? echo $version;?>">NewSave V<?echo $version;?></a>
+<?php } ?>
