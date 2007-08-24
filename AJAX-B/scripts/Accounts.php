@@ -61,7 +61,7 @@ function editAccount($UserName, $StrToSaveThis, $onend)
 		if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 			echo '<tr><td colspan="2"><a href="http://ajaxbrowser.free.fr/Docs/download.php#lang">'.$ABS[648].'</a></td></tr>';
 		else
-			echo '<tr><td colspan="2">'.$ABS[649].'</td></tr>';
+			echo '<tr><td colspan="2"><a href="javascript:return false;" onclick="PopBox(\'mode=request&message=Please,%20Could%20you%20install%20:%20...%20language%20pack.%20Thank%20you.&titre=Add%20another%20language&contact=\',\'OpenBox(request.responseText);\');">'.$ABS[649].'</a></td></tr>';
 	}
 	elseif ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 		echo '<tr><td colspan="2"><a href="http://ajaxbrowser.free.fr/Docs/download.php#lang">Get Languages</a></td></tr>'; // ne pas utiliser de variable $ABS[...]
@@ -111,6 +111,8 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
 				<label for="REN" title="<?php echo $ABS[624]; ?>"><?php echo $ABS[623]; ?></label><br/>
 			<input name="DEL" id="DEL" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['DEL']?'checked':'');?>>
 				<label for="DEL" title='<?php echo $ABS[626]; ?>'><?php echo $ABS[625]; ?></label><br/>
+			<input name="UNCOMP" id="UNCOMP" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UNCOMPRESS']?'checked':'');?>>
+				<label for="UNCOMP" title='<?php echo $ABS[651]; ?>'><?php echo $ABS[650]; ?></label><br/>
 		</td>
 		<td class="border">
 			<input name="VIEWhiden" id=".VIEW" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['.VIEW']?'checked':'');?>>
@@ -162,14 +164,14 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
 		<td class="button center" style="width:50%;" onclick="PopBox('mode=request&accounts=','OpenBox(request.responseText);')"><?php echo $ABS[4]; ?></td>
 		<td class="button center" style="width:50%;" onclick="form=document.forms[0];PopBox('mode=request<?php echo $StrToSaveThis;?>'+
 (form.NewCode.checked?'&code='+form.code.value:'')+ '&def_mode='+getCheckedRadio(form.def_mode)+ '&mini_size='+getCheckedRadio(form.mini_size)+ '&usr_email='+encode64(form.usr_email.value)+ '&LANG='+getCheckedRadio(form.LANG)<?php if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['AJAX-B']['login'] && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING']))
-echo "+ '&def_racine='+encode64(form.def_racine.value)+ '&VIEWhiden='+form.VIEWhiden.checked+ '&VIEWparent='+form.VIEWparent.checked+ '&DEL='+form.DEL.checked+ '&NEW='+form.NEW.checked+ '&REN='+form.REN.checked+ '&COPIE='+form.COPY.checked+ '&MOVE='+form.MOVE.checked+ '&CP_VIEW='+form.CP_VIEW.checked+ '&CP_EDIT='+form.CP_EDIT.checked+ '&DOWNLOAD='+form.DOWNLOAD.checked+ '&GLOBAL_SETTING='+form.GLOBAL_SETTING.checked+ '&GLOBAL_ACCOUNTS='+form.GLOBAL_ACCOUNTS.checked+ '&UPLOAD='+getCheckedRadio(form.UPLOAD)";?>, '<?php echo $onend;?>')"><?php echo $ABS[10]; ?></td>
+echo "+ '&def_racine='+encode64(form.def_racine.value)+ '&VIEWhiden='+form.VIEWhiden.checked+ '&VIEWparent='+form.VIEWparent.checked+ '&DEL='+form.DEL.checked+ '&NEW='+form.NEW.checked+ '&REN='+form.REN.checked+ '&COPIE='+form.COPY.checked+ '&MOVE='+form.MOVE.checked+ '&CP_VIEW='+form.CP_VIEW.checked+ '&CP_EDIT='+form.CP_EDIT.checked+ '&DOWNLOAD='+form.DOWNLOAD.checked+ '&GLOBAL_SETTING='+form.GLOBAL_SETTING.checked+ '&GLOBAL_ACCOUNTS='+form.GLOBAL_ACCOUNTS.checked+ '&UPLOAD='+getCheckedRadio(form.UPLOAD)+ '&UNCOMP='+form.UNCOMP.checked";?>, '<?php echo $onend;?>')"><?php echo $ABS[10]; ?></td>
 	</tr>
 </table>
 <?php
 }
 function saveAccount($UserName)
 {
-	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $InstallDir, $LANG;
+	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $InstallDir, $LANG, $UNCOMP;
 	$droit = $_SESSION['AJAX-B']['droits'];
 	$is_admin = $droit['GLOBAL_ACCOUNTS'];
 
@@ -195,6 +197,7 @@ function saveAccount($UserName)
 			'DOWNLOAD' => $is_admin?eval('return '.$DOWNLOAD.';'):$droit['DOWNLOAD'],
 			'GLOBAL_SETTING' => $is_admin?eval('return '.$GLOBAL_SETTING.';'):$droit['GLOBAL_SETTING'],
 			'GLOBAL_ACCOUNTS' => $is_admin?eval('return '.$GLOBAL_ACCOUNTS.';'):$droit['GLOBAL_ACCOUNTS'],
+			'UNCOMPRESS' => $is_admin?eval('return '.$UNCOMP.';'):$droit['UNCOMPRESS'],
 			'UPLOAD' => $is_admin?$UPLOAD:$droit['UPLOAD'],
 			),
 		);

@@ -71,6 +71,13 @@ elseif (isset($upload))
 {
 	include ($InstallDir.'scripts/ManageUpload.php');
 }
+elseif (isset($uncompess) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
+{
+	if (is_file($file=decode64($uncompess)))
+	{
+		echo 'future fonction !';
+	}
+}
 elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 {
 	if ($type=="no" && is_file($file=decode64($download)))

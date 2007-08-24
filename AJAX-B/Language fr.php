@@ -155,6 +155,8 @@ $ABS = array( // Ajax Browser Sentences
 647 => 'Détail des connexions',
 648 => 'Obtenir d\'autres langue',
 649 => 'Demander d\'autres langue a l\'admin',
+650 => 'Décompresser des éléments',
+651 => 'Sera autorisé à Decompresser les elements ZIP, TAR, GZIP, BZIP2',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php

@@ -1,7 +1,7 @@
 <?php
 if ($contact=="send" && !empty($expediteur) &&  !empty($titre) &&  !empty($message))
 {
-	if (mail($GLOBALS['AJAX-Var']['admin_email'], trim(stripslashes($titre)), trim(stripslashes($message))."\n\nAJAX-Browser : ".$_SESSION['name'], "From: ".$_SESSION['AJAX-B']['login']." <".$expediteur.">\nMIME-Version: 1.0"))
+	if (mail($GLOBALS['AJAX-Var']['admin_email'], trim(stripslashes($titre)), trim(stripslashes($message))."\n\nAJAX-Browser : ".$_SESSION['AJAX']['login'], "From: ".$_SESSION['AJAX-B']['login']." <".$expediteur.">\nMIME-Version: 1.0"))
 		echo $ABS[701]."<br><br> :\n".$titre."<br><br> :\n".$message."<br><br>\n";
 	else
 		echo "<div class='alert'>$ABS[702]<br>$ABS[703]<br></div>\n";
