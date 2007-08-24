@@ -1,0 +1,21 @@
+#documentation / help
+
+= Documentation =
+
+Comme son nom l'indique AJAX-Browser et en grande partie developpé en AJAX (JavaScript, PHP, CSS, HTML). Il necessite donc certaines technologies particulières :
+
+= Configuration requise =
+
+    ==Coté Serveur :==
+      - PHP5 (de preference sur systeme POSIX)
+      - php5-gd pour la gestion des miniatures en mode gallerie notamment, cepandant rien ne vous y oblige mais vous ne vérez pas les apercus des image
+      - les outils de gestion de session, pour evité que n'importe qui n'utilise ce "logiciel" (ceci ne constitu pas une securisation des transfers de donnés)
+      - mime_content_type(), rmdir(), posix_getuid(), posix_getgid() et d'autres fonctions de PHP sont parfois desactivées sur certains serveurs mais tout a été prévu pour que le scripte aboutisse malgrés tout.
+
+j'ai volontairement reduit au minimun les module additionnel utilisé pour une portabilité maximun.
+
+     ==Coté Client :==
+      - Seul les naviguateur Mozilla Firefox et Konqueror sont 100% compatibles a condition que le JavaScripte soit activé (ces navigateurs sont gratuits et Firefox existent sur tous les Systemes d'Exploitation)
+      - Pour des raisons évidentes les navigateurs web ne respectant pas les conventions sur les langages web ne sont PAS DU TOUT COMPATIBLES (ex : Internet Explorer = pas beau ;-)
+
+
