@@ -38,7 +38,7 @@ class SESSION
 		'GLOBAL_ACCOUNTS' => FALSE	// setup one's account
 		)
 	);
-	
+
 	var $DefConfFile = array (
 	'admin_email' => 'alban.lopez@gmail.com',
 	'ajaxb_miror' => 'ajaxbrowser.free.fr',
@@ -197,32 +197,39 @@ class SESSION
 		}
 	}
 
-	if (!empty($racine) && is_dir($racine))
+	if (strpos($mode,'request')===false)
 	{
-		$racine64=encode64($racine);
-		$reload=true;
+		if (!empty($racine) && is_dir($racine))
+		{ // si une racine et defini en clair dans l'URL ex : www.site.com/AJAX-Browser.php?racine=./
+			$racine64=encode64($racine);
+			$reload=true;
+		}
+		if (is_dir(decode64($_SESSION['AJAX-B']['def_racine'])) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(decode64($racine64), decode64($_SESSION['AJAX-B']['def_racine']))===false)
+		{ // si l'utilisateur remonte l'arborescence alors k'il n'en a pas le droit
+			$reload=true;
+			$racine64 = decode64($_SESSION['AJAX-B']['def_racine']);
+		}
+		if (empty($racine64) || !is_dir(decode64($racine64)) || encode64(decode64($racine64))!=$racine64)
+		{ // si l'URL n'est pas une URL valide
+			$racine64 = is_dir(decode64($_SESSION['AJAX-B']['def_racine']))?$_SESSION['AJAX-B']['def_racine']:encode64('./');
+			$reload=true;
+		}
+		if (!substr(decode64($racine64), -1, 1)=='/')
+		{ // si l'URL ne se termine pas par un /
+			$racine64 = encode64(decode64($racine64).'/');
+			$reload=true;
+		}
+		if (empty($mode))
+		{
+			$mode=!empty($_SESSION['AJAX-B']['def_mode'])?$_SESSION['AJAX-B']['def_mode']:'arborescence';
+			$reload=true;
+		}
+		if (($reload==true || isset($code)))
+		{
+			header("Location:".RebuildURL ());
+			exit ();
+		}
 	}
-	if (is_dir(decode64($_SESSION['AJAX-B']['def_racine'])) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(decode64($racine64), decode64($_SESSION['AJAX-B']['def_racine']))===false)
-	{ // si l'utilisateur remonte l'arborescence alors k'il n'en a pas le droit
-		$reload=true;
-		$racine64 = decode64($_SESSION['AJAX-B']['def_racine']);
-	}
-	if (empty($racine64) || !is_dir(decode64($racine64)) || encode64(decode64($racine64))!=$racine64)
-	{
-		$racine64 = is_dir(decode64($_SESSION['AJAX-B']['def_racine']))?$_SESSION['AJAX-B']['def_racine']:encode64('./');
-		$reload=true;
-	}
-	if (empty($mode))
-	{
-		$mode=!empty($_SESSION['AJAX-B']['def_mode'])?$_SESSION['AJAX-B']['def_mode']:'arborescence';
-		$reload=true;
-	}
-	if (($reload==true || isset($code)) && strpos($mode,'request')===false)
-	{
-		header("Location:".RebuildURL ());
-		exit ();
-	}
-
 function RebuildURL ()
 {
 	global $login, $mode, $racine64, $ie, $db;
