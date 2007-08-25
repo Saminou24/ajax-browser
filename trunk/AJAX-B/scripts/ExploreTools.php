@@ -43,7 +43,7 @@ function InfosByURL ($url, $allinfos=true)
 	{
 		$infos['basename'] = basename($url);
 		$infos['size'] = filesize($url);
-		$infos['type'] = function_exists('mime_content_type') ? mime_content_type($url) : 'ext/'.pathinfo($url, PATHINFO_EXTENSION);	// type mime
+		$infos['type'] = function_exists('mime_content_type') ? mime_content_type($url) : 'ext/'.strtolower(pathinfo($url, PATHINFO_EXTENSION));	// type mime
 	}
 	else
 	{

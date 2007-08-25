@@ -37,7 +37,7 @@ $intaller = new MakeIntall (
 	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
 	'no_replace'=>array('*.var','*.png','*.gif'),
 
-	'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
+	'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\nidentity : ".$identity);',
 	'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>";
 echo "<b>ALWAYS Use this <a href=\"AJAX-Browser.php\">link</a> for run !</b><br/><br/>";',
 	'install_onFile'=>'echo "OK => $thisFileName<br/>";',
