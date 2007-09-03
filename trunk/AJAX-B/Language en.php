@@ -89,14 +89,14 @@ $ABS = array( // Ajax Browser Sentences
 509 => 'Fichier consideré comme très peu sensible',
 510 => 'Fichier consideré comme sensible',
 511 => 'File to be opened online with CodePress',
-512 => 'Spy file Folder',//   Al, version francaise STP <<<<<===== c la phase qui demande de definir le dossier ou seron enregistré les fichiers espion ( voir dans le SETTING)
+512 => 'Folder for *.spy files',
 513 => 'Saving SPY files',
 514 => 'IP.',
 515 => 'Loggins.',
 516 => 'Actions.',
 517 => 'Read folders',
-518 => 'A utiliser avec moderation (lourd)',//   Tradution incertaine, a confirmer ulterieurement ...
-519 => 'Voir la legislation en vigueur',//   Tradution incertaine, a confirmer ulterieurement ...
+518 => 'Warning: use with caution',
+519 => 'See applicable law',
 520 => 'Folder thumbnail',
 521 => 'Thumbnail loading lead time',
 522 => 'Network 100Mb/sec, 6000 pics/min.',
@@ -155,8 +155,8 @@ $ABS = array( // Ajax Browser Sentences
 647 => 'Connection details',
 648 => 'Get more languages',
 649 => 'Request more languages',
-650 => 'Décompresser des éléments',//   Tradution incertaine, a confirmer ulterieurement ...
-651 => 'Sera autorisé à Decompresser les elements ZIP, TAR, GZIP, BZIP2',//   Tradution incertaine, a confirmer ulterieurement ...
+650 => 'Uncompress items',
+651 => 'Will be allowed to decompress ZIP, TAR, GZIP, BZIP2',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php
