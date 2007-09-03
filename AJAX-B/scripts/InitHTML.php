@@ -15,6 +15,20 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo $InstallDir; ?>scripts/Init.css"/>
 <script type="text/javascript">
 <?php
+if (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
+{
+	list($V1, $V2, $V3, $V4) = sscanf($version,'%d.%d.%d%s');
+	$NewVersion = @file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?version');
+	list($v1, $v2, $v3, $V4) = sscanf($NewVersion, '%d.%d.%d%s');
+	if (!$NewVersion) echo $ABS[506];
+	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
+	{
+		echo "function promtMAJ(){\n";
+		echo "ID('DragZone').childNodes[1].innerHTML='Upgrade';\n";
+		echo "ID('Box').style.display = 'block';\n";
+		echo "OpenBox ('<br/><a href=\"?mode=request&maj\">".$ABS[508].' : '.$NewVersion."</a><br/>');\n}\n";
+	}
+}
 echo 'InstallDir="'.$InstallDir."\";\n\n";
 for ($i=900;$i<1000;$i++)
 	if (isset($ABS[$i])) echo "ABS$i=\"".$ABS[$i]."\";\n";
@@ -44,8 +58,7 @@ function FileIco (File)
 	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Dom-drag.js"></script>
 	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Dom-event.js"></script>
 	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Common.js"></script>
-
-			<body onload="RequestLoad('<?php echo $racine64?>')" onkeypress="ManageKeyboardEvent(event);">
+			<body onload="RequestLoad('<?php echo $racine64?>');promtMAJ();" onkeypress="ManageKeyboardEvent(event);">
 	<span class="close">
 		<span style='padding:2px;'>
 			<a href="<?php echo str_replace($ChangeMode['current'], $ChangeMode['next'], RebuildURL ())?>"><?php echo $ABS[2].' '.$ChangeMode['change']?></a>
@@ -79,7 +92,14 @@ function FileIco (File)
 				<input name='match' id='matchFilter'>
 		</div>
 	</td>
-	<td style='font-size:11px;font-weight:bold;font-style:italic;text-align:center;'><?php echo realpath(decode64($racine64))?></td>
+	<td style='font-size:11px;font-weight:bold;font-style:italic;text-align:center;'>
+	<?php
+		$UrlLst = explode ('/', realpath(decode64($racine64)));
+		$url = '';
+		foreach ($UrlLst as $dir)
+			echo '<a href="'.str_replace($racine64, encode64($url = $url.$dir.'/'), RebuildURL()).'">'.$dir.'/</a> ';
+ 	?>
+	</td>
 	<td style='text-align: right;'>
 		<IMG onclick="document.location=GET_add('login=anonymous');" src="<?php echo $InstallDir; ?>icones/LinkAdd.png" title="<?php echo $ABS[209];?>"/>
 <?php

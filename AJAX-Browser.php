@@ -8,13 +8,16 @@
  | the GNU GPL and is free to use and redistribute
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
-
+/*chown(,);
+chgrp(,);
+chmod(,);
+*/
 foreach($_POST as $key=>$val)
 	${$key}=$val;
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.22-Debug_Improve_and_Uncompress(not_avaible)";
+$version="0.9.23-Small_Debugs_and_Improves";
 
 $InstallDir = './AJAX-B/';
 

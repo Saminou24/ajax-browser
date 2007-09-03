@@ -76,6 +76,10 @@ elseif (isset($uncompess) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 	if (is_file($file=decode64($uncompess)))
 	{
 		echo 'future fonction !';
+/*
+		$ptr = new gzip_file($file);
+		$ptr -> extract_files();
+*/
 	}
 }
 elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
