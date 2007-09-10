@@ -69,7 +69,7 @@ function FileIco (File)
 		<div class="italic" style="margin:3px;"><span class="bold"><?php echo $_SESSION['AJAX-B']['login']." [".$_SERVER['REMOTE_ADDR']."]"?></span><br />
 			<?php echo $ABS[3].' : '.$_SESSION['AJAX-B']['last'].', '.$ABS[9].' : '.array_sum ($_SESSION['AJAX-B']['IP_count'])?></div>
 <table id='menu_barre'>
-<colgroup> <col width='295'><col><col width='150'></colgroup>
+<colgroup> <col width='195'><col><col width='140'></colgroup>
 <tbody>
 	<tr><td style='padding-top:2px;'>
 		<IMG onclick="_new();" src="<?php echo $InstallDir; ?>icones/New.png" title="<?php echo $ABS[201];?>"/>

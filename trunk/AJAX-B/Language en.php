@@ -104,6 +104,7 @@ $ABS = array( // Ajax Browser Sentences
 524 => 'Normal server, connection and pictures, 240 pics/min (recommanded)',
 525 => 'Slow serveur or big picture, 120 pics/min.',
 526 => 'Very slow server or huge picture, 40 pics/min.',
+527 => 'Effacer les anciennes miniature.',
 
 // fichier Account.php
 601 => 'Change this account',

@@ -41,6 +41,21 @@ elseif(isset($miniof))
 		echo CreatMini($file,$_SESSION['AJAX-B']['mini_dir'], $_SESSION['AJAX-B']['mini_size']);
 	exit();
 }
+elseif(isset($erasemini))
+{
+	$miniLst = DirSort ($folder=$_SESSION['AJAX-B']['mini_dir'], array('*@*.png'), $folder);
+	$count = 0;
+	foreach ($miniLst as $mini)
+	{
+		if (fileatime($mini) < (time() - (7 * 24 * 60 * 60)))
+		{// si les miniatures n'ont pas étais vu depuis 1 semaine
+			unlink($mini);
+			$count++;
+		}
+	}
+		echo $count;
+	exit();
+}
 elseif(isset($addusr) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
 	WriteInFile($InstallDir.'AJAX-Array.var', serialize(addUser($SESSION->exemple, $GLOBALS['AJAX-Var'], $addusr)), 'sup');
