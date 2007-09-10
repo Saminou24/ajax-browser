@@ -60,8 +60,13 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	</td></tr>
 	<tr><td colspan="2"><br/></td></tr>
 	<tr>
+		<td title="" class="border"><?php echo $ABS[520];?><br/>
+			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="mini_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['mini_dir']; ?>"/>
+		<td title=""><span class="button center" onclick="PopBox('mode=request&erasemini=','OpenBox(request.responseText);');"><?php echo $ABS[527];?></span></td>
+	</tr>
+	<tr>
 		<td title="" colspan="2" class="border"><?php echo $ABS[520];?><br/>
-			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="mini_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['mini_dir']; ?>"/><br/><br/><?php echo $ABS[521];?><br/>
+			<br/><?php echo $ABS[521];?><br/>
 			<INPUT type=radio name="mini_intervale" value=10 id="intervale10" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==10) ? "checked" : ""; ?>>
 				<label for="intervale10"><?php echo $ABS[522];?></label><br/>
 			<INPUT type=radio name="mini_intervale" value=100 id="intervale100" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==100) ? "checked" : ""; ?>>

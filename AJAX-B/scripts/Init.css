@@ -21,7 +21,7 @@ body,table {font-size:10px;font-family:sans-serif;}
 #CpMv {position:absolute;visibility:hidden;width:90px;z-index:10;background:#ffffff;border:1px solid gray;padding:1px;}
 #CpMv div:hover {background:rgb(220,230,255);}
 #zipper, #Mzipper {position:absolute;visibility:hidden;width:90px;z-index:10;background:#ffffff;border:1px solid gray;padding:1px;}
-#zipper {top:50px;left:95px;}
+#zipper {top:45px;left:85px;}
 #zipper div:hover {background:rgb(220,230,255);}
 
 #FindFilter {position:absolute;visibility:hidden;top:48px;left:186px;z-index:10;background:#ffffff;border:outset 1px gray;padding:1px;}
