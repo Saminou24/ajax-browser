@@ -53,7 +53,7 @@ elseif(isset($erasemini))
 			$count++;
 		}
 	}
-		echo $count;
+		echo 'OK => '.$count.' are erase.';
 	exit();
 }
 elseif(isset($addusr) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])

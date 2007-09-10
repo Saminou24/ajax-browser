@@ -62,7 +62,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	<tr>
 		<td title="" class="border"><?php echo $ABS[520];?><br/>
 			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="mini_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['mini_dir']; ?>"/>
-		<td title=""><span class="button center" onclick="PopBox('mode=request&erasemini=','OpenBox(request.responseText);');"><?php echo $ABS[527];?></span></td>
+		<td title=""><span id="erasemini" class="button center" onclick="RQT.get(ServActPage,{parameters:'mode=request&erasemini=',onEnd:'ID(\'erasemini\').parentNode.innerHTML=request.responseText;',});"><?php echo $ABS[527];?></span></td>
 	</tr>
 	<tr>
 		<td title="" colspan="2" class="border"><?php echo $ABS[520];?><br/>
