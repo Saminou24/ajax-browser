@@ -174,7 +174,29 @@ function MultiRen ($Files, $mask)
 		$ArrayReplace = array(basename($file, $ext), basename(dirname($file)), str_pad($num+1, strlen(strval(count($Files))), "0", STR_PAD_LEFT));
 		$TmpStr = str_replace ($ArraySearch, $ArrayReplace, $mask);
 		$DestFile = dirname ($file)."/".((!strcmp(strrchr($mask,"!"), "!")) ? substr($TmpStr, 0, -1) : ($TmpStr.(pathinfo(dirname($file).$TmpStr, PATHINFO_EXTENSION) ? "" : $ext)));
-		rename($file, NewFile($DestFile));
+		if (rename($file, NewFile($DestFile)) && !in_array(encode64(dirname(decode64($file64)).'/'), $returnLst))
+			$returnLst[] = encode64(dirname(decode64($file64)).'/');
 	}
+	return implode(',', $returnLst);
+}
+function UnRealPath ($dest)
+{
+	$Ahere = explode ('/', realpath($_SERVER['PHP_SEFL']));
+	$Adest = explode ('/', realpath($dest));
+	$result = '.'; // le chemin retouné dois forcement commancé par ./   c'est le but
+	while (implode ('/', $Adest) != implode ('/', $Ahere))
+	{
+		if (count($Adest)==count($Ahere))
+		{
+			array_pop($Adest);
+			array_pop($Ahere);
+		}
+		else if (count($Ahere)>count($Adest))
+			array_pop($Ahere);
+		else
+			array_pop($Adest);
+		$result .= '/..';
+	}
+	return str_replace('//', '/', $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(is_dir(realpath($dest))?'/':''));
 }
 ?>

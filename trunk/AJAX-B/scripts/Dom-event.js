@@ -153,7 +153,7 @@ function _new ()
 	(ServActPage,
 		{
 			parameters:'mode=request&newitem='+encode64( dest + newitem),
-			onEnd:'if (ID(element)) RequestLoad("'+encode64(dest)+'",true);',
+			onEnd:'if (ID(dest)) RequestLoad("'+encode64(dest)+'",true);',
 		}
 	);
 }
@@ -164,7 +164,7 @@ function _multiRename ()
 	(ServActPage,
 		{
 			parameters:'mode=request&mask='+mask+'&renitems='+SelectLst.join(','),
-			onEnd:false,
+			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});',
 		}
 	);
 }
@@ -193,7 +193,7 @@ function _sendRen()
 	(ServActPage,
 		{
 			parameters:'mode=request&renitem='+ptrRen.defaultValue+'&mask='+encode64(ptrRen.value),
-			onEnd:'ID("renOne").style.display = "none";',
+			onEnd:'ID("renOne").style.display = "none";UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});',
 		}
 	);
 }

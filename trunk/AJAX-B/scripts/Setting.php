@@ -62,15 +62,15 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	<tr>
 		<td title="" colspan="2" class="border"><?php echo $ABS[520];?><br/>
 			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="mini_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['mini_dir']; ?>"/><br/><br/><?php echo $ABS[521];?><br/>
-			<INPUT type=radio name="mini_intervale" value="10" id="intervale10" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==10) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=10 id="intervale10" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==10) ? "checked" : ""; ?>>
 				<label for="intervale10"><?php echo $ABS[522];?></label><br/>
-			<INPUT type=radio name="mini_intervale" value="100" id="intervale100" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==100) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=100 id="intervale100" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==100) ? "checked" : ""; ?>>
 				<label for="intervale100"><?php echo $ABS[523];?></label><br/>
-			<INPUT type=radio name="mini_intervale" value="250" id="intervale250" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==250) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=250 id="intervale250" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==250) ? "checked" : ""; ?>>
 				<label for="intervale250"><?php echo $ABS[524];?></label><br/>
-			<INPUT type=radio name="mini_intervale" value="500" id="intervale500" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==500) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=500 id="intervale500" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==500) ? "checked" : ""; ?>>
 				<label for="intervale500"><?php echo $ABS[525];?></label><br/>
-			<INPUT type=radio name="mini_intervale" value="1500" id="intervale1500" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==1500) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=1500 id="intervale1500" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==1500) ? "checked" : ""; ?>>
 				<label for="intervale1500"><?php echo $ABS[526];?></label><br/>
 		</td>
 	</tr>
@@ -85,7 +85,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 }
 function saveSetting ()
 {
-	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale;
+	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale,$InstallDir;
 	$GLOBALS['AJAX-Var'] = array
 	(
 		'admin_email' => decode64($admin_email),
