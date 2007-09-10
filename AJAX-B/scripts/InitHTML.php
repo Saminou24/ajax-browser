@@ -86,7 +86,7 @@ function FileIco (File)
 			</div>
 		</span>
 		<IMG onclick="_upload();" src="<?php echo $InstallDir; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/>
-		<IMG onclick="PopBox('mode=request&contact=','OpenBox(request.responseText);');" src="<?php echo $InstallDir; ?>icones/E-mail.png" title="<?php echo $ABS[207];?>"/>
+		<IMG onclick="ID('DragZone').childNodes[1].innerHTML='Contact Admin';PopBox('mode=request&contact=','OpenBox(request.responseText);');" src="<?php echo $InstallDir; ?>icones/E-mail.png" title="<?php echo $ABS[207];?>"/>
 				<IMG onclick="if(ID('FindFilter').style.visibility!='visible'){ID('FindFilter').style.visibility='visible';ID('matchFilter').focus();}else ID('FindFilter').style.visibility='hidden';" src="<?php echo $InstallDir; ?>icones/FindFilter.png" title="<?php echo $ABS[208];?>"/>
 		<div id="FindFilter">
 				<input name='match' id='matchFilter'>
@@ -95,9 +95,12 @@ function FileIco (File)
 	<td style='font-size:11px;font-weight:bold;font-style:italic;text-align:center;'>
 	<?php
 		$UrlLst = explode ('/', realpath(decode64($racine64)));
-		$url = '';
+		$url = '/';
 		foreach ($UrlLst as $dir)
-			echo '<a href="'.str_replace($racine64, encode64($url = $url.$dir.'/'), RebuildURL()).'">'.$dir.'/</a> ';
+		{
+			$url = realpath($url.$dir).'/';
+			echo '<a href="'.str_replace($racine64, encode64(UnRealPath($url)), RebuildURL()).'" title="'.$url.'">'.$dir.'/</a> ';
+		}
  	?>
 	</td>
 	<td style='text-align: right;'>

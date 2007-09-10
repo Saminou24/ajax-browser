@@ -13,12 +13,11 @@
 ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
 function RequestLoad(dir64)
 {// ici dir64 ne sert a rien, mais il est imposé par par le code en mode arborescence !
-//	if (!(ptr64 = ID(dir64))) return false;
 	RQT.get
 	(ServActPage, // on joint la page en cour
 		{
 			parameters:'mode=request&sublstof='+racine64+'&light=on',
-			onEnd:'OpenDir(request.responseText.split("\\n"));MiniLstDef=MiniLst;intervalID=window.setInterval(loadMini,250);',
+			onEnd:'OpenDir(request.responseText.split("\\n"));MiniLstDef=MiniLst;intervalID=window.setInterval(loadMini,<?php echo $_SESSION['AJAX-B']['mini_intervale']; ?>);',
 		}
 	);
 }
@@ -48,7 +47,7 @@ function loadMini()
 	{
 		window.clearInterval(intervalID);
 		MiniLst=MiniLstDef;
-		window.setTimeout("intervalID=window.setInterval(loadMini,<?php echo $_SESSION['AJAX-B']['mini_intervale']; ?>);", 30*1000);
+		window.setTimeout("intervalID=window.setInterval(loadMini,<?php echo $_SESSION['AJAX-B']['mini_intervale']; ?>);", 3000);
 	}
 }
 function AddItem(dir, element)
@@ -58,8 +57,8 @@ function AddItem(dir, element)
 	Item = model.replace(/%item%/g, escape(item[0]));
 	Item = Item.replace(/%item64%/g, encode64(dir+item[0]));
 	Item = Item.replace(/%icone%/g,InstallDir+'icones/type-'+FileIco(item[0])+'.png');
-	typeMime = item[2].replace(/^(\w+)[/](\w+)$/, "$2");
-	if (typeMime=="png" || typeMime=="jpg" || typeMime=="gif" || typeMime=="bmp")
+	typeMime = item[2].replace(/^(\w+)[/](\w+)$/, "$2").toLowerCase();
+	if (typeMime=="png" || typeMime=="jpeg" || typeMime=="jpg" || typeMime=="gif" || typeMime=="bmp")
 	{
 		MiniLst.push(encode64(dir+item[0]));
 		Item = Item.replace(/%name%/g, '');

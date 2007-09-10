@@ -22,7 +22,8 @@ if(isset($sublstof))
 	}
 	
 	$LstFile=array();
-	$fileLst = DirSort ($folder, isset($match) ? explode(',',$match) : 'file');
+// ?mode=request&sublstof=Li9BSkFYLUIvc2NyaXB0cy8_&match=*.php
+$fileLst = DirSort ($folder, isset($match) ? explode(',',$match) : 'file');
 	if ($fileLst)
 	{
 		foreach ($fileLst as $file)
@@ -32,7 +33,7 @@ if(isset($sublstof))
 	if ($_SESSION['AJAX-B']['spy']['browse'])
 		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/browse.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] »  '.$folder.' ('.$mode.")\n", "add");
 
-	echo $folder."\n".implode("\n", array_merge($LstDir, $LstFile));
+	echo UnRealPath($folder)."\n".implode("\n", array_merge($LstDir, $LstFile));
 }
 elseif(isset($miniof))
 {
@@ -223,6 +224,8 @@ elseif (isset($renitems) && $_SESSION['AJAX-B']['droits']['REN'])
 			MultiRen(DirSort ($file, 'all', $file), $mask);
 		else
 			MultiRen(array($file), $mask);
+		if ($_SESSION['AJAX-B']['spy']['action'])
+			WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.decode64($renitem).' » '.decode64($mask)."\n", "add");
 	}
 }
 elseif (isset($infos))

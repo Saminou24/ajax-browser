@@ -8,13 +8,13 @@
  | the GNU GPL and is free to use and redistribute
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
-$parent64=encode64(ereg_replace('^'.realpath('./'),'.',realpath(decode64($racine64).'../').'/'));?>
+ $parent64=encode64(UnRealPath(decode64($racine64).'../'));?>
 <div class="DivGroup" id="<?php echo $parent64;?>">
-	<div class="This">
+	<div class="This" title="<?php echo decode64($parent64);?>">
 		<span class="left">
 			<span class="IndentImg"><IMG class="curshand" src="<?php echo $InstallDir; ?>icones/type-folder...png" onclick="location.href='<?php echo str_replace($racine64, $parent64, RebuildURL())?>'"/></span>
 			<span class="IcoName">
-				<span class="Name"><?php echo decode64($parent64)?></span>
+				<span class="Name"><?php echo str_replace('//', '/', realpath(decode64($parent64)).'/')?></span>
 			</span>
 		</span>
 		<span class="right">
