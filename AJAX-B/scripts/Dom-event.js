@@ -99,6 +99,8 @@ function ManageKeyboardEvent (event)
 		_enter ();
 	else if (event.keyCode==27) // ESC
 		_esc ();
+	else if (event.keyCode==113 && event.shiftKey) // MULTI_RENOMER
+		_multiRename ();
 	else if (event.keyCode==113) // RENOMER
 		_rename ();
 	else if ((event.charCode==120 || event.charCode==24) && event.ctrlKey) // COUPER
@@ -142,6 +144,7 @@ function _esc ()
 	ID('Box').style.display = 'none';
 	ID('SlideLet').style.display = 'none';
 	ID('CpMvSlide').style.display = 'none';
+	ID('renOne').style.display = 'none';
 	dragFiles = false;
 	document.onmousemove = null;
 }
@@ -163,7 +166,7 @@ function _multiRename ()
 	RQT.get
 	(ServActPage,
 		{
-			parameters:'mode=request&mask='+mask+'&renitems='+SelectLst.join(','),
+			parameters:'mode=request&mask='+encode64(mask)+'&renitems='+SelectLst.join(','),
 			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});',
 		}
 	);
@@ -177,7 +180,6 @@ function _rename ()
 		ptrRen.style.top = (baliseName.offsetTop)+"px";
 		ptrRen.style.left = baliseName.offsetLeft+"px";
 		ptrRen.style.display = "block";
-//		ptrRen.title = SelectLst[0];
 		ptrRen.defaultValue = SelectLst[0];
 		ptrRen.value = basename(decode64(SelectLst[0]));
 		ptrRen.focus();
@@ -188,12 +190,11 @@ function _rename ()
 function _sendRen()
 {
 	ptrRen = ID("renOne");
-//	alert (ptrRen.defaultValue+'\n'+ptrRen.value+'\n'+ptrRen.title)
 	RQT.get
 	(ServActPage,
 		{
 			parameters:'mode=request&renitem='+ptrRen.defaultValue+'&mask='+encode64(ptrRen.value),
-			onEnd:'ID("renOne").style.display = "none";UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});',
+			onEnd:'ID("renOne").style.display = "none";UnSelectAll();RequestLoad(request.responseText,true);',
 		}
 	);
 }

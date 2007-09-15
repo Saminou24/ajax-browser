@@ -134,7 +134,6 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 			$Download -> download_file();
 			if ($_SESSION['AJAX-B']['spy']['action'])
 				WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/donwload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] '.$type.' » '.implode(', ',array_map('decode64', explode(',', $download))).' ('.SizeConvert(strlen($Download->archive)).")\n", "add");
-
 		}
 		else
 		{
@@ -224,24 +223,18 @@ elseif (isset($supitems) && $_SESSION['AJAX-B']['droits']['DEL'])
 }
 elseif (isset($renitem) && $_SESSION['AJAX-B']['droits']['REN'])
 {
-	MultiRen(array($renitem), $mask);
-// rename(decode64($renitem), dirname(decode64($renitem)).'/'.decode64($mask));
+	rename(decode64($renitem), dirname(decode64($renitem)).'/'.decode64($mask));
+	echo encode64(dirname(decode64($renitem)).'/');
 	if ($_SESSION['AJAX-B']['spy']['action'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.decode64($renitem).' » '.decode64($mask)."\n", "add");
+		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time())."]\n\t".decode64($renitem).' » '.decode64($mask)."\n", "add");
 }
 elseif (isset($renitems) && $_SESSION['AJAX-B']['droits']['REN'])
 {
-	$lst=explode(',',$renitems);
-	foreach ($lst as $file64)
-	{
-		$file = decode64($file64);
-		if (is_dir($file64))
-			MultiRen(DirSort ($file, 'all', $file), $mask);
-		else
-			MultiRen(array($file), $mask);
-		if ($_SESSION['AJAX-B']['spy']['action'])
-			WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.decode64($renitem).' » '.decode64($mask)."\n", "add");
-	}
+	$renitems=array_map("decode64", explode(',',$renitems));
+	if (count($renitems)==1 && is_dir($renitems[0]))
+		echo MultiRen(DirSort ($renitems[0], 'all', $renitems[0]), decode64($mask));
+	else
+		echo MultiRen($renitems,decode64 ($mask));
 }
 elseif (isset($infos))
 {

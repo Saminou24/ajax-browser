@@ -17,7 +17,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.23-Small_Debugs_and_Improves";
+$version="0.9.23-Debug._Rename_MultiRename_are_avaible";
 
 $InstallDir = './AJAX-B/';
 

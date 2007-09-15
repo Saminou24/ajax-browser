@@ -165,18 +165,26 @@ function pasteItems ($dest)
 	$_SESSION['AJAX-B']['SelectLst'] = array();
 	return implode(',', $returnLst);
 }
-function MultiRen ($Files, $mask)
+function MultiRen ($files, $mask)
 {
-	foreach ($Files as $num => $file)
+	$returnLst = array();
+	if (strpos($mask, '#')===false && strpos($mask, '*')===false && count($files)>1)
+		$mask = '# - '.$mask;
+	foreach ($files as $num => $file)
 	{
 		$ext = pathinfo($file, PATHINFO_EXTENSION) ? ".".pathinfo($file, PATHINFO_EXTENSION) : "";
-		$ArraySearch = array("*","~","#");
-		$ArrayReplace = array(basename($file, $ext), basename(dirname($file)), str_pad($num+1, strlen(strval(count($Files))), "0", STR_PAD_LEFT));
-		$TmpStr = str_replace ($ArraySearch, $ArrayReplace, $mask);
+		$ArrayReplace = array(basename($file, $ext), basename(dirname($file)), str_pad($num+1, strlen(strval(count($files))), "0", STR_PAD_LEFT));
+		$TmpStr = str_replace (array("*","~","#"), $ArrayReplace, $mask);
 		$DestFile = dirname ($file)."/".((!strcmp(strrchr($mask,"!"), "!")) ? substr($TmpStr, 0, -1) : ($TmpStr.(pathinfo(dirname($file).$TmpStr, PATHINFO_EXTENSION) ? "" : $ext)));
-		if (rename($file, NewFile($DestFile)) && !in_array(encode64(dirname(decode64($file64)).'/'), $returnLst))
-			$returnLst[] = encode64(dirname(decode64($file64)).'/');
+		if (rename($file, $DestFile))
+		{
+			$spy .= "\t".$file.' » '.basename($DestFile)."\n";
+			if (!in_array(encode64(dirname($file).'/'), $returnLst))
+				$returnLst[] = encode64(dirname($file).'/');
+		}
 	}
+	if ($_SESSION['AJAX-B']['spy']['action'])
+		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » multirename » '.$mask."\n".$spy, "add");
 	return implode(',', $returnLst);
 }
 function UnRealPath ($dest)

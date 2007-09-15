@@ -27,10 +27,14 @@ $intaller = new MakeIntall (
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-	'addons' => '<li>Bug corrections</li>
-<li>Augmentation de la compatibilité Serveur (remerciment a Dkø)</li>
-<li>Amelioration des fonctions rename et MultiRename</li>
-<li>Remaniement du code pour la gestion des langues (j\'en appelle aux bilingues, help me...)</li>',
+	'addons' => '<li>Bug corrections (setting).</li>
+<li>Rename et MultiRename sont maintenant fonctionnels.</li>
+<li>Amelioration du comportement dans les dossiers parent.</li>
+<li>Utilisation des URL relatif et plus des URL absolut ( si ./ == /var/www/browser/ alors /var/ == ./../../)</li>
+<li>Effacement des miniature non utilisées depuis 7jours sur un simple lien.</li>
+<li>Metrise de l\'intervale de chargement des miniatures pour ne pas surcharger les petits serveur.</li>
+<li>Upgrade Popup on admin login.</li>
+<li>URL dans la barre de titre bleu est desormé cliquable par dossier.</li>',
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
 	'excludes'=>array('*~','*.var','* ??.php','* es.php','*.svn/*','*Mini/*','*Spy/*'),
@@ -39,7 +43,7 @@ $intaller = new MakeIntall (
 
 	'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\nidentity : ".$identity);',
 	'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>";
-echo "<b>ALWAYS Use this <a href=\"AJAX-Browser.php\">link</a> for run !</b><br/><br/>";',
+echo "<b>Add the following page to bookmarks, go to <a href=\"AJAX-Browser.php\">AJAX-Browser</a></b><br/><br/>";',
 	'install_onFile'=>'echo "OK => $thisFileName<br/>";',
 	'install_onNoFile'=>'echo "SKIP => $thisFileName<br/>";',
 	'install_onEnd'=>'@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
