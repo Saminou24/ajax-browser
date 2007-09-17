@@ -204,17 +204,12 @@ class SESSION
 			$racine64=encode64($racine);
 			$reload=true;
 		}
-/*		if (strpos(decode64($racine64), "./")===false || strpos(decode64($racine64), "./")>0)
-		{ // si l'URL et est au format d'adresse locale
-			$reload=true;
-			$racine64 = UnRealPath(realpath($racine64));
-		}*/
 		if (is_dir(decode64($_SESSION['AJAX-B']['def_racine'])) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(decode64($racine64), decode64($_SESSION['AJAX-B']['def_racine']))===false)
 		{ // si l'utilisateur remonte l'arborescence alors k'il n'en a pas le droit
 			$reload=true;
 			$racine64 = $_SESSION['AJAX-B']['def_racine'];
 		}
-		if (empty($racine64) || !is_dir(decode64($racine64)) || encode64(decode64($racine64))!=$racine64)
+		if (empty($racine64) || !@is_dir(decode64($racine64)) || encode64(decode64($racine64))!=$racine64)
 		{ // si l'URL n'est pas une URL valide
 			$racine64 = is_dir(decode64($_SESSION['AJAX-B']['def_racine']))?$_SESSION['AJAX-B']['def_racine']:encode64('./');
 			$reload=true;

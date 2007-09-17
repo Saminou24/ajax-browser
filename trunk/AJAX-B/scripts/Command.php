@@ -219,7 +219,7 @@ elseif (isset($supitems) && $_SESSION['AJAX-B']['droits']['DEL'])
 		if (SupItem(decode64($item))) $returnLst[] = $item;
 	echo implode(',', $returnLst);
 	if ($_SESSION['AJAX-B']['spy']['action'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/suppr.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.implode(', ', $returnLst)."\n", "add");
+		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/suppr.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.implode(', ', array_map("decode64", $returnLst))."\n", "add");
 }
 elseif (isset($renitem) && $_SESSION['AJAX-B']['droits']['REN'])
 {
