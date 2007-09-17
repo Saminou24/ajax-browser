@@ -17,7 +17,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.23-Debug._Rename_MultiRename_are_avaible";
+$version="0.9.24-";
 
 $InstallDir = './AJAX-B/';
 
@@ -59,4 +59,5 @@ else
 if (is_file('./MakeInstallClass.php'))
 {?>
 <a class="bottomleft" href="./MakeInstallClass.php?version=<? echo $version;?>">NewSave V<?echo $version;?></a>
+<a class="bottomleft" href="https://www.google.com/analytics/home/?hl=fr">stat google</a>
 <?php } ?>

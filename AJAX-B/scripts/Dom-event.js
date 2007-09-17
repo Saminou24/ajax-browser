@@ -49,7 +49,16 @@ function ManageMouseEvent (event)
 	dragFiles = false;
 	if ((event.button==0 || event.button==1) && event.shiftKey && SelectLst.length>0)
 	{// SHIFT select
-		limitSel = Array(decode64(SelectLst[SelectLst.length-1]), decode64(PtrItem.id)).sort();
+		tmp = Array(decode64(SelectLst[SelectLst.length-1]), decode64(PtrItem.id));
+		if (is_dir(tmp[0]) != is_dir(tmp[1]))
+		{
+			if (is_dir(tmp[0]))
+				limitSel = tmp;
+			else
+				limitSel = Array(tmp[1], tmp[0]);
+		}
+		else
+			limitSel = tmp.sort();
 		limitSel = Array(ID(encode64(limitSel[0])), ID(encode64(limitSel[1])));
 		nextPtr = limitSel[0];
 		while (nextPtr.id != limitSel[1].id)
@@ -59,6 +68,7 @@ function ManageMouseEvent (event)
 				ChangeBG (nextPtr, true);
 				SelectLst.push(nextPtr.id);
 			}
+			if (nextPtr.nextSibling==null || nextPtr.nextSibling.nextSibling==null) break;
 			nextPtr = nextPtr.nextSibling.nextSibling;
 		}
 		if (SelectLst.indexOf(nextPtr.id)==-1)

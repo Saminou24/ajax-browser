@@ -161,6 +161,8 @@ function pasteItems ($dest)
 				$returnLst[] = encode64(dirname(decode64($file64)).'/');
 		}
 	}
+	if ($_SESSION['AJAX-B']['spy']['action'])
+		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/CpMvPaste.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] '.$_SESSION['AJAX-B']['paste_mode'].' » '.implode(', ', array_map("decode64", $_SESSION['AJAX-B']['SelectLst']))."\n", "add");
 	$_SESSION['AJAX-B']['paste_mode'] = '';
 	$_SESSION['AJAX-B']['SelectLst'] = array();
 	return implode(',', $returnLst);
@@ -205,6 +207,6 @@ function UnRealPath ($dest)
 			array_pop($Adest);
 		$result .= '/..';
 	}
-	return str_replace('//', '/', $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(is_dir(realpath($dest))?'/':''));
+	return str_replace('//', '/', $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(@is_dir(realpath($dest))?'/':''));
 }
 ?>

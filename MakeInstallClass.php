@@ -27,17 +27,14 @@ $intaller = new MakeIntall (
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-	'addons' => '<li>Bug corrections (setting).</li>
-<li>Rename et MultiRename sont maintenant fonctionnels.</li>
-<li>Amelioration du comportement dans les dossiers parent.</li>
-<li>Utilisation des URL relatif et plus des URL absolut ( si ./ == /var/www/browser/ alors /var/ == ./../../)</li>
-<li>Effacement des miniature non utilisées depuis 7jours sur un simple lien.</li>
-<li>Metrise de l\'intervale de chargement des miniatures pour ne pas surcharger les petits serveur.</li>
-<li>Upgrade Popup on admin login.</li>
-<li>URL dans la barre de titre bleu est desormé cliquable par dossier.</li>',
+	'addons' => '<li>Bug corrections ().</li>
+<li>Improve Shift Selection</li>
+<li></li>
+<li></li>
+<li></li>',
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
-	'excludes'=>array('*~','*.var','* ??.php','* es.php','*.svn/*','*Mini/*','*Spy/*'),
+	'excludes'=>array('*~','*.var','* es.php','*.svn/*','*Mini/*','*Spy/*'),
 	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
 	'no_replace'=>array('*.var','*.png','*.gif'),
 
