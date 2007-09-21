@@ -1,6 +1,6 @@
 <?php
 /**--------------------------------------------------
- | PHP MAKE INSTALL CLASSES 0.2
+ | PHP MAKE INSTALL CLASSES 0.3
  | By LOPEZ Alban  -  Copyright (c) 2007
  | Email: alban.lopez+make.install.class@gmail.com
  +--------------------------------------------------
@@ -14,11 +14,11 @@
 $intaller = new MakeIntall (
 	array
 	(
-	'projetName'=> 'AJAX-Browser',
 	'version' => $_GET['version'],
+	'projetName'=> 'AJAX-Browser',
 
 	'comment' => '-------------------------------------------------
- | AJAX-Browser  -  by Alban LOPEZ
+ | %name%  -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
  | Email bugs/suggestions to alban.lopez@gmail.com
  +--------------------------------------------------
@@ -29,8 +29,8 @@ $intaller = new MakeIntall (
 
 	'addons' => '<li>Bug corrections ().</li>
 <li>Improve Shift Selection</li>
-<li></li>
-<li></li>
+<li>New install package (signal error and warning ...)</li>
+<li>Manage automatic BlackListing.</li>
 <li></li>',
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
@@ -38,12 +38,39 @@ $intaller = new MakeIntall (
 	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
 	'no_replace'=>array('*.var','*.png','*.gif'),
 
+	'functions_useful'=>array(
+		'rmdir'=>'%this% is not aviable on this serveur, it is not possible to remove empty folder.<br/>',
+		'unlink'=>'%this% is not aviable on this serveur, it is not possible to remove file.<br/>',
+		'copy'=>'%this% is not aviable on this serveur, it is not possible to copy file and folder.<br/>',
+		'rename'=>'%this% is not aviable on this serveur, it is not possible to rename or move file and folder.<br/>',
+		'imagepng'=>'%this% is not aviable on this serveur, it is not possible to view mini picture.<br/>',
+		'filesize'=>'%this% is not aviable on this serveur, it is not possible to know file and folder size.<br/>',
+		'posix_getpwuid'=>'%this% is not aviable on this serveur, it is not possible to know .<br/>',
+		'mime_content_type'=>'%this% is not aviable on this serveur, it is not possible to .<br/>',
+		'filemtime'=>'%this% is not aviable on this serveur, it is not possible to know the last change time.<br/>',
+		'fileperms'=>'%this% is not aviable on this serveur, it is not possible to know file and folder permissions.<br/>',),
+	'functions_required'=>array(
+		'session_start'=>'%this% is not aviable on this serveur, it is not possible to login in session.<br/>',
+		'opendir'=>'%this% is not aviable on this serveur, it is not possible to open and read folder.<br/>',
+		'ereg'=>'%this% is not aviable on this serveur, it is not possible to .<br/>',
+		'md5'=>'%this% is not aviable on this serveur, it is not possible to manage password!<br/>',
+		'mkdir'=>'%this% is not aviable on this serveur, it is not possible to make a folder (and install) !<br/>',
+		'fopen'=>'%this% is not avaible on this serveur, it is not possible to make a folder (and install) !<br/>',
+		'fwrite'=>'%this% is not avaible on this serveur !<br/>'),
+	
 	'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\nidentity : ".$identity);',
-	'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>";
-echo "<b>Add the following page to bookmarks, go to <a href=\"AJAX-Browser.php\">AJAX-Browser</a></b><br/><br/>";',
-	'install_onFile'=>'echo "OK => $thisFileName<br/>";',
-	'install_onNoFile'=>'echo "SKIP => $thisFileName<br/>";',
-	'install_onEnd'=>'@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]);',
+	'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>\n";
+		echo "<b>Add the following page to bookmarks, go to <a href=\"AJAX-Browser.php\">AJAX-Browser</a></b><br/><br/>\n";',
+	'install_onFile'=>'echo "OK => $thisFileName<br/>\n";',
+	'install_onSkipFile'=>'echo "SKIP => $thisFileName<br/>\n";',
+	'install_onSuccessEnd'=>'echo "<H2><b>Install SUCCESSFULL</b></H2>";
+		@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\n\nSUCCESSFULL !\n\n");',
+	'install_onWarningEnd'=>'echo "<H2><b>WARNING !</b></H2>Install warning list :\n";
+		var_export($warning);',
+	'install_onErrorEnd'=>'
+		echo "<H2><b>ERROR !</b></H2>Install errors list :\n";
+		var_export($errors);
+		@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\n\nWARNING !\n\n".var_export($warning,true)."\n\nERROR !\n\n".var_export($errors,true));',
 	)
 );
 echo $intaller->Make();
@@ -64,27 +91,32 @@ if (!function_exists('fnmatch'))
 class MakeIntall
 {
 	var $options = array (
-		'projetName' => 'PHP MAKE INSTALL CLASSES',						// Nom du ou des fichiers resultas (%version% sera remplacé par la version)
+		'projetName' => 'PHP MAKE INSTALL CLASSES',						// Nom du ou des fichiers resultas (%version% sera remplace par la version)
 		'version' => '0.00.01-alpha',											// version, sera la reponce a => http://[...]/projetName.php?version
-		'filesName' => array('%name% V%version%.php','LastVersion.php'),	// Nom du ou des fichiers resultas ( %name% et %version% seront remplacé par leur equivalent)
-		'comment' => 'You can include your comment here !',					// texte brut a inclure au debut du fichier d'install (%version% sera remplacé par la version)
+		'filesName' => array('%name% V%version%.php','LastVersion.php'),	// Nom du ou des fichiers resultas ( %name% et %version% seront remplace par leur equivalent)
+		'comment' => 'You can include your comment here !',					// texte brut a inclure au debut du fichier d'install (%version% sera remplace par la version)
 		'addons' => '<html><body>First test with : %name% V%version%<br/>- Frist<br/>- Second<br/></body></html>',
-																	// html string, sera la reponce a => http://[...]/projetName.php?addons (%version% sera remplacé par la version)
+																	// html string, sera la reponce a => http://[...]/projetName.php?addons (%version% sera remplace par la version)
 		'install_onDownload'=>'',										// Valid PHP code.   Variable disponible : $version, $projetName
 		'install_onStart'=>'',											// Valid PHP code.   Variable disponible : $version, $projetName
-		'install_onFile'=>'',											// Valid PHP code.   Variable disponible : $version, $projetName, $thisFileName, $error
-		'install_onNoFile'=>'',										// Valid PHP code.   Variable disponible : $version, $projetName, $thisFileName
-		'install_onEnd'=>'',											// Valid PHP code.   Variable disponible : $version, $projetName, $errors[]
-		
+		'install_onFile'=>'',											// Valid PHP code.   Variable disponible : $version, $projetName, $thisFileName, $errors[], $warning[]
+		'install_onSkipFile'=>'',										// Valid PHP code.   Variable disponible : $version, $projetName, $thisFileName, $errors[], $warning[]
+		'install_onSuccessEnd'=>'',									// Valid PHP code.   Variable disponible : $version, $projetName, $errors[], $warning[]
+		'install_onWarningEnd'=>'',									// Valid PHP code.   Variable disponible : $version, $projetName, $errors[], $warning[]
+		'install_onErrorEnd'=>'',										// Valid PHP code.   Variable disponible : $version, $projetName, $errors[], $warning[]
+
+		'functions_useful'=>array(),
+		'functions_required'=>array(),
+
 		'hidden'=>true,
 		'mask'=>array('*'),			// Liste des masques a apliquer sur le contenu des dossiers
 		'includes' => array (),		// Liste des fichiers et dossier
 		'excludes' => array (),		// fichier et dossier exclu de l'archive
 		'overwrite' => true,			// ecrase ou pas les fichier de destination si deja existant
 		'recurse' => true,			// parcoure les dossiers de maniere recussive ou non
-		'no_replace'=>array(),		// masque des fichiers qui ne seront pas remplacé lors de la decompréssion.
+		'no_replace'=>array(),		// masque des fichiers qui ne seront pas remplace lors de la decompression.
 		);
-	var $error = array ();				// Liste des erreur rencontrées
+	var $error = array ();				// Liste des erreur rencontrees
 	var $build = array ();
 	var $files_list = array ();
 	
@@ -208,29 +240,64 @@ else
 	$lst64 = '.var_export($this->files_list, true).';
 	$errors = array();
 	'.$this->options['install_onStart'].'
-	foreach ($lst64 as $thisFileName => $data)
+	$useful = '.var_export($this->options['functions_useful'],true).';
+	$required = '.var_export($this->options['functions_required'],true).';
+	foreach ($useful as $funcName => $message)
 	{
-		$error = \'\';
-		if (!file_exists($thisFileName) || toBeReplaced($thisFileName))
-		{
-			$newDir=\'\';
-			if (!is_dir(dirname($thisFileName)))
-			{
-				foreach(explode(\'/\',dirname($thisFileName)) as $dirPart)
-					if (!empty($dirPart) && !is_dir($newDir=$newDir.$dirPart.\'/\')) mkdir($newDir);
-			}
-			if ($handle = fopen($thisFileName, \'w\'))
-			{
-				$error = fwrite($handle, base64_decode($data));
-				fclose($handle);
-			}
-			else $error .= \'Impossible d\\\'ecrire dans \'.$thisFileName;
-			if (!empty($error)) $errors[] = $error;
-			'.$this->options['install_onFile'].'
-		}
-		else '.$this->options['install_onNoFile'].'
+		if (!function_exists($funcName))
+			echo ($warning[] = str_replace(\'%this%\', $funcName, $message));
 	}
-	'.$this->options['install_onEnd'].'
+	foreach ($required as $funcName => $message)
+	{
+		if (!function_exists($funcName))
+			echo ($errors[] = str_replace(\'%this%\', $funcName, $message));
+	}
+	if (empty($errors))
+	{
+		foreach ($lst64 as $thisFileName => $data)
+		{
+			if (!file_exists($thisFileName) || toBeReplaced($thisFileName))
+			{
+				$newDir=\'\';
+				if (!is_dir(dirname($thisFileName)))
+				{
+					foreach(explode(\'/\',dirname($thisFileName)) as $dirPart)
+						if (!empty($dirPart) && !is_dir($newDir=$newDir.$dirPart.\'/\')) mkdir($newDir);
+					if (!is_dir(dirname($thisFileName)))  $errors[] = "impossible de creer le dossier : ".dirname($thisFileName)."<br>\n";
+				}
+				if ($handle = fopen($thisFileName, \'w\'))
+				{
+					if (fwrite($handle, base64_decode($data))!==false)
+					{
+						'.$this->options['install_onFile'].'
+					}
+					else echo ($errors[] = \'Impossible d\\\'ecrire dans \'.$thisFileName."<br>\n");
+					fclose($handle);
+				}
+				else echo ($errors[] = \'Impossible de creer \'.$thisFileName."<br>\n");
+			}
+			else
+			{
+				'.$this->options['install_onSkipFile'].'
+			}
+		}
+	}
+	else
+		echo "<H2><b>Intall Aborted !</b></H2>";
+	echo "<pre>";
+	if (!empty($errors))
+	{
+		if (!empty($warning))
+		{
+			'.$this->options['install_onWarningEnd'].'
+		}
+		'.$this->options['install_onErrorEnd'].'
+	}
+	else
+	{
+		'.$this->options['install_onSuccessEnd'].'
+	}
+	echo "</pre>";
 }
 function toBeReplaced ($url)
 {

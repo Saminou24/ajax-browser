@@ -4,7 +4,7 @@ $ABS = array( // Ajax Browser Sentences
 'language_in_Language' => 'Francais',
 'language_abbreviation' => 'fr',
 'language_translator' => 'solene.chatelain@gmail.com',
-'language_version' => '0.2',
+'language_version' => '0.3',
   'language_src_flag' => 'src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAGzSURBVHjaYiyeepkBBv79+Zfnx/f379+fP38CyT9//jAyMiq5GP77wvDnJ8MfoAIGBoAAYgGqC7STApL///3/9++/pCTv////Qdz/QO4/IMna0vf/z+9/v379//37bUUTQACBNDD8Z/j87fffvyAVX79+/Q8GQDbQeKA9fM+e/Pv18/+vnwzCIkBLAAKQOAY5AIAwCEv4/4PddNUm3ji0QJyxW3rgzE0iLfqDGr2oYuu0l54AYvnz5x9Q6d+/QPQfyAQqAin9B3EOyG1A1UDj//36zfjr1y8GBoAAFI9BDgAwCMIw+P8Ho3GDO6XQ0l4MN8b2kUwYaLszqgKM/KHcDXwBxAJUD3TJ779A8h9Q5D8SAHoARP36+Rfo41+/mcA2AAQQy49ff0Cu//MPpAeI/0FdA1QNYYNVA/3wmwEYVgwMAAHE8uPHH5BqoD1//gJJLADoJKDS378Z//wFhhJAALF8A3rizz8uTmYg788fJkj4QOKREQyYxSWBhjEC/fcXZANAALF8+/anbcHlHz9+ffvx58uPX9KckkCn/gby/wLd8uvHjx96k+cD1UGiGQgAAgwA7q17ZpsMdUQAAAAASUVORK5CYII="',
 
 0 => 'Gestionnaire de fichier via http',
@@ -43,6 +43,7 @@ $ABS = array( // Ajax Browser Sentences
 32 => 'Type',
 33 => 'Date',
 34 => 'Droits',
+35 => ' tentatives, Vous etes blacklisté !',
 
 // fichier ManageSuperGlobales.php
 100 => 'Impossible de créer le fichier "AJAX-Array.var" dans ".AJAX-B" veuillez verifier les droits',
@@ -64,6 +65,7 @@ $ABS = array( // Ajax Browser Sentences
 211 => 'Gestion des comptes Utilisateurs',
 212 => 'Gestion de mon profil Utilisateur',
 213 => 'A Propos de : AJAX-Browser',
+214 =>'Gestion des comptes',
 
 // fichier ExplorerTools.php
 // fichier ArchiveTools.php
@@ -105,6 +107,7 @@ $ABS = array( // Ajax Browser Sentences
 525 => 'Serveur lent ou grosse image, 120 img/min.',
 526 => 'Serveur très lent ou image énorme, 40 img/min.',
 527 => 'Effacer les anciennes miniature.',
+528 => 'BlackListe.',
 
 // fichier Account.php
 601 => 'Modifier ce compte',
@@ -158,6 +161,7 @@ $ABS = array( // Ajax Browser Sentences
 649 => 'Demander d\'autres langue a l\'admin',
 650 => 'Décompresser des éléments',
 651 => 'Sera autorisé à Decompresser les elements ZIP, TAR, GZIP, BZIP2',
+652 => 'Retirer de la BlackListe',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php

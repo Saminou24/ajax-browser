@@ -17,7 +17,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.24-";
+$version="0.9.24-BlackList";
 
 $InstallDir = './AJAX-B/';
 

@@ -4,7 +4,7 @@ $ABS = array( // Ajax Browser Sentences
 'language_in_Language' => 'English',
 'language_abbreviation' => 'en',
 'language_translator' => 'solene.chatelain@gmail.com, francois.felix@gmail.com',
-'language_version' => '0.2',
+'language_version' => '0.3',
 'language_src_flag' => 'src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAflJREFUeNpinDRzn5qN3uFDt16+YWBg+Pv339+KGN0rbVP+//2rW5tf0Hfy/2+mr99+yKpyOl3Ydt8njEWIn8f9zj639NC7j78eP//8739GVUUhNUNuhl8//ysKeZrJ/v7z10Zb2PTQTIY1XZO2Xmfad+f7XgkXxuUrVB6cjPVXef78JyMjA8PFuwyX7gAZj97+T2e9o3d4BWNp84K1NzubTjAB3fH0+fv6N3qP/ir9bW6ozNQCijB8/8zw/TuQ7r4/ndvN5mZgkpPXiis3Pv34+ZPh5t23//79Rwehof/9/NDEgMrOXHvJcrllgpoRN8PFOwy/fzP8+gUlgZI/f/5xcPj/69e/37//AUX+/mXRkN555gsOG2xt/5hZQMwF4r9///75++f3nz8nr75gSms82jfvQnT6zqvXPjC8e/srJQHo9P9fvwNtAHmG4f8zZ6dDc3bIyM2LTNlsbtfM9OPHH3FhtqUz3eXX9H+cOy9ZMB2o6t/Pn0DHMPz/b+2wXGTvPlPGFxdcD+mZyjP8+8MUE6sa7a/xo6Pykn1s4zdzIZ6///8zMGpKM2pKAB0jqy4UE7/msKat6Jw5mafrsxNtWZ6/fjvNLW29qv25pQd///n+5+/fxDDVbcc//P/zx/36m5Ub9zL8+7t66yEROcHK7q5bldMBAgwADcRBCuVLfoEAAAAASUVORK5CYII="',
 
 0 => 'HTTP File Manager',
@@ -43,6 +43,7 @@ $ABS = array( // Ajax Browser Sentences
 32 => 'Type',
 33 => 'Date',
 34 => 'Rights',
+35 => ' tryings, You are Blacklisted !',
 
 // fichier ManageSuperGlobales.php
 100 => 'Cannot create file "AJAX-Array.var" in "AJAX-B", please check access rights',
@@ -64,6 +65,8 @@ $ABS = array( // Ajax Browser Sentences
 211 => 'User Accounts management',
 212 => 'My User Profile management',
 213 => 'A Propos de : AJAX-Browser',
+214 =>'Gestion des comptes',
+652 => 'Remove to BlackListe',
 
 // fichier ExplorerTools.php
 // fichier ArchiveTools.php
@@ -105,6 +108,7 @@ $ABS = array( // Ajax Browser Sentences
 525 => 'Slow serveur or big picture, 120 pics/min.',
 526 => 'Very slow server or huge picture, 40 pics/min.',
 527 => 'Effacer les anciennes miniature.',
+528 => 'BlackListe.',
 
 // fichier Account.php
 601 => 'Change this account',

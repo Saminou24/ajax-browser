@@ -169,7 +169,15 @@ elseif (isset($accounts) && $_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 		editAccount($user, '&accounts=saveuser&user='.$user, 'PopBox(\\\'mode=request&accounts=\\\',\\\'OpenBox(request.responseText);\\\');');
 	elseif ($accounts=='saveuser' && isset($GLOBALS['AJAX-Var']['accounts'][$user]))
 		saveAccount($user);
-	else LstAccount();
+	else
+	{
+		if (!empty($UnBlackListed))
+		{
+			unset($GLOBALS['AJAX-Var']['BlackList'][$UnBlackListed]);
+			WriteInFile ($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+		}
+		LstAccount();
+	}
 }
 elseif (isset($setting) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
@@ -242,9 +250,9 @@ elseif (isset($infos))
 }
 elseif(isset($maj) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
-	list($V1, $V2, $V3) = sscanf($version, '%d.%d.%d-%s');
-	$NewVersion = @file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?version');
-	list($v1, $v2, $v3) = sscanf($NewVersion, '%d.%d.%d-%s');
+	list($V1, $V2, $V3) = sscanf($version, '%d.%d.%d%s');
+	$NewVersion = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?version');
+	list($v1, $v2, $v3) = sscanf($NewVersion, '%d.%d.%d%s');
 	if (!$NewVersion) echo $ABS[403];
 	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
 	{

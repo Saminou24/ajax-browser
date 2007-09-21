@@ -19,7 +19,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 {
 	list($V1, $V2, $V3, $V4) = sscanf($version,'%d.%d.%d%s');
 	$NewVersion = @file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?version');
-	list($v1, $v2, $v3, $V4) = sscanf($NewVersion, '%d.%d.%d%s');
+	list($v1, $v2, $v3, $v4) = sscanf($NewVersion, '%d.%d.%d%s');
 	if (!$NewVersion) echo $ABS[506];
 	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
 		echo '<a href="?mode=request&maj">'.$ABS[508].' : '.$NewVersion.'</a>';
@@ -47,6 +47,8 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	<tr>
 		<td class="border" title=""><?php echo $ABS[512];?><br/><br/>
 			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="spy_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['spy_dir']; ?>"/><br/>
+</td>
+	<tr>
 		</td>
 		<td class="border"><?php echo $ABS[513];?><br/>
 		<input name="ip" id="ip" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['spy']['ip']?'checked':'');?>>
@@ -90,7 +92,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 }
 function saveSetting ()
 {
-	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale,$InstallDir;
+	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale,$InstallDir,$UnBlackListed;
 	$GLOBALS['AJAX-Var'] = array
 	(
 		'admin_email' => decode64($admin_email),

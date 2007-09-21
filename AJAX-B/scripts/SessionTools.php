@@ -187,12 +187,24 @@ class SESSION
 			exit ();
 		}
 		$GLOBALS['AJAX-Var'] = unserialize(file_get_contents($InstallDir.'AJAX-Array.var'));
-		if (isset($code) && isset($login) && $GLOBALS['AJAX-Var']['accounts'][$login]["code"]==crypt($code,$login))
+		if (($a=$GLOBALS['AJAX-Var']['BlackList'][$_SERVER['REMOTE_ADDR']])>10)
+		{
+			echo ($a+1).$ABS[35];
+			$GLOBALS['AJAX-Var']['BlackList'][$_SERVER['REMOTE_ADDR']]++;
+			WriteInFile($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+			exit();
+		}
+		elseif (isset($code) && isset($login) && $GLOBALS['AJAX-Var']['accounts'][$login]["code"]==crypt($code,$login))
 			$SESSION->load();
 		else
 		{
-			if (!empty($login) && $_SESSION['AJAX-B']['spy']['log'])
-					WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/WRONG_Log.spy', $login.($_SESSION['AJAX-B']['spy']['ip']?' » '.$_SERVER['REMOTE_ADDR']:'').' ['.date ("d/m/y H:i:s",time()).'] » '.$_SERVER['HTTP_USER_AGENT']."\n", "add");
+			if (!empty($login))
+			{
+				if ($_SESSION['AJAX-B']['spy']['log'])
+					WriteInFile ($GLOBALS['AJAX-Var']['spy_dir'].'/WRONG_Log.spy', $login.($GLOBALS['AJAX-Var']['spy']['ip']?' » '.$_SERVER['REMOTE_ADDR']:'').' ['.date ("d/m/y H:i:s",time()).'] » '.$_SERVER['HTTP_USER_AGENT']."\n", "add");
+				$GLOBALS['AJAX-Var']['BlackList'][$_SERVER['REMOTE_ADDR']]++;
+				WriteInFile($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+			}
 			$SESSION->request_log();
 		}
 	}
