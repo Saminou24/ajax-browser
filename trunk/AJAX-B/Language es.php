@@ -43,6 +43,7 @@ $ABS = array( // Ajax Browser Sentences
 32 => 'Type',
 33 => 'Date',
 34 => 'Droits',
+35 => '',// ' trying, You are Blacklisted !',
 
 // fichier ManageSuperGlobales.php
 100 => '?',// 'Impossible de créer le fichier "AJAX-Array.var" dans ".AJAX-B" veuillez verifier les droits',
@@ -64,6 +65,7 @@ $ABS = array( // Ajax Browser Sentences
 211 => '?',// 'Gestion des comptes Utilisateurs',
 212 => '?',// 'Gestion de mon profil Utilisateur',
 213 => '?',// 'A Propos de AJAX-Browser',
+214 => '?',// 'Gestion des comptes',
 
 // fichier ExplorerTools.php
 // fichier ArchiveTools.php
@@ -106,6 +108,7 @@ $ABS = array( // Ajax Browser Sentences
 525 => '?',// 'Serveur lent ou grosse image, 120 img/min.',
 526 => '?',// 'Serveur trés lent ou image enorme, 40 img/min.',
 527 => '?',// 'Effacer les anciennes miniature.',
+528 => 'BlackListe.',
 
 // fichier Account.php
 600 => '?',// '',
@@ -160,6 +163,7 @@ $ABS = array( // Ajax Browser Sentences
 649 => '?',// 'Demander d\'autres langue a l\'admin',
 650 => '?',// 'Décompresser des éléments',
 651 => '?',// 'Sera autorisé à Decompresser les elements ZIP, TAR, GZIP, BZIP2',
+652 => '?',// 'Remove to BlackListe',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php

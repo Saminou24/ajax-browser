@@ -79,7 +79,7 @@ function CreatMini( $File, $dir, $Max=100, $Force=false)
 			if ($size[0]>$size[1]) // determine le coef de reduction de la miniature en X, elle dois faire 120px de haut maxi
 				$coef = $size[0]/$Max;
 			else $coef = $size[1]/$Max;
-			if ($coef>1 && function_exists(imagejpeg))
+			if ($coef>1 && function_exists('imagejpeg'))
 			{
 				mkdirs(dirname($FileDest));
 				$dest_l = (int)($size[0]/$coef);
@@ -194,19 +194,16 @@ function UnRealPath ($dest)
 	$Ahere = explode ('/', realpath($_SERVER['PHP_SEFL']));
 	$Adest = explode ('/', realpath($dest));
 	$result = '.'; // le chemin retouné dois forcement commancé par ./   c'est le but
-	while (implode ('/', $Adest) != implode ('/', $Ahere))
+	while (implode ('/', $Adest) != implode ('/', $Ahere))// && count ($Adest)>0 && count($Ahere)>0 )
 	{
-		if (count($Adest)==count($Ahere))
+		if (count($Ahere)>count($Adest))
 		{
-			array_pop($Adest);
 			array_pop($Ahere);
+			$result .= '/..';
 		}
-		else if (count($Ahere)>count($Adest))
-			array_pop($Ahere);
 		else
 			array_pop($Adest);
-		$result .= '/..';
 	}
-	return str_replace('//', '/', $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(@is_dir(realpath($dest))?'/':''));
+	return $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(@is_dir(realpath($dest))?'/':'');
 }
 ?>

@@ -20,6 +20,17 @@ function LstAccount ()
 		}
 		?>
 		<tr>
+			<td>
+		<?php echo $ABS[528]; ?>
+		<SELECT name="UnBlackListed">
+<?php foreach ($GLOBALS['AJAX-Var']['BlackList'] as $ip => $n) echo "			<OPTION value=\"$ip\">".$n." => [".$ip."]</OPTION>";?>
+		</SELECT>
+			</td>
+			<td title="UnblacListed this">
+				<IMG style="vertical-align:middle;text-align:center;" src='<?php echo $InstallDir; ?>icones/type-reload.png' title='<?php echo $ABS[601]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=&UnBlackListed=<?php echo $_SERVER['REMOTE_ADDR'];?>', onEnd:'OpenBox(request.responseText);'});"/>
+			</td>
+		</tr>
+		<tr>
 			<td colspan=2 class="button">
 				<div class="center"  onclick="if (NewUser=prompt('Specifier un nouveau nom d utilisateur :')) {RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=adduser&user='+NewUser, onEnd:'PopBox(\'mode=request&accounts=edituser&user='+NewUser+'\',\'OpenBox(request.responseText);\');'});}"><?php echo $ABS[603]; ?></div>
 			</td>
