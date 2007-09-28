@@ -194,7 +194,7 @@ class SESSION
 			WriteInFile($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
 			exit();
 		}
-		elseif (isset($code) && isset($login) && $GLOBALS['AJAX-Var']['accounts'][$login]["code"]==crypt($code,$login))
+		elseif (isset($login) && $GLOBALS['AJAX-Var']['accounts'][$login]["code"]==crypt($code,$login))
 			$SESSION->load();
 		else
 		{

@@ -47,8 +47,6 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	<tr>
 		<td class="border" title=""><?php echo $ABS[512];?><br/><br/>
 			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="spy_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['spy_dir']; ?>"/><br/>
-</td>
-	<tr>
 		</td>
 		<td class="border"><?php echo $ABS[513];?><br/>
 		<input name="ip" id="ip" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['spy']['ip']?'checked':'');?>>
