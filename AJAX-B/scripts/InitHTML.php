@@ -57,7 +57,7 @@ function FileIco (File)
 	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Dom-drag.js"></script>
 	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Dom-event.js"></script>
 	<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Common.js"></script>
-			<body onload="RequestLoad('<?php echo $racine64?>');promtMAJ();" onkeypress="ManageKeyboardEvent(event);">
+<body onload="RequestLoad('<?php echo $racine64?>');promtMAJ();" onkeypress="ManageKeyboardEvent(event);" oncontextmenu="event.stopPropagation();return false;">
 	<span class="close">
 		<span style='padding:2px;'>
 			<a href="<?php echo str_replace($ChangeMode['current'], $ChangeMode['next'], RebuildURL ())?>"><?php echo $ABS[2].' '.$ChangeMode['change']?></a>
