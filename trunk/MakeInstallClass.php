@@ -30,8 +30,7 @@ $intaller = new MakeIntall (
 	'addons' => '<li>Bug corrections ().</li>
 <li>Improve Shift Selection</li>
 <li>New install package (signal error and warning ...)</li>
-<li>Manage automatic BlackListing.</li>
-<li></li>',
+<li>Manage automatic BlackListing.</li>',
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
 	'excludes'=>array('*~','*.var','* es.php','*.svn/*','*Mini/*','*Spy/*'),

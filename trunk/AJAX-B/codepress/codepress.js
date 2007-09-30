@@ -33,8 +33,6 @@ CodePress = function(obj) {
 		self.style.position = 'static';
 		self.style.visibility = 'visible';
 		self.style.display = 'inline';
-/*		self.setHeight (height)
-		self.setWidth (width)*/
 	}
 	
 	// obj can by a textarea id or a string (code)
@@ -97,11 +95,6 @@ CodePress = function(obj) {
 			self.textarea.style.display = 'none';
 		}
 	}
-	
-self.setHeight = function(height)
-	{ self.style.height = height + 'px'; }
-self.setWidth = function(width)
-	{ self.style.width = width + 'px'; }
 
 	self.edit();
 	return self;
