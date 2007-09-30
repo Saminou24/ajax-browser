@@ -32,7 +32,7 @@ function LstAccount ()
 		</tr>
 		<tr>
 			<td colspan=2 class="button">
-				<div class="center"  onclick="if (NewUser=prompt(ABS[919])) {RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=adduser&user='+NewUser, onEnd:'PopBox(\'mode=request&accounts=edituser&user='+NewUser+'\',\'OpenBox(request.responseText);\');'});}"><?php echo $ABS[603]; ?></div>
+				<div class="center"  onclick="if (NewUser=prompt(ABS919)) {RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=adduser&user='+NewUser, onEnd:'PopBox(\'mode=request&accounts=edituser&user='+NewUser+'\',\'OpenBox(request.responseText);\');'});}"><?php echo $ABS[603]; ?></div>
 			</td>
 		</tr>
 </table>
