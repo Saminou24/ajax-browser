@@ -173,6 +173,7 @@ $ABS = array (
   916 => '$ABS[916]',
   917 => '$ABS[917]',
   918 => '$ABS[918]',
+  919 => '$ABS[919]',
 );
 /*foreach($ABS as $key=>$val)
 	$ABS[$key] = '$ABS['.$key.']';
