@@ -199,4 +199,5 @@ $ABS = array( // Ajax Browser Sentences
 916 => 'exemple si vous entrez',
 917 => 'Etes vous certain de vouloir supprimer définitivement les éléments selectionnés?',
 918 => 'Ajouter un autre fichier',
+919 => 'Specifier un nouveau nom d utilisateur :',
 );?>
