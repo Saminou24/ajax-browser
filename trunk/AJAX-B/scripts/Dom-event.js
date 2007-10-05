@@ -129,17 +129,6 @@ function _view (item64)
 	if (PtrWindow == null) alert (ABS907);
 	PtrWindow.focus();
 }
-function _enter ()
-{
-	SelectLst.forEach(function(element, index, array)
-	{
-		if (is_dir(decode64(element)))
-			RequestLoad(element);
-		else
-			_view (element);
-	});
-	UnSelectAll ();
-}
 function _esc ()
 {
 	UnSelectAll ();
@@ -157,6 +146,31 @@ function _esc ()
 	ID('renOne').style.display = 'none';
 	dragFiles = false;
 	document.onmousemove = null;
+}
+function _enter ()
+{
+	SelectLst.forEach(function(element, index, array)
+	{
+		if (is_dir(decode64(element)))
+			RequestLoad(element);
+		else
+			_view (element);
+	});
+	UnSelectAll ();
+}
+function _uncompress()
+{
+	if (SelectLst.length==1)
+	{
+		highlight ();
+		RQT.get
+		(ServActPage,
+			{
+				parameters:'mode=request&uncompress='+SelectLst[0],
+				onEnd:'if (ID(request.responseText)) RequestLoad(request.responseText,true);',
+			}
+		);
+	}
 }
 function _new ()
 {

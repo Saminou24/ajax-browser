@@ -44,6 +44,7 @@ $ABS = array( // Ajax Browser Sentences
 33 => 'Date',
 34 => 'Droits',
 35 => ' tentatives, Vous etes blacklisté !',
+36 => 'Decompresser ici',
 
 // fichier ManageSuperGlobales.php
 100 => 'Impossible de créer le fichier "AJAX-Array.var" dans ".AJAX-B" veuillez verifier les droits',
@@ -162,6 +163,7 @@ $ABS = array( // Ajax Browser Sentences
 650 => 'Décompresser des éléments',
 651 => 'Sera autorisé à Decompresser les elements ZIP, TAR, GZIP, BZIP2',
 652 => 'Retirer de la BlackListe',
+653 => 'Specifier un nouveau nom d utilisateur :',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php
@@ -199,5 +201,4 @@ $ABS = array( // Ajax Browser Sentences
 916 => 'exemple si vous entrez',
 917 => 'Etes vous certain de vouloir supprimer définitivement les éléments selectionnés?',
 918 => 'Ajouter un autre fichier',
-919 => 'Specifier un nouveau nom d utilisateur :',
 );?>

@@ -20,7 +20,8 @@
 			</ul></span>
 		</div>
 		<div onclick="_upload();ID('Menu').style.display = 'none';"><IMG src="<?php echo $InstallDir; ?>icones/Upload.png"/><span><?php echo $ABS[24];?></span></div>
-		<div onclick="_enter ();ID('Menu').style.display = 'none';"><IMG src="<?php echo $InstallDir; ?>icones/Edit.png"/><span><?php echo $ABS[25];?></span><span class="shortkey">Enter</span></div>
+		<div onclick="_enter();ID('Menu').style.display = 'none';"><IMG src="<?php echo $InstallDir; ?>icones/Edit.png"/><span><?php echo $ABS[25];?></span><span class="shortkey">Enter</span></div>
+		<div onclick="_uncompress();ID('Menu').style.display = 'none';"><IMG src="<?php echo $InstallDir; ?>icones/Edit.png"/><span><?php echo $ABS[36];?></span></div>
 		<div onclick="_properties();ID('Menu').style.display = 'none';"><IMG src="<?php echo $InstallDir; ?>icones/Infos.png"/><span><?php echo $ABS[26];?></span></div>
 	</div>
 </div>

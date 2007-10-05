@@ -33,17 +33,17 @@ function SizeConvert ($Size)
 	while ($Size/pow(1024, $Unit)>1024) $Unit++;
 	return round($Size/pow(1024, $Unit), $Unit).' '.$UnitArray[$Unit];
 }
-function mkdirs($dirName)
+/*function mkdirs($dirName)
 {
 	$newDir='';
 	foreach(explode('/',$dirName) as $dirPart)
 		if (!empty($dirPart) && !is_dir($newDir=$newDir.$dirPart.'/')) if (!mkdir($newDir)) return false;
 	return $newDir;
-}
+}*/
 function WriteInFile ($file, $Txt, $access='add')
-{
+{ // file_put_contents ($file, $Txt)
 	$mode = array( 'add' =>  'a' , 'sup' => 'w');
-	if (!is_dir(dirname($file))) mkdirs(dirname($file));
+	if (!is_dir(dirname($file))) mkdir(dirname($file), 0777, true);
 	if ($handle = fopen($file, $mode[$access]))
 	{
 		$result = fwrite($handle, $Txt);
@@ -81,7 +81,7 @@ function CreatMini( $File, $dir, $Max=100, $Force=false)
 			else $coef = $size[1]/$Max;
 			if ($coef>1 && function_exists('imagejpeg'))
 			{
-				mkdirs(dirname($FileDest));
+				mkdir(dirname($FileDest), 0777, true);
 				$dest_l = (int)($size[0]/$coef);
 				$dest_h = (int)($size[1]/$coef);
 				switch ($size[2])					// avant de travailler sur une image il faut la decompresser
@@ -135,7 +135,7 @@ function CopyItems($Source, $Dest)
 {
 	if (is_dir($Source))
 	{
-		mkdirs($Dest.basename($Source));
+		mkdir($Dest.basename($Source), 0777, true);
 		if (is_array($SubFile = DirSort ($Source)))
 			foreach ($SubFile as $File)
 				CopyItems($Source.$File, $Dest.basename($Source).'/');

@@ -62,7 +62,7 @@ class SESSION
 		global $InstallDir;
 		$this->name=$name;
 		if (!is_dir(session_save_path()))
-			if (!is_dir(mkdirs(str_replace(realpath('./'), '.', session_save_path()))))
+			if (!is_dir(mkdir(str_replace(realpath('./'), '.', session_save_path()), 0700, true)))
 				echo $ABS[100].' ("'.session_save_path().'").<br>';
 		session_start();						// On démarre la session avant toute autre chose
 	}
