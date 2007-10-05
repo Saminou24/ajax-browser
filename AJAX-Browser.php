@@ -17,7 +17,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.24-BlackList";
+$version="0.9.25-Uncompress";
 
 $InstallDir = './AJAX-B/';
 
@@ -33,7 +33,6 @@ $StartPhpScripte = microtime_float();
 
 if (strpos($mode,'request')!==false)
 {
-	require ($InstallDir . 'scripts/ArchiveTools.php');
 	require ($InstallDir . 'scripts/Command.php');
 	exit();
 }

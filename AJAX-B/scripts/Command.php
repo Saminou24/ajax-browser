@@ -87,15 +87,37 @@ elseif (isset($upload))
 {
 	include ($InstallDir.'scripts/ManageUpload.php');
 }
-elseif (isset($uncompess) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
+elseif (isset($uncompress) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 {
-	if (is_file($file=decode64($uncompess)))
+	if (is_file($file=decode64($uncompress)))
 	{
-		echo 'future fonction !';
-/*
-		$ptr = new gzip_file($file);
-		$ptr -> extract_files();
-*/
+		switch(strtolower(pathinfo($file, PATHINFO_EXTENSION)))
+		{
+			case 'zip':
+				include_once($InstallDir . 'scripts/zip.class.php');
+				$zip = new zip;
+				$zip->file = $file;
+				$zip->extract_zip(dirname($file));
+				break;
+			case 'tar':
+			case 'gz':
+			case 'gzip':
+			case 'tgz':
+				include_once ($InstallDir . 'scripts/pear.tar.class.php');
+				$tar = new Archive_Tar($file, true);
+				$tar->extract(dirname($file));
+				break;
+/*			case 'bz':
+			case 'bzip':
+			case 'bz2':
+			case 'bzip2':
+			case 'tbz':
+				include_once ($InstallDir . 'scripts/pear.tar.class.php');
+				$tar = new Archive_Tar($file, "bz2");
+				$tar->extract(dirname($file));
+				break;*/
+		}
+		echo encode64(UnRealPath(dirname($file)));
 	}
 }
 elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
@@ -110,6 +132,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 	}
 	else
 	{
+		include_once ($InstallDir . 'scripts/archive.class.php');
 		ini_set("memory_limit", "512M");
 		switch($type)
 		{
@@ -123,7 +146,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 				$Download = new gzip_file("Downloaded@".$_SERVER['SERVER_NAME'].".tar.gz");
 				break;
 			case 'bzip2':
-				$Download = new bzip_file("Downloaded@".$_SERVER['SERVER_NAME'].".tar.bz");
+				$Download = new bzip_file("Downloaded@".$_SERVER['SERVER_NAME'].".tar.bz2");
 				break;
 		}
 		$Download -> set_options(array('inmemory' => 1, 'prepend' => 'Downloaded@'.$_SERVER['SERVER_NAME']));
@@ -193,7 +216,7 @@ elseif (isset($contact))
 	include ($InstallDir.'scripts/Contact.php');
 elseif (isset($newitem) && $_SESSION['AJAX-B']['droits']['NEW'])
 {
-	if (substr($new=decode64($newitem), -1, 1)=='/') mkdirs($new);
+	if (substr($new=decode64($newitem), -1, 1)=='/') mkdir($new, 0777, true);
 	elseif (!is_file($new)) WriteInFile ($new, "\n",'sup');
 	if ($_SESSION['AJAX-B']['spy']['action'])
 		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/new.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.$new."\n", "add");

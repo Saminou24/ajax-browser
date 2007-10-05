@@ -4,7 +4,7 @@ $ABS = array( // Ajax Browser Sentences
 'language_in_Language' => 'Espanol',
 'language_abbreviation' => 'es',
 'language_translator' => 'none',
-'language_version' => '0.1',
+'language_version' => '0.0.1-empty',
 'language_src_flag' => 'src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFnSURBVHjaYvzPgAD/UNlYEUAAmuTYAAAQhAEYqF/zFbe50RZ1cMmS9TLi0pJLRjZohAMTGFUN9HdnHgEE1sDw//+Tp0ClINW/f0NIKPoFJH/9//ULyGaUlQXaABBALAx/Gf4zAt31F4i+ffj3/cN/XrFfzOx//v///f//LzACM/79ZmD8/e8TA0AAMYHdDVT958vXP38nMDB0s3x94/Tj5y+YahhiAKLfQKUAAcQEdtJfoDHMF2L+vPzDmFXLelf551tGFOOhev4A/QgQQExgHwAd8IdFT/Wz6j+GhlpmXSOW/2z///8Eq/sJ18Dw/zdQA0AAMQExxJjjdy9x2/76EfLz4MXdP/i+wsyGkkA3Aw3984cBIIAYfzIwMKel/bt3jwEaLNAwgZIQxp/fDH/+MqqovL14ESCAWICeZvr9h0FSEhSgwBgAygFDEMT+wwAhgQgc4kAEVAwQQIxfUSMSTxxDAECAAQAJWke8v4u1tAAAAABJRU5ErkJggg=="',
 
 0 => '?',// 'Gestionnaire de fichier via http',
@@ -44,6 +44,7 @@ $ABS = array( // Ajax Browser Sentences
 33 => 'Date',
 34 => 'Droits',
 35 => '',// ' trying, You are Blacklisted !',
+36 => '',
 
 // fichier ManageSuperGlobales.php
 100 => '?',// 'Impossible de créer le fichier "AJAX-Array.var" dans ".AJAX-B" veuillez verifier les droits',
@@ -164,6 +165,7 @@ $ABS = array( // Ajax Browser Sentences
 650 => '?',// 'Décompresser des éléments',
 651 => '?',// 'Sera autorisé à Decompresser les elements ZIP, TAR, GZIP, BZIP2',
 652 => '?',// 'Remove to BlackListe',
+653 => '?',// 'Setup new username :',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php
@@ -201,6 +203,5 @@ $ABS = array( // Ajax Browser Sentences
 916 => '?',
 917 => '?',
 918 => '?',
-919 => '?',
 );
 ?>

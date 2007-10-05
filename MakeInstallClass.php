@@ -27,10 +27,10 @@ $intaller = new MakeIntall (
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-	'addons' => '<li>Bug corrections ().</li>
-<li>Improve Shift Selection</li>
-<li>New install package (signal error and warning ...)</li>
-<li>Manage automatic BlackListing.</li>',
+	'addons' => '<li>Bug corrections (Make new account).</li>
+<li>Uncompress files on serveur (avaible of : *.zip, *.tar *.gzip *.tar.gz *.tgz) if this option are enable for accounts</li>
+<li>New language : German (thanks, atlan_d)</li>
+<li></li>',
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
 	'excludes'=>array('*~','*.var','* es.php','*.svn/*','*Mini/*','*Spy/*'),
@@ -40,22 +40,23 @@ $intaller = new MakeIntall (
 	'functions_useful'=>array(
 		'rmdir'=>'%this% is not aviable on this serveur, it is not possible to remove empty folder.<br/>',
 		'unlink'=>'%this% is not aviable on this serveur, it is not possible to remove file.<br/>',
+		'zip_open'=>'%this% is not aviable on this serveur, it is not possible to extract *.zip file.<br/>',
 		'copy'=>'%this% is not aviable on this serveur, it is not possible to copy file and folder.<br/>',
 		'rename'=>'%this% is not aviable on this serveur, it is not possible to rename or move file and folder.<br/>',
 		'imagepng'=>'%this% is not aviable on this serveur, it is not possible to view mini picture.<br/>',
 		'filesize'=>'%this% is not aviable on this serveur, it is not possible to know file and folder size.<br/>',
-		'posix_getpwuid'=>'%this% is not aviable on this serveur, it is not possible to know .<br/>',
-		'mime_content_type'=>'%this% is not aviable on this serveur, it is not possible to .<br/>',
+		'posix_getpwuid'=>'%this% is not aviable on this serveur, it is not possible to know owner and group.<br/>',
+		'mime_content_type'=>'%this% is not aviable on this serveur, it is not possible to know real file type.<br/>',
 		'filemtime'=>'%this% is not aviable on this serveur, it is not possible to know the last change time.<br/>',
 		'fileperms'=>'%this% is not aviable on this serveur, it is not possible to know file and folder permissions.<br/>',),
 	'functions_required'=>array(
 		'session_start'=>'%this% is not aviable on this serveur, it is not possible to login in session.<br/>',
 		'opendir'=>'%this% is not aviable on this serveur, it is not possible to open and read folder.<br/>',
-		'ereg'=>'%this% is not aviable on this serveur, it is not possible to .<br/>',
+		'ereg'=>'%this% is not aviable on this serveur, it is not possible to install !<br/>',
 		'md5'=>'%this% is not aviable on this serveur, it is not possible to manage password!<br/>',
 		'mkdir'=>'%this% is not aviable on this serveur, it is not possible to make a folder (and install) !<br/>',
 		'fopen'=>'%this% is not avaible on this serveur, it is not possible to make a folder (and install) !<br/>',
-		'fwrite'=>'%this% is not avaible on this serveur !<br/>'),
+		'fwrite'=>'%this% is not avaible on this serveur, it is not possible to install !<br/>'),
 	
 	'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\nidentity : ".$identity);',
 	'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>\n";
