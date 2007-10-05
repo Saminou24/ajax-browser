@@ -28,7 +28,7 @@ $intaller = new MakeIntall (
  +--------------------------------------------------',
 
 	'addons' => '<li>Bug corrections (Make new account).</li>
-<li>Uncompress files on serveur (avaible of : *.zip, *.tar *.gzip *.tar.gz *.tgz) if this option are enable for accounts</li>
+<li>Uncompress files on serveur (avaible for : *.zip, *.tar *.gzip *.tar.gz *.tgz) if this option are enable for accounts</li>
 <li>New language : German (thanks, atlan_d)</li>
 <li></li>',
 
