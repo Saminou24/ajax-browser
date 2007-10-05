@@ -44,6 +44,7 @@ $ABS = array( // Ajax Browser Sentences
 33 => 'Datum',
 34 => 'Rechte',
 35 => ' versuche, Sie sind auf der Blackliste !',
+36 => '?', // 'Uncompress here',
 
 // fichier ManageSuperGlobales.php
 100 => 'Unmoeglich die Datei "AJAX-Array.var" in ".AJAX-B" zu schreiben, ueberpruefen sie bitte die Rechte',
@@ -75,7 +76,6 @@ $ABS = array( // Ajax Browser Sentences
 301 => 'AJAX-Browser offizielle Homepage',
 
 // fichier Command.php
-401 => ' Ist mit default settings gestartet.',
 402 => 'Keine neue Version!',
 403 => 'Mirror nicht erreichbar !',
 
@@ -111,7 +111,6 @@ $ABS = array( // Ajax Browser Sentences
 528 => 'BlackListe.',
 
 // fichier Account.php
-600 => '', // 'Change this account',
 601 => 'Diesen Zugang aendern',
 602 => 'Diese Zugang entfernen',
 603 => 'Nutzer hinzufuegen',
@@ -164,6 +163,7 @@ $ABS = array( // Ajax Browser Sentences
 650 => 'Datein dekomprimieren',
 651 => 'ZIP, TAR, GZIP, BZIP2 Dekompression erlauben',
 652 => 'Von der BlackListe streichen',
+653 => '?', // 'Specifier un nouveau nom d utilisateur :',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php
@@ -201,5 +201,4 @@ $ABS = array( // Ajax Browser Sentences
 916 => '?', // 'example: ',
 917 => '?', // 'Do you really want to permanently delete the selected items?',
 918 => '?', // 'Add another file',
-);
-?>
+);?>
