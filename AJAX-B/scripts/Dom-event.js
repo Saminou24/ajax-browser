@@ -1,4 +1,4 @@
-var SelectLst = Array()
+var SelectLst = new Array();
 var PtrItem, dragFiles, Dest;
 function ManageAllEvent(event)
 {
@@ -20,7 +20,9 @@ function ManageAllEvent(event)
 				ptrm.style.display = 'block';
 			}
 			else
-				return ManageMouseEvent (event);
+                        {
+				return new ManageMouseEvent (event);
+                        }
 		}
 		else if (event.type=='mousedown')// && (SelectLst.length==0 || dragFiles==PtrItem))
 		{
@@ -37,28 +39,37 @@ function ManageAllEvent(event)
 				{
 					ptrSel.style.top = event.pageY+2;
 					ptrSel.style.left = event.pageX+2;
-				}
+				};
 			}
 		}
 	}
-	else return false;
+	else 
+        {
+            return false;
+        }
 }
 function ManageMouseEvent (event)
 {
 	event.stopPropagation();
 	dragFiles = false;
-	if ((event.button==0 || event.button==1) && event.shiftKey && SelectLst.length>0)
+	if ((event.button===0 || event.button==1) && event.shiftKey && SelectLst.length>0)
 	{// SHIFT select
-		tmp = Array(decode64(SelectLst[SelectLst.length-1]), decode64(PtrItem.id));
+		tmp = new Array(decode64(SelectLst[SelectLst.length-1]), decode64(PtrItem.id));
 		if (is_dir(tmp[0]) != is_dir(tmp[1]))
 		{
 			if (is_dir(tmp[0]))
+                        {
 				limitSel = tmp;
+                        }
 			else
-				limitSel = Array(tmp[1], tmp[0]);
+                        {
+				limitSel = new Array(tmp[1], tmp[0]);
+                        }
 		}
 		else
+                {
 			limitSel = tmp.sort();
+                }
 		limitSel = Array(ID(encode64(limitSel[0])), ID(encode64(limitSel[1])));
 		nextPtr = limitSel[0];
 		while (nextPtr.id != limitSel[1].id)
@@ -68,7 +79,7 @@ function ManageMouseEvent (event)
 				ChangeBG (nextPtr, true);
 				SelectLst.push(nextPtr.id);
 			}
-			if (nextPtr.nextSibling==null || nextPtr.nextSibling.nextSibling==null) break;
+			if (nextPtr.nextSibling===null || nextPtr.nextSibling.nextSibling===null) { break;}
 			nextPtr = nextPtr.nextSibling.nextSibling;
 		}
 		if (SelectLst.indexOf(nextPtr.id)==-1)
@@ -77,7 +88,7 @@ function ManageMouseEvent (event)
 			SelectLst.push(nextPtr.id);
 		}
 	}
-	else if ((event.button==0 || event.button==1) && event.ctrlKey)
+	else if ((event.button===0 || event.button==1) && event.ctrlKey)
 	{// Add by CTRL select
 		if (SelectLst.indexOf(PtrItem.id)!=-1)
 		{
@@ -90,43 +101,43 @@ function ManageMouseEvent (event)
 			SelectLst.push(PtrItem.id);
 		}
 	}
-	else if (event.button==0 || event.button==1)
+	else if (event.button===0 || event.button==1)
 	{// InitSel
 		UnSelectAll ();
 		ChangeBG (PtrItem, true);
 		SelectLst.push(PtrItem.id);
 	}
 	else if (event.button==2) // Menu click droit
-		return _rightClick (event);
+		{ return _rightClick (event);}
 	return false;
 }
 function ManageKeyboardEvent (event)
 {
 	event.stopPropagation();
 	if (event.keyCode==13 && ID('renOne').style.display=='block') // ENTER
-		_sendRen ();
+		{_sendRen ();}
 	else if (event.keyCode==13) // ENTER
-		_enter ();
+		{_enter ();}
 	else if (event.keyCode==27) // ESC
-		_esc ();
+		{_esc ();}
 	else if (event.keyCode==113 && event.shiftKey) // MULTI_RENOMER
-		_multiRename ();
+		{_multiRename ();}
 	else if (event.keyCode==113) // RENOMER
-		_rename ();
+		{_rename ();}
 	else if ((event.charCode==120 || event.charCode==24) && event.ctrlKey) // COUPER
-		_cut ();
+		{_cut ();}
 	else if ((event.charCode==99 || event.charCode==3) && event.ctrlKey) // COPIER
-		_copy();
+		{_copy();}
 	else if ((event.charCode==118 || event.charCode==22) && event.ctrlKey) // COLLER
-		_paste();
-	else if ((event.keyCode==46 || event.keyCode==127) && event.charCode==0) // SUPPRIMER
-		_remove ();
+		{_paste();}
+	else if ((event.keyCode==46 || event.keyCode==127) && event.charCode===0) // SUPPRIMER
+		{_remove ();}
 	return false;
 }
 function _view (item64)
 {
 	PtrWindow = window.open(ServActPage+"?mode=request&view="+item64, "view_"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
-	if (PtrWindow == null) alert (ABS907);
+	if (PtrWindow === null) {alert (ABS907);}
 	PtrWindow.focus();
 }
 function _esc ()
@@ -136,7 +147,7 @@ function _esc ()
 	(ServActPage,
 		{
 			parameters:'mode=request&noitems=',
-			onEnd:false,
+			onEnd:false
 		}
 	);
 	ID('Menu').style.display = 'none';
@@ -152,9 +163,9 @@ function _enter ()
 	SelectLst.forEach(function(element, index, array)
 	{
 		if (is_dir(decode64(element)))
-			RequestLoad(element);
+			{RequestLoad(element);}
 		else
-			_view (element);
+			{_view (element);}
 	});
 	UnSelectAll ();
 }
@@ -167,7 +178,7 @@ function _uncompress()
 		(ServActPage,
 			{
 				parameters:'mode=request&uncompress='+SelectLst[0],
-				onEnd:'if (ID(request.responseText)) RequestLoad(request.responseText,true);',
+				onEnd:'if (ID(request.responseText)) RequestLoad(request.responseText,true);'
 			}
 		);
 	}
@@ -180,18 +191,18 @@ function _new ()
 	(ServActPage,
 		{
 			parameters:'mode=request&newitem='+encode64( dest + newitem),
-			onEnd:'if (ID(dest)) RequestLoad("'+encode64(dest)+'",true);',
+			onEnd:'if (ID(dest)) RequestLoad("'+encode64(dest)+'",true);'
 		}
 	);
 }
 function _multiRename ()
 {
-	mask = prompt (ABS910+"\n"+ABS911+" :\n*	=> "+ABS912+"\n~	=> "+ABS913+"\n#	=> "+ABS914+"\n!	=> "+ABS915+"\n"+ABS916+" : ~ - * (#)!\n./MyDir/MyFile.EXT >> ./MyDir/MyDir - MyFile (1)","~ - *.tmp")
+	mask = prompt (ABS910+"\n"+ABS911+" :\n*	=> "+ABS912+"\n~	=> "+ABS913+"\n#	=> "+ABS914+"\n!	=> "+ABS915+"\n"+ABS916+" : ~ - * (#)!\n./MyDir/MyFile.EXT >> ./MyDir/MyDir - MyFile (1)","~ - *.tmp");
 	RQT.get
 	(ServActPage,
 		{
 			parameters:'mode=request&mask='+encode64(mask)+'&renitems='+SelectLst.join(','),
-			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});',
+			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
 		}
 	);
 }
@@ -208,7 +219,7 @@ function _rename ()
 		ptrRen.value = basename(decode64(SelectLst[0]));
 		ptrRen.focus();
 	}
-	else if (SelectLst.length>1) _multiRename ();
+	else if (SelectLst.length>1) {_multiRename ();}
 	dragFiles = false;
 }
 function _sendRen()
@@ -218,7 +229,7 @@ function _sendRen()
 	(ServActPage,
 		{
 			parameters:'mode=request&renitem='+ptrRen.defaultValue+'&mask='+encode64(ptrRen.value),
-			onEnd:'ID("renOne").style.display = "none";UnSelectAll();RequestLoad(request.responseText,true);',
+			onEnd:'ID("renOne").style.display = "none";UnSelectAll();RequestLoad(request.responseText,true);'
 		}
 	);
 }
@@ -231,7 +242,7 @@ function _copy ()
 		(ServActPage,
 			{
 				parameters:'mode=request&copyitems='+SelectLst.join(','),
-				onEnd:false,
+				onEnd:false
 			}
 		);
 	}
@@ -245,7 +256,7 @@ function _cut ()
 		(ServActPage,
 			{
 				parameters:'mode=request&moveitems='+SelectLst.join(','),
-				onEnd:false,
+				onEnd:false
 			}
 		);
 	}
@@ -259,7 +270,7 @@ function _copy_paste ()
 		(ServActPage,
 			{
 				parameters:'mode=request&dest='+dirDest(PtrItem.id)+'&copyitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});',
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
 			}
 		);
 	}
@@ -273,7 +284,7 @@ function _cut_paste ()
 		(ServActPage,
 			{
 				parameters:'mode=request&dest='+dirDest(PtrItem.id)+'&moveitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});',
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
 			}
 		);
 	}
@@ -284,7 +295,7 @@ function _paste()
 	(ServActPage,
 		{
 			parameters:'mode=request&pastedest='+getDest(),
-			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});',
+			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
 		}
 	);
 }
@@ -299,7 +310,7 @@ function _remove ()
 		(ServActPage,
 			{
 				parameters:'mode=request&supitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){ID(element).style.display="none"});',
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){ID(element).style.display="none"});'
 			}
 		);
 	}
@@ -321,14 +332,14 @@ function _rightClick (event)
 		SelectLst.push(ThisItem);
 		ChangeBG (PtrItem, true);
 	}
-	ObjInnerView (ptr)
+	ObjInnerView (ptr);
 	return false;
 }
 function UnSelectAll ()
 {
 	dragFiles = false;
 	SelectLst.forEach(function(element, index, array){if (ID(element))ChangeBG(ID(element), false)})
-	SelectLst = Array();
+	SelectLst = new Array();
 }
 function _properties()
 {

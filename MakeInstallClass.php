@@ -27,9 +27,8 @@ $intaller = new MakeIntall (
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-	'addons' => '<li>Bug corrections (Make new account).</li>
-<li>Uncompress files on serveur (avaible for : *.zip, *.tar *.gzip *.tar.gz *.tgz) if this option are enable for accounts</li>
-<li>New language : German (thanks, atlan_d)</li>
+	'addons' => '<li>Debug (Setting dir "/" problem, promtMAJ() error ! [...])</li>
+<li>Replace Archves class by my class</li>
 <li></li>',
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),

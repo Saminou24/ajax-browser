@@ -15,6 +15,14 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo $InstallDir; ?>scripts/Init.css"/>
 <script type="text/javascript">
 <?php
+echo "InstallDir=\"".$InstallDir."\";\n\n";
+for ($i=900;$i<1000;$i++)
+	if (isset($ABS[$i])) echo "ABS$i=\"".$ABS[$i]."\";\n";
+if (isset($ABS[29])) echo "ABS29=\"".$ABS[29]."\";\n";
+?>
+function promtMAJ()
+{
+<?php
 if (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
 	list($V1, $V2, $V3, $V4) = sscanf($version,'%d.%d.%d%s');
@@ -22,17 +30,13 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits'][
 	list($v1, $v2, $v3, $v4) = sscanf($NewVersion, '%d.%d.%d%s');
 	if ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
 	{
-		echo "function promtMAJ(){\n";
 		echo "ID('DragZone').childNodes[1].innerHTML='Upgrade';\n";
 		echo "ID('Box').style.display = 'block';\n";
-		echo "OpenBox ('<br/><a href=\"?mode=request&maj\">".$ABS[508].' : '.$NewVersion."</a><br/>');\n}\n";
+		echo "OpenBox ('<br/><a href=\"?mode=request&maj\">".$ABS[508].' : '.$NewVersion."</a>".@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?addons')."<br/>');";
 	}
 }
-echo 'InstallDir="'.$InstallDir."\";\n\n";
-for ($i=900;$i<1000;$i++)
-	if (isset($ABS[$i])) echo "ABS$i=\"".$ABS[$i]."\";\n";
-if (isset($ABS[29])) echo "ABS29=\"".$ABS[29]."\";\n\n";
 ?>
+}
 function FileIco (File)
 {
 	if (is_dir(File)) return "folder.";
@@ -103,7 +107,7 @@ function FileIco (File)
  	?>
 	</td>
 	<td style='text-align: right;'>
-		<IMG onclick="document.location=GET_add('login=anonymous');" src="<?php echo $InstallDir; ?>icones/LinkAdd.png" title="<?php echo $ABS[209];?>"/>
+<!-- 		<IMG onclick="document.location=GET_add('login=anonymous');" src="< ?php echo $InstallDir; ?>icones/LinkAdd.png" title="< ?php echo $ABS[209];?>"/> -->
 <?php
 if ($_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {?>

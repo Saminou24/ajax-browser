@@ -191,7 +191,7 @@ function saveAccount($UserName)
 		'usr_email' => decode64($usr_email),
 		'language_file' => decode64($LANG),
 		'def_mode' => $def_mode,
-		'def_racine' => $def_racine,
+		'def_racine' => UnRealPath($def_racine),
 		'mini_size' => eval('return '.$mini_size.';'),
 		'last' => $GLOBALS['AJAX-Var']["accounts"][$UserName]['last'],
 		'IP_count' => $GLOBALS['AJAX-Var']["accounts"][$UserName]['IP_count'],

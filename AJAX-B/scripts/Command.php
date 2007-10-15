@@ -41,6 +41,13 @@ elseif(isset($miniof))
 		echo CreatMini($file,$_SESSION['AJAX-B']['mini_dir'], $_SESSION['AJAX-B']['mini_size']);
 	exit();
 }
+elseif(isset($session))
+{
+	echo '<pre>';
+	var_export($_SESSION['AJAX-B']);
+	echo '</pre>';
+	exit();
+}
 elseif(isset($erasemini))
 {
 	$miniLst = DirSort ($folder=$_SESSION['AJAX-B']['mini_dir'], array('*@*.png'), $folder);
@@ -91,32 +98,6 @@ elseif (isset($uncompress) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 {
 	if (is_file($file=decode64($uncompress)))
 	{
-		switch(strtolower(pathinfo($file, PATHINFO_EXTENSION)))
-		{
-			case 'zip':
-				include_once($InstallDir . 'scripts/zip.class.php');
-				$zip = new zip;
-				$zip->file = $file;
-				$zip->extract_zip(dirname($file));
-				break;
-			case 'tar':
-			case 'gz':
-			case 'gzip':
-			case 'tgz':
-				include_once ($InstallDir . 'scripts/pear.tar.class.php');
-				$tar = new Archive_Tar($file, true);
-				$tar->extract(dirname($file));
-				break;
-/*			case 'bz':
-			case 'bzip':
-			case 'bz2':
-			case 'bzip2':
-			case 'tbz':
-				include_once ($InstallDir . 'scripts/pear.tar.class.php');
-				$tar = new Archive_Tar($file, "bz2");
-				$tar->extract(dirname($file));
-				break;*/
-		}
 		echo encode64(UnRealPath(dirname($file)));
 	}
 }
@@ -132,38 +113,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 	}
 	else
 	{
-		include_once ($InstallDir . 'scripts/archive.class.php');
-		ini_set("memory_limit", "512M");
-		switch($type)
-		{
-			case 'zip':
-				$Download = new zip_file("Downloaded@".$_SERVER['SERVER_NAME'].".zip");
-				break;
-			case 'tar':
-				$Download = new tar_file("Downloaded@".$_SERVER['SERVER_NAME'].".tar");
-				break;
-			case 'gzip':
-				$Download = new gzip_file("Downloaded@".$_SERVER['SERVER_NAME'].".tar.gz");
-				break;
-			case 'bzip2':
-				$Download = new bzip_file("Downloaded@".$_SERVER['SERVER_NAME'].".tar.bz2");
-				break;
-		}
-		$Download -> set_options(array('inmemory' => 1, 'prepend' => 'Downloaded@'.$_SERVER['SERVER_NAME']));
-		$Download -> add_files(array_map('decode64', explode(',', $download)));
-		$Download -> create_archive();
-		if (count($Download->errors) == 0)
-		{
-			$Download -> download_file();
-			if ($_SESSION['AJAX-B']['spy']['action'])
-				WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/donwload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] '.$type.' » '.implode(', ',array_map('decode64', explode(',', $download))).' ('.SizeConvert(strlen($Download->archive)).")\n", "add");
-		}
-		else
-		{
-			echo "<html><body><pre>";
-			print_r ($Download->errors);
-			echo "</pre></body></html>";
-		}
+
 	}
 	exit();
 }
