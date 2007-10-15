@@ -13,7 +13,7 @@ function RequestLoad(dir64, force)
 		(ServActPage, // on joint la page en cour
 			{
 				parameters:'mode=request&sublstof='+dir64, // devrais coserver les autre parametre...
-				onEnd:'OpenDir("'+dir64+'", request.responseText.split("\\n"))', // alert(request.responseText);
+				onEnd:'OpenDir("'+dir64+'", request.responseText.split("\\n"))' // alert(request.responseText);
 			}
 		);
 	}

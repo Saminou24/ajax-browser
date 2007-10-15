@@ -50,6 +50,7 @@ $ABS = array( // Ajax Browser Sentences
 100 => 'Cannot create file "AJAX-Array.var" in "AJAX-B", please check access rights',
 101 => 'Setting file not found',
 102 => 'Please create an admin account:',
+103 => '?', // Probleme de configuration des session dans PHP.ini, verifier que : session.use_cookies=1',
 
 // fichier InitHTML.php
 200 => 'Website powered by AJAX-Browser application',

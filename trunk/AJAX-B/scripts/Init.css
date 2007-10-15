@@ -37,7 +37,6 @@ body,table {font-size:10px;font-family:sans-serif;}
 #danger {position:absolute;width:400px; background-color:rgb(220,230,255);padding:2px 10px; -moz-border-radius:8px;border:1px solid gray;
 color:red;text-align:justify;font-weight:bold;font-style:italic;}
 
-.close {cursor:pointer;}
 #Box, #Menu {position:absolute;display:none;z-index:10;background:#fbfaf9;border:outset 1px gray;padding:1px;max-width:600px;}
 #BoxContent {max-height:400px;margin-top:2px;overflow:auto;}
 

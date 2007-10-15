@@ -98,9 +98,9 @@ function saveSetting ()
 		'restrict_mask' => explode(',', decode64($restrict_mask)),
 		'always_mask' => explode(',', decode64($always_mask)),
 		'codepress_mask' => explode(',', decode64($codepress_mask)),
-		'mini_dir' => decode64($mini_dir),
+		'mini_dir' => UnRealPath(decode64($mini_dir)),
 		'mini_intervale' => eval('return '.$mini_intervale.';'),
-		'spy_dir' => decode64($spy_dir),
+		'spy_dir' => UnRealPath(decode64($spy_dir)),
 		'spy' => array (
 			'ip' => eval('return '.$ip.';'),
 			'log' => eval('return '.$log.';'),

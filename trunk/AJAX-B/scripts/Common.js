@@ -25,7 +25,7 @@ RQT=
 		var request;
 
 		if(window.XMLHttpRequest)
-			request = new XMLHttpRequest();
+			{ request = new XMLHttpRequest();}
 		else
 		{
 			alert('Votre navigateur n\'est pas supporte');
@@ -54,7 +54,7 @@ RQT=
 		};
 		request.send(method=='post' ? parameters : null);
 	}
-}
+};
 function CP_Send(id)
 {
 	RQT.get
@@ -82,7 +82,7 @@ function PopBox(param, end)
 }
 function OpenBox (str)
 {
-	if (str!='')
+	if (str!=='')
 	{
 		ptrBC = ID('BoxContent');
 		ptrBC.innerHTML = str;
@@ -217,7 +217,7 @@ function highlight ()
 			if ((ptr = ID(element)))
 				ChangeBG(ptr, false).style.backgroundColor="rgb(230,150,150)";
 		}
-	)
+	);
 	window.setTimeout("SelectLst.forEach (function(element, index, array){if ((ptr = ID(element))) ChangeBG(ptr, true);})", 150);
 }
 // ============    pour les besoin JS V1.6 sur les naviguateur JS V1.5     =============

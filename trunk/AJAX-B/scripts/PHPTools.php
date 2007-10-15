@@ -41,16 +41,10 @@ function SizeConvert ($Size)
 	return $newDir;
 }*/
 function WriteInFile ($file, $Txt, $access='add')
-{ // file_put_contents ($file, $Txt)
-	$mode = array( 'add' =>  'a' , 'sup' => 'w');
+{ // file_put_contents ($file, $Txt, true='add')
+	$mode = array( 'add' =>  FILE_APPEND , 'sup' => null);
 	if (!is_dir(dirname($file))) mkdir(dirname($file), 0777, true);
-	if ($handle = fopen($file, $mode[$access]))
-	{
-		$result = fwrite($handle, $Txt);
-		fclose($handle);
-		return $result;
-	}
-	return false;
+	return file_put_contents ($file, $Txt, $mode[$access]);
 }
 function microtime_float()
 {
@@ -204,6 +198,6 @@ function UnRealPath ($dest)
 		else
 			array_pop($Adest);
 	}
-	return $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(@is_dir(realpath($dest))?'/':'');
+	return $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(is_file(realpath($dest))?'':'/');
 }
 ?>

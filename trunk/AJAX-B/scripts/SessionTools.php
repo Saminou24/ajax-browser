@@ -64,7 +64,13 @@ class SESSION
 		if (!is_dir(session_save_path()))
 			if (!is_dir(mkdir(str_replace(realpath('./'), '.', session_save_path()), 0700, true)))
 				echo $ABS[100].' ("'.session_save_path().'").<br>';
+ 		//session.use_cookies=1;
+		ini_set('session.use_cookies', '1');
+		session_cache_limiter ('public' );
+		session_cache_expire (30);			// Configure le délai d'expiration à 30 minutes
 		session_start();						// On démarre la session avant toute autre chose
+		if (empty($_SESSION['AJAX-B']))
+			echo $ABS[103];
 	}
 	function request_log()
 	{
@@ -216,24 +222,28 @@ class SESSION
 			$racine64=encode64($racine);
 			$reload=true;
 		}
-		if (is_dir(decode64($_SESSION['AJAX-B']['def_racine'])) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(decode64($racine64), decode64($_SESSION['AJAX-B']['def_racine']))===false)
-		{ // si l'utilisateur remonte l'arborescence alors k'il n'en a pas le droit
-			$reload=true;
+
+		if (!empty($_SESSION['AJAX-B']['def_racine']) && !is_dir(decode64($_SESSION['AJAX-B']['def_racine'])))
+			mkdir (decode64($_SESSION['AJAX-B']['def_racine']), 0777, true);
+
+		if (!empty($_SESSION['AJAX-B']['def_racine']) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(realpath(decode64($racine64)), realpath(decode64($_SESSION['AJAX-B']['def_racine'])))===false)
+		{ // si l'utilisateur remonte l'arborescence alors qu'il n'en a pas le droit
 			$racine64 = $_SESSION['AJAX-B']['def_racine'];
+			$reload=true;
 		}
 		if (empty($racine64) || !@is_dir(decode64($racine64)) || encode64(decode64($racine64))!=$racine64)
 		{ // si l'URL n'est pas une URL valide
-			$racine64 = is_dir(decode64($_SESSION['AJAX-B']['def_racine']))?$_SESSION['AJAX-B']['def_racine']:encode64('./');
+			$racine64 = empty($_SESSION['AJAX-B']['def_racine'])?encode64('./'):$_SESSION['AJAX-B']['def_racine'];
 			$reload=true;
 		}
-		if (!substr(decode64($racine64), -1, 1)=='/')
+		if (substr(decode64($racine64), -1, 1)!='/')
 		{ // si l'URL ne se termine pas par un /
 			$racine64 = encode64(decode64($racine64).'/');
 			$reload=true;
 		}
 		if (empty($mode))
 		{
-			$mode=!empty($_SESSION['AJAX-B']['def_mode'])?$_SESSION['AJAX-B']['def_mode']:'arborescence';
+			$mode = empty($_SESSION['AJAX-B']['def_mode'])?'arborescence':$_SESSION['AJAX-B']['def_mode'];
 			$reload=true;
 		}
 		if (($reload==true || isset($code)))

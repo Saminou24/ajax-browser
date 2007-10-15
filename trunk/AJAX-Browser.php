@@ -17,9 +17,9 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.25-Uncompress";
+$version="0.9.26-Improve_Archves_method";
 
-$InstallDir = './AJAX-B/';
+$InstallDir = './AJAX-B/'; // define("INSTALL_DIR", "./AJAX-B/");
 
 require ($InstallDir . 'scripts/PHPTools.php');		// always loaded
 require ($InstallDir . 'scripts/ExploreTools.php');	// always loaded
