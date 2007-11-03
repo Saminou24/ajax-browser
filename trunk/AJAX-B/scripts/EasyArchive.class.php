@@ -1,22 +1,31 @@
 <?php
+$test = new archive;
+$test->make('./RACINE/', 'test.tar');
+//$test->extract('test.tar', './');
 class archive
 {
 	public $src;
 	public $dest;
 	public function infos ($src, $data=false)
 	{
+		$src = !empty($src) ? $src : $this->src;
+
 		$file = pathinfo($src);
 		switch (strtolower($file['extension']))
 		{
 			case 'tar':
+				$tar = new tar;
 				break;
 			case 'zip':
-				$result = $this->infosZip($src, $data);
+				$zip = new zip;
+				$result = $zip->infosZip($src, $data);
 				break;
 			case 'gz':
 			case 'gzip':
 			case 'tgz':
-				$result = $this->infosGzip($src, $data);
+				$tar = new tar;
+				$gzip = new gzip;
+				$result = $gzip->infosGzip($src, $data);
 				break;
 			case 'bz':
 			case 'bzip':
@@ -24,25 +33,35 @@ class archive
 			case 'bz2':
 			case 'tbz':
 			case 'tbz2':
+				$tar = new tar;
+				$bzip2 = new bzip2;
+				$result = $bzip2->infosGzip($src, $data);
 				break;
 		}
 		return $result;
 	}
 	public function extract ($src, $dest=false)
 	{
+		$src = !empty($src) ? $src : $this->src;
+		$dest = !empty($dest) ? $dest : $this->dest;
+		
 		$file = pathinfo($src);
 		if (empty($dest)) $dest = dirname($file['filename']);
 		switch (strtolower($file['extension']))
 		{
 			case 'tar':
+				$tar = new tar;
 				break;
 			case 'zip':
-				$result = $this->extractZip($src, $dest);
+				$zip = new zip;
+				$result = $zip->extractZip($src, $dest);
 				break;
 			case 'gz':
 			case 'gzip':
 			case 'tgz':
-				$result = $this->extractGzip($src, $dest);
+				$tar = new tar;
+				$gzip = new gzip;
+				$result = $gzip->extractGzip($src, $dest);
 				break;
 			case 'bz':
 			case 'bzip':
@@ -50,26 +69,37 @@ class archive
 			case 'bz2':
 			case 'tbz':
 			case 'tbz2':
-				$result = $this->extractBzip2($src, $dest);
+				$tar = new tar;
+				$bzip2 = new bzip2;
+				$result = $bzip2->extractBzip2($src, $dest);
 				break;
 		}
 		return $result;
 	}
 	public function make ($src, $dest)
 	{
+		$src = !empty($src) ?
+			(is_array($src) ? $src : array($src)) :
+			(is_array($this->src) ? $this->src : array($this->src));
+		$dest = !empty($dest) ? $dest : $this->dest;
+
 		$file = pathinfo($dest);
 		switch (strtolower($file['extension']))
 		{
 			case 'tar':
-				$result = $this->makeTar($src, $dest);
+				$tar = new tar;
+				$result = $tar->makeTar($src, $dest);
 				break;
 			case 'zip':
-				$result = $this->makeZip($src, $dest);
+				$zip = new zip;
+				$result = $zip->makeZip($src, $dest);
 				break;
 			case 'gz':
 			case 'gzip':
 			case 'tgz':
-				$result = $this->makeGzip($src, $dest);
+				$tar = new tar;
+				$gzip = new gzip;
+				$result = $gzip->makeGzip($src, $dest);
 				break;
 			case 'bz':
 			case 'bzip':
@@ -77,17 +107,21 @@ class archive
 			case 'bz2':
 			case 'tbz':
 			case 'tbz2':
-				$result = $this->makeBzip2($src, $dest);
+				$tar = new tar;
+				$bzip2 = new bzip2;
+				$result = $bzip2->makeBzip2($src, $dest);
 				break;
 			default ;
 				return 'Specifie format at the end of $dest falename !';
 		}
 		return $result;
 	}
-	public function infosZip ($src=false, $data=true)
-	{
-		$src = !empty($src) ? $src : $this->src;
+}
 
+class zip
+{
+	public function infosZip ($src, $data=true)
+	{
 		if ($zip = zip_open($src))
 		{
 			while ($zip_entry = zip_read($zip))
@@ -111,11 +145,8 @@ class archive
 		}
 		return false;
 	}
-	public function extractZip ($src=false, $dest=false)
+	public function extractZip ($src, $dest)
 	{
-		$src = !empty($src) ? $src : $this->src;
-		$dest = !empty($dest) ? $dest : $this->dest;
-
 		$zip = new ZipArchive;
 		if ($zip->open($src)===true)
 		{
@@ -125,13 +156,8 @@ class archive
 		}
 		return false;
 	}
-	public function makeZip ($src=false, $dest=false)
+	public function makeZip ($src, $dest)
 	{
-		$src = !empty($src) ?
-			(is_array($src) ? $src : array($src)) :
-			(is_array($this->src) ? $this->src : array($this->src));
-		$dest = !empty($dest) ? $dest : $this->dest;
-
 		$zip = new ZipArchive;
 		if ($zip->open($dest, ZipArchive::CREATE) === true)
 		{
@@ -148,8 +174,8 @@ class archive
 		{
 			$zip->addEmptyDir(str_replace($racine, '', $dir));
 			$lst = scandir($dir);
-			array_shift($lst);
-			array_shift($lst);
+				array_shift($lst);
+				array_shift($lst);
 			foreach ($lst as $item)
 			{
 				if (is_dir($dir.$item))
@@ -161,15 +187,29 @@ class archive
 		elseif (is_file($dir))
 			$zip->addFile($dir, str_replace($racine, '', $dir));
 	}
+}
 
+class gzip
+{
 	public function makeGzip($src, $dest)
 	{
 		if (file_put_contents($dest, gzencode((is_file($src) ? file_get_contents ($src) : $src), 6)))
-			return $dest;
+			return true;
 		return false;
 	}
-	public function infosGzip ($src, $data)
+	public function infosGzip ($src, $data=true)
 	{
+		$zp = gzopen( $src, "r" );
+		$data = '';
+		while (!gzeof($zp))
+			$data .= gzread($zp, 1024*1024);
+		gzclose( $zp );
+		$content = array(
+			'Ratio'=>strlen($data) ? round(100-filesize($src) / strlen($data)*100, 1) : false,
+			'Size'=>filesize($src),
+			'NormalSize'=>strlen($data));
+		if ($data) $content['Data'] = $data;
+		return $content;
 	}
 	public function extractGzip ($src, $dest)
 	{
@@ -179,27 +219,46 @@ class archive
 			$data .= gzread($zp, 1024*1024);
 		gzclose( $zp );
 		file_put_contents($dest, $data);
+		return true;
 	}
+}
 
+class bzip2
+{
 	function makeBzip2($src, $dest)
 	{
 		if (file_put_contents($dest, bzcompress((is_file($src) ? file_get_contents ($src) : $src), 6)))
-			return $dest;
+			return true;
 		return false;
 	}
-	public function infosBzip2 ($src, $data)
+	public function infosBzip2 ($src, $data=true)
 	{
+		$bz = bzopen($src, "r");
+		$data = '';
+		while (!feof($bz))
+			$data .= bzread($bz, 1024*1024);
+		bzclose($bz);
+		$content = array(
+			'Ratio'=>strlen($data) ? round(100-filesize($src) / strlen($data)*100, 1) : false,
+			'Size'=>filesize($src),
+			'NormalSize'=>strlen($data));
+		if ($data) $content['Data'] = $data;
+		return $content;
 	}
 	function extractBzip2($src, $dest)
-	{ // bzdecompress
+	{
 		$bz = bzopen($src, "r");
 		$data = '';
 		while (!feof($bz))
 			$data .= bzread($bz, 1024*1024);
 		bzclose($bz);
 		file_put_contents($dest, $data);
+		return true;
 	}
+}
 
+class tar
+{
 	function tarHeader512($infos)
 	{ /** http://www.mkssoftware.com/docs/man4/tar.4.asp **/
 		$bigheader = $header = '';
@@ -213,7 +272,7 @@ class archive
 				$infos['groupName32'],
 				'');
 
-			$bigheader .= str_pad($infos['name100'], (floor(strlen($infos['name100']) / 512) + ((strlen($infos['name100']) % 512) ? 1 : 0)) * 512, "\0");
+			$bigheader .= str_pad($infos['name100'], floor((strlen($infos['name100']) + 512 - 1) / 512) * 512, "\0");
 
 			$checksum = 0;
 			for ($i = 0; $i < 512; $i++)
@@ -227,7 +286,7 @@ class archive
 			sprintf("%07o", $infos['uid8']),		// 108 	8 		Owner user ID
 			sprintf("%07o", $infos['gid8']),		// 116 	8 		Group user ID
 			sprintf("%011o", $infos['size12']),		// 124 	12 		File size in bytes
-			sprintf("%011o", $infos['mtime12']),		// 136 	12 		Last modification time
+			sprintf("%011o", $infos['mtime12']),	// 136 	12 		Last modification time
 			'        ',								// 148 	8 		Check sum for header block
 			$infos['link1'],						// 156 	1 		Link indicator / ustar Type flag
 			$infos['link100'],						// 157 	100 	Name of linked file
@@ -247,7 +306,6 @@ class archive
 
 		return $bigheader.$header;
 	}
-
 	function addTarItem ($item, $dest, $racine)
 	{
 		$infos['name100'] = str_replace($racine, '', $item);
@@ -265,7 +323,7 @@ class archive
 
 		$header = $this->tarHeader512($infos);
 
-		$data = str_pad(file_get_contents($item), (floor($infos['size12'] / 512) + (($infos['size12']%512) ? 1 : 0)) * 512, "\0");
+		$data = str_pad(file_get_contents($item), floor(($infos['size12'] + 512 - 1) / 512) * 512, "\0");
 
 		file_put_contents($dest, $header.$data, FILE_APPEND);
 
@@ -278,7 +336,6 @@ class archive
 				$this->addTarItem($item.$subitem.(is_dir($item.$subitem)?'/':''), $dest, $racine);
 		}
 	}
-
 	function makeTar($src, $dest)
 	{
 		$src = !empty($src) ?
@@ -288,109 +345,40 @@ class archive
 			file_put_contents($dest, '');
 		foreach ($src as $item)
 			$this->addTarItem($item.((is_dir($item) && substr($item, -1)!='/')?'/':''), $dest, dirname($item).'/');
-
-		$modulo = filesize($dest) % 10240;
-		file_put_contents($dest, str_repeat("\0", ($modulo) ? 10240 - $modulo : 0), FILE_APPEND);
-		
-		return $dest;
+		file_put_contents($dest, str_repeat("\0", 10240 - (filesize($dest) % 10240)) % 10240, FILE_APPEND);
+		return true;
 	}
-}
-
-
-$test = new archive;
-$test->make('./RACINE/', 'test.tar');
-//$test->extract('test.tar', './');
-
-
-	function extract_files()
+	function readTarHeader ($ptr)
 	{
-		$pwd = getcwd();
-		chdir($this->options['basedir']);
-
-		if ($fp = $this->open_archive())
+		$hdr = unpack("a100name/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1type/a100symlink/a6magic/a2temp/a32temp/a32temp/a8temp/a8temp/a155prefix/a12temp", $block = fread($ptr, 512));
+		$checksum = 0;
+		$block = substr_replace($block, '        ', 148, 8);
+		for ($i = 0; $i < 512; $i++)
+			$checksum += ord(substr($block, $i, 1));
+		if (octdec($hdr['checksum'])==$checksum)
 		{
-			if ($this->options['inmemory'] == 1)
-				$this->files = array ();
-
-			while ($block = fread($fp, 512))
+			if ($hdr['name']=='././@LongLink')
 			{
-				$temp = unpack("a100name/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1type/a100symlink/a6magic/a2temp/a32temp/a32temp/a8temp/a8temp/a155prefix/a12temp", $block);
-				$file = array (
-					'name' => $temp['prefix'] . $temp['name'],
-					'stat' => array (
-						2 => $temp['mode'],
-						4 => octdec($temp['uid']),
-						5 => octdec($temp['gid']),
-						7 => octdec($temp['size']),
-						9 => octdec($temp['mtime']),
-					),
-					'checksum' => octdec($temp['checksum']),
-					'type' => $temp['type'],
-					'magic' => $temp['magic'],
-				);
-				if ($file['checksum'] == 0x00000000)
-					break;
-				else if (substr($file['magic'], 0, 5) != "ustar")
-				{
-					$this->error[] = "This script does not support extracting this type of tar file.";
-					break;
-				}
-				$block = substr_replace($block, "        ", 148, 8);
-				$checksum = 0;
-				for ($i = 0; $i < 512; $i++)
-					$checksum += ord(substr($block, $i, 1));
-				if ($file['checksum'] != $checksum)
-					$this->error[] = "Could not extract from {$this->options['name']}, it is corrupt.";
-
-				if ($this->options['inmemory'] == 1)
-				{
-					$file['data'] = fread($fp, $file['stat'][7]);
-					fread($fp, (512 - $file['stat'][7] % 512) == 512 ? 0 : (512 - $file['stat'][7] % 512));
-					unset ($file['checksum'], $file['magic']);
-					$this->files[] = $file;
-				}
-				else if ($file['type'] == 5)
-				{
-					if (!is_dir($file['name']))
-						mkdir($file['name'], $file['stat'][2]);
-				}
-				else if ($this->options['overwrite'] == 0 && file_exists($file['name']))
-				{
-					$this->error[] = "{$file['name']} already exists.";
-					continue;
-				}
-				else if ($file['type'] == 2)
-				{
-					symlink($temp['symlink'], $file['name']);
-					chmod($file['name'], $file['stat'][2]);
-				}
-				else if ($new = @fopen($file['name'], "wb"))
-				{
-					fwrite($new, fread($fp, $file['stat'][7]));
-					fread($fp, (512 - $file['stat'][7] % 512) == 512 ? 0 : (512 - $file['stat'][7] % 512));
-					fclose($new);
-					chmod($file['name'], $file['stat'][2]);
-				}
-				else
-				{
-					$this->error[] = "Could not open {$file['name']} for writing.";
-					continue;
-				}
-				chown($file['name'], $file['stat'][4]);
-				chgrp($file['name'], $file['stat'][5]);
-				touch($file['name'], $file['stat'][9]);
-				unset ($file);
+				$realName = fread($ptr, (($hdr['size'] + 512 - 1) / 512) * 512);
+				$hdr = readTarHeader ($ptr);
+				$hdr['name'] = $realName;
+				$hdr['data'] = fread($ptr, (($hdr['size'] + 512 - 1) / 512) * 512);
+				return $hdr;
 			}
+			elseif (substr($hdr['magic'], 0, 5) == 'ustar') return $hdr;
 		}
-		else
-			$this->error[] = "Could not open file {$this->options['name']}";
-
-		chdir($pwd);
+		return false;
 	}
-
-	function open_archive()
+	function extractTar ($src, $dest)
 	{
-		return @fopen($this->options['name'], "rb");
+		$ptrTar = fopen('test.tar', 'r');
+		readTarHeader ($ptrTar);
+		while ($block = fread($ptrTar, 512))
+		{
+		
+		$data = fgets($fp, 4096);
+		
+		}
+		return true;
 	}
-
-?>
+}?>

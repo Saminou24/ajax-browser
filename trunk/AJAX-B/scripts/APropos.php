@@ -15,7 +15,8 @@
 	<br>Copyright (C) 2007 : Lopez Alban<br>
 	<br><?php echo $ABS[30];?> :<br>
 	alban.lopez@gmail.com<br><br>
-<hr><div>Ce programme est distribué selon les termes de la LGPL v2.<br>
+<hr><div><a href="https://www.paypal.com/en/cgi-bin/webscr?cmd=_flow&SESSION=SYH2rFXiV7ValntZXSum4bQuISLmlA-YjgATNc40oo60qImsJvOLe4aUFTu&dispatch=5885d80a13c0db1f3893a48c4ade7e5f334903e84ecf13bd203789c020964306"><?php echo $ABS[30];?></a>
+Ce programme est distribué selon les termes de la LGPL v2.<br>
 <br>
 		 GNU GENERAL PUBLIC LICENSE<br>
 		 Version 2, June 1991<br><br>

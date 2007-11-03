@@ -7,10 +7,10 @@ global $version, $ABS;
 	<tr>
 	<tr><td class="border center large" colspan="2"><?php echo $ABS[501].' : '.$version;?></td></tr>
 		<td class="border"><?php echo $ABS[502];?><br/>
-			<input class="border w1" type='text' name='admin_email' value="<?php echo $GLOBALS['AJAX-Var']['admin_email']; ?>"/><?php echo $ABS[503];?>
+			<input class="border w1" type='text' name='admin_email' value="<?php echo $GLOBALS['AJAX-Var']['global']['admin_email']; ?>"/><?php echo $ABS[503];?>
 		</td>
 		<td class="border"><?php echo $ABS[504];?><br/>
-			<input class="border w1" type='text' name='ajaxb_miror' ondblclick="this.value='ajaxbrowser.free.fr';" value="<?php echo $GLOBALS['AJAX-Var']['ajaxb_miror']; ?>"/><?php echo $ABS[505];?>
+			<input class="border w1" type='text' name='ajaxb_miror' ondblclick="this.value='ajaxbrowser.free.fr';" value="<?php echo $GLOBALS['AJAX-Var']['global']['ajaxb_miror']; ?>"/><?php echo $ABS[505];?>
 		</td>
 	</tr>
 	<tr><td class="border center" colspan="2">
@@ -30,52 +30,52 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	<tr><td colspan="2"><br/></td></tr>
 	<tr>
 		<td colspan="2"><?php echo $ABS[509];?><br/>
-			<INPUT class="w3" name="always_mask" id="always_mask" type="text" ondblclick="this.value='*.html,*.png,*.jpg,*.txt';" value="<?php echo implode(',', $GLOBALS['AJAX-Var']['always_mask']);?>">
+			<INPUT class="w3" name="always_mask" id="always_mask" type="text" ondblclick="this.value='*.html,*.png,*.jpg,*.txt';" value="<?php echo implode(',', $GLOBALS['AJAX-Var']['global']['always_mask']);?>">
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2"><?php echo $ABS[510];?><br/>
-			<INPUT class="w3" name="restrict_mask" id="restrict_mask" type="text" ondblclick="this.value='*.php,*.php5,*.asp,*.bin,*.exe';" value="<?php echo implode(',',$GLOBALS['AJAX-Var']['restrict_mask']);?>">
+			<INPUT class="w3" name="restrict_mask" id="restrict_mask" type="text" ondblclick="this.value='*.php,*.php5,*.asp,*.bin,*.exe';" value="<?php echo implode(',',$GLOBALS['AJAX-Var']['global']['restrict_mask']);?>">
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2"><?php echo $ABS[511];?><br/>
-			<INPUT class="w3" name="codepress_mask" id="codepress_mask" type="text" ondblclick="this.value='*.html,*.txt,*.php,*.php5,*.asp,*.*~';" value="<?php echo implode(',',$GLOBALS['AJAX-Var']['codepress_mask']);?>">
+			<INPUT class="w3" name="codepress_mask" id="codepress_mask" type="text" ondblclick="this.value='*.html,*.txt,*.php,*.php5,*.asp,*.*~';" value="<?php echo implode(',',$GLOBALS['AJAX-Var']['global']['codepress_mask']);?>">
 		</td>
 	</tr>
 	<tr><td colspan="2"><br/></td></tr>
 	<tr>
 		<td class="border" title=""><?php echo $ABS[512];?><br/><br/>
-			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="spy_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['spy_dir']; ?>"/><br/>
+			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="spy_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['global']['spy_dir']; ?>"/><br/>
 		</td>
 		<td class="border"><?php echo $ABS[513];?><br/>
-		<input name="ip" id="ip" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['spy']['ip']?'checked':'');?>>
+		<input name="ip" id="ip" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['global']['spy']['ip']?'checked':'');?>>
 			<label for="ip" title="<?php echo $ABS[519];?>"><?php echo $ABS[514];?></label><br/>
-		<input name="log" id="log" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['spy']['log']?'checked':'');?>>
+		<input name="log" id="log" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['global']['spy']['log']?'checked':'');?>>
 			<label for="log"><?php echo $ABS[515];?></label><br/>
-		<input name="action" id="action" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['spy']['action']?'checked':'');?>>
+		<input name="action" id="action" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['global']['spy']['action']?'checked':'');?>>
 			<label for="action" title="<?php echo $ABS[518];?>"><?php echo $ABS[516];?></label><br/>
-		<input name="browse" id="browse" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['spy']['browse']?'checked':'');?>>
+		<input name="browse" id="browse" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['global']['spy']['browse']?'checked':'');?>>
 			<label for="browse" title="<?php echo $ABS[518];?>"><?php echo $ABS[517];?></label><br/>
 	</td></tr>
 	<tr><td colspan="2"><br/></td></tr>
 	<tr>
 		<td title="" class="border"><?php echo $ABS[520];?><br/>
-			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="mini_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['mini_dir']; ?>"/>
+			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="mini_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['global']['mini_dir']; ?>"/>
 		<td title=""><span id="erasemini" class="button center" onclick="RQT.get(ServActPage,{parameters:'mode=request&erasemini=',onEnd:'ID(\'erasemini\').parentNode.innerHTML=request.responseText;',});"><?php echo $ABS[527];?></span></td>
 	</tr>
 	<tr>
 		<td title="" colspan="2" class="border"><?php echo $ABS[520];?><br/>
 			<br/><?php echo $ABS[521];?><br/>
-			<INPUT type=radio name="mini_intervale" value=10 id="intervale10" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==10) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=10 id="intervale10" <?php echo ($GLOBALS['AJAX-Var']['global']['mini_intervale']==10) ? "checked" : ""; ?>>
 				<label for="intervale10"><?php echo $ABS[522];?></label><br/>
-			<INPUT type=radio name="mini_intervale" value=100 id="intervale100" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==100) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=100 id="intervale100" <?php echo ($GLOBALS['AJAX-Var']['global']['mini_intervale']==100) ? "checked" : ""; ?>>
 				<label for="intervale100"><?php echo $ABS[523];?></label><br/>
-			<INPUT type=radio name="mini_intervale" value=250 id="intervale250" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==250) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=250 id="intervale250" <?php echo ($GLOBALS['AJAX-Var']['global']['mini_intervale']==250) ? "checked" : ""; ?>>
 				<label for="intervale250"><?php echo $ABS[524];?></label><br/>
-			<INPUT type=radio name="mini_intervale" value=500 id="intervale500" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==500) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=500 id="intervale500" <?php echo ($GLOBALS['AJAX-Var']['global']['mini_intervale']==500) ? "checked" : ""; ?>>
 				<label for="intervale500"><?php echo $ABS[525];?></label><br/>
-			<INPUT type=radio name="mini_intervale" value=1500 id="intervale1500" <?php echo ($GLOBALS['AJAX-Var']['mini_intervale']==1500) ? "checked" : ""; ?>>
+			<INPUT type=radio name="mini_intervale" value=1500 id="intervale1500" <?php echo ($GLOBALS['AJAX-Var']['global']['mini_intervale']==1500) ? "checked" : ""; ?>>
 				<label for="intervale1500"><?php echo $ABS[526];?></label><br/>
 		</td>
 	</tr>
@@ -91,7 +91,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 function saveSetting ()
 {
 	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale,$InstallDir,$UnBlackListed;
-	$GLOBALS['AJAX-Var'] = array
+	$GLOBALS['AJAX-Var']['global'] = array
 	(
 		'admin_email' => decode64($admin_email),
 		'ajaxb_miror' => $ajaxb_miror,
@@ -107,8 +107,7 @@ function saveSetting ()
 			'action' => eval('return '.$action.';'),
 			'browse' => eval('return '.$browse.';')
 			),
-		'accounts' => $GLOBALS['AJAX-Var']["accounts"]
 	);
-	WriteInFile ($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+	file_put_contents($file_globalconf, var_export($GLOBALS['AJAX-Var']['global'], true));
 }
 ?>
