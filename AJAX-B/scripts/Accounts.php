@@ -141,7 +141,7 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
 				<label for="CP-VIEW"><?php echo $ABS[634]; ?></label><br/>
 			<input name="CP_EDIT" id="CP-EDIT" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['CP_EDIT']?'checked':'');?>>
 				<label for="CP-EDIT"><?php echo $ABS[635]; ?></label>
-				<p><?php echo $ABS[636]; ?><br/><?php echo implode(', ',$GLOBALS['AJAX-Var']['codepress_mask']);?></p>
+				<p><?php echo $ABS[636]; ?><br/><?php echo implode(', ',$GLOBALS['AJAX-Var']['global']['codepress_mask']);?></p>
 		</td>
 	</tr>
 	<tr><td colspan="2"><br/><?php echo $ABS[637]; ?></td></tr>
@@ -152,9 +152,9 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
 			<INPUT type=radio name="UPLOAD" value="NO" id="NO" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UPLOAD']=='NO') ? "checked" : ""; ?>>
 				<label for="NO"><?php echo $ABS[640]; ?></label><br/>
 			<INPUT type=radio name="UPLOAD" value="OnlyAlways" id="OA" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UPLOAD']=='OnlyAlways') ? "checked" : ""; ?>>
-				<label for="OA"><?php echo $ABS[641].' : '.implode(', ',$GLOBALS['AJAX-Var']['always_mask']);?> (<?php echo $ABS[14]; ?>)</label><br/>
+				<label for="OA"><?php echo $ABS[641].' : '.implode(', ',$GLOBALS['AJAX-Var']['global']['always_mask']);?> (<?php echo $ABS[14]; ?>)</label><br/>
 			<INPUT type=radio name="UPLOAD" value="ExceptRestrict" id="ER" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UPLOAD']=='ExceptRestrict') ? "checked" : ""; ?>>
-				<label for="ER"><?php echo $ABS[642].' : '.implode(', ',$GLOBALS['AJAX-Var']['restrict_mask']);?></label><br/>
+				<label for="ER"><?php echo $ABS[642].' : '.implode(', ',$GLOBALS['AJAX-Var']['global']['restrict_mask']);?></label><br/>
 			<INPUT type=radio name="UPLOAD" value="ALL" id="all" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['UPLOAD']=='ALL') ? "checked" : ""; ?>>
 				<label for="all"><?php echo $ABS[643]; ?></label><br/>
 		</td>
@@ -191,7 +191,7 @@ function saveAccount($UserName)
 		'usr_email' => decode64($usr_email),
 		'language_file' => decode64($LANG),
 		'def_mode' => $def_mode,
-		'def_racine' => UnRealPath($def_racine),
+		'def_racine' => $is_admin?UnRealPath($def_racine):$droit['def_racine'],
 		'mini_size' => eval('return '.$mini_size.';'),
 		'last' => $GLOBALS['AJAX-Var']["accounts"][$UserName]['last'],
 		'IP_count' => $GLOBALS['AJAX-Var']["accounts"][$UserName]['IP_count'],
@@ -212,12 +212,13 @@ function saveAccount($UserName)
 			'UPLOAD' => $is_admin?$UPLOAD:$droit['UPLOAD'],
 			),
 		);
-	WriteInFile ($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+	file_put_contents($file_accounts, var_export($GLOBALS['AJAX-Var']['accounts'], true));
 	if ($_SESSION['AJAX-B']['login'] == $UserName)
 	{
-		$_SESSION['AJAX-B'] = $GLOBALS['AJAX-Var'];
-		unset ($_SESSION['AJAX-B']["accounts"]);
-		$_SESSION['AJAX-B'] = array_merge(array('login' => $UserName), $GLOBALS['AJAX-Var']["accounts"][$UserName], $_SESSION['AJAX-B']);
+		$_SESSION['AJAX-B'] = array_merge(
+			array('login' => $UserName),
+			$GLOBALS['AJAX-Var']['accounts'][$UserName],
+			$GLOBALS['AJAX-Var']['global']);
 		unset ($_SESSION['AJAX-B']['code']);
 	}
 }

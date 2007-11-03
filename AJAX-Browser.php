@@ -17,7 +17,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.26-Improve_Archves_method";
+$version="0.9.26-Improve_and_simplified_Archves_method";
 
 $InstallDir = './AJAX-B/'; // define("INSTALL_DIR", "./AJAX-B/");
 
@@ -25,6 +25,7 @@ require ($InstallDir . 'scripts/PHPTools.php');		// always loaded
 require ($InstallDir . 'scripts/ExploreTools.php');	// always loaded
 	require ($InstallDir . 'Language.php');			// always loaded
 require ($InstallDir . 'scripts/SessionTools.php');	// always loaded
+require ($InstallDir . 'scripts/UrlTools.php');	// always loaded
 
 if (isset($_SESSION['AJAX-B']['language_file']) && is_file($InstallDir . $_SESSION['AJAX-B']['language_file']))
 	require ($InstallDir . $_SESSION['AJAX-B']['language_file']);

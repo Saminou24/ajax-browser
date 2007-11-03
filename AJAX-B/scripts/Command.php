@@ -9,7 +9,9 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-$GLOBALS['AJAX-Var'] = unserialize(file_get_contents($InstallDir.'AJAX-Array.var'));
+	$GLOBALS['AJAX-Var']['global'] = eval('return '.file_get_contents($file_globalconf).';');
+	$GLOBALS['AJAX-Var']['accounts'] = eval('return '.file_get_contents($file_accounts).';');
+	$GLOBALS['AJAX-Var']['blacklist'] = eval('return '.file_get_contents($file_blacklist).';');
 if(isset($sublstof))
 {
 	$LstDir=array();
@@ -63,10 +65,10 @@ elseif(isset($erasemini))
 		echo 'OK => '.$count.' are erase.';
 	exit();
 }
-elseif(isset($addusr) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
+/*elseif(isset($addusr) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
-	WriteInFile($InstallDir.'AJAX-Array.var', serialize(addUser($SESSION->exemple, $GLOBALS['AJAX-Var'], $addusr)), 'sup');
-}
+	file_put_contents($file_accounts, var_export(addUser($account_exemple, eval('return '.file_get_contents($file_accounts).';'), $addusr), true));
+}*/
 elseif(isset($view))
 {
 	if (is_file($file = decode64($view)))
@@ -130,13 +132,13 @@ elseif (isset($accounts) && $_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 	include ($InstallDir.'scripts/Accounts.php');
 	if ($accounts=='adduser' && !empty($user))
 	{
-		$GLOBALS['AJAX-Var']=addUser($SESSION->exemple, $GLOBALS['AJAX-Var'], $user);
-		WriteInFile($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+		$GLOBALS['AJAX-Var']['accounts']=addUser($account_exemple, $GLOBALS['AJAX-Var']['accounts'], $user);
+		file_put_contents($file_accounts, var_export($GLOBALS['AJAX-Var']['accounts'], true));
 	}
 	elseif ($accounts=='removeuser' && !empty($GLOBALS['AJAX-Var']['accounts'][$user]))
 	{
 		unset ($GLOBALS['AJAX-Var']['accounts'][$user]);
-		WriteInFile($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+		file_put_contents($file_accounts, var_export($GLOBALS['AJAX-Var']['accounts'], true));
 	}
 	elseif ($accounts=='edituser' && isset($GLOBALS['AJAX-Var']['accounts'][$user]))
 		editAccount($user, '&accounts=saveuser&user='.$user, 'PopBox(\\\'mode=request&accounts=\\\',\\\'OpenBox(request.responseText);\\\');');
@@ -146,8 +148,8 @@ elseif (isset($accounts) && $_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 	{
 		if (!empty($UnBlackListed))
 		{
-			unset($GLOBALS['AJAX-Var']['BlackList'][$UnBlackListed]);
-			WriteInFile ($InstallDir.'AJAX-Array.var', serialize($GLOBALS['AJAX-Var']), "sup");
+			unset($GLOBALS['AJAX-Var']['blacklist'][$UnBlackListed]);
+			file_put_contents($file_accounts, var_export($GLOBALS['AJAX-Var']['accounts'], true));
 		}
 		LstAccount();
 	}

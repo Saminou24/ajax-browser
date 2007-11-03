@@ -9,7 +9,7 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-/* PHP prototype pour seuveur non POSIX */
+/* PHP prototype */
 if (!function_exists('fnmatch'))
 {
 	function fnmatch($pattern, $string)
@@ -17,7 +17,28 @@ if (!function_exists('fnmatch'))
 		return @preg_match('/^' . strtr(addcslashes($pattern, '/\\.+^$(){}=!<>|'), array('*' => '.*', '?' => '.?')) . '$/i', $string);
 	}
 }
-/* PHP prototype pour seuveur non POSIX */
+if (!function_exists('rmdir'))
+{
+	function rmdir($string)
+	{
+		return rename($string, './.ajaxb-trash/');
+	}
+}
+if (!function_exists('file_put_contents'))
+{
+	function file_put_contents($n, $d, $flag = false)
+	{
+		$mode = ($flag == FILE_APPEND || strtoupper($flag) == 'FILE_APPEND') ? 'a' : 'w';
+		if ($f = fopen($n, $mode))
+		{
+			if (is_array($d)) $d = implode($d);
+			$bytes_written = fwrite($f, $d);
+			fclose($f);
+			return $bytes_written;
+		}
+	}
+}
+/* PHP prototype */
 
 $no64 = array('+','/','=');
 $yes64 = array('@','#','_');
@@ -108,9 +129,9 @@ function CreatMini( $File, $dir, $Max=100, $Force=false)
 }
 function addUser ($exemple, $arrayDest, $name, $code='',$racine='./')
 {
-	$arrayDest['accounts'][$name]=$exemple;
-	$arrayDest['accounts'][$name]['code']=crypt($code,$name);
-	$arrayDest['accounts'][$name]['def_racine']=$racine;
+	$arrayDest[$name]=$exemple;
+	$arrayDest[$name]['code']=crypt($code,$name);
+	$arrayDest[$name]['def_racine']=encode64($racine);
 	return $arrayDest;
 }
 function SupItem($Item)
@@ -120,10 +141,9 @@ function SupItem($Item)
 		if (is_array($SubFile = DirSort ($Item)))
 			foreach ($SubFile as $File)
 				SupItem($Item."/".$File);
-		if (rmdir($Item)) return true;
+		return rmdir($Item);
 	}
-	elseif (unlink($Item)) return true;
-	else return false;
+	else return unlink($Item);
 }
 function CopyItems($Source, $Dest)
 {
