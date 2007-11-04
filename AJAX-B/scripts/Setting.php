@@ -90,7 +90,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 }
 function saveSetting ()
 {
-	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale,$InstallDir,$UnBlackListed;
+	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale,$InstallDir,$UnBlackListed, $file_globalconf;
 	$GLOBALS['AJAX-Var']['global'] = array
 	(
 		'admin_email' => decode64($admin_email),

@@ -87,7 +87,7 @@ function editAccount($UserName, $StrToSaveThis, $onend)
 if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['AJAX-B']['login'] && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING']))
 {?>
 			<?php echo $ABS[611]; ?><br/>
-			<INPUT class="border" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500]; ?>" name="def_racine" VALUE="<?php echo decode64($GLOBALS['AJAX-Var']['accounts'][$UserName]['def_racine']); ?>"/><br/>
+			<INPUT class="border" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500]; ?>" name="def_racine" VALUE="<?php echo $GLOBALS['AJAX-Var']['accounts'][$UserName]['def_racine']; ?>"/><br/>
 			<INPUT name="VIEWparent" id="..VIEW" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['..VIEW']?'checked':'');?>>
 				<label for="..VIEW"><?php echo $ABS[612]; ?></label><br/>
 <?php }?>
@@ -182,7 +182,7 @@ echo "+ '&def_racine='+encode64(form.def_racine.value)+ '&VIEWhiden='+form.VIEWh
 }
 function saveAccount($UserName)
 {
-	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $InstallDir, $LANG, $UNCOMP;
+	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $InstallDir, $LANG, $UNCOMP, $file_accounts;
 	$droit = $_SESSION['AJAX-B']['droits'];
 	$is_admin = $droit['GLOBAL_ACCOUNTS'];
 
@@ -191,7 +191,7 @@ function saveAccount($UserName)
 		'usr_email' => decode64($usr_email),
 		'language_file' => decode64($LANG),
 		'def_mode' => $def_mode,
-		'def_racine' => $is_admin?UnRealPath($def_racine):$droit['def_racine'],
+		'def_racine' => $is_admin?UnRealPath(decode64($def_racine)):$droit['def_racine'],
 		'mini_size' => eval('return '.$mini_size.';'),
 		'last' => $GLOBALS['AJAX-Var']["accounts"][$UserName]['last'],
 		'IP_count' => $GLOBALS['AJAX-Var']["accounts"][$UserName]['IP_count'],

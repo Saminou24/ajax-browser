@@ -11,14 +11,14 @@
 
 $file_globalconf = $InstallDir.'ajaxb.conf';
 $file_accounts = $InstallDir.'accounts.conf';
-$file_blacklist = $InstallDir.'black.list';
+$file_blacklist = $InstallDir.'blacklist.conf';
 
 $account_exemple = array (
 	'code' => '',
 	'usr_email' => '',
 	'language_file' => 'Language en.php',
 	'def_mode' => 'arborescence',		// ['arborescence', 'gallerie']
-	'def_racine' => 'Li8.',
+	'def_racine' => './',
 	'mini_size' => 100,					// [75, 100, 200, 300, 400]
 	'last' => '',
 	'IP_count' => array ( ),
@@ -55,18 +55,16 @@ $ajaxb_conf_exemple = array (
 		'action' => false,
 		'browse' => false
 		),
-//	'accounts' => array ()
 	);
 
-	if (!is_dir(session_save_path()))
-		if (!is_dir(mkdir(str_replace(realpath('./'), '.', session_save_path()), 0700, true)))
-			echo $ABS[100].' ("'.session_save_path().'").<br>';
-	ini_set('session.use_cookies', '1');
-	session_cache_limiter ('public');
-	session_cache_expire (60);			// Configure le délai d'expiration à 30 minutes
-	session_start();						// On démarre la session avant toute autre chose
-// 	if (empty($_SESSION['AJAX-B']))
-// 		echo $ABS[103];
+		if (!is_dir(session_save_path()))
+			if (!is_dir(mkdir(str_replace(realpath('./'), '.', session_save_path()), 0700, true)))
+				echo $ABS[100].' ("'.session_save_path().'").<br>';
+		ini_set('session.use_cookies', '1');
+		ini_set('session.use_only_cookies', '0');
+		session_cache_limiter ('nocache');
+		session_cache_expire (60);			// Configure le délai d'expiration à 30 minutes
+		session_start();						// On démarre la session avant toute autre chose
 
 	if (isset($stop))
 	{
@@ -79,6 +77,9 @@ $ajaxb_conf_exemple = array (
 		}
 	}
 
+	if (!file_exists($file_globalconf)) file_put_contents($file_globalconf, var_export($ajaxb_conf_exemple, true));
+	if (!file_exists($file_blacklist)) file_put_contents($file_blacklist, 'array()');
+
 	if ((!file_exists($file_accounts) || filesize($file_accounts)<100) && empty($_SESSION['AJAX-B']))
 	{
 		if ($code1==$code2 && !empty($login))
@@ -86,9 +87,7 @@ $ajaxb_conf_exemple = array (
 			$account_exemple['droits']['GLOBAL_SETTING']=true;
 			$account_exemple['droits']['GLOBAL_ACCOUNTS']=true;
 			$account_exemple["IP_count"][$_SERVER['REMOTE_ADDR']]++;
-			file_put_contents($file_globalconf, var_export($ajaxb_conf_exemple, true));
 			file_put_contents($file_accounts, var_export(addUser($account_exemple, is_file($file_accounts)?eval('return '.file_get_contents($file_accounts).';'):array(), $login, $code1), true));
-			file_put_contents($file_blacklist, 'array()');
 		}
 		else
 		{
@@ -127,7 +126,6 @@ $ajaxb_conf_exemple = array (
 	</body>
 </html>
 <?php
-var_export ($_SESSION['AJAX-B']);
 			exit ();
 		}
 	}
@@ -202,7 +200,6 @@ var_export ($_SESSION['AJAX-B']);
 			</body>
 		</html>
 		<?php
-var_export ($_SESSION['AJAX-B']);
 		exit();
 		}
 	}

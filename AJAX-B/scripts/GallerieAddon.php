@@ -84,9 +84,15 @@ function ChangeBG (PtrItem, statut)
 {
 	if (!PtrItem) return null;
 	else if (statut)
+	{
 		PtrItem.childNodes[1].firstChild.firstChild.style.backgroundColor="rgb(220,230,255)";
+		PtrItem.style.borderColor="#333";
+	}
 	else
+	{
 		PtrItem.childNodes[1].firstChild.firstChild.style.backgroundColor="";
+		PtrItem.style.borderColor="#DDD";
+	}
 	return PtrItem.childNodes[1].firstChild.firstChild;
 }
 function innerICOs ()

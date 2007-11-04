@@ -32,7 +32,7 @@ $intaller = new MakeIntall (
 <li>get around the rmdir() blocked function</li>',
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
-	'excludes'=>array('*~','*.var','* es.php','*.svn/*','*Mini/*','*Spy/*'),
+	'excludes'=>array('*~','*.conf','* es.php','*.svn/*','*Mini/*','*Spy/*'),
 	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
 	'no_replace'=>array('*.var','*.png','*.gif'),
 
