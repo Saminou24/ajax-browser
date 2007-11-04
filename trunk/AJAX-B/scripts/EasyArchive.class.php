@@ -1,15 +1,11 @@
 <?php
 $test = new archive;
-$test->make('./RACINE/', 'test.tar');
-//$test->extract('test.tar', './');
+echo 'make : '.$test->make('./RACINE/', './test.tar').'<br>';
+echo 'extract : '.$test->extract('./test.tar').'<br>';
 class archive
 {
-	public $src;
-	public $dest;
 	public function infos ($src, $data=false)
 	{
-		$src = !empty($src) ? $src : $this->src;
-
 		$file = pathinfo($src);
 		switch (strtolower($file['extension']))
 		{
@@ -42,15 +38,13 @@ class archive
 	}
 	public function extract ($src, $dest=false)
 	{
-		$src = !empty($src) ? $src : $this->src;
-		$dest = !empty($dest) ? $dest : $this->dest;
-		
 		$file = pathinfo($src);
 		if (empty($dest)) $dest = dirname($file['filename']);
 		switch (strtolower($file['extension']))
 		{
 			case 'tar':
 				$tar = new tar;
+				$result = $tar->extractTar($src, $dest);
 				break;
 			case 'zip':
 				$zip = new zip;
@@ -78,13 +72,11 @@ class archive
 	}
 	public function make ($src, $dest)
 	{
-		$src = !empty($src) ?
-			(is_array($src) ? $src : array($src)) :
-			(is_array($this->src) ? $this->src : array($this->src));
-		$dest = !empty($dest) ? $dest : $this->dest;
-
-		$file = pathinfo($dest);
-		switch (strtolower($file['extension']))
+		if (empty($dest) && count ($src)>1)
+			$dest = 'archive '.date ('d/m/y H:i:s',time()).'.tar.gz';
+		else
+			$dest = $src[0].'.tar.gz';
+		switch (strtolower(pathinfo($dest, PATHINFO_EXTENSION)))
 		{
 			case 'tar':
 				$tar = new tar;
@@ -348,7 +340,7 @@ class tar
 		file_put_contents($dest, str_repeat("\0", 10240 - (filesize($dest) % 10240)) % 10240, FILE_APPEND);
 		return true;
 	}
-	function readTarHeader ($ptr)
+	function readTarHeader (&$ptr)
 	{
 		$hdr = unpack("a100name/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1type/a100symlink/a6magic/a2temp/a32temp/a32temp/a8temp/a8temp/a155prefix/a12temp", $block = fread($ptr, 512));
 		$checksum = 0;
@@ -371,14 +363,14 @@ class tar
 	}
 	function extractTar ($src, $dest)
 	{
-		$ptrTar = fopen('test.tar', 'r');
-		readTarHeader ($ptrTar);
-		while ($block = fread($ptrTar, 512))
+		$ptr = fopen($src, 'r');
+		$this->readTarHeader ($ptr);
+		while ($block = fread($ptr, 512))
 		{
 		
-		$data = fgets($fp, 4096);
+			$data .= fgets($ptr, 4096);
 		
 		}
-		return true;
+		return $data;
 	}
 }?>

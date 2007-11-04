@@ -135,7 +135,7 @@ elseif (isset($accounts) && $_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 		$GLOBALS['AJAX-Var']['accounts']=addUser($account_exemple, $GLOBALS['AJAX-Var']['accounts'], $user);
 		file_put_contents($file_accounts, var_export($GLOBALS['AJAX-Var']['accounts'], true));
 	}
-	elseif ($accounts=='removeuser' && !empty($GLOBALS['AJAX-Var']['accounts'][$user]))
+	elseif ($accounts=='removeuser' && isset($GLOBALS['AJAX-Var']['accounts'][$user]))
 	{
 		unset ($GLOBALS['AJAX-Var']['accounts'][$user]);
 		file_put_contents($file_accounts, var_export($GLOBALS['AJAX-Var']['accounts'], true));

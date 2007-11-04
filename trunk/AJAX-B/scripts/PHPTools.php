@@ -131,7 +131,7 @@ function addUser ($exemple, $arrayDest, $name, $code='',$racine='./')
 {
 	$arrayDest[$name]=$exemple;
 	$arrayDest[$name]['code']=crypt($code,$name);
-	$arrayDest[$name]['def_racine']=encode64($racine);
+	$arrayDest[$name]['def_racine']=$racine;
 	return $arrayDest;
 }
 function SupItem($Item)
