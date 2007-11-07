@@ -38,73 +38,87 @@ class archive
 	}
 	public function extract ($src, $dest=false)
 	{
-		$file = pathinfo($src);
-		if (empty($dest)) $dest = dirname($file['filename']);
-		switch (strtolower($file['extension']))
+		if (empty($dest)) $dest = dirname($src);
+
+		$ext2 = strrchr($src, ".");
+		$ext1 = substr(strrchr(substr($dest, 0, strlen($src)-strlen($ext2)), "."), 1);
+		$ext1 = ($ext1=='tar')?$ext1:'';
+
+		switch (strtolower($ext1.$ext2))
 		{
-			case 'tar':
-				$tar = new tar;
-				$result = $tar->extractTar($src, $dest);
-				break;
-			case 'zip':
+			case '.zip':
 				$zip = new zip;
 				$result = $zip->extractZip($src, $dest);
 				break;
-			case 'gz':
-			case 'gzip':
-			case 'tgz':
+			case '.tar':
 				$tar = new tar;
 				$gzip = new gzip;
-				$result = $gzip->extractGzip($src, $dest);
+				$result =$tar->extractTar($src , $dest);
 				break;
-			case 'bz':
-			case 'bzip':
-			case 'bzip2':
-			case 'bz2':
-			case 'tbz':
-			case 'tbz2':
+			case 'tar.gz':
+			case 'tar.gzip':
+			case '.tgz':
+			case '.tgzip':
+				$tar = new tar;
+				$gzip = new gzip;
+				$result =$tar->extractTar($gzip->extractGzip($src) , $dest);
+				break;
+			case 'tar.bz':
+			case 'tar.bz2':
+			case 'tar.bzip':
+			case 'tar.bzip2':
+			case '.tbz':
+			case '.tbz2':
+			case '.tbzip':
+			case '.tbzip2':
 				$tar = new tar;
 				$bzip2 = new bzip2;
-				$result = $bzip2->extractBzip2($src, $dest);
+				$result = $tar->extractTar($bzip2->extractBzip2($src), $dest);
 				break;
+			default ;
+				return 'Is not a valid format ! '.strtolower($ext1.$ext2);
 		}
 		return $result;
 	}
-	public function make ($src, $dest)
-	{
-		if (empty($dest) && count ($src)>1)
-			$dest = 'archive '.date ('d/m/y H:i:s',time()).'.tar.gz';
-		else
-			$dest = $src[0].'.tar.gz';
-		switch (strtolower(pathinfo($dest, PATHINFO_EXTENSION)))
+	public function make ($src, $dest=false)
+	{ // $dest=false pour un fichier virtuel (download)
+		$ext2 = strrchr($dest, ".");
+		$ext1 = substr(strrchr(substr($dest, 0, strlen($dest)-strlen($ext2)), "."), 1);
+		$ext1 = ($ext1=='tar')?$ext1:'';
+
+		switch (strtolower($ext1.$ext2))
 		{
-			case 'tar':
-				$tar = new tar;
-				$result = $tar->makeTar($src, $dest);
-				break;
-			case 'zip':
+			case '.zip':
 				$zip = new zip;
 				$result = $zip->makeZip($src, $dest);
 				break;
-			case 'gz':
-			case 'gzip':
-			case 'tgz':
+			case '.tar':
 				$tar = new tar;
 				$gzip = new gzip;
-				$result = $gzip->makeGzip($src, $dest);
+				$result = $tar->makeTar($src, $dest);
 				break;
-			case 'bz':
-			case 'bzip':
-			case 'bzip2':
-			case 'bz2':
-			case 'tbz':
-			case 'tbz2':
+			case 'tar.gz':
+			case 'tar.gzip':
+			case '.tgz':
+			case '.tgzip':
+				$tar = new tar;
+				$gzip = new gzip;
+				$result = $gzip->makeGzip($tar->makeTar($src), $dest);
+				break;
+			case 'tar.bz':
+			case 'tar.bz2':
+			case 'tar.bzip':
+			case 'tar.bzip2':
+			case '.tbz':
+			case '.tbz2':
+			case '.tbzip':
+			case '.tbzip2':
 				$tar = new tar;
 				$bzip2 = new bzip2;
-				$result = $bzip2->makeBzip2($src, $dest);
+				$result = $bzip2->makeBzip2($tar->makeTar($src), $dest);
 				break;
 			default ;
-				return 'Specifie format at the end of $dest falename !';
+				return 'Specifie a valid format at the end of $dest filename ! '.strtolower($ext1.$ext2);
 		}
 		return $result;
 	}
@@ -338,16 +352,22 @@ class tar
 		foreach ($src as $item)
 			$this->addTarItem($item.((is_dir($item) && substr($item, -1)!='/')?'/':''), $dest, dirname($item).'/');
 		file_put_contents($dest, str_repeat("\0", 10240 - (filesize($dest) % 10240)) % 10240, FILE_APPEND);
-		return true;
+		return file_get_contents($dest);
 	}
 	function readTarHeader (&$ptr)
 	{
 		$hdr = unpack("a100name/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1type/a100symlink/a6magic/a2temp/a32temp/a32temp/a8temp/a8temp/a155prefix/a12temp", $block = fread($ptr, 512));
+			$hdr['mode']=octdec($hdr['mode']);
+			$hdr['uid']=octdec($hdr['uid']);
+			$hdr['gid']=octdec($hdr['gid']);
+			$hdr['size']=octdec($hdr['size']);
+			$hdr['mtime']=octdec($hdr['mtime']);
+			$hdr['checksum']=octdec($hdr['checksum']);
 		$checksum = 0;
 		$block = substr_replace($block, '        ', 148, 8);
 		for ($i = 0; $i < 512; $i++)
 			$checksum += ord(substr($block, $i, 1));
-		if (octdec($hdr['checksum'])==$checksum)
+		if ($hdr['checksum']==$checksum)
 		{
 			if ($hdr['name']=='././@LongLink')
 			{
@@ -355,21 +375,21 @@ class tar
 				$hdr = readTarHeader ($ptr);
 				$hdr['name'] = $realName;
 				$hdr['data'] = fread($ptr, (($hdr['size'] + 512 - 1) / 512) * 512);
-				return $hdr;
 			}
-			elseif (substr($hdr['magic'], 0, 5) == 'ustar') return $hdr;
+			elseif (substr($hdr['magic'], 0, 5) == 'ustar')
+				$hdr['data'] = fread($ptr, (($hdr['size'] + 512 - 1) / 512) * 512);
+			return $hdr;
 		}
-		return false;
+		return $hdr;
 	}
 	function extractTar ($src, $dest)
 	{
 		$ptr = fopen($src, 'r');
-		$this->readTarHeader ($ptr);
-		while ($block = fread($ptr, 512))
+		while (!feof($ptr))
 		{
-		
-			$data .= fgets($ptr, 4096);
-		
+			$infos = $this->readTarHeader ($ptr);
+			var_export ($infos);
+			$data []= fread($ptr, $infos['size']);
 		}
 		return $data;
 	}

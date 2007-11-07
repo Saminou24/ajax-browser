@@ -17,13 +17,6 @@ if (!function_exists('fnmatch'))
 		return @preg_match('/^' . strtr(addcslashes($pattern, '/\\.+^$(){}=!<>|'), array('*' => '.*', '?' => '.?')) . '$/i', $string);
 	}
 }
-if (!function_exists('rmdir'))
-{
-	function rmdir($string)
-	{
-		return rename($string, './.ajaxb-trash/');
-	}
-}
 if (!function_exists('file_put_contents'))
 {
 	function file_put_contents($n, $d, $flag = false)
@@ -218,6 +211,6 @@ function UnRealPath ($dest)
 		else
 			array_pop($Adest);
 	}
-	return $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(is_file(realpath($dest))?'':'/');
+	return $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(@is_file(realpath($dest))?'':'/');
 }
 ?>

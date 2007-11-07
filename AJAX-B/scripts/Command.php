@@ -200,6 +200,8 @@ elseif (isset($supitems) && $_SESSION['AJAX-B']['droits']['DEL'])
 	$lst = explode(',', $supitems);
 	foreach ($lst as $item)
 		if (SupItem(decode64($item))) $returnLst[] = $item;
+		elseif (is_dir(decode64($item)) && rename(decode64($item), './.ajaxb-trash.dir/')) $returnLst[] = $item;
+		elseif (rename(decode64($item), './.ajaxb-trash.file')) $returnLst[] = $item;
 	echo implode(',', $returnLst);
 	if ($_SESSION['AJAX-B']['spy']['action'])
 		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/suppr.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.implode(', ', array_map("decode64", $returnLst))."\n", "add");
