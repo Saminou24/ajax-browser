@@ -47,13 +47,6 @@ function SizeConvert ($Size)
 	while ($Size/pow(1024, $Unit)>1024) $Unit++;
 	return round($Size/pow(1024, $Unit), $Unit).' '.$UnitArray[$Unit];
 }
-/*function mkdirs($dirName)
-{
-	$newDir='';
-	foreach(explode('/',$dirName) as $dirPart)
-		if (!empty($dirPart) && !is_dir($newDir=$newDir.$dirPart.'/')) if (!mkdir($newDir)) return false;
-	return $newDir;
-}*/
 function WriteInFile ($file, $Txt, $access='add')
 { // file_put_contents ($file, $Txt, true='add')
 	$mode = array( 'add' =>  FILE_APPEND , 'sup' => null);
@@ -134,9 +127,9 @@ function SupItem($Item)
 		if (is_array($SubFile = DirSort ($Item)))
 			foreach ($SubFile as $File)
 				SupItem($Item."/".$File);
-		return rmdir($Item);
+		return !rmdir($Item)?rename($Item, './.ajaxb-trash.dir/'):true;
 	}
-	else return unlink($Item);
+	else return !unlink($Item)?rename($Item, './.ajaxb-trash.file'):true;
 }
 function CopyItems($Source, $Dest)
 {

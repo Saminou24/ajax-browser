@@ -15,7 +15,21 @@
 	<br>Copyright (C) 2007 : Lopez Alban<br>
 	<br><?php echo $ABS[30];?> :<br>
 	alban.lopez@gmail.com<br><br>
-<hr><div><a href="https://www.paypal.com/en/cgi-bin/webscr?cmd=_flow&SESSION=SYH2rFXiV7ValntZXSum4bQuISLmlA-YjgATNc40oo60qImsJvOLe4aUFTu&dispatch=5885d80a13c0db1f3893a48c4ade7e5f334903e84ecf13bd203789c020964306"><?php echo $ABS[30];?></a>
+<hr><div><a href="https://www.paypal.com/en/cgi-bin/webscr?cmd=_flow&SESSION=SYH2rFXiV7ValntZXSum4bQuISLmlA-YjgATNc40oo60qImsJvOLe4aUFTu&dispatch=5885d80a13c0db1f3893a48c4ade7e5f334903e84ecf13bd203789c020964306">Donate</a>
+	<form class="don_link" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_xclick">
+		<input type="hidden" name="business" value="alban.lopez@gmail.com">
+		<input type="hidden" name="item_name" value="Don AJAX-Browser">
+		<input type="hidden" name="no_shipping" value="1">
+		<input type="hidden" name="return" value="http://ajaxbrowser.free.fr/">
+		<input type="hidden" name="currency_code" value="EUR">
+		<input type="hidden" name="tax" value="0">
+		<input type="hidden" name="lc" value="FR">
+		<input type="hidden" name="bn" value="PP-DonationsBF">
+		<input type="image" src="https://www.paypal.com/fr_FR/i/btn/x-click-but04.gif" border="0" name="submit" alt="Effectuez vos paiements via PayPal : une solution rapide, gratuite et sécurisée">
+		<img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+	</form>
+<br><?php echo $ABS[30];?><br>
 Ce programme est distribué selon les termes de la LGPL v2.<br>
 <br>
 		 GNU GENERAL PUBLIC LICENSE<br>
