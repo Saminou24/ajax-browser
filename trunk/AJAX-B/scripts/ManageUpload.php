@@ -22,6 +22,9 @@ if (!empty($_FILES))
 			{
 				$DestFile = decode64($dest).$_FILES['aFile']['name'];
 				move_uploaded_file($_FILES['aFile']['tmp_name'], $DestFile);
+				if (empty($_SESSION['AJAX-B']['upload_tmp_dir']) || is_file($_FILES['aFile']['tmp_name']))
+					$_SESSION['AJAX-B']['upload_tmp_dir'] = $GLOBALS['AJAX-Var']['global']['upload_tmp_dir'] = dirname($_FILES['aFile']['tmp_name']).'/';
+				file_put_contents($file_globalconf, var_export($GLOBALS['AJAX-Var']['global'], true));
 				if (is_file($DestFile))
 				{
 					echo $DestFile.' » Complet ('.SizeConvert(filesize ($DestFile)).')<br>';
@@ -37,55 +40,25 @@ if (!empty($_FILES))
 	}
 	else echo $ABS[805];
 }
+elseif ($upload == 'progress')
+{
+	if (!empty($_SESSION['AJAX-B']['upload_tmp_dir']) && is_dir($_SESSION['AJAX-B']['upload_tmp_dir']))
+	{
+		$size = 0;
+		$lst = glob ($_SESSION['AJAX-B']['upload_tmp_dir'].'php*');
+		foreach ($lst as $file)
+			$size += filesize ($file);
+		echo microtime(true)."\t".$size;
+	}
+}
 else
 {
-echo '	<body style="font-size:10px;padding:0px;margin:0px;">
+echo '	<body style="font-size:10px;padding:0px;margin:0px;"><img src="'.$InstallDir.'icones/loader-2.gif" style="display:none;">
 		<form METHOD="post" action="" enctype="multipart/form-data" style="padding:0px;margin:0px;">
 			<input type="hidden" name="dest" value="'.$dest.'">
-			<input type="file" name="aFile" style="text-align:center;margin-top:1px;" onchange="this.parentNode.submit();">
+			<input type="file" name="aFile" style="text-align:center;margin-top:1px;" onchange="this.parentNode.parentNode.firstChild.style.display=\'block\';this.parentNode.submit();">
 		</form>';
 }
-/*function subirFichero($origen, $destinoDir, $ftemporal)
-{
-	$origen = strtolower(basename($origen));
-	$destinoFull = $destinoDir.$origen;
-	$frand = $origen;
-	$i = 1;
-	while (file_exists( $destinoFull ))
-	{
-		$file_name = substr($origen, 0, strlen($origen)-4);
-		$file_extension = substr($origen, strlen($origen)-4, strlen($origen));
-		$frand = $file_name."[$i]".$file_extension;
-		$destinoFull = $destinoDir.$frand;
-		$i++;
-	}
-	if (move_uploaded_file($ftemporal, $destinoFull))
-		return $frand;
-	else
-		return "0";
-}*/
-/*function NewFile($New,$mode=false) // NewFile($New,($_SESSION['level']>2?true:false))
-{
-	list($folder,$file,$ext) = array_values(pathinfo($New));
-	if(strlen($ext))
-	{
-		$ext = ".".$ext;
-		$file = substr($file,0,strlen($file)-strlen($ext));
-	}
-	if ($mode && file_exists($OldName = $folder."/".$file.$Count.$ext))
-	{
-		rename($OldName,$Old = NewFile($folder."/".$file." - Old".$ext)); // l'ancien fichier est renomé (conservation de meta-données)
-		copy($Old,$OldName); // mais il est aussi restitué sous sont non d'orrigine pour les cas ou il est utilisé comme source
-		return $New;
-	}
-	$Count = "";
-	while (file_exists($NewName = $folder."/".$file.$Count.$ext))
-	{
-		$NewName;
-		$Count++ ;
-	}
-	return $NewName;
-}*/
 ?>
 	</body>
 </html>

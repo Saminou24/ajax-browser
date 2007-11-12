@@ -87,7 +87,7 @@ function SizeDir ($Folder)
 			foreach ($dirLst as $dir)
 				$SizeAll += SizeDir ($Folder.$dir.'/');
 		}
-		$fileLst=DirSort ($Folder, isset($_GET['match']) ? explode(',',$_GET['match']) : 'file');
+		$fileLst=DirSort ($Folder, isset($_SESSION['AJAX-B']['match']) ? explode(',',$_SESSION['AJAX-B']['match']) : 'file');
 		if ($fileLst)
 		{
 			foreach ($fileLst as $key => $file)
@@ -150,7 +150,7 @@ function DirSort ($rep, $mask='all', $Prefixe='')
 	if ($mask=='all')
 	{
 		$Lst1 = DirSort ($rep, 'dir', $Prefixe);		// cree une liste ordonnee des repertoires
-		$Lst2 = DirSort ($rep,  isset($_GET['match']) ? explode(',',$_GET['match']) : 'file', $Prefixe);		// cree une liste ordonnee des fichiers ( isset($_GET['match']) ? explode(',',$_GET['match']) : 'file' )
+		$Lst2 = DirSort ($rep,  isset($_SESSION['AJAX-B']['match']) ? explode(',',$_SESSION['AJAX-B']['match']) : 'file', $Prefixe);		// cree une liste ordonnee des fichiers ( isset($_GET['match']) ? explode(',',$_GET['match']) : 'file' )
 		if ($Lst2 || $Lst1)				// si l'un des 2 n'est pas vide...
 			return array_merge( $Lst1 ? $Lst1 : array(), $Lst2 ? $Lst2 : array() );       // alors on renvois la concatenation des 2 string
 		else return false;				// resultat d'un dossier vide

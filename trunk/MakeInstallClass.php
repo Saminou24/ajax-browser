@@ -29,7 +29,7 @@ $intaller = new MakeIntall (
 
 	'addons' => '<li>Debug (Setting dir "/" problem, promtMAJ() error ! [...])</li>
 <li>Replace Archves class by my class named EasyArchives.class.php</li>
-<li>get around the rmdir() blocked function</li>',
+<li>get around the rmdir() blocked function (that is a www.free.fr restriction) with rename trick.</li>',
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
 	'excludes'=>array('*~','*.conf','* es.php','*.svn/*','*Mini/*','*Spy/*'),

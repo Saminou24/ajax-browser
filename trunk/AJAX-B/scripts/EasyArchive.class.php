@@ -1,7 +1,24 @@
 <?php
 $test = new archive;
-echo 'make : '.$test->make('./RACINE/', './test.tar').'<br>';
-echo 'extract : '.$test->extract('./test.tar').'<br>';
+echo '<pre>';
+//echo 'make : '.$test->make('./RACINE/', './test.tar').'<br>';
+// var_export($test->extract('./RACINE.tar'));
+var_export($test->infos('./test.tar'));
+/*if (!function_exists('file_put_contents'))
+{
+	function file_put_contents($n, $d, $flag = false)
+	{
+		$mode = ($flag == FILE_APPEND || strtoupper($flag) == 'FILE_APPEND') ? 'a' : 'w';
+		if ($f = fopen($n, $mode))
+		{
+			if (is_array($d)) $d = implode($d);
+			$bytes_written = fwrite($f, $d);
+			fclose($f);
+			return $bytes_written;
+		}
+	}
+}*/
+
 class archive
 {
 	public function infos ($src, $data=false)
@@ -11,6 +28,7 @@ class archive
 		{
 			case 'tar':
 				$tar = new tar;
+				$result = $tar->infosTar($src, $data);
 				break;
 			case 'zip':
 				$zip = new zip;
@@ -52,7 +70,6 @@ class archive
 				break;
 			case '.tar':
 				$tar = new tar;
-				$gzip = new gzip;
 				$result =$tar->extractTar($src , $dest);
 				break;
 			case 'tar.gz':
@@ -197,69 +214,65 @@ class zip
 
 class gzip
 {
-	public function makeGzip($src, $dest)
+	public function makeGzip($src, $dest=false)
 	{
-		if (file_put_contents($dest, gzencode((is_file($src) ? file_get_contents ($src) : $src), 6)))
-			return true;
+		$Gzip = gzencode((is_file($src) ? file_get_contents ($src) : $src), 6);
+		if (empty($dest)) return $Gzip;
+		elseif (file_put_contents($dest, $Gzip)) return $dest;
 		return false;
 	}
 	public function infosGzip ($src, $data=true)
 	{
-		$zp = gzopen( $src, "r" );
-		$data = '';
-		while (!gzeof($zp))
-			$data .= gzread($zp, 1024*1024);
-		gzclose( $zp );
+		$data = $this->extractGzip ($src);
 		$content = array(
-			'Ratio'=>strlen($data) ? round(100-filesize($src) / strlen($data)*100, 1) : false,
+			'Ratio'=>strlen($data) ? round(100 - filesize($src) / strlen($data)*100, 1) : false,
 			'Size'=>filesize($src),
 			'NormalSize'=>strlen($data));
 		if ($data) $content['Data'] = $data;
 		return $content;
 	}
-	public function extractGzip ($src, $dest)
+	public function extractGzip ($src, $dest=false)
 	{
 		$zp = gzopen( $src, "r" );
 		$data = '';
 		while (!gzeof($zp))
 			$data .= gzread($zp, 1024*1024);
 		gzclose( $zp );
-		file_put_contents($dest, $data);
-		return true;
+		if (empty($dest)) return $data;
+		elseif (file_put_contents($dest, $data)) return $dest;
+		return false;
 	}
 }
 
 class bzip2
 {
-	function makeBzip2($src, $dest)
+	function makeBzip2($src, $dest=false)
 	{
-		if (file_put_contents($dest, bzcompress((is_file($src) ? file_get_contents ($src) : $src), 6)))
-			return true;
+		$Bzip2 = bzcompress((is_file($src) ? file_get_contents ($src) : $src), 6);
+		if (empty($dest)) return $Bzip2;
+		elseif (file_put_contents($dest, $Bzip2)) return $dest;
 		return false;
 	}
 	public function infosBzip2 ($src, $data=true)
 	{
-		$bz = bzopen($src, "r");
-		$data = '';
-		while (!feof($bz))
-			$data .= bzread($bz, 1024*1024);
-		bzclose($bz);
+		$data = $this->extractBzip2 ($src);
 		$content = array(
-			'Ratio'=>strlen($data) ? round(100-filesize($src) / strlen($data)*100, 1) : false,
+			'Ratio'=>strlen($data) ? round(100 - filesize($src) / strlen($data)*100, 1) : false,
 			'Size'=>filesize($src),
 			'NormalSize'=>strlen($data));
 		if ($data) $content['Data'] = $data;
 		return $content;
 	}
-	function extractBzip2($src, $dest)
+	function extractBzip2($src, $dest=false)
 	{
 		$bz = bzopen($src, "r");
 		$data = '';
 		while (!feof($bz))
 			$data .= bzread($bz, 1024*1024);
 		bzclose($bz);
-		file_put_contents($dest, $data);
-		return true;
+		if (empty($dest)) return $data;
+		elseif (file_put_contents($dest, $data)) return $dest;
+		return false;
 	}
 }
 
@@ -354,10 +367,12 @@ class tar
 		file_put_contents($dest, str_repeat("\0", 10240 - (filesize($dest) % 10240)) % 10240, FILE_APPEND);
 		return file_get_contents($dest);
 	}
-	function readTarHeader (&$ptr)
+	function readTarHeader ($ptr)
 	{
-		$hdr = unpack("a100name/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1type/a100symlink/a6magic/a2temp/a32temp/a32temp/a8temp/a8temp/a155prefix/a12temp", $block = fread($ptr, 512));
-			$hdr['mode']=octdec($hdr['mode']);
+		$block = fread($ptr, 512);
+		if (strlen($block)!=512) return false;
+		$hdr = unpack ("a100name/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1type/a100symlink/a6magic/a2version/a32uname/a32gname/a8devmajor/a8devminor/a155prefix/a12temp", $block);
+			$hdr['mode']=$hdr['mode']+0;
 			$hdr['uid']=octdec($hdr['uid']);
 			$hdr['gid']=octdec($hdr['gid']);
 			$hdr['size']=octdec($hdr['size']);
@@ -367,20 +382,25 @@ class tar
 		$block = substr_replace($block, '        ', 148, 8);
 		for ($i = 0; $i < 512; $i++)
 			$checksum += ord(substr($block, $i, 1));
-		if ($hdr['checksum']==$checksum)
+		if (isset($hdr['name']) && $hdr['checksum']==$checksum)
 		{
-			if ($hdr['name']=='././@LongLink')
+			if ($hdr['name']=='././@LongLink' && $hdr['type']=='L')
 			{
-				$realName = fread($ptr, (($hdr['size'] + 512 - 1) / 512) * 512);
-				$hdr = readTarHeader ($ptr);
-				$hdr['name'] = $realName;
-				$hdr['data'] = fread($ptr, (($hdr['size'] + 512 - 1) / 512) * 512);
+				$realName = substr(fread($ptr, floor(($hdr['size'] + 512 - 1) / 512) * 512), 0, $hdr['size']-1);
+				$hdr2 = $this->readTarHeader ($ptr);
+				$hdr2['name'] = $realName;
+				return $hdr2;
 			}
-			elseif (substr($hdr['magic'], 0, 5) == 'ustar')
-				$hdr['data'] = fread($ptr, (($hdr['size'] + 512 - 1) / 512) * 512);
-			return $hdr;
+			elseif (strtolower(substr($hdr['magic'], 0, 5) == 'ustar'))
+			{
+				if ($hdr['size']>0)
+					$hdr['data'] = substr(fread($ptr, floor(($hdr['size'] + 512 - 1) / 512) * 512), 0, $hdr['size']);
+				else $hdr['data'] = '';
+				return $hdr;
+			}
+			else return false;
 		}
-		return $hdr;
+		else return false;
 	}
 	function extractTar ($src, $dest)
 	{
@@ -388,9 +408,27 @@ class tar
 		while (!feof($ptr))
 		{
 			$infos = $this->readTarHeader ($ptr);
-			var_export ($infos);
-			$data []= fread($ptr, $infos['size']);
+			if ($infos['type']=='5' && @mkdir($infos['name'], 0775, true))
+				$result[]=$infos['name'];
+			elseif (($infos['type']=='0' || $infos['type']==chr(0)) && file_put_contents($infos['name'], $infos['data']))
+				$result[]=$infos['name'];
+			if ($infos)
+				chmod($infos['name'], 0775);
+// 			chmod(, $infos['mode']);
+// 			chgrp(, $infos['uname']);
+// 			chown(, $infos['gname']);
 		}
-		return $data;
+		return $result;
+	}
+	function infosTar ($src, $data=true)
+	{
+		$ptr = fopen($src, 'r');
+		while (!feof($ptr))
+		{
+			$infos = $this->readTarHeader ($ptr);
+			if ($infos['name']) $result[$infos['name']]=$infos;
+			if (!$data) unset($infos['data']);
+		}
+		return $result;
 	}
 }?>
