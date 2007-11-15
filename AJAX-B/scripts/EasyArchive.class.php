@@ -1,9 +1,9 @@
 <?php
-$test = new archive;
+$test = new Tar;
 echo '<pre>';
-//echo 'make : '.$test->make('./RACINE/', './test.tar').'<br>';
+echo ($t=$test->makeTar('RACINE/','toto.tar')).'<br>'.strlen($t);
 // var_export($test->extract('./RACINE.tar'));
-var_export($test->infos('./test.tar'));
+// var_export($test->infos('./test.tar'));
 /*if (!function_exists('file_put_contents'))
 {
 	function file_put_contents($n, $d, $flag = false)
@@ -298,10 +298,9 @@ class tar
 				$checksum += ord(substr($bigheader, $i, 1));
 			$bigheader = substr_replace($bigheader, sprintf("%06o", $checksum)."\0 ", 148, 8);
 		}
-
 		$header = pack("a100a8a8a8a12a12a8a1a100a6a2a32a32a8a8a155a12", // book the memorie area
 			substr($infos['name100'],0,100),		//  0 	100 	File name
-			sprintf("%07o", $infos['mode8']),		// 100 	8 		File mode
+			str_pad(substr(sprintf("%07o",$infos['mode8']),-4), 7, '0', STR_PAD_LEFT),		// 100 	8 		File mode
 			sprintf("%07o", $infos['uid8']),		// 108 	8 		Owner user ID
 			sprintf("%07o", $infos['gid8']),		// 116 	8 		Group user ID
 			sprintf("%011o", $infos['size12']),		// 124 	12 		File size in bytes
@@ -325,7 +324,7 @@ class tar
 
 		return $bigheader.$header;
 	}
-	function addTarItem ($item, $dest, $racine)
+	function addTarItem ($item, $racine)
 	{
 		$infos['name100'] = str_replace($racine, '', $item);
 		list (, , $infos['mode8'], , $infos['uid8'], $infos['gid8'], , , , $infos['mtime12'] ) = stat($item);
@@ -341,10 +340,7 @@ class tar
 		$infos['prefix155'] = '';
 
 		$header = $this->tarHeader512($infos);
-
 		$data = str_pad(file_get_contents($item), floor(($infos['size12'] + 512 - 1) / 512) * 512, "\0");
-
-		file_put_contents($dest, $header.$data, FILE_APPEND);
 
 		if (is_dir($item))
 		{
@@ -352,20 +348,20 @@ class tar
 			array_shift($lst); // remove  ./  of $lst
 			array_shift($lst); // remove ../  of $lst
 			foreach ($lst as $subitem)
-				$this->addTarItem($item.$subitem.(is_dir($item.$subitem)?'/':''), $dest, $racine);
+				$sub .= $this->addTarItem($item.$subitem.(is_dir($item.$subitem)?'/':''), $racine);
 		}
+		return $header.$data.$sub;
 	}
-	function makeTar($src, $dest)
+	function makeTar($src, $dest=false)
 	{
-		$src = !empty($src) ?
-			(is_array($src) ? $src : array($src)) :
-			(is_array($this->src) ? $this->src : array($this->src));
-		$dest = !empty($dest) ? $dest : $this->dest;
-			file_put_contents($dest, '');
+		$src = is_array($src) ? $src : array($src);
+
 		foreach ($src as $item)
-			$this->addTarItem($item.((is_dir($item) && substr($item, -1)!='/')?'/':''), $dest, dirname($item).'/');
-		file_put_contents($dest, str_repeat("\0", 10240 - (filesize($dest) % 10240)) % 10240, FILE_APPEND);
-		return file_get_contents($dest);
+			$Tar .= $this->addTarItem($item.((is_dir($item) && substr($item, -1)!='/')?'/':''), $dest, dirname($item).'/');
+
+		if (empty($dest)) return str_pad($Tar, floor((strlen($Tar) + 10240 - 1) / 10240) * 10240, "\0");
+		elseif (file_put_contents($dest, str_pad($Tar, floor((strlen($Tar) + 10240 - 1) / 10240) * 10240, "\0"))) return $dest;
+		else false;
 	}
 	function readTarHeader ($ptr)
 	{
