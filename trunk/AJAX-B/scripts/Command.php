@@ -108,7 +108,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 	if ($type=="no" && is_file($file=decode64($download)))
 	{
 		header('Content-Type: application/force-download');
-		header('Content-Disposition: attachment;filename='.basename($file).'\n'); // force le telechargement
+		header('Content-Disposition: attachment;filename='.basename($file)."\n"); // force le telechargement
 		readfile($file);
 		if ($_SESSION['AJAX-B']['spy']['action'])
 			WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/donwload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.$file.' ('.SizeConvert(filesize ($file)).")\n", "add");
