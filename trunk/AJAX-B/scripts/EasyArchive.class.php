@@ -1,9 +1,15 @@
-<?php
-$test = new Tar;
-echo '<pre>';
-echo ($t=$test->makeTar('RACINE/','toto.tar')).'<br>'.strlen($t);
-// var_export($test->extract('./RACINE.tar'));
-// var_export($test->infos('./test.tar'));
+<pre><?php
+
+$test = new tar;
+$test->makeTar('RACINE/','toto.tar');
+var_export($test->infosTar('toto.tar'));
+$test = new gzip;
+$test->makeGzip('toto.tar','toto.tgz');
+var_export($test->infosGzip('toto.tgz'));
+$test = new bzip2;
+$test->makeBzip2('toto.tar','toto.tbz2');
+var_export($test->infosBzip2('toto.tbz2'));
+
 /*if (!function_exists('file_put_contents'))
 {
 	function file_put_contents($n, $d, $flag = false)
@@ -21,6 +27,18 @@ echo ($t=$test->makeTar('RACINE/','toto.tar')).'<br>'.strlen($t);
 
 class archive
 {
+/**
+// You can use this class like that.
+$download = new archive;
+header('Content-Type: application/force-download');
+header("Content-Disposition: attachment;filename=archive.tar.gzip\n");
+	echo $download->make('./');
+
+$test = new archive;
+$test->make('./', './archive.tar.gzip');
+var_export($test->infos('./toto.bzip2'));
+$test->extract('./toto.zip', './new/');
+**/
 	public function infos ($src, $data=false)
 	{
 		$file = pathinfo($src);
@@ -143,11 +161,18 @@ class archive
 
 class zip
 {
+/**
+// You can use this class like that.
+$test = new zip;
+$test->makeZip('./','./toto.zip');
+var_export($test->infosZip('./toto.zip'));
+$test->extractZip('./toto.zip', './new/');
+**/
 	public function infosZip ($src, $data=true)
 	{
-		if ($zip = zip_open($src))
+		if (($zip = zip_open(realpath($src))))
 		{
-			while ($zip_entry = zip_read($zip))
+			while (($zip_entry = zip_read($zip)))
 			{
 				$path = zip_entry_name($zip_entry);
 				if (zip_entry_open($zip, $zip_entry, "r"))
@@ -182,10 +207,12 @@ class zip
 	public function makeZip ($src, $dest)
 	{
 		$zip = new ZipArchive;
+		$src = is_array($src) ? $src : array($src);
 		if ($zip->open($dest, ZipArchive::CREATE) === true)
 		{
 			foreach ($src as $item)
-				$this->addZipItem($zip, realpath(basename($item)).'/', realpath($item).'/');
+				if (file_exists($item))
+					$this->addZipItem($zip, realpath(dirname($item)).'/', realpath($item).'/');
 			$zip->close();
 			return true;
 		}
@@ -200,12 +227,7 @@ class zip
 				array_shift($lst);
 				array_shift($lst);
 			foreach ($lst as $item)
-			{
-				if (is_dir($dir.$item))
-					$this->addZipItem($zip, $racine, $dir.$item.'/');
-				else
-					$zip->addFile($dir.$item, str_replace($racine, '', $dir.$item));
-			}
+				$this->addZipItem($zip, $racine, $dir.$item.(is_dir($dir.$item)?'/':''));
 		}
 		elseif (is_file($dir))
 			$zip->addFile($dir, str_replace($racine, '', $dir));
@@ -214,6 +236,13 @@ class zip
 
 class gzip
 {
+/**
+// You can use this class like that.
+$test = new gzip;
+$test->makeGzip('./','./toto.gzip');
+var_export($test->infosGzip('./toto.gzip'));
+$test->extractGzip('./toto.gzip', './new/');
+**/
 	public function makeGzip($src, $dest=false)
 	{
 		$Gzip = gzencode((is_file($src) ? file_get_contents ($src) : $src), 6);
@@ -246,6 +275,13 @@ class gzip
 
 class bzip2
 {
+/**
+// You can use this class like that.
+$test = new bzip2;
+$test->makeBzip2('./','./toto.bzip2');
+var_export($test->infosBzip2('./toto.bzip2'));
+$test->extractBzip2('./toto.bzip2', './new/');
+**/
 	function makeBzip2($src, $dest=false)
 	{
 		$Bzip2 = bzcompress((is_file($src) ? file_get_contents ($src) : $src), 6);
@@ -278,8 +314,15 @@ class bzip2
 
 class tar
 {
+/**
+// You can use this class like that.
+$test = new tar;
+$test->makeTar('./','./toto.Tar');
+var_export($test->infosTar('./toto.Tar'));
+$test->extractTar('./toto.Tar', './new/');
+**/
 	function tarHeader512($infos)
-	{ /** http://www.mkssoftware.com/docs/man4/tar.4.asp **/
+	{ /* http://www.mkssoftware.com/docs/man4/tar.4.asp */
 		$bigheader = $header = '';
 		if (strlen($infos['name100'])>100)
 		{
