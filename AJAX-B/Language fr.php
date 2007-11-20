@@ -45,7 +45,7 @@ $ABS = array( // Ajax Browser Sentences
 34 => 'Droits',
 35 => ' tentatives, Vous etes blacklisté !',
 36 => 'Decompresser ici',
-37 => 'Contribuer financierement aux ameliorations.',
+37 => 'Contribuer ou financer.',
 
 // fichier ManageSuperGlobales.php
 100 => 'Impossible de créer le fichier "AJAX-Array.var" dans ".AJAX-B" veuillez verifier les droits',

@@ -22,7 +22,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	list($v1, $v2, $v3, $v4) = sscanf($NewVersion, '%d.%d.%d%s');
 	if (!$NewVersion) echo $ABS[506];
 	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
-		echo '<a href="?mode=request&maj">'.$ABS[508].' : '.$NewVersion.'</a>';
+		echo '<a href="?mode=request&maj">'.$ABS[508].' : '.$NewVersion.'</a>'.@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?addons');
 	else echo $ABS[507];
 }
 ?>
@@ -109,5 +109,10 @@ function saveSetting ()
 			),
 	);
 	file_put_contents($file_globalconf, var_export($GLOBALS['AJAX-Var']['global'], true));
+	$_SESSION['AJAX-B'] = array_merge(
+		array('login' => $_SESSION['AJAX-B']['login']),
+		$GLOBALS['AJAX-Var']['global'],
+		$GLOBALS['AJAX-Var']['accounts'][$_SESSION['AJAX-B']['login']]);
+	unset ($_SESSION['AJAX-B']['code']);
 }
 ?>

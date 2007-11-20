@@ -27,9 +27,9 @@ if (!empty($_FILES))
 				file_put_contents($file_globalconf, var_export($GLOBALS['AJAX-Var']['global'], true));
 				if (is_file($DestFile))
 				{
-					echo $DestFile.' » Complet ('.SizeConvert(filesize ($DestFile)).')<br>';
+					echo $DestFile.' > Complet ('.SizeConvert(filesize ($DestFile)).')<br>';
 					if ($_SESSION['AJAX-B']['spy']['action'])
-						WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/upload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.$DestFile.' ('.SizeConvert(filesize ($DestFile)).")\n", "add");
+						file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/upload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$DestFile.' ('.SizeConvert(filesize ($DestFile)).")\n", FILE_APPEND);
 				}
 				else
 					echo $ABS[801].$_FILES['aFile']['name']."<br>".$ABS[802].' '.$dest;

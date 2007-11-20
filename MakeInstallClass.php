@@ -17,6 +17,11 @@ $intaller = new MakeIntall (
 	'version' => $_GET['version'],
 	'projetName'=> 'AJAX-Browser',
 
+	'addons' => '<li>This Version RESET all your config, but improves this !</li>
+<li>Debug (Setting dir "/" problem, promtMAJ() error ! [...])</li>
+<li>Replace Archves class by my class named EasyArchives.class.php</li>
+<li>Get around the rmdir() blocked function (that is a www.free.fr restriction) with rename trick.</li>',
+
 	'comment' => '-------------------------------------------------
  | %name%  -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
@@ -27,14 +32,10 @@ $intaller = new MakeIntall (
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-	'addons' => '<li>Debug (Setting dir "/" problem, promtMAJ() error ! [...])</li>
-<li>Replace Archves class by my class named EasyArchives.class.php</li>
-<li>get around the rmdir() blocked function (that is a www.free.fr restriction) with rename trick.</li>',
-
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
-	'excludes'=>array('*~','*.conf','* es.php','*.svn/*','*Mini/*','*Spy/*'),
+	'excludes'=>array('*~','*.conf','*.svn/*','*Mini/*','*Spy/*'),
 	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
-	'no_replace'=>array('*.var','*.png','*.gif'),
+	'no_replace'=>array('*.conf','*.png','*.gif'),
 
 	'functions_useful'=>array(
 		'rmdir'=>'%this% is not aviable on this serveur, it is not possible to remove empty folder.<br/>',

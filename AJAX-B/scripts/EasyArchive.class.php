@@ -1,14 +1,25 @@
 <?php
 /** http://www.phpclasses.org/browse/package/4239.html **/
-include('./EasyZip.class.php');
-include('./EasyGzip.class.php');
-include('./EasyBzip2.class.php');
-include('./EasyTar.class.php');
-
-$arch = new archive;
-// $arch->make('./', './archive.tar.gzip');
-var_export($arch->make('./','./toto.test.bzip2'));
-// $arch->extract('./toto.zip', './new/');
+$lst = array (
+  0 => './Arborescence.php',
+  1 => './ArborescenceAddon.php',
+  2 => './CP_Editor.php',
+  3 => './CloseHTML.php',
+  4 => './CloseHTML.php~',
+  5 => './Command.php',
+);
+include ('./EasyZip.class.php');
+include ('./EasyGzip.class.php');
+include ('./EasyBzip2.class.php');
+include ('./EasyTar.class.php');
+$archive = new archive;
+$file='test2.zip';
+	header('Content-Type: application/force-download');
+	header("Content-Transfer-Encoding: binary");
+	header("Cache-Control: no-cache, must-revalidate, max-age=60");
+	header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
+	header('Content-Disposition: attachment;filename='.($file)."\n"); // force le telechargement*/
+print ($archive->make($lst, $file, false));
 
 class archive
 {
@@ -65,7 +76,7 @@ $arch->extract('./toto.zip', './new/');
 	}
 	public function extract ($src, $dest=false)
 	{
-		if (empty($dest)) $dest = dirname($src);
+		if (empty($dest)) $dest = dirname(realpath($src).'/');
 
 		$ext2 = strrchr($src, ".");
 		$ext1 = substr(strrchr(substr($dest, 0, strlen($src)-strlen($ext2)), "."), 1);
@@ -158,7 +169,7 @@ $arch->extract('./toto.zip', './new/');
 				$result = $bzip2->makeBzip2($tar->makeTar($src), $dest);
 				break;
 			default ;
-				return 'Specifie a valid format at the end of $dest filename ! '.strtolower($ext1.$ext2);
+				return 'Specifie a valid format at the end of $name filename ! '.strtolower($ext1.$ext2);
 		}
 		return $result;
 	}

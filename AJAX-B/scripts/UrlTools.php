@@ -9,9 +9,14 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 $reload=false;
-/*echo ">>";
-var_export ($_SESSION['AJAX-B']);
-echo "<<br>";*/
+
+if (!empty($_SESSION['AJAX-B']['def_racine']) && !is_dir($_SESSION['AJAX-B']['def_racine']))
+	mkdir ($_SESSION['AJAX-B']['def_racine'], 0777, true);
+if (!empty($_SESSION['AJAX-B']['spy_dir']) && !is_dir($_SESSION['AJAX-B']['spy_dir']))
+	mkdir ($_SESSION['AJAX-B']['spy_dir'], 0777, true);
+if (!empty($_SESSION['AJAX-B']['mini_dir']) && !is_dir($_SESSION['AJAX-B']['mini_dir']))
+	mkdir ($_SESSION['AJAX-B']['mini_dir'], 0777, true);
+	
 	if (strpos($mode,'request')===false)
 	{
 		if (!empty($racine) && is_dir($racine))
@@ -19,10 +24,6 @@ echo "<<br>";*/
 			$racine64=encode64($racine);
 			$reload=true;
 		}
-		
-		if (!empty($_SESSION['AJAX-B']['def_racine']) && !is_dir($_SESSION['AJAX-B']['def_racine']))
-			mkdir ($_SESSION['AJAX-B']['def_racine'], 0777, true);
-			
 
 		if (!empty($_SESSION['AJAX-B']['def_racine']) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(realpath(decode64($racine64)), realpath($_SESSION['AJAX-B']['def_racine']))===false)
 		{ // si l'utilisateur remonte l'arborescence alors qu'il n'en a pas le droit

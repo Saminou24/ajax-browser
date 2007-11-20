@@ -217,8 +217,8 @@ function saveAccount($UserName)
 	{
 		$_SESSION['AJAX-B'] = array_merge(
 			array('login' => $UserName),
-			$GLOBALS['AJAX-Var']['accounts'][$UserName],
-			$GLOBALS['AJAX-Var']['global']);
+			$GLOBALS['AJAX-Var']['global'],
+			$GLOBALS['AJAX-Var']['accounts'][$UserName]);
 		unset ($_SESSION['AJAX-B']['code']);
 	}
 }

@@ -9,9 +9,9 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-	$GLOBALS['AJAX-Var']['global'] = eval('return '.file_get_contents($file_globalconf).';');
-	$GLOBALS['AJAX-Var']['accounts'] = eval('return '.file_get_contents($file_accounts).';');
-	$GLOBALS['AJAX-Var']['blacklist'] = eval('return '.file_get_contents($file_blacklist).';');
+$GLOBALS['AJAX-Var']['global'] = eval('return '.file_get_contents($file_globalconf).';');
+$GLOBALS['AJAX-Var']['accounts'] = eval('return '.file_get_contents($file_accounts).';');
+$GLOBALS['AJAX-Var']['blacklist'] = eval('return '.file_get_contents($file_blacklist).';');
 if(isset($sublstof))
 {
 	$LstDir=array();
@@ -31,9 +31,10 @@ $fileLst = DirSort ($folder, isset($match) ? explode(',',$match) : 'file');
 		foreach ($fileLst as $file)
 			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',basename($file)))
 				array_push ($LstFile, implode("\t",InfosByURL ($folder.$file, !isset($light))));
+
 	}
 	if ($_SESSION['AJAX-B']['spy']['browse'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/browse.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] »  '.$folder.' ('.$mode.")\n", "add");
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/browse.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.$folder.' ('.$mode.")\n", FILE_APPEND);
 
 	echo UnRealPath($folder)."\n".implode("\n", array_merge($LstDir, $LstFile));
 }
@@ -82,15 +83,15 @@ elseif(isset($view))
 			include ($InstallDir.'scripts/CP_Editor.php');
 		else header('Location:'.implode('/', array_map('rawurlencode', explode('/', $file))));
 		if ($_SESSION['AJAX-B']['spy']['action'])
-			WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/view.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.$file."\n", "add");
+			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/view.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$file."\n", FILE_APPEND);
 	}
 	exit();
 }
 elseif (isset($cpsave))
 {
-	WriteInFile("CP_file.txt", $data, "sup");
+	file_put_contents("CP_file.txt", $data);
 /*	if ($_SESSION['AJAX-B']['spy']['action'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/CPedit.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] »  '.decode64($cpsave)."\n", "add");*/
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/CPedit.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.decode64($cpsave)."\n", FILE_APPEND);*/
 }
 elseif (isset($upload))
 {
@@ -100,22 +101,40 @@ elseif (isset($uncompress) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 {
 	if (is_file($file=decode64($uncompress)))
 	{
-		echo encode64(UnRealPath(dirname($file)));
+		include ($InstallDir.'scripts/EasyArchive.class.php');
+		include ($InstallDir.'scripts/EasyZip.class.php');
+		include ($InstallDir.'scripts/EasyGzip.class.php');
+		include ($InstallDir.'scripts/EasyBzip2.class.php');
+		include ($InstallDir.'scripts/EasyTar.class.php');
+		$archive = new archive;
+		$archive->extract($file);
 	}
 }
 elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 {
+	header('Content-Type: application/force-download');
+	header("Content-Transfer-Encoding: binary");
+	header("Cache-Control: no-cache, must-revalidate, max-age=60");
+	header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
 	if ($type=="no" && is_file($file=decode64($download)))
 	{
-		header('Content-Type: application/force-download');
 		header('Content-Disposition: attachment;filename='.basename($file)."\n"); // force le telechargement
 		readfile($file);
 		if ($_SESSION['AJAX-B']['spy']['action'])
-			WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/donwload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.$file.' ('.SizeConvert(filesize ($file)).")\n", "add");
+			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/donwload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$file.' ('.SizeConvert(filesize ($file)).")\n", FILE_APPEND);
 	}
 	else
 	{
-
+		include ($InstallDir.'scripts/EasyArchive.class.php');
+		include ($InstallDir.'scripts/EasyZip.class.php');
+		include ($InstallDir.'scripts/EasyGzip.class.php');
+		include ($InstallDir.'scripts/EasyBzip2.class.php');
+		include ($InstallDir.'scripts/EasyTar.class.php');
+			$archive = new archive;
+			$data = $archive->make(array_map('decode64', explode(',', $download)), $file, false);
+				header('Content-Disposition: attachment;filename='.($file=('Ajax-Browser.'.$type))."\n"); // force le telechargement
+				header("Content-Length: " . strlen($data));
+					print($data);
 	}
 	exit();
 }
@@ -169,9 +188,9 @@ elseif (isset($contact))
 elseif (isset($newitem) && $_SESSION['AJAX-B']['droits']['NEW'])
 {
 	if (substr($new=decode64($newitem), -1, 1)=='/') mkdir($new, 0777, true);
-	elseif (!is_file($new)) WriteInFile ($new, "\n",'sup');
+	elseif (!is_file($new)) file_put_contents ($new, "");
 	if ($_SESSION['AJAX-B']['spy']['action'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/new.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.$new."\n", "add");
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/new.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$new."\n", FILE_APPEND);
 }
 elseif (isset($noitems))
 {
@@ -202,14 +221,14 @@ elseif (isset($supitems) && $_SESSION['AJAX-B']['droits']['DEL'])
 		if (SupItem(decode64($item))) $returnLst[] = $item;
 	echo implode(',', $returnLst);
 	if ($_SESSION['AJAX-B']['spy']['action'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/suppr.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.implode(', ', array_map("decode64", $returnLst))."\n", "add");
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/suppr.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.implode(', ', array_map("decode64", $returnLst))."\n", FILE_APPEND);
 }
 elseif (isset($renitem) && $_SESSION['AJAX-B']['droits']['REN'])
 {
 	rename(decode64($renitem), dirname(decode64($renitem)).'/'.decode64($mask));
 	echo encode64(dirname(decode64($renitem)).'/');
 	if ($_SESSION['AJAX-B']['spy']['action'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time())."]\n\t".decode64($renitem).' » '.decode64($mask)."\n", "add");
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time())."]\n\t".decode64($renitem).' > '.decode64($mask)."\n", FILE_APPEND);
 }
 elseif (isset($renitems) && $_SESSION['AJAX-B']['droits']['REN'])
 {
@@ -231,9 +250,9 @@ elseif(isset($maj) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 	if (!$NewVersion) echo $ABS[403];
 	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
 	{
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » '.$version.' » '.$NewVersion."\n", "add");
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$version.' > '.$NewVersion."\n", FILE_APPEND);
 		$name = sha1 ($data = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?download&identity='.$_SERVER['SERVER_NAME'].'-'.$version)).'.php';
-		WriteInFile('./'.$name, $data, 'sup');
+		file_put_contents('./'.$name, $data);
 		include ('./'.$name);
 		unlink('./'.$name);
 	}
