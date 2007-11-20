@@ -24,13 +24,11 @@ if (!empty($_SESSION['AJAX-B']['mini_dir']) && !is_dir($_SESSION['AJAX-B']['mini
 			$racine64=encode64($racine);
 			$reload=true;
 		}
-
 		if (!empty($_SESSION['AJAX-B']['def_racine']) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(realpath(decode64($racine64)), realpath($_SESSION['AJAX-B']['def_racine']))===false)
 		{ // si l'utilisateur remonte l'arborescence alors qu'il n'en a pas le droit
 			$racine64 = encode64($_SESSION['AJAX-B']['def_racine']);
 			$reload=true;
 		}
-			
 		if (empty($racine64) || !@is_dir(decode64($racine64)) || encode64(decode64($racine64))!=$racine64)
 		{ // si l'URL n'est pas une URL valide
 			$racine64 = empty($_SESSION['AJAX-B']['def_racine'])?encode64('./'):encode64($_SESSION['AJAX-B']['def_racine']);
@@ -46,7 +44,12 @@ if (!empty($_SESSION['AJAX-B']['mini_dir']) && !is_dir($_SESSION['AJAX-B']['mini
 			$mode = empty($_SESSION['AJAX-B']['def_mode'])?'arborescence':$_SESSION['AJAX-B']['def_mode'];
 			$reload=true;
 		}
-
+		if (encode64(UnRealPath(realpath(decode64($racine64))))!=$racine64)
+		{
+			$racine64 = encode64(UnRealPath(realpath(decode64($racine64))));
+			$reload=true;
+		}
+		
 		if (($reload==true || isset($code)))
 		{
 			header("Location:".RebuildURL ());
