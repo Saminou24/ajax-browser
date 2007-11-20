@@ -71,7 +71,6 @@ $test->extractTar('./toto.Tar', './new/');
 
 		$header = $this->tarHeader512($infos);
 		$data = str_pad(file_get_contents($item), floor(($infos['size12'] + 512 - 1) / 512) * 512, "\0");
-
 		if (is_dir($item))
 		{
 			$lst = scandir($item);
@@ -88,9 +87,10 @@ $test->extractTar('./toto.Tar', './new/');
 
 		foreach ($src as $item)
 			$Tar .= $this->addTarItem($item.((is_dir($item) && substr($item, -1)!='/')?'/':''), $dest, dirname($item).'/');
-
-		if (empty($dest)) return str_pad($Tar, floor((strlen($Tar) + 10240 - 1) / 10240) * 10240, "\0");
-		elseif (file_put_contents($dest, str_pad($Tar, floor((strlen($Tar) + 10240 - 1) / 10240) * 10240, "\0"))) return $dest;
+		
+		$Tar = str_pad($Tar, floor((strlen($Tar) + 10240 - 1) / 10240) * 10240, "\0");
+		if (empty($dest)) return $Tar;
+		elseif (file_put_contents($dest, $Tar)) return $dest;
 		else false;
 	}
 	function readTarHeader ($ptr)

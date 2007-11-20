@@ -47,12 +47,12 @@ function SizeConvert ($Size)
 	while ($Size/pow(1024, $Unit)>1024) $Unit++;
 	return round($Size/pow(1024, $Unit), $Unit).' '.$UnitArray[$Unit];
 }
-function WriteInFile ($file, $Txt, $access='add')
-{ // file_put_contents ($file, $Txt, true='add')
-	$mode = array( 'add' =>  FILE_APPEND , 'sup' => null);
-	if (!is_dir(dirname($file))) mkdir(dirname($file), 0777, true);
-	return file_put_contents ($file, $Txt, $mode[$access]);
-}
+// function file_put_contents ($file, $Txt, $access='add')
+// { // file_put_contents ($file, $Txt, true='add')
+// 	$mode = array( 'add' =>  FILE_APPEND , 'sup' => null);
+// 	if (!is_dir(dirname($file))) mkdir(dirname($file), 0777, true);
+// 	return file_put_contents ($file, $Txt, $mode[$access]);
+// }
 function microtime_float()
 {
 	list($usec, $sec) = explode(' ', microtime());
@@ -162,7 +162,7 @@ function pasteItems ($dest)
 		}
 	}
 	if ($_SESSION['AJAX-B']['spy']['action'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/CpMvPaste.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] '.$_SESSION['AJAX-B']['paste_mode'].' » '.implode(', ', array_map("decode64", $_SESSION['AJAX-B']['SelectLst']))."\n", "add");
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/CpMvPaste.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] '.$_SESSION['AJAX-B']['paste_mode'].' > '.implode(', ', array_map("decode64", $_SESSION['AJAX-B']['SelectLst']))."\n", FILE_APPEND);
 	$_SESSION['AJAX-B']['paste_mode'] = '';
 	$_SESSION['AJAX-B']['SelectLst'] = array();
 	return implode(',', $returnLst);
@@ -180,13 +180,13 @@ function MultiRen ($files, $mask)
 		$DestFile = dirname ($file)."/".((!strcmp(strrchr($mask,"!"), "!")) ? substr($TmpStr, 0, -1) : ($TmpStr.(pathinfo(dirname($file).$TmpStr, PATHINFO_EXTENSION) ? "" : $ext)));
 		if (rename($file, $DestFile))
 		{
-			$spy .= "\t".$file.' » '.basename($DestFile)."\n";
+			$spy .= "\t".$file.' > '.basename($DestFile)."\n";
 			if (!in_array(encode64(dirname($file).'/'), $returnLst))
 				$returnLst[] = encode64(dirname($file).'/');
 		}
 	}
 	if ($_SESSION['AJAX-B']['spy']['action'])
-		WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] » multirename » '.$mask."\n".$spy, "add");
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > multirename > '.$mask."\n".$spy, FILE_APPEND);
 	return implode(',', $returnLst);
 }
 function UnRealPath ($dest)

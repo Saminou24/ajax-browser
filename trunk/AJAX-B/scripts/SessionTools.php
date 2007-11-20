@@ -149,19 +149,19 @@ $ajaxb_conf_exemple = array (
 
 			$_SESSION['AJAX-B'] = array_merge(
 				array('login' => $login),
-				$GLOBALS['AJAX-Var']['accounts'][$login],
-				$GLOBALS['AJAX-Var']['global']);
+				$GLOBALS['AJAX-Var']['global'],
+				$GLOBALS['AJAX-Var']['accounts'][$login]);
 			unset ($_SESSION['AJAX-B']['code']);
 			file_put_contents($file_accounts, var_export($GLOBALS['AJAX-Var']['accounts'], true));
 			if ($_SESSION['AJAX-B']['spy']['log'])
-				WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/Log.spy', $login.($_SESSION['AJAX-B']['spy']['ip']?' » '.$_SERVER['REMOTE_ADDR']:'').' ['.date ("d/m/y H:i:s",time()).'] » '.$_SERVER['HTTP_USER_AGENT']."\n", "add");
+				file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/Log.spy', $login.($_SESSION['AJAX-B']['spy']['ip']?' > '.$_SERVER['REMOTE_ADDR']:'').' ['.date ("d/m/y H:i:s",time()).'] > '.$_SERVER['HTTP_USER_AGENT']."\n", FILE_APPEND);
 		}
 		else
 		{
 			if (!empty($login))
 			{
 				if ($_SESSION['AJAX-B']['spy']['log'])
-					WriteInFile ($_SESSION['AJAX-B']['spy_dir'].'/WRONG_Log.spy', $login.($GLOBALS['AJAX-Var']['global']['spy']['ip']?' » '.$_SERVER['REMOTE_ADDR']:'').' ['.date ("d/m/y H:i:s",time()).'] » '.$_SERVER['HTTP_USER_AGENT']."\n", "add");
+					file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/WRONG_Log.spy', $login.($GLOBALS['AJAX-Var']['global']['spy']['ip']?' > '.$_SERVER['REMOTE_ADDR']:'').' ['.date ("d/m/y H:i:s",time()).'] > '.$_SERVER['HTTP_USER_AGENT']."\n", FILE_APPEND);
 				$GLOBALS['AJAX-Var']['blacklist'][$_SERVER['REMOTE_ADDR']]++;
 				file_put_contents($file_blacklist, var_export($GLOBALS['AJAX-Var']['blacklist'], true));
 			}

@@ -30,22 +30,9 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits'][
 	list($v1, $v2, $v3, $v4) = sscanf($NewVersion, '%d.%d.%d%s');
 	if ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
 	{
-	echo 'donate = \'<form class="don_link" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-<input type="hidden" name="cmd" value="_xclick">
-<input type="hidden" name="business" value="alban.lopez@gmail.com">
-<input type="hidden" name="item_name" value="Don AJAX-Browser">
-<input type="hidden" name="no_shipping" value="1">
-<input type="hidden" name="return" value="http://ajaxbrowser.free.fr/">
-<input type="hidden" name="currency_code" value="EUR">
-<input type="hidden" name="tax" value="0">
-<input type="hidden" name="lc" value="FR">
-<input type="hidden" name="bn" value="PP-DonationsBF">
-<input type="image" src="https://www.paypal.com/fr_FR/i/btn/x-click-but04.gif" border="0" name="submit" alt="Effectuez vos paiements via PayPal : une solution rapide, gratuite et securisee">
-<img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
-</form>\';';
 		echo "ID('DragZone').childNodes[1].innerHTML='Upgrade';\n";
 		echo "ID('Box').style.display = 'block';\n";
-		echo "OpenBox (donate + '<br/><a href=\"?mode=request&maj\">".$ABS[508].' : '.$NewVersion."</a>".@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?addons')."<br/>');";
+		echo "OpenBox ('<a href=\"http://ajaxbrowser.free.fr/Ajax-B_Pub/en/contribute.php\">".$ABS[37]."</a><br/><br/><a href=\"?mode=request&maj\">".$ABS[508].' : '.$NewVersion."</a>".str_replace("\n", "" ,@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?addons'))."<br/>');";
 	}
 }
 ?>
@@ -97,8 +84,8 @@ function FileIco (File)
 				<div onmouseup="_download('no');" class='action'><IMG src="<?php echo $InstallDir; ?>icones/type-unknown.png"/><?php echo $ABS[23];?></div>
 				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('zip');" class='action' title="<?php echo $ABS[205];?>*.ZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-zip.png"/>ZIP</div>
 				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar');" class='action' title="<?php echo $ABS[205];?>*.TAR"><IMG src="<?php echo $InstallDir; ?>icones/type-tar.png"/>TAR</div>
-				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('gzip');" class='action' title="<?php echo $ABS[205];?>*.GZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-gz.png"/>TAR.GZIP</div>
-				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('bzip2');" class='action' title="<?php echo $ABS[205];?>*.BZIP2"><IMG src="<?php echo $InstallDir; ?>icones/type-bz2.png"/>TAR.BZIP2</div>
+				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.gzip');" class='action' title="<?php echo $ABS[205];?>*.GZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-gz.png"/>TAR.GZIP</div>
+				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.bzip2');" class='action' title="<?php echo $ABS[205];?>*.BZIP2"><IMG src="<?php echo $InstallDir; ?>icones/type-bz2.png"/>TAR.BZIP2</div>
 			</div>
 		</span>
 		<IMG onclick="_upload();" src="<?php echo $InstallDir; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/>
