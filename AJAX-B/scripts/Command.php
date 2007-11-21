@@ -25,7 +25,7 @@ if(isset($sublstof))
 	
 	$LstFile=array();
 // ?mode=request&sublstof=Li9BSkFYLUIvc2NyaXB0cy8_&match=*.php
-$fileLst = DirSort ($folder, isset($match) ? explode(',',$match) : 'file');
+	$fileLst = DirSort ($folder, isset($match) ? explode(',',$match) : 'file');
 	if ($fileLst)
 	{
 		foreach ($fileLst as $file)
@@ -36,7 +36,7 @@ $fileLst = DirSort ($folder, isset($match) ? explode(',',$match) : 'file');
 	if ($_SESSION['AJAX-B']['spy']['browse'])
 		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/browse.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.$folder.' ('.$mode.")\n", FILE_APPEND);
 
-	echo UnRealPath($folder)."\n".implode("\n", array_merge($LstDir, $LstFile));
+	echo UnRealPath($folder).implode("\n", array_merge(array(''),$LstDir, $LstFile));
 }
 elseif(isset($miniof))
 {

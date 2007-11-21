@@ -34,7 +34,6 @@ function OpenDir (dir64, array)
 		LstIndent += "<IMG  src='"+InstallDir+"icones/Vide.png' />";
 	else
 		LstIndent += "<IMG  src='"+InstallDir+"icones/Next.png' />";
-	
 	for (i=1;i<array.length;i++)
 		Include += AddItem (decode64(dir64), array[i],LstIndent, (i==array.length-1)?"End":"");
 	Open_Dir.childNodes[3].innerHTML = Include;
