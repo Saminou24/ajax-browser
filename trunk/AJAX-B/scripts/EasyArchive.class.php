@@ -1,26 +1,14 @@
 <?php
-/** http://www.phpclasses.org/browse/package/4239.html **/
-$lst = array (
-  0 => './Arborescence.php',
-  1 => './ArborescenceAddon.php',
-  2 => './CP_Editor.php',
-  3 => './CloseHTML.php',
-  4 => './CloseHTML.php~',
-  5 => './Command.php',
-);
-include ('./EasyZip.class.php');
-include ('./EasyGzip.class.php');
-include ('./EasyBzip2.class.php');
-include ('./EasyTar.class.php');
-$archive = new archive;
-$file='test2.zip';
-	header('Content-Type: application/force-download');
-	header("Content-Transfer-Encoding: binary");
-	header("Cache-Control: no-cache, must-revalidate, max-age=60");
-	header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
-	header('Content-Disposition: attachment;filename='.($file)."\n"); // force le telechargement*/
-print ($archive->make($lst, $file, false));
-
+/**-------------------------------------------------
+ | EasyArchive.class  -  by Alban LOPEZ
+ | Copyright (c) 2007 Alban LOPEZ
+ | Email bugs/suggestions to alban.lopez@gmail.com
+ +--------------------------------------------------
+ | This script has been created and released under
+ | the GNU GPL and is free to use and redistribute
+ | only if this copyright statement is not removed
+ +--------------------------------------------------
+ http://www.phpclasses.org/browse/package/4239.html **/
 class archive
 {
 /**
@@ -76,7 +64,7 @@ $arch->extract('./toto.zip', './new/');
 	}
 	public function extract ($src, $dest=false)
 	{
-		if (empty($dest)) $dest = dirname(realpath($src).'/');
+		if (empty($dest)) $dest = dirname(realpath($src)).'/';
 
 		$ext2 = strrchr($src, ".");
 		$ext1 = substr(strrchr(substr($dest, 0, strlen($src)-strlen($ext2)), "."), 1);
@@ -129,7 +117,15 @@ $arch->extract('./toto.zip', './new/');
 		{
 			case '.zip':
 				$zip = new zip;
-				$result = $zip->makeZip($src, $dest);
+				if ($returnFile)
+					$result = $zip->makeZip($src, $dest);
+				else
+				{
+					$tmpZip = './'.md5(serialize($src)).'.zip';
+					$result = $zip->makeZip($src, $tmpZip);
+					$result = file_get_contents($tmpZip);
+					unlink($tmpZip);
+				}
 				break;
 			case '.tar':
 				$tar = new tar;

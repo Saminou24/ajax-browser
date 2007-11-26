@@ -66,22 +66,22 @@ elseif(isset($erasemini))
 		echo 'OK => '.$count.' are erase.';
 	exit();
 }
-/*elseif(isset($addusr) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
-{
-	file_put_contents($file_accounts, var_export(addUser($account_exemple, eval('return '.file_get_contents($file_accounts).';'), $addusr), true));
-}*/
 elseif(isset($view))
 {
 	if (is_file($file = decode64($view)))
 	{
 		if (@getimagesize($file))
 		{
-			header('Content-type: image');
-			readfile(realpath(urldecode($file)));
+			header('Content-Type: image/picture');
+			header('Content-Disposition: attachment;filename="'.basename($file)."\"\n"); // force le telechargement
+			readfile(realpath($file));
 		}
 		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))
 			include ($InstallDir.'scripts/CP_Editor.php');
-		else header('Location:'.implode('/', array_map('rawurlencode', explode('/', $file))));
+		else
+		{
+			header('Location:'.realpath($file));//implode('/', array_map('rawurlencode', explode('/', $file))));
+		}
 		if ($_SESSION['AJAX-B']['spy']['action'])
 			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/view.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$file."\n", FILE_APPEND);
 	}
@@ -99,16 +99,22 @@ elseif (isset($upload))
 }
 elseif (isset($uncompress) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 {
-	if (is_file($file=decode64($uncompress)))
-	{
-		include ($InstallDir.'scripts/EasyArchive.class.php');
-		include ($InstallDir.'scripts/EasyZip.class.php');
-		include ($InstallDir.'scripts/EasyGzip.class.php');
-		include ($InstallDir.'scripts/EasyBzip2.class.php');
-		include ($InstallDir.'scripts/EasyTar.class.php');
-		$archive = new archive;
-		$archive->extract($file);
-	}
+	include ($InstallDir.'scripts/EasyArchive.class.php');
+	include ($InstallDir.'scripts/EasyZip.class.php'); // avaible
+	include ($InstallDir.'scripts/EasyGzip.class.php');
+	include ($InstallDir.'scripts/EasyBzip2.class.php');
+	include ($InstallDir.'scripts/EasyTar.class.php');
+	$archive = new archive;
+	$files = array_map('decode64', explode(',', $uncompress));
+	$returnLst = array();
+	foreach ($files as $file)
+		if (is_file($file))
+		{
+			$archive->extract($file);
+			if (!in_array(encode64(dirname($file).'/'), $returnLst))
+				$returnLst[] = encode64(dirname($file).'/');
+		}
+	echo implode(',', $returnLst);
 }
 elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 {
@@ -118,7 +124,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 	header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
 	if ($type=="no" && is_file($file=decode64($download)))
 	{
-		header('Content-Disposition: attachment;filename='.basename($file)."\n"); // force le telechargement
+		header('Content-Disposition: attachment;filename="'.basename($file)."\"\n"); // force le telechargement
 		readfile($file);
 		if ($_SESSION['AJAX-B']['spy']['action'])
 			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/donwload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$file.' ('.SizeConvert(filesize ($file)).")\n", FILE_APPEND);
@@ -131,10 +137,11 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 		include ($InstallDir.'scripts/EasyBzip2.class.php');
 		include ($InstallDir.'scripts/EasyTar.class.php');
 			$archive = new archive;
+			$file = 'Ajax-Browser.'.$type;
 			$data = $archive->make(array_map('decode64', explode(',', $download)), $file, false);
-				header('Content-Disposition: attachment;filename='.($file=('Ajax-Browser.'.$type))."\n"); // force le telechargement
-				header("Content-Length: " . strlen($data));
-					print($data);
+			header('Content-Disposition: attachment;filename="'.$file."\"\n"); // force le telechargement
+			header("Content-Length: " . strlen($data));
+				print($data);
 	}
 	exit();
 }

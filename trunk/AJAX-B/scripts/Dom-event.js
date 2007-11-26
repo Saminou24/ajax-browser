@@ -171,17 +171,14 @@ function _enter ()
 }
 function _uncompress()
 {
-	if (SelectLst.length==1)
-	{
-		highlight ();
-		RQT.get
-		(ServActPage,
-			{
-				parameters:'mode=request&uncompress='+SelectLst[0],
-				onEnd:'if (ID(request.responseText)) RequestLoad(request.responseText,true);'
-			}
-		);
-	}
+	highlight ();
+	RQT.get
+	(ServActPage,
+		{
+			parameters:'mode=request&uncompress='+SelectLst.join(','),
+			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
+		}
+	);
 }
 function _new ()
 {
@@ -191,7 +188,7 @@ function _new ()
 	(ServActPage,
 		{
 			parameters:'mode=request&newitem='+encode64( dest + newitem),
-			onEnd:'if (ID(dest)) RequestLoad("'+encode64(dest)+'",true);'
+			onEnd:'if (ID(encode64(dest))) RequestLoad("'+encode64(dest)+'",true);'
 		}
 	);
 }
