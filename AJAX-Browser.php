@@ -17,7 +17,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.26-Improve_and_simplified_Archves_method";
+$version="0.9.26-New_PHP_archive_Class";
 
 $InstallDir = './AJAX-B/'; // define("INSTALL_DIR", "./AJAX-B/");
 
