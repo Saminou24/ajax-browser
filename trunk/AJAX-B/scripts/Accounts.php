@@ -65,17 +65,17 @@ function editAccount($UserName, $StrToSaveThis, $onend)
 			include ($InstallDir.$Lang);
 			echo "	<tr><td  colspan=\"2\" class=\"center\">
 		<INPUT type=radio name=\"LANG\" value=\"".encode64($Lang)."\" id=\"".encode64($Lang)."\" ".(($GLOBALS['AJAX-Var']['accounts'][$UserName]['language_file']==$Lang) ? "checked=\"checked\"" : "").">
-			<label for=\"".encode64($Lang)."\">".$ABS['language_in_Language'].' ('.$ABS['language_in_English'].') V'.$ABS['language_version'].' <img  '.$ABS['language_src_flag']." title=\"".$ABS['language_abbreviation']."\"></label><br/>
+			<label for=\"".encode64($Lang)."\" title=\"By: ".$ABS['language_translator']."\">".$ABS['language_in_Language'].' ('.$ABS['language_in_English'].') V'.$ABS['language_version'].' <img  '.$ABS['language_src_flag']." title=\"".$ABS['language_abbreviation']."\"></label><br/>
 	</td></tr>\n";
 		}
 		$ABS = $realABS;
 		if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
-			echo '<tr><td colspan="2"><a href="http://ajaxbrowser.free.fr/Docs/download.php#lang">'.$ABS[648].'</a></td></tr>';
+			echo '<tr><td colspan="2"><a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/en/download.php#lang">'.$ABS[648].'</a></td></tr>';
 		else
 			echo '<tr><td colspan="2"><a href="javascript:return false;" onclick="PopBox(\'mode=request&message=Please,%20Could%20you%20install%20:%20...%20language%20pack.%20Thank%20you.&titre=Add%20another%20language&contact=\',\'OpenBox(request.responseText);\');">'.$ABS[649].'</a></td></tr>';
 	}
 	elseif ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
-		echo '<tr><td colspan="2"><a href="http://ajaxbrowser.free.fr/Docs/download.php#lang">Get Languages</a></td></tr>'; // ne pas utiliser de variable $ABS[...]
+		echo '<tr><td colspan="2"><a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/en/download.php#lang">Get Languages</a></td></tr>'; // ne pas utiliser de variable $ABS[...]
 ?>
 			</table>
 		</td>
