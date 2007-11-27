@@ -66,7 +66,7 @@ function FileIco (File)
 		<span style='padding:2px;'>
 			<a href="<?php echo str_replace($ChangeMode['current'], $ChangeMode['next'], RebuildURL ())?>"><?php echo $ABS[2].' '.$ChangeMode['change']?></a>
 		</span>
-			<span style='padding:2px;'><a href="?stop"/><?php echo $ABS[7];?></a></span><br>
+			<span style='padding:2px;'><a href="?stop"><?php echo $ABS[7];?></a></span><br>
 			<span style='padding:2px;'><a href="http://ajaxbrowser.free.fr/Docs/aide.php"><?php echo $ABS[8];?></a></span>
 	</span>
 		<div class="italic" style="margin:3px;"><span class="bold"><?php echo $_SESSION['AJAX-B']['login']." [".$_SERVER['REMOTE_ADDR']."]"?></span><br />
@@ -102,12 +102,11 @@ function FileIco (File)
 		foreach ($UrlLst as $dir)
 		{
 			$url = realpath($url.$dir).'/';
-			echo '<a href="'.str_replace($racine64, encode64(UnRealPath($url)), RebuildURL()).'" title="'.$url.'='.UnRealPath($url).'">'.$dir.'/</a> ';
+			echo '<a href="'.str_replace($racine64, encode64(UnRealPath($url)), RebuildURL()).'">'.$dir.'/</a> ';
 		}
  	?>
 	</td>
 	<td style='text-align: right;'>
-<!-- 		<IMG onclick="document.location=GET_add('login=anonymous');" src="< ?php echo $InstallDir; ?>icones/LinkAdd.png" title="< ?php echo $ABS[209];?>"/> -->
 <?php
 if ($_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {?>
