@@ -2,7 +2,7 @@
 /**-------------------------------------------------
  | EasyTar.class  -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
- | Email bugs/suggestions to alban.lopez@gmail.com
+ | Email bugs/suggestions to alban.lopez+easytar@gmail.com
  +--------------------------------------------------
  | This script has been created and released under
  | the GNU GPL and is free to use and redistribute
@@ -10,7 +10,7 @@
  +--------------------------------------------------
  http://www.phpclasses.org/browse/package/4239.html **/
 class tar
-{
+{ /* http://www.mkssoftware.com/docs/man4/tar.4.asp */
 /**
 // You can use this class like that.
 $test = new tar;
@@ -18,18 +18,67 @@ $test->makeTar('./','./toto.Tar');
 var_export($test->infosTar('./toto.Tar'));
 $test->extractTar('./toto.Tar', './new/');
 **/
+	function infosTar ($src, $data=true)
+	{
+		$ptr = fopen($src, 'r');
+		while (!feof($ptr))
+		{
+			$infos = $this->readTarHeader ($ptr);
+			if ($infos['name'])
+			{
+				if (!$data) unset($infos['data']);
+				$result[$infos['name']]=$infos;
+			}
+		}
+		return $result;
+	}
+	function makeTar($src, $dest=false)
+	{
+		$src = is_array($src) ? $src : array($src);
+		$src = array_map('realpath', $src);
+		foreach ($src as $item)
+			$Tar .= $this->addTarItem($item.((is_dir($item) && substr($item, -1)!='/')?'/':''), dirname($item).'/');
+		
+		$Tar = str_pad($Tar, floor((strlen($Tar) + 10240 - 1) / 10240) * 10240, "\0");
+		if (empty($dest)) return $Tar;
+		elseif (file_put_contents($dest, $Tar)) return $dest;
+		else false;
+	}
+	function extractTar ($src, $dest)
+	{
+		if (!is_file($src))
+		{
+			file_put_contents ($tmp='~tmp('.microtime().').tar', $src);
+			$src = $tmp;
+		}
+		$ptr = fopen($src, 'r');
+		while (!feof($ptr))
+		{
+			$infos = $this->readTarHeader ($ptr);
+			if ($infos['type']=='5' && @mkdir($dest.$infos['name'], 0775, true))
+				$result[]=$dest.$infos['name'];
+			elseif (($infos['type']=='0' || $infos['type']==chr(0)) && file_put_contents($dest.$infos['name'], $infos['data']))
+				$result[]=$dest.$infos['name'];
+			if ($infos)
+				chmod($dest.$infos['name'], 0775);
+// 				chmod(, $infos['mode']);
+// 				chgrp(, $infos['uname']);
+// 				chown(, $infos['gname']);
+		}
+		if (is_file($tmp)) unlink($tmp);
+		return $result;
+	}
 	function tarHeader512($infos)
 	{ /* http://www.mkssoftware.com/docs/man4/tar.4.asp */
 		$bigheader = $header = '';
 		if (strlen($infos['name100'])>100)
 		{
-			$bigheader = pack("a124a24a8a1a100a6a2a32a32a173", // book the memorie area 512bits
-				'././@LongLink',
-				sprintf("%011o", strlen($infos['name100'])),
+			$bigheader = pack("a100a8a8a8a12a12a8a1a100a6a2a32a32a8a8a155a12",
+				'././@LongLink','0000000','0000000','0000000',
+				sprintf("%011o", strlen($infos['name100'])),'00000000000',
 				'        ', 'L', '', 'ustar ', '0',
 				$infos['userName32'],
-				$infos['groupName32'],
-				'');
+				$infos['groupName32'],'','','','');
 
 			$bigheader .= str_pad($infos['name100'], floor((strlen($infos['name100']) + 512 - 1) / 512) * 512, "\0");
 
@@ -91,18 +140,6 @@ $test->extractTar('./toto.Tar', './new/');
 		}
 		return $header.$data.$sub;
 	}
-	function makeTar($src, $dest=false)
-	{
-		$src = is_array($src) ? $src : array($src);
-
-		foreach ($src as $item)
-			$Tar .= $this->addTarItem($item.((is_dir($item) && substr($item, -1)!='/')?'/':''), $dest, dirname($item).'/');
-		
-		$Tar = str_pad($Tar, floor((strlen($Tar) + 10240 - 1) / 10240) * 10240, "\0");
-		if (empty($dest)) return $Tar;
-		elseif (file_put_contents($dest, $Tar)) return $dest;
-		else false;
-	}
 	function readTarHeader ($ptr)
 	{
 		$block = fread($ptr, 512);
@@ -137,35 +174,6 @@ $test->extractTar('./toto.Tar', './new/');
 			else return false;
 		}
 		else return false;
-	}
-	function extractTar ($src, $dest)
-	{
-		$ptr = fopen($src, 'r');
-		while (!feof($ptr))
-		{
-			$infos = $this->readTarHeader ($ptr);
-			if ($infos['type']=='5' && @mkdir($infos['name'], 0775, true))
-				$result[]=$infos['name'];
-			elseif (($infos['type']=='0' || $infos['type']==chr(0)) && file_put_contents($infos['name'], $infos['data']))
-				$result[]=$infos['name'];
-			if ($infos)
-				chmod($infos['name'], 0775);
-// 			chmod(, $infos['mode']);
-// 			chgrp(, $infos['uname']);
-// 			chown(, $infos['gname']);
-		}
-		return $result;
-	}
-	function infosTar ($src, $data=true)
-	{
-		$ptr = fopen($src, 'r');
-		while (!feof($ptr))
-		{
-			$infos = $this->readTarHeader ($ptr);
-			if ($infos['name']) $result[$infos['name']]=$infos;
-			if (!$data) unset($infos['data']);
-		}
-		return $result;
 	}
 }
 ?>

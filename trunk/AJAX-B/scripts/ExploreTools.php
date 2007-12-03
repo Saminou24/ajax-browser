@@ -16,7 +16,7 @@ $modelArbs = '
 			<span class="IndentImg">%IndOffset%%ArbImg%</span>
 			<span class="IcoName">
 				<IMG src="'.$InstallDir.'icones/type-%icone%.png" ondblclick="location.href=\'%link%\'"/>
-				<span class="Name">%item%</span>
+				<span class="Name" onclick="_rename();">%item%</span>
 			</span>
 		</span>
 		<span class="right">

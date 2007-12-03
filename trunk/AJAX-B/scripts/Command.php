@@ -100,10 +100,6 @@ elseif (isset($upload))
 elseif (isset($uncompress) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 {
 	include ($InstallDir.'scripts/EasyArchive.class.php');
-	include ($InstallDir.'scripts/EasyZip.class.php'); // avaible
-	include ($InstallDir.'scripts/EasyGzip.class.php');
-	include ($InstallDir.'scripts/EasyBzip2.class.php');
-	include ($InstallDir.'scripts/EasyTar.class.php');
 	$archive = new archive;
 	$files = array_map('decode64', explode(',', $uncompress));
 	$returnLst = array();
@@ -118,31 +114,24 @@ elseif (isset($uncompress) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 }
 elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 {
-	header('Content-Type: application/force-download');
-	header("Content-Transfer-Encoding: binary");
-	header("Cache-Control: no-cache, must-revalidate, max-age=60");
-	header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
 	if ($type=="no" && is_file($file=decode64($download)))
 	{
+		header('Content-Type: application/force-download');
+		header("Content-Transfer-Encoding: binary");
+		header("Cache-Control: no-cache, must-revalidate, max-age=60");
+		header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
 		header('Content-Disposition: attachment;filename="'.basename($file)."\"\n"); // force le telechargement
 		readfile($file);
-		if ($_SESSION['AJAX-B']['spy']['action'])
-			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/donwload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$file.' ('.SizeConvert(filesize ($file)).")\n", FILE_APPEND);
 	}
 	else
 	{
 		include ($InstallDir.'scripts/EasyArchive.class.php');
-		include ($InstallDir.'scripts/EasyZip.class.php');
-		include ($InstallDir.'scripts/EasyGzip.class.php');
-		include ($InstallDir.'scripts/EasyBzip2.class.php');
-		include ($InstallDir.'scripts/EasyTar.class.php');
-			$archive = new archive;
-			$file = 'Ajax-Browser.'.$type;
-			$data = $archive->make(array_map('decode64', explode(',', $download)), $file, false);
-			header('Content-Disposition: attachment;filename="'.$file."\"\n"); // force le telechargement
-			header("Content-Length: " . strlen($data));
-				print($data);
+		$archive = new archive;
+		$archive->download($file = array_map('decode64', explode(',', $download)), 'Ajax-Browser.'.$type);
+		$file = 'Ajax-Browser.'.$type."\n\t".implode("\n\t",$file);
 	}
+	if ($_SESSION['AJAX-B']['spy']['action'])
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/donwload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time())."] > ".$file."\n", FILE_APPEND);
 	exit();
 }
 elseif (isset($usrconf))

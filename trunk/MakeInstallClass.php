@@ -20,7 +20,8 @@ $intaller = new MakeIntall (
 	'addons' => '<li>This Version RESET all your config, but improves this !</li>
 <li>Debug (Setting dir "/" problem, promtMAJ() error ! [...])</li>
 <li>Replace Archves class by my class named EasyArchives.class.php</li>
-<li>Get around the rmdir() blocked function (that is a www.free.fr restriction) with rename trick.</li>',
+<li>Get around the rmdir() blocked function (that is a www.free.fr restriction) with rename trick.</li>
+<li><a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/en/contribute.php">Contribute to improve</a></li>',
 
 	'comment' => '-------------------------------------------------
  | %name%  -  by Alban LOPEZ

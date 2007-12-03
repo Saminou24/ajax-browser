@@ -32,7 +32,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits'][
 	{
 		echo "ID('DragZone').childNodes[1].innerHTML='Upgrade';\n";
 		echo "ID('Box').style.display = 'block';\n";
-		echo "OpenBox ('<a href=\"http://ajaxbrowser.free.fr/Ajax-B_Pub/en/contribute.php\">".$ABS[37]."</a><br/><br/><a href=\"?mode=request&maj\">".$ABS[508].' : '.$NewVersion."</a>".str_replace("\n", "" ,@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?addons'))."<br/>');";
+		echo "OpenBox ('<a href=\"http://ajaxbrowser.free.fr/Ajax-B_Pub/en/contribute.php\">".$ABS[37]."</a><br/><br/><a href=\"?mode=request&maj\">".$ABS[508].' : '.$NewVersion."</a>".str_replace(array("\n","\""), array("","\\\"") ,@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?addons'))."<br/>');";
 	}
 }
 ?>
@@ -84,8 +84,8 @@ function FileIco (File)
 				<div onmouseup="_download('no');" class='action'><IMG src="<?php echo $InstallDir; ?>icones/type-unknown.png"/><?php echo $ABS[23];?></div>
 				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('zip');" class='action' title="<?php echo $ABS[205];?>*.ZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-zip.png"/>ZIP</div>
 				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar');" class='action' title="<?php echo $ABS[205];?>*.TAR"><IMG src="<?php echo $InstallDir; ?>icones/type-tar.png"/>TAR</div>
-				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.gzip');" class='action' title="<?php echo $ABS[205];?>*.GZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-gz.png"/>TAR.GZIP</div>
-				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.bzip2');" class='action' title="<?php echo $ABS[205];?>*.BZIP2"><IMG src="<?php echo $InstallDir; ?>icones/type-bz2.png"/>TAR.BZIP2</div>
+				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.gzip');" class='action' title="<?php echo $ABS[205];?>*.GZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-gzip.png"/>TAR.GZIP</div>
+				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.bzip2');" class='action' title="<?php echo $ABS[205];?>*.BZIP2"><IMG src="<?php echo $InstallDir; ?>icones/type-bzip2.png"/>TAR.BZIP2</div>
 			</div>
 		</span>
 		<IMG onclick="_upload();" src="<?php echo $InstallDir; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/>
