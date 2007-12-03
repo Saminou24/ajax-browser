@@ -8,6 +8,8 @@
 	{
 		$item = decode64($lst[0]) ;
 		$arrayinfo = InfosByURL ($item);
+		include ($InstallDir.'scripts/EasyArchive.class.php');
+		$archive = new archive;
 		if (@getimagesize($item))
 		{?>
 			<td>
@@ -15,6 +17,13 @@
 			</td>
 		<?php
 		}
+// 		elseif (is_array($content = $archive->infos($item)))
+// 		{? >
+// 			<td>
+// 				<pre>< ?php var_export($content);? ></pre>
+// 			</td>
+// 		< ?php
+// 		}
 		else
 		{?>
 			<td>

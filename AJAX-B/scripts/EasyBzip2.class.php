@@ -2,7 +2,7 @@
 /**-------------------------------------------------
  | EasyBzip2.class  -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
- | Email bugs/suggestions to alban.lopez@gmail.com
+ | Email bugs/suggestions to alban.lopez+eazybzip2@gmail.com
  +--------------------------------------------------
  | This script has been created and released under
  | the GNU GPL and is free to use and redistribute
@@ -42,6 +42,7 @@ $test->extractBzip2('./toto.bzip2', './new/');
 		while (!feof($bz))
 			$data .= bzread($bz, 1024*1024);
 		bzclose($bz);
+		echo $data;
 		if (empty($dest)) return $data;
 		elseif (file_put_contents($dest, $data)) return $dest;
 		return false;

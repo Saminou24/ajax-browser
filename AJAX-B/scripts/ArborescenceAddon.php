@@ -3,7 +3,7 @@
 ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
 function RequestLoad(dir64, force)
 {
-	if (!(ptr64 = ID(dir64))) return false;
+	if (!(ptr64 = ID(dir64)) || !is_dir(decode64(dir64))) return false;
 	force = force ? true : false;
 	ptr = ptr64.childNodes[1].childNodes[1].childNodes[1].lastChild;
 	if (ptr.src.indexOf("DirPlus.png")!=-1 || force==true)
@@ -23,6 +23,7 @@ function RequestLoad(dir64, force)
 		ptr64.childNodes[3].style.display = "none";
 		ptr.src = ptr.src.replace("Loading.gif", "DirPlus.png");
 	}
+	_esc();
 }
 function OpenDir (dir64, array)
 {

@@ -2,7 +2,7 @@
 /**-------------------------------------------------
  | EasyZip.class  -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
- | Email bugs/suggestions to alban.lopez@gmail.com
+ | Email bugs/suggestions to alban.lopez+easyzip@gmail.com
  +--------------------------------------------------
  | This script has been created and released under
  | the GNU GPL and is free to use and redistribute

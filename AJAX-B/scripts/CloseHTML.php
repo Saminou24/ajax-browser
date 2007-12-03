@@ -15,8 +15,8 @@
 				<div onclick="_download('no');ID('Menu').style.display = 'none';"><IMG src="<?php echo $InstallDir; ?>icones/type-unknown.png"/><?php echo $ABS[23];?></div>
 				<div onclick="_download('zip');ID('Menu').style.display = 'none';" title="<?php echo $ABS[205];?>*.ZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-zip.png"/>ZIP</div>
 				<div onclick="_download('tar');ID('Menu').style.display = 'none';" title="<?php echo $ABS[205];?>*.TAR"><IMG src="<?php echo $InstallDir; ?>icones/type-tar.png"/>TAR</div>
-				<div onclick="_download('tar.gzip');ID('Menu').style.display = 'none';" title="<?php echo $ABS[205];?>*.TAR.GZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-gz.png"/>TAR.GZIP</div>
-				<div onclick="_download('tar.bzip2');ID('Menu').style.display = 'none';" title="<?php echo $ABS[205];?>*.TAR.BZIP2"><IMG src="<?php echo $InstallDir; ?>icones/type-bz2.png"/>TAR.BZIP2</div>
+				<div onclick="_download('tar.gzip');ID('Menu').style.display = 'none';" title="<?php echo $ABS[205];?>*.TAR.GZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-gzip.png"/>TAR.GZIP</div>
+				<div onclick="_download('tar.bzip2');ID('Menu').style.display = 'none';" title="<?php echo $ABS[205];?>*.TAR.BZIP2"><IMG src="<?php echo $InstallDir; ?>icones/type-bzip2.png"/>TAR.BZIP2</div>
 			</ul></span>
 		</div>
 		<div onclick="_upload();ID('Menu').style.display = 'none';"><IMG src="<?php echo $InstallDir; ?>icones/Upload.png"/><span><?php echo $ABS[24];?></span></div>
