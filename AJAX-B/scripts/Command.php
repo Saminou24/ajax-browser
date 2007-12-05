@@ -80,7 +80,7 @@ elseif(isset($view))
 			include ($InstallDir.'scripts/CP_Editor.php');
 		else
 		{
-			header('Location:'.realpath($file));//implode('/', array_map('rawurlencode', explode('/', $file))));
+			header('Location:'.realpath($file));
 		}
 		if ($_SESSION['AJAX-B']['spy']['action'])
 			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/view.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$file."\n", FILE_APPEND);

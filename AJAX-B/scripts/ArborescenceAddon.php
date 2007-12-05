@@ -23,7 +23,7 @@ function RequestLoad(dir64, force)
 		ptr64.childNodes[3].style.display = "none";
 		ptr.src = ptr.src.replace("Loading.gif", "DirPlus.png");
 	}
-	_esc();
+	_esc ();
 }
 function OpenDir (dir64, array)
 {

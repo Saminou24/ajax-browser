@@ -191,10 +191,10 @@ function MultiRen ($files, $mask)
 }
 function UnRealPath ($dest)
 {
-	$Ahere = explode ('/', realpath($_SERVER['PHP_SEFL']));
+	$Ahere = explode ('/', getcwd());
 	$Adest = explode ('/', realpath($dest));
 	$result = '.'; // le chemin retouné dois forcement commancé par ./   c'est le but
-	while (implode ('/', $Adest) != implode ('/', $Ahere))// && count ($Adest)>0 && count($Ahere)>0 )
+	while (implode ('/', $Adest) != implode ('/', $Ahere))
 	{
 		if (count($Ahere)>count($Adest))
 		{

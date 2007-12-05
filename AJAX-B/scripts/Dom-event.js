@@ -20,9 +20,9 @@ function ManageAllEvent(event)
 				ptrm.style.display = 'block';
 			}
 			else
-                        {
+			{
 				return new ManageMouseEvent (event);
-                        }
+			}
 		}
 		else if (event.type=='mousedown')// && (SelectLst.length==0 || dragFiles==PtrItem))
 		{
@@ -44,9 +44,9 @@ function ManageAllEvent(event)
 		}
 	}
 	else 
-        {
-            return false;
-        }
+	{
+		return false;
+	}
 }
 function ManageMouseEvent (event)
 {
@@ -58,18 +58,18 @@ function ManageMouseEvent (event)
 		if (is_dir(tmp[0]) != is_dir(tmp[1]))
 		{
 			if (is_dir(tmp[0]))
-                        {
+			{
 				limitSel = tmp;
-                        }
+			}
 			else
-                        {
+			{
 				limitSel = new Array(tmp[1], tmp[0]);
-                        }
+			}
 		}
 		else
-                {
+		{
 			limitSel = tmp.sort();
-                }
+		}
 		limitSel = Array(ID(encode64(limitSel[0])), ID(encode64(limitSel[1])));
 		nextPtr = limitSel[0];
 		while (nextPtr.id != limitSel[1].id)
@@ -103,7 +103,7 @@ function ManageMouseEvent (event)
 	}
 	else if (event.button===0 || event.button==1)
 	{// InitSel
-		UnSelectAll ();
+		_esc ();
 		ChangeBG (PtrItem, true);
 		SelectLst.push(PtrItem.id);
 	}
@@ -119,7 +119,16 @@ function ManageKeyboardEvent (event)
 	else if (event.keyCode==13) // ENTER
 		{_enter ();}
 	else if (event.keyCode==27) // ESC
-		{_esc ();}
+	{
+		RQT.get
+		(ServActPage,
+			{
+				parameters:'mode=request&noitems=',
+				onEnd:false
+			}
+		);
+		_esc ();
+	}
 	else if (event.keyCode==113 && event.shiftKey) // MULTI_RENOMER
 		{_multiRename ();}
 	else if (event.keyCode==113) // RENOMER
@@ -143,13 +152,6 @@ function _view (item64)
 function _esc ()
 {
 	UnSelectAll ();
-	RQT.get
-	(ServActPage,
-		{
-			parameters:'mode=request&noitems=',
-			onEnd:false
-		}
-	);
 	ID('Menu').style.display = 'none';
 	ID('Box').style.display = 'none';
 	ID('SlideLet').style.display = 'none';

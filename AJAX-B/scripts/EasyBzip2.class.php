@@ -25,7 +25,7 @@ $test->extractBzip2('./toto.bzip2', './new/');
 		elseif (file_put_contents($dest, $Bzip2)) return $dest;
 		return false;
 	}
-	public function infosBzip2 ($src, $data=true)
+	function infosBzip2 ($src, $data=true)
 	{
 		$data = $this->extractBzip2 ($src);
 		$content = array(

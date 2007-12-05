@@ -17,11 +17,9 @@ $intaller = new MakeIntall (
 	'version' => $_GET['version'],
 	'projetName'=> 'AJAX-Browser',
 
-	'addons' => '<li>This Version RESET all your config, but improves this !</li>
-<li>Debug (Setting dir "/" problem, promtMAJ() error ! [...])</li>
-<li>Replace Archves class by my class named EasyArchives.class.php</li>
-<li>Get around the rmdir() blocked function (that is a www.free.fr restriction) with rename trick.</li>
-<li><a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/en/contribute.php">Contribute to improve</a></li>',
+	'addons' => '<li>Hide disable user menu</li>
+<li>Debug</li>
+<li>Improve</li>',
 
 	'comment' => '-------------------------------------------------
  | %name%  -  by Alban LOPEZ
@@ -38,7 +36,8 @@ $intaller = new MakeIntall (
 	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
 	'no_replace'=>array('*.conf','*.png','*.gif'),
 
-	'functions_useful'=>array(
+	'useful'=>array(
+	'functions' => array(
 		'rmdir'=>'%this% is not aviable on this serveur, it is not possible to remove empty folder.<br/>',
 		'unlink'=>'%this% is not aviable on this serveur, it is not possible to remove file.<br/>',
 		'zip_open'=>'%this% is not aviable on this serveur, it is not possible to extract *.zip file.<br/>',
@@ -50,7 +49,13 @@ $intaller = new MakeIntall (
 		'mime_content_type'=>'%this% is not aviable on this serveur, it is not possible to know real file type.<br/>',
 		'filemtime'=>'%this% is not aviable on this serveur, it is not possible to know the last change time.<br/>',
 		'fileperms'=>'%this% is not aviable on this serveur, it is not possible to know file and folder permissions.<br/>',),
-	'functions_required'=>array(
+	'modules' => array(
+		'gd'=>'%this% is not instaled on this serveur, it is not possible view thumbnail.<br/>',
+		'bz'=>'%this% is not instaled on this serveur, it is not possible to manage *.bzip2.<br/>',
+		'zlib'=>'%this% is not instaled on this serveur, it is not possible to manage *.zip and *.gzip.<br/>',)
+	),
+	'required'=>array(
+	'functions' => array(
 		'session_start'=>'%this% is not aviable on this serveur, it is not possible to login in session.<br/>',
 		'opendir'=>'%this% is not aviable on this serveur, it is not possible to open and read folder.<br/>',
 		'ereg'=>'%this% is not aviable on this serveur, it is not possible to install !<br/>',
@@ -58,8 +63,11 @@ $intaller = new MakeIntall (
 		'mkdir'=>'%this% is not aviable on this serveur, it is not possible to make a folder (and install) !<br/>',
 		'fopen'=>'%this% is not avaible on this serveur, it is not possible to make a folder (and install) !<br/>',
 		'fwrite'=>'%this% is not avaible on this serveur, it is not possible to install !<br/>'),
+	'modules' => array(
+		'session'=>'%this% is not instaled on this serveur, it is not possible to open session!.<br/>')
+	),
 	
-	'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", "HTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\nidentity : ".$identity);',
+	'install_onDownload'=>'@mail("alban.lopez@gmail.com", "New Download on : $projetName $version", var_export($_SERVER,true)."\nidentity : ".$identity);',
 	'install_onStart'=>'echo "Intalling : $projetName Version : $version <br/>\n";
 		echo "<b>Add the following page to bookmarks, go to <a href=\"AJAX-Browser.php\">AJAX-Browser</a></b><br/><br/>\n";',
 	'install_onFile'=>'echo "OK => $thisFileName<br/>\n";',
@@ -78,13 +86,13 @@ $intaller = new MakeIntall (
 <input type="image" src="https://www.paypal.com/fr_FR/i/btn/x-click-but04.gif" border="0" name="submit" alt="Effectuez vos paiements via PayPal : une solution rapide, gratuite et securisee">
 <img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
 </form>\';
-		@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\n\nSUCCESSFULL !\n\n");',
+		@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\n ".var_export($_SERVER,true)."\n\nSUCCESSFULL !\n\n");',
 	'install_onWarningEnd'=>'echo "<H2><b>WARNING !</b></H2>Install warning list :\n";
 		var_export($warning);',
 	'install_onErrorEnd'=>'
 		echo "<H2><b>ERROR !</b></H2>Install errors list :\n";
 		var_export($errors);
-		@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\nHTTP_USER_AGENT : ".$_SERVER["HTTP_USER_AGENT"]."\n\nWARNING !\n\n".var_export($warning,true)."\n\nERROR !\n\n".var_export($errors,true));',
+		@mail("alban.lopez@gmail.com", "New install on : $projetName $version", $_SERVER[\'SERVER_NAME\'].dirname($_SERVER[\'PHP_SELF\'])."/AJAX-Browser.php\n".var_export($_SERVER,true)."\n\nWARNING !\n\n".var_export($warning,true)."\n\nERROR !\n\n".var_export($errors,true));',
 	)
 );
 echo $intaller->Make();
@@ -119,8 +127,8 @@ class MakeIntall
 		'install_onWarningEnd'=>'',									// Valid PHP code.   Variable disponible : $version, $projetName, $errors[], $warning[]
 		'install_onErrorEnd'=>'',										// Valid PHP code.   Variable disponible : $version, $projetName, $errors[], $warning[]
 
-		'functions_useful'=>array(),
-		'functions_required'=>array(),
+		'useful'=>array('functions'=>array(),'modules'=>array()),
+		'required'=>array('functions'=>array(),'modules'=>array()),
 
 		'hidden'=>true,
 		'mask'=>array('*'),			// Liste des masques a apliquer sur le contenu des dossiers
@@ -254,17 +262,28 @@ else
 	$lst64 = '.var_export($this->files_list, true).';
 	$errors = array();
 	'.$this->options['install_onStart'].'
-	$useful = '.var_export($this->options['functions_useful'],true).';
-	$required = '.var_export($this->options['functions_required'],true).';
-	foreach ($useful as $funcName => $message)
+	$useful = '.var_export($this->options['useful'],true).';
+	$required = '.var_export($this->options['required'],true).';
+	foreach ($useful[\'functions\'] as $key => $message)
 	{
-		if (!function_exists($funcName))
-			echo ($warning[] = str_replace(\'%this%\', $funcName, $message));
+		if (!function_exists($key))
+			$warning[] = str_replace(\'%this%\', $key, $message);
 	}
-	foreach ($required as $funcName => $message)
+	foreach ($required[\'functions\'] as $key => $message)
 	{
-		if (!function_exists($funcName))
-			echo ($errors[] = str_replace(\'%this%\', $funcName, $message));
+		if (!function_exists($key))
+			$errors[] = str_replace(\'%this%\', $key, $message);
+	}
+	$modules = get_loaded_extensions();
+	foreach ($useful[\'modules\'] as $key => $message)
+	{
+		if (!in_array($key, $modules))
+			$warning[] = str_replace(\'%this%\', $key, $message);
+	}
+	foreach ($required[\'modules\'] as $key => $message)
+	{
+		if (!in_array($key, $modules))
+			$errors[] = str_replace(\'%this%\', $key, $message);
 	}
 	if (empty($errors))
 	{
@@ -298,20 +317,20 @@ else
 	}
 	else
 		echo "<H2><b>Intall Aborted !</b></H2>";
-	echo "<pre>";
 	if (!empty($errors))
 	{
+		echo "<pre>";
 		if (!empty($warning))
 		{
 			'.$this->options['install_onWarningEnd'].'
 		}
 		'.$this->options['install_onErrorEnd'].'
+		echo "</pre>";
 	}
 	else
 	{
 		'.$this->options['install_onSuccessEnd'].'
 	}
-	echo "</pre>";
 }
 function toBeReplaced ($url)
 {
