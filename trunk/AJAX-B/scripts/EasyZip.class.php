@@ -18,7 +18,7 @@ $test->makeZip('./','./toto.zip');
 var_export($test->infosZip('./toto.zip'));
 $test->extractZip('./toto.zip', './new/');
 **/
-	public function infosZip ($src, $data=true)
+	function infosZip ($src, $data=true)
 	{
 		if (($zip = zip_open(realpath($src))))
 		{
@@ -43,7 +43,7 @@ $test->extractZip('./toto.zip', './new/');
 		}
 		return false;
 	}
-	public function extractZip ($src, $dest)
+	function extractZip ($src, $dest)
 	{
 		$zip = new ZipArchive;
 		if ($zip->open($src)===true)
@@ -54,21 +54,25 @@ $test->extractZip('./toto.zip', './new/');
 		}
 		return false;
 	}
-	public function makeZip ($src, $dest)
+	function makeZip ($src, $dest)
 	{
 		$zip = new ZipArchive;
 		$src = is_array($src) ? $src : array($src);
 		if ($zip->open($dest, ZipArchive::CREATE) === true)
 		{
 			foreach ($src as $item)
-				if (file_exists($item))
+			{
+				if (is_dir($item))
 					$this->addZipItem($zip, realpath(dirname($item)).'/', realpath($item).'/');
+				elseif(is_file($item))
+					$zip->addFile(realpath($item), basename(realpath($item)));
+			}
 			$zip->close();
 			return true;
 		}
 		return false;
 	}
-	private function addZipItem ($zip, $racine, $dir)
+	function addZipItem ($zip, $racine, $dir)
 	{
 		if (is_dir($dir))
 		{

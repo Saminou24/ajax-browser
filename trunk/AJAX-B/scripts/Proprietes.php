@@ -3,6 +3,11 @@
 	<tbody>
 		<tr>
 <?php
+/*
+chown(,);
+chgrp(,);
+chmod(,);
+*/
 	$lst = explode(',',$infos);
 	if (count($lst)==1)
 	{

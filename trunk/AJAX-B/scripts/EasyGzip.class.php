@@ -18,14 +18,14 @@ $test->makeGzip('./','./toto.gzip');
 var_export($test->infosGzip('./toto.gzip'));
 $test->extractGzip('./toto.gzip', './new/');
 **/
-	public function makeGzip($src, $dest=false)
+	function makeGzip($src, $dest=false)
 	{
 		$Gzip = gzencode((is_file($src) ? file_get_contents ($src) : $src), 6);
 		if (empty($dest)) return $Gzip;
 		elseif (file_put_contents($dest, $Gzip)) return $dest;
 		return false;
 	}
-	public function infosGzip ($src, $data=true)
+	function infosGzip ($src, $data=true)
 	{
 		$data = $this->extractGzip ($src);
 		$content = array(
@@ -35,7 +35,7 @@ $test->extractGzip('./toto.gzip', './new/');
 		if ($data) $content['Data'] = $data;
 		return $content;
 	}
-	public function extractGzip ($src, $dest=false)
+	function extractGzip ($src, $dest=false)
 	{
 		$zp = gzopen( $src, "r" );
 		$data = '';

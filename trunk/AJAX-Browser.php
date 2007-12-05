@@ -8,16 +8,16 @@
  | the GNU GPL and is free to use and redistribute
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
-/*chown(,);
-chgrp(,);
-chmod(,);
-*/
+
+if (getcwd() != dirname(__FILE__))
+	chdir(dirname(__FILE__));
+
 foreach($_POST as $key=>$val)
 	${$key}=$val;
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.26-New_PHP_archive_Class";
+$version="0.9.27-Hide_desable_menu";
 
 $InstallDir = './AJAX-B/'; // define("INSTALL_DIR", "./AJAX-B/");
 

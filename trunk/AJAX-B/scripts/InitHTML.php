@@ -75,10 +75,10 @@ function FileIco (File)
 <colgroup> <col width='195'><col><col width='140'></colgroup>
 <tbody>
 	<tr><td style='padding-top:2px;'>
-		<IMG onclick="_new();" src="<?php echo $InstallDir; ?>icones/New.png" title="<?php echo $ABS[201];?>"/>
-		<IMG onmouseup="ID('CpMvSlide').style.display = 'none';_rename();" src="<?php echo $InstallDir; ?>icones/Ren.png" title="<?php echo $ABS[202];?>"/>
-		<IMG onmouseup="ID('CpMvSlide').style.display = 'none';_remove();" src="<?php echo $InstallDir; ?>icones/Sup.png" title="<?php echo $ABS[203];?>"/>
-		<span onmouseover="ID('zipper').style.visibility='visible';" onmouseout="ID('zipper').style.visibility='hidden';">
+		<?php if ($_SESSION['AJAX-B']['droits']['NEW']) {?><IMG onclick="_new();" src="<?php echo $InstallDir; ?>icones/New.png" title="<?php echo $ABS[201];?>"/><?php }?>
+		<?php if ($_SESSION['AJAX-B']['droits']['REN']) {?><IMG onmouseup="ID('CpMvSlide').style.display = 'none';_rename();" src="<?php echo $InstallDir; ?>icones/Ren.png" title="<?php echo $ABS[202];?>"/><?php }?>
+		<?php if ($_SESSION['AJAX-B']['droits']['DEL']) {?><IMG onmouseup="ID('CpMvSlide').style.display = 'none';_remove();" src="<?php echo $InstallDir; ?>icones/Sup.png" title="<?php echo $ABS[203];?>"/><?php }?>
+		<?php if ($_SESSION['AJAX-B']['droits']['DOWNLOAD']) {?><span onmouseover="ID('zipper').style.visibility='visible';" onmouseout="ID('zipper').style.visibility='hidden';">
 				<IMG onclick="if(ID('zipper').style.visibility!='visible')ID('zipper').style.visibility='visible';else ID('zipper').style.visibility='hidden';" src="<?php echo $InstallDir; ?>icones/Download.png" title="<?php echo $ABS[204];?>"/>
 			<div id="zipper">
 				<div onmouseup="_download('no');" class='action'><IMG src="<?php echo $InstallDir; ?>icones/type-unknown.png"/><?php echo $ABS[23];?></div>
@@ -87,8 +87,8 @@ function FileIco (File)
 				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.gzip');" class='action' title="<?php echo $ABS[205];?>*.GZIP"><IMG src="<?php echo $InstallDir; ?>icones/type-gzip.png"/>TAR.GZIP</div>
 				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.bzip2');" class='action' title="<?php echo $ABS[205];?>*.BZIP2"><IMG src="<?php echo $InstallDir; ?>icones/type-bzip2.png"/>TAR.BZIP2</div>
 			</div>
-		</span>
-		<IMG onclick="_upload();" src="<?php echo $InstallDir; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/>
+		</span><?php }?>
+		<?php if ($_SESSION['AJAX-B']['droits']['UPLOAD']!='NO') {?><IMG onclick="_upload();" src="<?php echo $InstallDir; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/><?php }?>
 		<IMG onclick="ID('DragZone').childNodes[1].innerHTML='Contact Admin';PopBox('mode=request&contact=','OpenBox(request.responseText);');" src="<?php echo $InstallDir; ?>icones/E-mail.png" title="<?php echo $ABS[207];?>"/>
 				<IMG onclick="if(ID('FindFilter').style.visibility!='visible'){ID('FindFilter').style.visibility='visible';ID('matchFilter').focus();}else ID('FindFilter').style.visibility='hidden';" src="<?php echo $InstallDir; ?>icones/FindFilter.png" title="<?php echo $ABS[208];?>"/>
 		<div id="FindFilter">
