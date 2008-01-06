@@ -31,11 +31,11 @@ $intaller = new MakeIntall (
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
+	'includes'=>array('./AJAX-B/','./AJAX-Browser.php5'),
 	'excludes'=>array('*~','*.conf','*.svn/*','*Mini/*','*Spy/*'),
 	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
 	'no_replace'=>array('*.conf','*.png','*.gif'),
-
+	'miniphpversion'=>'5.0.0'
 	'useful'=>array(
 	'functions' => array(
 		'rmdir'=>'%this% is not aviable on this serveur, it is not possible to remove empty folder.<br/>',
@@ -285,6 +285,8 @@ else
 		if (!in_array($key, $modules))
 			$errors[] = str_replace(\'%this%\', $key, $message);
 	}
+	if (version_compare(phpversion(), $miniphpversion, \'>=\'))
+		$errors[] = \'PHP V\'.$miniphpversion.\' or later is required<br/>\';
 	if (empty($errors))
 	{
 		foreach ($lst64 as $thisFileName => $data)
