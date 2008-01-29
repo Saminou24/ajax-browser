@@ -12,10 +12,8 @@
 $GLOBALS['AJAX-Var']['global'] = eval('return '.file_get_contents($file_globalconf).';');
 $GLOBALS['AJAX-Var']['accounts'] = eval('return '.file_get_contents($file_accounts).';');
 $GLOBALS['AJAX-Var']['blacklist'] = eval('return '.file_get_contents($file_blacklist).';');
-$i=0;
 if(isset($sublstof))
 {
-echo $url.' $sublstof'.$i++.' => '.microtime().'</br>';
 	$LstDir=array();
 	$dirLst = DirSort ($folder=decode64($sublstof), 'dir');
 	if ($dirLst)
