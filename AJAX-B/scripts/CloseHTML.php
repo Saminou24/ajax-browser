@@ -46,3 +46,10 @@
 	<a class="bottomright" href="http://ajaxbrowser.free.fr/Docs/contact.php"><?php echo $ABS[30];?></a>
 	</body>
 </html>
+<?php
+if (isset($db))
+{
+	echo "<!--\nErrors resume :\n".$ErrrorMsg."\n-->";
+	file_put_contents('./Debug.txt', "<!--\nErrors resume :\n".$ErrrorMsg."\n-->",FILE_APPEND);
+}
+?>

@@ -38,12 +38,13 @@ $modelGal='
 function InfosByURL ($url, $allinfos=true)
 {
 	$infos = array();
-//	$imgtype = array('GIF', 'JPEG','PNG', 'SWF', 'PSD', 'BMP', 'TIFF_Intel', 'TIFF_Motorola', 'JPC', 'JP2', 'JPX', 'JB2', 'SWC', 'IFF', 'WBMP', 'XBM');
+	$imgtype = array('GIF','JPEG','PNG','SWF','PSD','BMP','TIFF','JPC','JP2','JPX','JB2','SWC','IFF','WBMP','XBM');
+$i=0;
 	if (is_file($url))
 	{
 		$infos['basename'] = basename($url);
-		$infos['size'] = filesize($url);
-		$infos['type'] = function_exists('mime_content_type') ? str_replace(array("\t",'application'), array("",'appli.'), mime_content_type($url)) : 'ext/'.strtolower(pathinfo($url, PATHINFO_EXTENSION));	// type mime
+		$infos['size'] = sprintf("%u", filesize($url));
+		$infos['type'] = function_exists('mime_content_type') ? str_replace(array("\t",'application'), array("",'appli.'), @mime_content_type($url)) : 'ext/'.strtolower(@pathinfo($url, PATHINFO_EXTENSION));	// type mime
 	}
 	else
 	{
@@ -53,25 +54,27 @@ function InfosByURL ($url, $allinfos=true)
 	}
 	if ($allinfos)
 	{
-		$infos['filemtime'] = date ('d/m/y H:i:s',filemtime($url));		// date
+		$infos['filemtime'] = date ('d/m/y H:i:s',@filemtime($url));		// date
 		$infos['perm'] = Permission ($url);
-		$usr = function_exists('posix_getpwuid') ? posix_getpwuid(fileowner($url)) : array('name' => '?', 'uid' => '?');
+		$usr = function_exists('posix_getpwuid') ? @posix_getpwuid(@fileowner($url)) : array('name' => '?', 'uid' => '?');
 			$infos['uidname'] = $usr['name'];
 			$infos['uid'] = $usr['uid'];
-		$grp = function_exists('posix_getgrgid') ? posix_getgrgid (filegroup($url)) : array('name' => '?', 'gid' => '?');
+		$grp = function_exists('posix_getgrgid') ? @posix_getgrgid (@filegroup($url)) : array('name' => '?', 'gid' => '?');
 			$infos['gidname'] = $grp['name'];
 			$infos['gid'] = $grp['gid'];
+echo $url.' InfosByURL'.__LINE__.' => '.microtime().'</br>';
 		if (is_dir($url))
 		{
 			$infos['content0'] = ($tmp=DirSort ($url,'dir'))?count ($tmp):0;	// count(subdir)
 			$infos['content1'] = ($tmp=DirSort ($url,'file'))?count ($tmp):0;	// count(subfile)
 		}
-		elseif (@getimagesize($url))
+		elseif ($infos['size']<30000000 && @exif_imagetype($url))
 		{
-			list ($infos['content0'], $infos['content1']) = getimagesize($url);
-			$infos['type'] = 'image/'.pathinfo($url, PATHINFO_EXTENSION);
+			list ($infos['content0'], $infos['content1']) = @getimagesize($url);
+			$infos['type'] = 'image/'.@pathinfo($url, PATHINFO_EXTENSION);
 		}
 	}
+echo $url.' InfosByURL'.__LINE__.' => '.microtime().'</br>';
 	return $infos;
 }
 function SizeDir ($Folder)
@@ -126,12 +129,12 @@ function CountFile($path)
 function SizeAll($path)
 {
 	if (!is_dir($path))
-		return filesize($path);
+		return @filesize($path);
 	$dir = opendir($path);
 	while ($file = readdir($dir))
 	{
 		if (is_file($path."/".$file))
-			$size+=filesize($path."/".$file);
+			$size+=@filesize($path."/".$file);
 		if (is_dir($path."/".$file) && $file!="." && $file !="..")
 			$size +=SizeAll($path."/".$file);
 	}

@@ -17,7 +17,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.27-Hide_desable_menu";
+$version="0.9.28-Debugger_htmlmsg_include";
 
 $InstallDir = './AJAX-B/'; // define("INSTALL_DIR", "./AJAX-B/");
 
