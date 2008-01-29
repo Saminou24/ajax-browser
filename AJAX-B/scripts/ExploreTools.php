@@ -38,12 +38,11 @@ $modelGal='
 function InfosByURL ($url, $allinfos=true)
 {
 	$infos = array();
-	$imgtype = array('GIF','JPEG','PNG','SWF','PSD','BMP','TIFF','JPC','JP2','JPX','JB2','SWC','IFF','WBMP','XBM');
-$i=0;
+// 	$imgtype = array('GIF','JPEG','PNG','SWF','PSD','BMP','TIFF','JPC','JP2','JPX','JB2','SWC','IFF','WBMP','XBM');
 	if (is_file($url))
 	{
 		$infos['basename'] = basename($url);
-		$infos['size'] = sprintf("%u", filesize($url));
+		$infos['size'] = sprintf("%u", filesize ($url));
 		$infos['type'] = function_exists('mime_content_type') ? str_replace(array("\t",'application'), array("",'appli.'), @mime_content_type($url)) : 'ext/'.strtolower(@pathinfo($url, PATHINFO_EXTENSION));	// type mime
 	}
 	else
@@ -62,19 +61,17 @@ $i=0;
 		$grp = function_exists('posix_getgrgid') ? @posix_getgrgid (@filegroup($url)) : array('name' => '?', 'gid' => '?');
 			$infos['gidname'] = $grp['name'];
 			$infos['gid'] = $grp['gid'];
-echo $url.' InfosByURL'.__LINE__.' => '.microtime().'</br>';
 		if (is_dir($url))
 		{
 			$infos['content0'] = ($tmp=DirSort ($url,'dir'))?count ($tmp):0;	// count(subdir)
 			$infos['content1'] = ($tmp=DirSort ($url,'file'))?count ($tmp):0;	// count(subfile)
 		}
-		elseif ($infos['size']<30000000 && @exif_imagetype($url))
+		elseif (strpos($infos['type'], 'image') && @exif_imagetype($url))
 		{
 			list ($infos['content0'], $infos['content1']) = @getimagesize($url);
 			$infos['type'] = 'image/'.@pathinfo($url, PATHINFO_EXTENSION);
 		}
 	}
-echo $url.' InfosByURL'.__LINE__.' => '.microtime().'</br>';
 	return $infos;
 }
 function SizeDir ($Folder)
@@ -94,9 +91,9 @@ function SizeDir ($Folder)
 		if ($fileLst)
 		{
 			foreach ($fileLst as $key => $file)
-				$SizeAll += @filesize ($Folder.$file);
+				$SizeAll += sprintf("%u", @filesize ($Folder.$file));
 		}
-		if (microtime_float()-$StartPhpScripte < $OverTime) return $SizeAll;
+		if (microtime_float()-$StartPhpScripte < $OverTime) return sprintf("%u", $SizeAll);
 		else return -1;
 	}
 	else

@@ -15,7 +15,7 @@ chmod(,);
 		$arrayinfo = InfosByURL ($item);
 		include ($InstallDir.'scripts/EasyArchive.class.php');
 		$archive = new archive;
-		if (@getimagesize($item))
+		if ($infos['size']<30000000 && @exif_imagetype($url))
 		{?>
 			<td>
 				<img class="cadre" src="<?php echo CreatMini($item,$_SESSION['AJAX-B']['mini_dir'],$_SESSION['AJAX-B']['mini_size']);?>">
