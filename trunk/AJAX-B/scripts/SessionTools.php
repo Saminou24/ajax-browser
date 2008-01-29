@@ -57,9 +57,16 @@ $ajaxb_conf_exemple = array (
 		),
 	);
 
-		if (!is_dir(session_save_path()))
-			if (!is_dir(mkdir(str_replace(realpath('./'), '.', session_save_path()), 0700, true)))
+		$spath=session_save_path();
+		if (!is_dir($spath) && !empty($spath))
+		{
+			$ErrrorMsg .= __FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
+			if (!is_dir(mkdir(str_replace(realpath('./'), '.', $spath), 0700, true)))
+			{
+				$ErrrorMsg .= __FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 				echo $ABS[100].' ("'.session_save_path().'").<br>';
+			}
+		}
 		ini_set('session.use_cookies', '1');
 		ini_set('session.use_only_cookies', '0');
 		session_cache_limiter ('nocache');
@@ -82,6 +89,7 @@ $ajaxb_conf_exemple = array (
 
 	if ((!file_exists($file_accounts) || filesize($file_accounts)<100) && empty($_SESSION['AJAX-B']))
 	{
+		$ErrrorMsg .= __FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 		if ($code1==$code2 && !empty($login))
 		{
 			$account_exemple['droits']['GLOBAL_SETTING']=true;
@@ -91,6 +99,7 @@ $ajaxb_conf_exemple = array (
 		}
 		else
 		{
+			$ErrrorMsg .= __FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 ?>
 <html>
 	<head>
@@ -137,6 +146,7 @@ $ajaxb_conf_exemple = array (
 		
 		if (($a=$GLOBALS['AJAX-Var']['blacklist'][$_SERVER['REMOTE_ADDR']])>10)
 		{
+			$ErrrorMsg .= __FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 			echo ($a+1).$ABS[35];
 			$GLOBALS['AJAX-Var']['blacklist'][$_SERVER['REMOTE_ADDR']]++;
 			file_put_contents($file_blacklist, var_export($GLOBALS['AJAX-Var']['blacklist'], true));
@@ -144,6 +154,7 @@ $ajaxb_conf_exemple = array (
 		}
 		elseif (isset($login) && $GLOBALS['AJAX-Var']['accounts'][$login]["code"]==crypt($code,$login))
 		{
+			$ErrrorMsg .= __FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 			$GLOBALS['AJAX-Var']["accounts"][$login]["IP_count"][$_SERVER['REMOTE_ADDR']]++;
 			$GLOBALS['AJAX-Var']["accounts"][$login]["last"] = date ("d/m/y H:i:s",time());
 
@@ -160,6 +171,7 @@ $ajaxb_conf_exemple = array (
 		{
 			if (!empty($login))
 			{
+				$ErrrorMsg .= __FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 				if ($_SESSION['AJAX-B']['spy']['log'])
 					file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/WRONG_Log.spy', $login.($GLOBALS['AJAX-Var']['global']['spy']['ip']?' > '.$_SERVER['REMOTE_ADDR']:'').' ['.date ("d/m/y H:i:s",time()).'] > '.$_SERVER['HTTP_USER_AGENT']."\n", FILE_APPEND);
 				$GLOBALS['AJAX-Var']['blacklist'][$_SERVER['REMOTE_ADDR']]++;
