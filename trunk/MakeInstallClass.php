@@ -31,9 +31,9 @@ $intaller = new MakeIntall (
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-	'includes'=>array('./AJAX-B/','./AJAX-Browser.php5'),
+	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
 	'excludes'=>array('*~','*.conf','*.svn/*','*Mini/*','*Spy/*'),
-	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php'),
+	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php','../AJAX-B_Pro/LastVersion.php'),
 	'no_replace'=>array('*.conf','*.png','*.gif'),
 	'miniphpversion'=>'5.0.0',
 	'useful'=>array(
@@ -285,8 +285,8 @@ else
 		if (!in_array($key, $modules))
 			$errors[] = str_replace(\'%this%\', $key, $message);
 	}
-	if (version_compare(phpversion(), \''.$this->options['miniphpversion'].'\', \'>=\'))
-		$errors[] = \'PHP V\'.$miniphpversion.\' or later is required<br/>\';
+	if (version_compare(phpversion(), \''.$this->options['miniphpversion'].'\')==-1)
+		$errors[] = \'You have \'.phpversion().\' but PHP V'.$this->options['miniphpversion'].' or later is required<br/>\';
 	if (empty($errors))
 	{
 		foreach ($lst64 as $thisFileName => $data)

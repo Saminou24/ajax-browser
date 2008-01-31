@@ -69,6 +69,42 @@ function FileIco ($item)			// choisi l'icone le mieu adapté parmis ceux present
 		return 'recycled';
 	return 'unknown';
 }
+function AddWatermark($src, $dir, $wmk)
+{
+	global $InstallDir;
+	$FileDest = $dir.'Watermark@'.md5_file($src).'.png';
+	if(($src_size = getimagesize($src))!=false && ($wmk_size = getimagesize($wmk))!=false)
+	{
+		if ($src_size[0]>$wmk_size[0] && $src_size[1]>$wmk_size[1] && function_exists('imagejpeg'))
+		{
+			$wmk_img = imagecreatefrompng($wmk);
+			imagealphablending($wmk_img,true);
+			switch ($src_size[2])					// avant de travailler sur une image il faut la decompresser
+			{
+				case 1:
+					$dest_img = imagecreatefromgif($src);
+					break;
+				case 2:
+					$dest_img = imagecreatefromjpeg($src);
+					break;
+				case 3:
+					$dest_img = imagecreatefrompng($src);
+					break;
+			}
+			imagealphablending($dest_img,true);
+			imagecopy($dest_img, $wmk_img, ($src_size[0]-$wmk_size[0]), ($src_size[1]-$wmk_size[1]), 0, 0, $wmk_size[0], $wmk_size[1]);
+			
+			imagepng($dest_img, $FileDest); // Envoie une image JPEG de la RAM vers un fichier
+			imagedestroy($dest_img);// Vide la memoire RAM allouee a l'image $dest_img
+			imagedestroy($wmk_img);// Vide la memoire RAM allouee a l'image $dst_img
+			if (!is_file($FileDest))
+				return FileIco ($src);
+			else return $FileDest;
+		}
+		else return $src;
+	}
+	else return FileIco ($src);
+}
 function CreatMini( $File, $dir, $Max=100, $Force=false)
 {
 	global $InstallDir;
@@ -101,11 +137,12 @@ function CreatMini( $File, $dir, $Max=100, $Force=false)
 				imagealphablending ( $dst_img , false );		// indispensable pour les image avec transparence
 				imagesavealpha ( $dst_img , true );			// indispensable pour les image avec transparence
 				imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $dest_l, $dest_h, $size[0], $size[1]);// creation de la miniature ( en RAM )
-				if (!imagepng($dst_img, $FileDest)) // Envoie une image JPEG de la RAM vers un fichier
-					return $InstallDir.'unknown.png';
+				imagepng($dst_img, $FileDest); // Envoie une image JPEG de la RAM vers un fichier
 				imagedestroy($dst_img);// Vide la memoire RAM allouee a l'image $dst_img
 				imagedestroy($src_img);// Vide la memoire RAM allouee a l'image $src_img
-				return $FileDest;
+				if (!is_file($FileDest))
+					return FileIco ($File);
+				else return $FileDest;
 			}
 			else return $File;
 		}
@@ -154,7 +191,9 @@ function pasteItems ($dest)
 	foreach ($_SESSION['AJAX-B']['SelectLst'] as $file64)
 	{
 		if ($_SESSION['AJAX-B']['paste_mode']=='copy' && $_SESSION['AJAX-B']['droits']['COPY'])				// COPY => PASTE
+		{
 			CopyItems(decode64($file64), decode64($dest));
+		}
 		elseif ($_SESSION['AJAX-B']['paste_mode']=='move' && $_SESSION['AJAX-B']['droits']['MOVE'])			// CUT => PASTE
 		{
 			if (Move(decode64($file64), decode64($dest).basename(decode64($file64))) && !in_array(encode64(dirname(decode64($file64)).'/'), $returnLst))
@@ -163,8 +202,11 @@ function pasteItems ($dest)
 	}
 	if ($_SESSION['AJAX-B']['spy']['action'])
 		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/CpMvPaste.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] '.$_SESSION['AJAX-B']['paste_mode'].' > '.implode(', ', array_map("decode64", $_SESSION['AJAX-B']['SelectLst']))."\n", FILE_APPEND);
-	$_SESSION['AJAX-B']['paste_mode'] = '';
-	$_SESSION['AJAX-B']['SelectLst'] = array();
+	if ($_SESSION['AJAX-B']['paste_mode']=='move')
+	{
+		$_SESSION['AJAX-B']['paste_mode'] = '';
+		$_SESSION['AJAX-B']['SelectLst'] = array();
+	}
 	return implode(',', $returnLst);
 }
 function MultiRen ($files, $mask)

@@ -31,7 +31,6 @@ if(isset($sublstof))
 		foreach ($fileLst as $file)
 			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',basename($file)))
 				array_push ($LstFile, implode("\t",InfosByURL ($folder.$file, !isset($light))));
-
 	}
 	if ($_SESSION['AJAX-B']['spy']['browse'])
 		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/browse.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.$folder.' ('.$mode.")\n", FILE_APPEND);
@@ -72,15 +71,23 @@ elseif(isset($view))
 	{
 		if (@getimagesize($file))
 		{
-			header('Content-Type: image/picture');
-			header('Content-Disposition: attachment;filename="'.basename($file)."\"\n"); // force le telechargement
-			readfile(realpath($file));
+			header('Content-Type: image/png');
+			if ($_SESSION['AJAX-B']['droits']['DOWNLOAD'])
+			{
+				header('Content-Disposition: inline;filename="'.basename($file)."\"\n");
+				readfile($file);
+			}
+			else
+			{
+				header('Content-Disposition: inline;filename="marcked.png'."\"\n");
+				readfile(AddWatermark($file, $_SESSION['AJAX-B']['mini_dir'], $InstallDir.'icones/Watermark.png'));
+			}
 		}
 		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))
 			include ($InstallDir.'scripts/CP_Editor.php');
 		else
 		{
-			header('Location:'.realpath($file));
+			header('Location:'.$file);
 		}
 		if ($_SESSION['AJAX-B']['spy']['action'])
 			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/view.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$file."\n", FILE_APPEND);
@@ -241,13 +248,13 @@ elseif (isset($infos))
 elseif(isset($maj) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
 	list($V1, $V2, $V3) = sscanf($version, '%d.%d.%d%s');
-	$NewVersion = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?version');
+	$NewVersion = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/AJAX-B_Pro/LastVersion.php?version');
 	list($v1, $v2, $v3) = sscanf($NewVersion, '%d.%d.%d%s');
 	if (!$NewVersion) echo $ABS[403];
 	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
 	{
 		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$version.' > '.$NewVersion."\n", FILE_APPEND);
-		$name = sha1 ($data = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?download&identity='.$_SERVER['SERVER_NAME'].'-'.$version)).'.php';
+		$name = sha1 ($data = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/AJAX-B_Pro/LastVersion.php?download&identity='.$_SERVER['SERVER_NAME'].'-'.$version)).'.php';
 		file_put_contents('./'.$name, $data);
 		include ('./'.$name);
 		unlink('./'.$name);
