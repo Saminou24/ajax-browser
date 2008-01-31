@@ -25,14 +25,20 @@ if (!empty($_SESSION['AJAX-B']['mini_dir']) && !is_dir($_SESSION['AJAX-B']['mini
 			$racine64=encode64($racine);
 			$reload=true;
 		}
+		if (empty($racine64) || !file_exists(decode64($racine64)))
+		{ // si l'URL n'est pas une URL valide
+			$ErrrorMsg .= "\n".__FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
+			$racine64 = empty($_SESSION['AJAX-B']['def_racine'])?encode64('./'):encode64($_SESSION['AJAX-B']['def_racine']);
+			$reload=true;
+		}
 		if (substr(decode64($racine64), -1, 1)!='/')
 		{ // si l'URL ne se termine pas par un /
 			$ErrrorMsg .= "\n".__FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 			$racine64 = encode64(decode64($racine64).'/');
 			$reload=true;
 		}
-		if (empty($racine64) || !file_exists(decode64($racine64)) || encode64(decode64($racine64))!=$racine64)
-		{ // si l'URL n'est pas une URL valide
+		if (encode64(decode64($racine64))!=$racine64)
+		{
 			$ErrrorMsg .= "\n".__FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 			$racine64 = empty($_SESSION['AJAX-B']['def_racine'])?encode64('./'):encode64($_SESSION['AJAX-B']['def_racine']);
 			$reload=true;
@@ -40,7 +46,6 @@ if (!empty($_SESSION['AJAX-B']['mini_dir']) && !is_dir($_SESSION['AJAX-B']['mini
 		if (!empty($_SESSION['AJAX-B']['def_racine']) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(realpath(decode64($racine64)), realpath($_SESSION['AJAX-B']['def_racine']))===false && is_link(decode64($racine64)))
 		{ // si l'utilisateur remonte l'arborescence alors qu'il n'en a pas le droit
 			$ErrrorMsg .= "\n".__FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
-			$ErrrorMsg .= realpath(decode64($racine64));
 			$racine64 = encode64($_SESSION['AJAX-B']['def_racine']);
 			$reload=true;
 		}

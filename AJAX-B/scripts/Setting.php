@@ -18,11 +18,11 @@ global $version, $ABS;
 if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 {
 	list($V1, $V2, $V3, $V4) = sscanf($version,'%d.%d.%d%s');
-	$NewVersion = @file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?version');
+	$NewVersion = @file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/AJAX-B_Pro/LastVersion.php?version');
 	list($v1, $v2, $v3, $v4) = sscanf($NewVersion, '%d.%d.%d%s');
 	if (!$NewVersion) echo $ABS[506];
 	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
-		echo '<a href="?mode=request&maj">'.$ABS[508].' : '.$NewVersion.'</a>'.@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/Archives/LastVersion.php?addons');
+		echo '<a href="?mode=request&maj">'.$ABS[508].' : '.$NewVersion.'</a>'.@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/AJAX-B_Pro/LastVersion.php?addons');
 	else echo $ABS[507];
 }
 ?>
