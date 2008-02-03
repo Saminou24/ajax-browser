@@ -13,12 +13,12 @@ chmod(,);
 	{
 		$item = decode64($lst[0]) ;
 		$arrayinfo = InfosByURL ($item);
-		include ($InstallDir.'scripts/EasyArchive.class.php');
-		$archive = new archive;
-		if ($infos['size']<30000000 && @exif_imagetype($url))
+/*		include ($InstallDir.'scripts/EasyArchive.class.php');
+		$archive = new archive;*/
+		if (strpos($arrayinfo['type'], 'image') && @exif_imagetype($item))
 		{?>
 			<td>
-				<img class="cadre" src="<?php echo CreatMini($item,$_SESSION['AJAX-B']['mini_dir'],$_SESSION['AJAX-B']['mini_size']);?>">
+				<a href="<?php echo $lst[0];?>"><img class="cadre" src="<?php echo CreatMini($item,$_SESSION['AJAX-B']['mini_dir'],$_SESSION['AJAX-B']['mini_size']);?>"></a>
 			</td>
 		<?php
 		}
@@ -44,10 +44,10 @@ chmod(,);
 						<tr><td>Chemin : </td><td><?php echo realpath($item);?></a></td></tr>
 						<tr><td>EncodingName : </td><td><?php echo $lst[0];?></td></tr>
 						<tr><td colspan=2><hr/></td></tr>
-						<tr><td>Taille :</td><td><?php echo SizeConvert($arrayinfo['size']).' ('.$arrayinfo['size'].')';?></td></tr>
-						<tr><td>Type :</td><td><?php echo $arrayinfo['type'];?></td></tr>
+						<tr><td>Taille:</td><td><?php echo SizeConvert($arrayinfo['size']).' ('.$arrayinfo['size'].')';?></td></tr>
+						<tr><td>Type:</td><td><?php echo $arrayinfo['type'];?></td></tr>
 						<?php if (is_dir($item)) {?><tr><td></td><td><?php echo $arrayinfo['content0'].' dossier(s), '.$arrayinfo['content1'].' fichier(s)';?></td></tr><?php }?>
-						<tr><td>Dernière modification :</td><td><?php echo $arrayinfo['filemtime'];?></td></tr>
+						<tr><td>Dernière modification:</td><td><?php echo $arrayinfo['filemtime'];?></td></tr>
 						<tr><td colspan=2><hr/></td></tr>
 						<tr><td>Droit d'accés :</td><td><?php echo $arrayinfo['perm'];?></td></tr>
 						<tr><td>UID :</td><td><?php echo $arrayinfo['uidname'].' ('.$arrayinfo['uid'].')';?></td></tr>

@@ -17,9 +17,11 @@ $intaller = new MakeIntall (
 	'version' => $_GET['version'],
 	'projetName'=> 'AJAX-Browser',
 
-	'addons' => '<li>Hide disable user menu</li>
-<li>Debug</li>
-<li>Improve</li>',
+	'addons' => '<li>Include Watermark on picture for no download avaible accounts</li>
+<li>Debug url for open file action</li>
+<li>Improve opening behaviour with double-click or press [Enter] with or without [Ctrl] key</li>
+<li></li>
+<li></li>',
 
 	'comment' => '-------------------------------------------------
  | %name%  -  by Alban LOPEZ

@@ -15,7 +15,7 @@ $modelArbs = '
 		<span class="left" title="%content%">
 			<span class="IndentImg">%IndOffset%%ArbImg%</span>
 			<span class="IcoName">
-				<IMG src="'.$InstallDir.'icones/type-%icone%.png" ondblclick="location.href=\'%link%\'"/>
+				<IMG src="'.$InstallDir.'icones/type-%icone%.png" ondblclick="_view(\'%link%\', event)"/>
 				<span class="Name" onclick="_rename();">%item%</span>
 			</span>
 		</span>
@@ -31,7 +31,7 @@ $modelArbs = '
 </div>';
 
 $modelGal='
-<div class="Gal" id="%item64%" title="%item% => %size% (%real_size%)" ondblclick="location.href=\'%link%\'">
+<div class="Gal" id="%item64%" title="%item% => %size% (%real_size%)" ondblclick="_view(\'%link%\', event)">
 	<table><tbody><tr><td><img src="%icone%">%name%</td></tr></tbody></table>
 </div>';
 	$totalContent = array();
@@ -43,7 +43,7 @@ function InfosByURL ($url, $allinfos=true)
 	{
 		$infos['basename'] = basename($url);
 		$infos['size'] = sprintf("%u", filesize ($url));
-		$infos['type'] = function_exists('mime_content_type') ? str_replace(array("\t",'application'), array("",'appli.'), @mime_content_type($url)) : 'ext/'.strtolower(@pathinfo($url, PATHINFO_EXTENSION));	// type mime
+		$infos['type'] = function_exists('mime_content_type') ? str_replace(array("\t",'application'), array("",'appli.'), @mime_content_type($url)) : 'ext/'.strtolower(@pathinfo($url, PATHINFO_EXTENSION));
 	}
 	else
 	{
@@ -67,18 +67,15 @@ function InfosByURL ($url, $allinfos=true)
 			$infos['content1'] = ($tmp=DirSort ($url,'file'))?count ($tmp):0;	// count(subfile)
 		}
 		elseif (strpos($infos['type'], 'image') && @exif_imagetype($url))
-		{
 			list ($infos['content0'], $infos['content1']) = @getimagesize($url);
-			$infos['type'] = 'image/'.@pathinfo($url, PATHINFO_EXTENSION);
-		}
 	}
 	return $infos;
 }
 function SizeDir ($Folder)
 {
 	global $speed, $StartPhpScripte, $OverTime;
-	$OverTime=5;
-	if (microtime_float()-$StartPhpScripte < $OverTime)
+	$OverTime=3;
+	if (microtime_float()-$StartPhpScripte < $OverTime && count(explode($Folder,'/')) < 30)
 	{
 		$SizeAll=0;
 		$dirLst=DirSort ($Folder,'dir');
@@ -93,12 +90,27 @@ function SizeDir ($Folder)
 			foreach ($fileLst as $key => $file)
 				$SizeAll += sprintf("%u", @filesize ($Folder.$file));
 		}
-		if (microtime_float()-$StartPhpScripte < $OverTime) return sprintf("%u", $SizeAll);
-		else return -1;
+// 		if (microtime_float()-$StartPhpScripte < $OverTime)
+		return sprintf("%u", $SizeAll);
+// 		else return -1;
 	}
 	else
 		return -1;
 }
+/*function SizeAll($path)
+{
+	if (!is_dir($path))
+		return @filesize($path);
+	$dir = opendir($path);
+	while ($file = readdir($dir))
+	{
+		if (is_file($path."/".$file))
+			$size+=@filesize($path."/".$file);
+		if (is_dir($path."/".$file) && $file!="." && $file !="..")
+			$size +=SizeAll($path."/".$file);
+	}
+	return $size;
+}*/
 function CountDir($path)
 {
 	if (!is_dir($path))
@@ -122,20 +134,6 @@ function CountFile($path)
 			$nbr += CountFile($path."/".$file);
 	}
 	return $nbr;
-}
-function SizeAll($path)
-{
-	if (!is_dir($path))
-		return @filesize($path);
-	$dir = opendir($path);
-	while ($file = readdir($dir))
-	{
-		if (is_file($path."/".$file))
-			$size+=@filesize($path."/".$file);
-		if (is_dir($path."/".$file) && $file!="." && $file !="..")
-			$size +=SizeAll($path."/".$file);
-	}
-	return $size;
 }
 function ArrayMatch ($ArrayMask, $str)
 {

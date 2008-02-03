@@ -77,6 +77,7 @@ function AddWatermark($src, $dir, $wmk)
 	{
 		if ($src_size[0]>$wmk_size[0] && $src_size[1]>$wmk_size[1] && function_exists('imagejpeg'))
 		{
+			if (!is_dir(dirname($FileDest))) mkdir(dirname($FileDest), 0777, true);
 			$wmk_img = imagecreatefrompng($wmk);
 			imagealphablending($wmk_img,true);
 			switch ($src_size[2])					// avant de travailler sur une image il faut la decompresser
@@ -118,7 +119,7 @@ function CreatMini( $File, $dir, $Max=100, $Force=false)
 			else $coef = $size[1]/$Max;
 			if ($coef>1 && function_exists('imagejpeg'))
 			{
-				mkdir(dirname($FileDest), 0777, true);
+				if (!is_dir(dirname($FileDest))) mkdir(dirname($FileDest), 0777, true);
 				$dest_l = (int)($size[0]/$coef);
 				$dest_h = (int)($size[1]/$coef);
 				switch ($size[2])					// avant de travailler sur une image il faut la decompresser
