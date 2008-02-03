@@ -18,11 +18,13 @@ if(isset($sublstof))
 	$dirLst = DirSort ($folder=decode64($sublstof), 'dir');
 	if ($dirLst)
 	{
+
 		foreach ($dirLst as $dir)
 			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',basename($dir)))
-				array_push ($LstDir, implode("\t",InfosByURL ($folder.$dir, !isset($light))));
+		{
+				array_push ($LstDir, implode("\t",InfosByURL ($folder.$dir, !isset($light))));}
 	}
-	
+
 	$LstFile=array();
 // ?mode=request&sublstof=Li9BSkFYLUIvc2NyaXB0cy8_&match=*.php
 	$fileLst = DirSort ($folder, isset($match) ? explode(',',$match) : 'file');
@@ -79,8 +81,9 @@ elseif(isset($view))
 			}
 			else
 			{
-				header('Content-Disposition: inline;filename="marcked.png'."\"\n");
-				readfile(AddWatermark($file, $_SESSION['AJAX-B']['mini_dir'], $InstallDir.'icones/Watermark.png'));
+				$file = AddWatermark($file, $_SESSION['AJAX-B']['mini_dir'], $InstallDir.'icones/Watermark.png');
+				header('Content-Disposition: inline;filename="'."$file\"\n");
+				readfile($file);
 			}
 		}
 		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))

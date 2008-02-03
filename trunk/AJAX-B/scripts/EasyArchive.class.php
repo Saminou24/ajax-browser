@@ -20,13 +20,13 @@
 $arch = new archive;
 $arch->make('./', './archive.tar.gzip');
 var_export($arch->infos('./toto.bzip2'));
-$arch->extract('./toto.zip', './new/');
-$arch->download('./toto/', './toto.tar.gz');
+$arch->extract('./toto.zip', './my_dir/');
+$arch->download('./my_dir/');
 **/
 
 class archive
 {
-	function download ($src, $name)
+	function download ($src, $name="DownloadArchive.tgz")
 	{
 		header('Content-Type: application/force-download');
 		header("Content-Transfer-Encoding: binary");
@@ -37,7 +37,7 @@ class archive
 		header("Content-Length: ".strlen($data));
 		print($data);
 	}
-	function make ($src, $name, $returnFile=true)
+	function make ($src, $name="Archive.tgz", $returnFile=true)
 	{
 		$ext2 = strrchr($name, '.');
 		$ext1 = substr(strrchr(substr($name, 0, strlen($name)-strlen($ext2)), '.'), 1);

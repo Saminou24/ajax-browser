@@ -117,7 +117,7 @@ function ManageKeyboardEvent (event)
 	if (event.keyCode==13 && ID('renOne').style.display=='block') // ENTER
 		{_sendRen ();}
 	else if (event.keyCode==13) // ENTER
-		{_enter ();}
+		{_enter (event);}
 	else if (event.keyCode==27) // ESC
 	{
 		RQT.get
@@ -143,12 +143,6 @@ function ManageKeyboardEvent (event)
 		{_remove ();}
 	return false;
 }
-function _view (item64)
-{
-	PtrWindow = window.open(ServActPage+"?mode=request&view="+item64, "view_"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
-	if (PtrWindow === null) {alert (ABS907);}
-	PtrWindow.focus();
-}
 function _esc ()
 {
 	UnSelectAll ();
@@ -160,14 +154,40 @@ function _esc ()
 	dragFiles = false;
 	document.onmousemove = null;
 }
-function _enter ()
+function _view (item64, event)
+{
+	if (is_dir(decode64(item64)))
+	{
+		if(event.ctrlKey)
+		{
+			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+item64, "racine64"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
+			if (PtrWindow === null) {alert (ABS907);}
+			else {PtrWindow.focus();}
+		}
+		else
+			{location.href=ServActPage+"?mode="+mode+"&racine64="+item64;}
+	}
+	else
+	{
+		PtrWindow = window.open(ServActPage+"?mode=request&view="+item64, "view_"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
+		if (PtrWindow === null) {alert (ABS907);}
+		else {PtrWindow.focus();}
+	}
+}
+function _enter (event)
 {
 	SelectLst.forEach(function(element, index, array)
 	{
-		if (is_dir(decode64(element)))
+		if (!is_dir(decode64(element)) || event.ctrlKey)
+			{_view (element, event);}
+		else if (mode=='gallerie')
+		{
+			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+element, "racine64"+element,"menubar,toolbar,location,resizable,scrollbars,status");
+			if (PtrWindow === null) {alert (ABS907);}
+			else {PtrWindow.focus();}
+		}
+		else if (mode=='arborescence')
 			{RequestLoad(element);}
-		else
-			{_view (element);}
 	});
 	UnSelectAll ();
 }
