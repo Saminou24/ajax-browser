@@ -29,9 +29,9 @@ $test->extractGzip('./toto.gzip', './new/');
 	{
 		$data = $this->extractGzip ($src);
 		$content = array(
-			'Ratio'=>strlen($data) ? round(100 - filesize($src) / strlen($data)*100, 1) : false,
+			'UnCompSize'=>strlen($data),
 			'Size'=>filesize($src),
-			'NormalSize'=>strlen($data));
+			'Ratio'=>strlen($data) ? round(100 - filesize($src) / strlen($data)*100, 1) : false,);
 		if ($data) $content['Data'] = $data;
 		return $content;
 	}

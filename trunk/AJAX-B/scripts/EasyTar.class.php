@@ -20,6 +20,11 @@ $test->extractTar('./toto.Tar', './new/');
 **/
 	function infosTar ($src, $data=true)
 	{
+		if (!is_file($src))
+		{
+			file_put_contents ($tmp='~tmp('.microtime().').tar', $src);
+			$src = $tmp;
+		}
 		$ptr = fopen($src, 'r');
 		while (!feof($ptr))
 		{
@@ -30,6 +35,7 @@ $test->extractTar('./toto.Tar', './new/');
 				$result[$infos['name']]=$infos;
 			}
 		}
+		if (is_file($tmp)) unlink($tmp);
 		return $result;
 	}
 	function makeTar($src, $dest=false)
@@ -67,6 +73,17 @@ $test->extractTar('./toto.Tar', './new/');
 		}
 		if (is_file($tmp)) unlink($tmp);
 		return $result;
+	}
+	function is_tar($str)
+	{
+		$block = substr($str,0, 512);
+		if (strlen($block)!=512) return false;
+		$realchecksum = octdec(substr($str,148,8));
+		$checksum = 0;
+		$block = substr_replace($block, '        ', 148, 8);
+		for ($i = 0; $i < 512; $i++)
+			$checksum += ord(substr($block, $i, 1));
+		if ($realchecksum==$checksum) return true;
 	}
 	function tarHeader512($infos)
 	{ /* http://www.mkssoftware.com/docs/man4/tar.4.asp */

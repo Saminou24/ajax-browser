@@ -20,7 +20,7 @@ $intaller = new MakeIntall (
 	'addons' => '<li>Include Watermark on picture for no download avaible accounts</li>
 <li>Debug url for open file action</li>
 <li>Improve opening behaviour with double-click or press [Enter] with or without [Ctrl] key</li>
-<li></li>
+<li>Properties of archives (Numbers of items, Compressed size, Uncompressed size, Ratio of compression)</li>
 <li></li>',
 
 	'comment' => '-------------------------------------------------

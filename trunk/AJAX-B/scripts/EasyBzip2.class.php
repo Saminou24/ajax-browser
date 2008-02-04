@@ -29,9 +29,9 @@ $test->extractBzip2('./toto.bzip2', './new/');
 	{
 		$data = $this->extractBzip2 ($src);
 		$content = array(
-			'Ratio'=>strlen($data) ? round(100 - filesize($src) / strlen($data)*100, 1) : false,
+			'UnCompSize'=>strlen($data),
 			'Size'=>filesize($src),
-			'NormalSize'=>strlen($data));
+			'Ratio'=>strlen($data) ? round(100 - filesize($src) / strlen($data)*100, 1) : false,);
 		if ($data) $content['Data'] = $data;
 		return $content;
 	}
@@ -42,7 +42,6 @@ $test->extractBzip2('./toto.bzip2', './new/');
 		while (!feof($bz))
 			$data .= bzread($bz, 1024*1024);
 		bzclose($bz);
-		echo $data;
 		if (empty($dest)) return $data;
 		elseif (file_put_contents($dest, $data)) return $dest;
 		return false;
