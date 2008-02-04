@@ -30,7 +30,7 @@ $test->extractZip('./toto.zip', './new/');
 					$content[$path] = array (
 						'Ratio' => zip_entry_filesize($zip_entry) ? round(100-zip_entry_compressedsize($zip_entry) / zip_entry_filesize($zip_entry)*100, 1) : false,
 						'Size' => zip_entry_compressedsize($zip_entry),
-						'NormalSize' => zip_entry_filesize($zip_entry));
+						'UnCompSize' => zip_entry_filesize($zip_entry));
 					if ($data)
 						$content[$path]['Data'] = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
 					zip_entry_close($zip_entry);

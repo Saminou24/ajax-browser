@@ -26,7 +26,23 @@ $arch->download('./my_dir/');
 
 class archive
 {
-	function download ($src, $name="DownloadArchive.tgz")
+	var $WathArchive = array (
+		'.zip'		=>'zip',
+		'.tar'		=>'tar',
+		'.gz'		=>'gz',
+		'.gzip'		=>'gz',
+		'.bzip'		=>'bz',
+		'.bz'		=>'bz',
+		'.bzip2'	=>'bz',
+		'.bz2'		=>'bz',
+		'.tgz'		=>'gz',
+		'.tgzip'	=>'gz',
+		'.tbzip'	=>'bz',
+		'.tbz'		=>'bz',
+		'.tbzip2'	=>'bz',
+		'.tbz2'		=>'bz',
+	);
+	function download ($src, $name)
 	{
 		header('Content-Type: application/force-download');
 		header("Content-Transfer-Encoding: binary");
@@ -39,120 +55,95 @@ class archive
 	}
 	function make ($src, $name="Archive.tgz", $returnFile=true)
 	{
-		$ext2 = strrchr($name, '.');
-		$ext1 = substr(strrchr(substr($name, 0, strlen($name)-strlen($ext2)), '.'), 1);
-		$ext1 = (strtolower($ext1)=='tar')?$ext1:'';
-		$result = false;
-		$dest = $returnFile ? $name : false;
-		switch (strtolower($ext1.$ext2))
+		$ext = '.'.pathinfo ($name, PATHINFO_EXTENSION);
+		foreach ($this->WathArchive as $key=>$val)
+			if (stripos($ext, $key)!==false) $comp=$val;
+		if ($comp == 'zip')
 		{
-			case '.zip':
-				$zip = new zip;
-				if ($returnFile)
-					$result = $zip->makeZip($src, $dest);
-				else
-				{
-					$tmpZip = './'.md5(serialize($src)).'.zip';
-					$result = $zip->makeZip($src, $tmpZip);
-					$result = file_get_contents($tmpZip);
-					unlink($tmpZip);
-				}
-				break;
-			case '.tar':
-				$tar = new tar;
-				$gzip = new gzip;
-				$result = $tar->makeTar($src, $dest);
-				break;
-			case '.gz':
-			case '.gzip':
-				$gzip = new gzip;
-				$result = $gzip->makeGzip($src, $dest);
-				break;
-			case '.bz':
-			case '.bz2':
-			case '.bzip':
-			case '.bzip2':
-				$bzip2 = new bzip2;
-				$result = $bzip2->makeBzip2($src, $dest);
-				break;
-			case 'tar.gz':
-			case 'tar.gzip':
-			case '.tgz':
-			case '.tgzip':
-				$tar = new tar;
-				$gzip = new gzip;
-				$result = $gzip->makeGzip($tar->makeTar($src), $dest);
-				break;
-			case 'tar.bz':
-			case 'tar.bz2':
-			case 'tar.bzip':
-			case 'tar.bzip2':
-			case '.tbz':
-			case '.tbz2':
-			case '.tbzip':
-			case '.tbzip2':
-				$tar = new tar;
-				$bzip2 = new bzip2;
-				$result = $bzip2->makeBzip2($tar->makeTar($src), $dest);
-				break;
-			default:
-				return 'Specifie a valid format at the end of $name filename ! '.strtolower($ext1.$ext2);
+			$zip = new zip;
+			if ($returnFile)
+				$result = $zip->makeZip($src, $dest);
+			else
+			{
+				$tmpZip = './'.md5(serialize($src)).'.zip';
+				$result = $zip->makeZip($src, $tmpZip);
+				$result = file_get_contents($tmpZip);
+				unlink($tmpZip);
+			}
+			return $result;
 		}
-		return $result;
+		elseif (strlen($comp)>1)
+		{
+			if (count($src)>1 || is_dir($src[0]) || $comp == 'tar')
+			{
+				$tar = new tar;
+				$src = $tar->makeTar($src);
+			}
+			if ($comp == 'bz')
+			{
+				$bzip2 = new bzip2;
+				$src = $bzip2->makeBzip2($src);
+			}
+			elseif ($comp == 'gz')
+			{
+				$gzip = new gzip;
+				$src = $gzip->makeGzip($src);
+			}
+			if ($returnFile)
+			{
+				file_put_contents($src, $dest);
+				return $dest;
+			}
+			return $src;
+		}
+		else return 'Specifie a valid format at the end of '.$name.' filename ! ';
 	}
 	function infos ($src, $data=false)
 	{
-		$result = false;
-		$ext2 = strrchr($src, '.');
-		$ext1 = substr(strrchr(substr($src, 0, strlen($src)-strlen($ext2)), '.'), 1);
-		$ext1 = (strtolower($ext1)=='tar')?$ext1:'';
-
-		switch (strtolower($ext1.$ext2))
+		$ext = '.'.pathinfo ($src, PATHINFO_EXTENSION);
+		foreach ($this->WathArchive as $key=>$val)
+			if (stripos($ext, $key)!==false) $comp=$val;
+		if ($comp == 'zip')
 		{
-			case '.zip':
-				$zip = new zip;
-				$result = $zip->infosZip($src, $data);
-				break;
-			case '.tar':
-				$tar = new tar;
-				$result = $tar->infosTar($src, $data);
-				break;
-			case '.gz':
-			case '.gzip':
-				$gzip = new gzip;
-				$result = $gzip->infosGzip($src, $data);
-				break;
-			case '.bz':
-			case '.bzip':
-			case '.bzip2':
-			case '.bz2':
-				$bzip2 = new bzip2;
-				$result = $bzip2->infosBzip2($src, $data);
-				break;
-			case 'tar.gz':
-			case 'tar.gzip':
-			case '.tgz':
-			case '.tgzip':
-				$tar = new tar;
-				$gzip = new gzip;
-				$result = $tar->infosTar($gzip->extractGzip($src), $data);
-				break;
-			case 'tar.bz':
-			case 'tar.bz2':
-			case 'tar.bzip':
-			case 'tar.bzip2':
-			case '.tbz':
-			case '.tbz2':
-			case '.tbzip':
-			case '.tbzip2':
-				$tar = new tar;
-				$bzip2 = new bzip2;
-				$result = $tar->infosTar($bzip2->extractBzip2($src), $data);
-				break;
-			default:
-				$result = false;
+			$zip = new zip;
+			$zipresult = $zip->infosZip($src, $data);
+			$result ['Items'] = count($zipresult);
+			foreach($zipresult as $key=>$val)
+				$result['UnCompSize'] += $zipresult[$key]['UnCompSize'];
+			$result['Size']=filesize($src);
+			$result['Ratio'] = $result['UnCompSize'] ? round(100 - $result['Size'] / $result['UnCompSize']*100, 1) : false;
 		}
-		return $result;
+		elseif (strlen($comp)>1)
+		{
+			$tar = new tar;
+			if ($comp == 'bz')
+			{
+				$bzip2 = new bzip2;
+				$result = $bzip2->infosBzip2($src, true);
+				$src=$result['Data'];
+			}
+			elseif ($comp == 'gz')
+			{
+				$gzip = new gzip;
+				$result = $gzip->infosGzip($src, true);
+				$src=$result['Data'];
+			}
+			if ($tar->is_tar($src) || is_file($src))
+			{
+				$tarresult = $tar->infosTar($src, false);
+				$result ['Items'] = count($tarresult);
+				$result ['UnCompSize'] = 0;
+				if (empty($result['Size']))
+					$result['Size']=is_file($src)?filesize($src):strlen($src);
+				foreach($tarresult as $key=>$val)
+					$result['UnCompSize'] += $tarresult[$key]['size'];
+				$result['Ratio'] = $result['UnCompSize'] ? round(100 - $result['Size'] / $result['UnCompSize']*100, 1) : false;
+				
+			}
+			if (!$data) unset($result['Data']);
+		}
+		else return false;
+		return array('Items'=>$result['Items'], 'UnCompSize'=>$result['UnCompSize'], 'Size'=>$result['Size'], 'Ratio'=>$result['Ratio'],);
 	}
 	function extract ($src, $dest=false)
 	{

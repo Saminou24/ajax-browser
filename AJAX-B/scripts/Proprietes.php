@@ -13,8 +13,8 @@ chmod(,);
 	{
 		$item = decode64($lst[0]) ;
 		$arrayinfo = InfosByURL ($item);
-/*		include ($InstallDir.'scripts/EasyArchive.class.php');
-		$archive = new archive;*/
+		include ($InstallDir.'scripts/EasyArchive.class.php');
+		$archive = new archive;
 		if (strpos($arrayinfo['type'], 'image') && @exif_imagetype($item))
 		{?>
 			<td>
@@ -22,13 +22,13 @@ chmod(,);
 			</td>
 		<?php
 		}
-// 		elseif (is_array($content = $archive->infos($item)))
-// 		{? >
-// 			<td>
-// 				<pre>< ?php var_export($content);? ></pre>
-// 			</td>
-// 		< ?php
-// 		}
+		elseif (is_array($content = $archive->infos($item)))
+		{?>
+			<td>
+				<pre><?php var_export($content);?></pre>
+			</td>
+		<?php
+		}
 		else
 		{?>
 			<td>

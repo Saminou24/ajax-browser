@@ -15,7 +15,7 @@ $modelArbs = '
 		<span class="left" title="%content%">
 			<span class="IndentImg">%IndOffset%%ArbImg%</span>
 			<span class="IcoName">
-				<IMG src="'.$InstallDir.'icones/type-%icone%.png" ondblclick="_view(\'%link%\', event)"/>
+				<IMG src="'.$InstallDir.'icones/type-%icone%.png" ondblclick="_view(\'%item64%\', event)"/>
 				<span class="Name" onclick="_rename();">%item%</span>
 			</span>
 		</span>
@@ -31,7 +31,7 @@ $modelArbs = '
 </div>';
 
 $modelGal='
-<div class="Gal" id="%item64%" title="%item% => %size% (%real_size%)" ondblclick="_view(\'%link%\', event)">
+<div class="Gal" id="%item64%" title="%item% => %size% (%real_size%)" ondblclick="_view(\'%item64%\', event)">
 	<table><tbody><tr><td><img src="%icone%">%name%</td></tr></tbody></table>
 </div>';
 	$totalContent = array();
@@ -97,7 +97,7 @@ function SizeDir ($Folder)
 	else
 		return -1;
 }
-/*function SizeAll($path)
+function SizeAll($path)
 {
 	if (!is_dir($path))
 		return @filesize($path);
@@ -110,7 +110,7 @@ function SizeDir ($Folder)
 			$size +=SizeAll($path."/".$file);
 	}
 	return $size;
-}*/
+}
 function CountDir($path)
 {
 	if (!is_dir($path))
