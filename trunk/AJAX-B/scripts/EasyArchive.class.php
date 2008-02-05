@@ -1,6 +1,6 @@
 <?php
 /**-------------------------------------------------
- | EasyArchive.class  -  by Alban LOPEZ
+ | EasyArchive.class V0.8 -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
  | Email bugs/suggestions to alban.lopez+eazyarchive@gmail.com
  +--------------------------------------------------
@@ -147,58 +147,39 @@ class archive
 	}
 	function extract ($src, $dest=false)
 	{
-		if (empty($dest)) $dest = dirname(realpath($src)).'/';
-		$result = false;
-		$ext2 = strrchr($src, '.');
-		$ext1 = substr(strrchr(substr($src, 0, strlen($src)-strlen($ext2)), '.'), 1);
-		$ext1 = (strtolower($ext1)=='tar')?$ext1:'';
-
-		switch (strtolower($ext1.$ext2))
+		$path_parts = pathinfo ($src);
+		if (!$dest)
+			$dest = $path_parts['dirname'].'/';
+		$ext = '.'.$path_parts['extension'];
+		$name = $path_parts['filename'];
+		foreach ($this->WathArchive as $key=>$val)
+			if (stripos($ext, $key)!==false) $comp=$val;
+		if ($comp == 'zip')
 		{
-			case '.zip':
-				$zip = new zip;
-				$result = $zip->extractZip($src, $dest);
-				break;
-			case '.tar':
-				$tar = new tar;
-				$result =$tar->extractTar($src , $dest);
-				break;
-			case '.gz':
-			case '.gzip':
-				$gzip = new gzip;
-				$result = $gzip->extractGzip($src, $dest.substr(basename($src),0,-1*strlen($ext2)));
-				break;
-			case '.bz':
-			case '.bzip':
-			case '.bzip2':
-			case '.bz2':
-				$bzip2 = new bzip2;
-				$result = $bzip2->extractBzip2($src, $dest.substr(basename($src),0,-1*strlen($ext2)));
-				break;
-			case 'tar.gz':
-			case 'tar.gzip':
-			case '.tgz':
-			case '.tgzip':
-				$tar = new tar;
-				$gzip = new gzip;
-				$result = $tar->extractTar($gzip->extractGzip($src) , $dest);
-				break;
-			case 'tar.bz':
-			case 'tar.bz2':
-			case 'tar.bzip':
-			case 'tar.bzip2':
-			case '.tbz':
-			case '.tbz2':
-			case '.tbzip':
-			case '.tbzip2':
-				$tar = new tar;
-				$bzip2 = new bzip2;
-				$result = $tar->extractTar($bzip2->extractBzip2($src), $dest);
-				break;
-			default:
-				$result = false;
+			$zip = new zip;
+			return $zip->extractZip($src, $dest);
 		}
-		return $result;
+		elseif (strlen($comp)>1)
+		{
+			$tar = new tar;
+			if ($comp == 'bz')
+			{
+				$bzip2 = new bzip2;
+				$src = $bzip2->extractBzip2($src);
+			}
+			elseif ($comp == 'gz')
+			{
+				$gzip = new gzip;
+				$src = $gzip->extractGzip($src);
+			}
+			if ($tar->is_tar($src) || is_file($src))
+			{
+				return $tar->extractTar($src, $dest);
+			}
+			else file_put_contents($dest.$name, $src);
+			return $dest;
+		}
+		return false;
 	}
 }
 ?>
