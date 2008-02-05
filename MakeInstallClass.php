@@ -21,7 +21,10 @@ $intaller = new MakeIntall (
 <li>Debug url for open file action</li>
 <li>Improve opening behaviour with double-click or press [Enter] with or without [Ctrl] key</li>
 <li>Properties of archives (Numbers of items, Compressed size, Uncompressed size, Ratio of compression)</li>
-<li></li>',
+<li>Without access authorization the parent folder is not browsable but all link are browsable.</li>
+<li>Debug picture loading in gallery mode</li>
+<li></li>
+',
 
 	'comment' => '-------------------------------------------------
  | %name%  -  by Alban LOPEZ

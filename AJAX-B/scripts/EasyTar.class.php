@@ -1,6 +1,6 @@
 <?
 /**-------------------------------------------------
- | EasyTar.class  -  by Alban LOPEZ
+ | EasyTar.class V0.8 -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
  | Email bugs/suggestions to alban.lopez+easytar@gmail.com
  +--------------------------------------------------
@@ -20,7 +20,7 @@ $test->extractTar('./toto.Tar', './new/');
 **/
 	function infosTar ($src, $data=true)
 	{
-		if (!is_file($src))
+		if ($this->is_tar($src))
 		{
 			file_put_contents ($tmp='~tmp('.microtime().').tar', $src);
 			$src = $tmp;
@@ -52,7 +52,7 @@ $test->extractTar('./toto.Tar', './new/');
 	}
 	function extractTar ($src, $dest)
 	{
-		if (!is_file($src))
+		if ($this->is_tar($src))
 		{
 			file_put_contents ($tmp='~tmp('.microtime().').tar', $src);
 			$src = $tmp;
@@ -84,6 +84,7 @@ $test->extractTar('./toto.Tar', './new/');
 		for ($i = 0; $i < 512; $i++)
 			$checksum += ord(substr($block, $i, 1));
 		if ($realchecksum==$checksum) return true;
+		return false;
 	}
 	function tarHeader512($infos)
 	{ /* http://www.mkssoftware.com/docs/man4/tar.4.asp */

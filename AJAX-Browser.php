@@ -17,7 +17,7 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.30-Improvement_item_openning_behaviour";
+$version="0.9.31-Archives_Properties";
 
 $InstallDir = './AJAX-B/'; // define("INSTALL_DIR", "./AJAX-B/");
 

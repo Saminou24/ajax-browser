@@ -1,6 +1,6 @@
 <?
 /**-------------------------------------------------
- | EasyZip.class  -  by Alban LOPEZ
+ | EasyZip.class V0.8 -  by Alban LOPEZ
  | Copyright (c) 2007 Alban LOPEZ
  | Email bugs/suggestions to alban.lopez+easyzip@gmail.com
  +--------------------------------------------------

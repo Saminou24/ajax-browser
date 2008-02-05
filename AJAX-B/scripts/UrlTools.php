@@ -43,7 +43,7 @@ if (!empty($_SESSION['AJAX-B']['mini_dir']) && !is_dir($_SESSION['AJAX-B']['mini
 			$racine64 = empty($_SESSION['AJAX-B']['def_racine'])?encode64('./'):encode64($_SESSION['AJAX-B']['def_racine']);
 			$reload=true;
 		}
-		if (!empty($_SESSION['AJAX-B']['def_racine']) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(realpath(decode64($racine64)), realpath($_SESSION['AJAX-B']['def_racine']))===false && is_link(decode64($racine64)))
+		if (!empty($_SESSION['AJAX-B']['def_racine']) && !$_SESSION['AJAX-B']['droits']['..VIEW'] && strpos(realpath(decode64($racine64)), realpath($_SESSION['AJAX-B']['def_racine']))===false || is_link(decode64($racine64)))
 		{ // si l'utilisateur remonte l'arborescence alors qu'il n'en a pas le droit
 			$ErrrorMsg .= "\n".__FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
 			$racine64 = encode64($_SESSION['AJAX-B']['def_racine']);
