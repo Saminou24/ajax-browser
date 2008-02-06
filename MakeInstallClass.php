@@ -23,6 +23,7 @@ $intaller = new MakeIntall (
 <li>Properties of archives (Numbers of items, Compressed size, Uncompressed size, Ratio of compression)</li>
 <li>Without access authorization the parent folder is not browsable but all link are browsable.</li>
 <li>Debug picture loading in gallery mode</li>
+<li>File Uploading debug</li>
 <li></li>
 ',
 
