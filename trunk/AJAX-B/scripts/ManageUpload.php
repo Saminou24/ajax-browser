@@ -21,20 +21,19 @@ if (!empty($_FILES))
 			 ||  $_SESSION['AJAX-B']['droits']['UPLOAD']=='ALL')
 			{
 				$DestFile = decode64($dest).$_FILES['aFile']['name'];
-				if (is_file($DestFile))
+				if (move_uploaded_file($_FILES['aFile']['tmp_name'], $DestFile))
 				{
 					echo $DestFile.' > Complet ('.SizeConvert(filesize ($DestFile)).')<br>';
 					if ($_SESSION['AJAX-B']['spy']['action'])
 						file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/upload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$DestFile.' ('.SizeConvert(filesize ($DestFile)).")\n", FILE_APPEND);
 				}
-				else
-					echo $ABS[801].$DestFile."<br>".$ABS[802].' '.decode64($dest);
+				else echo $ABS[801].$DestFile."<br>".$ABS[802].' '.decode64($dest)."<br />";
 			}
-			else echo  $ABS[803];
+			else echo $ABS[803]."<br />";
 		}
 		else echo $ABS[804]." : \"".$DestFile."\"<br />";
 	}
-	else echo $ABS[805];
+	else echo $ABS[805]."<br />";
 }
 else
 {
@@ -42,8 +41,6 @@ echo '	<body style="font-size:10px;padding:0px;margin:0px;"><img src="'.$Install
 		<form METHOD="post" action="" enctype="multipart/form-data" style="padding:0px;margin:0px;">
 			<input type="hidden" name="dest" value="'.$dest.'">
 			<input type="file" name="aFile" style="text-align:center;margin-top:1px;" onchange="this.parentNode.parentNode.firstChild.style.display=\'block\';this.parentNode.style.display=\'none\';this.parentNode.submit();">
-		</form>';
-}
-?>
+		</form>';}?>
 	</body>
 </html>

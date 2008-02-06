@@ -141,6 +141,8 @@ function ManageKeyboardEvent (event)
 		{_paste();}
 	else if ((event.keyCode==46 || event.keyCode==127) && event.charCode===0) // SUPPRIMER
 		{_remove ();}
+/*	else if ((event.keyCode==xx || event.keyCode==xx) && event.charCode===0) // PROPRIETEE
+		{_properties ();}*/
 	return false;
 }
 function _esc ()
