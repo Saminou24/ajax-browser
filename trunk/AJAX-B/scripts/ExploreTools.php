@@ -15,7 +15,7 @@ $modelArbs = '
 		<span class="left" title="%content%">
 			<span class="IndentImg">%IndOffset%%ArbImg%</span>
 			<span class="IcoName">
-				<IMG src="'.$InstallDir.'icones/type-%icone%.png" ondblclick="_view(\'%item64%\', event)"/>
+				<IMG src="'.INSTAL_DIR.'icones/type-%icone%.png" ondblclick="_view(\'%item64%\', event)"/>
 				<span class="Name" onclick="_rename();">%item%</span>
 			</span>
 		</span>
@@ -35,19 +35,19 @@ $modelGal='
 	<table><tbody><tr><td><img src="%icone%">%name%</td></tr></tbody></table>
 </div>';
 	$totalContent = array();
-function InfosByURL ($url, $allinfos=true)
+function InfosByURL ($url, $allinfos=true, $base64=false)
 {
 	$infos = array();
 // 	$imgtype = array('GIF','JPEG','PNG','SWF','PSD','BMP','TIFF','JPC','JP2','JPX','JB2','SWC','IFF','WBMP','XBM');
 	if (is_file($url))
 	{
-		$infos['basename'] = basename($url);
+		$infos['basename'] = $base64 ? encode64(UTF8basename($url)) : UTF8basename($url);
 		$infos['size'] = sprintf("%u", filesize ($url));
 		$infos['type'] = function_exists('mime_content_type') ? str_replace(array("\t",'application'), array("",'appli.'), @mime_content_type($url)) : 'ext/'.strtolower(@pathinfo($url, PATHINFO_EXTENSION));
 	}
 	else
 	{
-		$infos['basename'] = basename($url).'/';
+		$infos['basename'] = $base64 ? encode64(UTF8basename($url).'/') : UTF8basename($url).'/';
 		$infos['size'] = SizeDir ($url);
 		$infos['type'] = 'Dossier';
 	}

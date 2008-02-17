@@ -9,9 +9,9 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-$file_globalconf = $InstallDir.'ajaxb.conf';
-$file_accounts = $InstallDir.'accounts.conf';
-$file_blacklist = $InstallDir.'blacklist.conf';
+$file_globalconf = INSTAL_DIR.'ajaxb.conf';
+$file_accounts = INSTAL_DIR.'accounts.conf';
+$file_blacklist = INSTAL_DIR.'blacklist.conf';
 
 $account_exemple = array (
 	'code' => '',
@@ -191,9 +191,9 @@ $ajaxb_conf_exemple = array (
 				td, tr {vertical-align:middle;text-align:center;}
 				div {margin-left: auto;margin-right:auto;background-color:rgb(220,230,255);padding:2px 10px;width:250px;-moz-border-radius:8px;font-weight:bold;border:1px solid gray;}
 			</style>
-			<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Dom-drag.js"></script>
-			<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Dom-event.js"></script>
-			<script type="text/javascript" src="<?php echo $InstallDir; ?>scripts/Common.js"></script>
+			<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-drag.js"></script>
+			<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-event.js"></script>
+			<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Common.js"></script>
 			<body onLoad="document.getElementById('login').focus()">
 			<form method="post" action="?">
 				<table >

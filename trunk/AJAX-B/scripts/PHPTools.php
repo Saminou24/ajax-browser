@@ -31,6 +31,19 @@ if (!function_exists('file_put_contents'))
 		}
 	}
 }
+function UTF8basename($str)
+{// for UTF-8 compatible
+	$str = explode('/', $str);
+	$name='';
+	while ($name=='') $name=array_pop($str);
+	return $name;
+}
+function UTF8dirname($str)
+{// for UTF-8 compatible
+	array_pop($str = explode('/', $str));
+	return implode($str);
+}
+
 /* PHP prototype */
 
 $no64 = array('+','/','=');
@@ -60,10 +73,10 @@ function microtime_float()
 }
 function FileIco ($item)			// choisi l'icone le mieu adapté parmis ceux present
 {
-	global $InstallDir;
+// 	global INSTAL_DIR;
 	$ext=strtolower(pathinfo($item, PATHINFO_EXTENSION));
 	if (is_dir($item)) return 'folder.';
-	elseif (is_file($InstallDir.'icones/type-'.$ext.'.png'))
+	elseif (is_file(INSTAL_DIR.'icones/type-'.$ext.'.png'))
 		return $ext;
 	elseif (substr($ext,-1,1)=='~')
 		return 'recycled';
@@ -71,8 +84,9 @@ function FileIco ($item)			// choisi l'icone le mieu adapté parmis ceux present
 }
 function AddWatermark($src, $dir, $wmk)
 {
-	global $InstallDir;
-	$FileDest = $dir.'Watermark@'.md5_file($src).'.png';
+// 	global INSTAL_DIR;
+	$FileDest = $dir.'Watermark@'.md5_file($src).'.jpg';
+	if (file_exists($FileDest)) return $FileDest;
 	if(($src_size = getimagesize($src))!=false && ($wmk_size = getimagesize($wmk))!=false)
 	{
 		if ($src_size[0]>$wmk_size[0] && $src_size[1]>$wmk_size[1] && function_exists('imagejpeg'))
@@ -94,8 +108,8 @@ function AddWatermark($src, $dir, $wmk)
 			}
 			imagealphablending($dest_img,true);
 			imagecopy($dest_img, $wmk_img, ($src_size[0]-$wmk_size[0]), ($src_size[1]-$wmk_size[1]), 0, 0, $wmk_size[0], $wmk_size[1]);
-			
-			imagepng($dest_img, $FileDest); // Envoie une image JPEG de la RAM vers un fichier
+			imageinterlace($dest_img, 1);
+			imagejpeg($dest_img, $FileDest, 50); // Envoie une image JPEG de la RAM vers un fichier
 			imagedestroy($dest_img);// Vide la memoire RAM allouee a l'image $dest_img
 			imagedestroy($wmk_img);// Vide la memoire RAM allouee a l'image $dst_img
 			if (!is_file($FileDest))
@@ -108,7 +122,7 @@ function AddWatermark($src, $dir, $wmk)
 }
 function CreatMini( $File, $dir, $Max=100, $Force=false)
 {
-	global $InstallDir;
+// 	global INSTAL_DIR;
 	$FileDest = $dir.$Max.'@'.md5_file($File).'.png';
 	if ($Force == true || !file_exists($FileDest))
 	{
@@ -236,7 +250,7 @@ function UnRealPath ($dest)
 {
 	$Ahere = explode ('/', getcwd());
 	$Adest = explode ('/', realpath($dest));
-	$result = '.'; // le chemin retouné dois forcement commancé par ./   c'est le but
+	$result = '.'; // le chemin retouné dois forcement commancé par ./   c'est le but!
 	while (implode ('/', $Adest) != implode ('/', $Ahere))
 	{
 		if (count($Ahere)>count($Adest))

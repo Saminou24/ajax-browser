@@ -13,7 +13,7 @@ chmod(,);
 	{
 		$item = decode64($lst[0]) ;
 		$arrayinfo = InfosByURL ($item);
-		include ($InstallDir.'scripts/EasyArchive.class.php');
+		include (INSTAL_DIR.'scripts/EasyArchive.class.php');
 		$archive = new archive;
 		if (strpos($arrayinfo['type'], 'image') && @exif_imagetype($item))
 		{?>
@@ -32,7 +32,7 @@ chmod(,);
 		else
 		{?>
 			<td>
-				<img class="cadre" src="<?php echo $InstallDir; ?>icones/type-<?php echo FileIco($item);?>.png">
+				<img class="cadre" src="<?php echo INSTAL_DIR; ?>icones/type-<?php echo FileIco($item);?>.png">
 			</td>
 		<?php
 		}
@@ -85,7 +85,7 @@ chmod(,);
 <?php
 		foreach ($lst as $item)
 		{?>
-<tr><td colspan=2>relativ URL (<IMG onclick="PopBox('mode=request&infos=<?php echo $item;?>','OpenBox(request.responseText);');" src="<?php echo $InstallDir; ?>icones/Infos.png" title="Propriete de cet element."/>) :<?php echo '<a href="'.ereg_replace('^'.realpath('./'),'.',realpath(decode64($item))).'">'.decode64($item);?></td></tr>
+<tr><td colspan=2>relativ URL (<IMG onclick="PopBox('mode=request&infos=<?php echo $item;?>','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/Infos.png" title="Propriete de cet element."/>) :<?php echo '<a href="'.ereg_replace('^'.realpath('./'),'.',realpath(decode64($item))).'">'.decode64($item);?></td></tr>
 <?php	}?>
 					</tbody>
 				</table>

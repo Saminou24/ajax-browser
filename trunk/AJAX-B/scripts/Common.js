@@ -145,6 +145,22 @@ function SizeConvert (Size)		// converti un nombre d'octés en taille en Ko, Mo,
 	while (Size/POW[Unit]>1024) Unit=Unit+1;
 	return Math.round(Size/POW[Unit]*Math.pow(10,Unit))/Math.pow(10,Unit)+' '+UnitArray[Unit];
 }
+function getCheckedRadio(radioObj)
+{
+	if (!radioObj) return "";
+	var radioLength = radioObj.length;
+	if (radioLength == undefined)
+	{
+		if(radioObj.checked)
+			return radioObj.value;
+		else
+			return "";
+	}
+	for (var i = 0; i < radioLength; i++)
+		if(radioObj[i].checked)
+			return radioObj[i].value;
+	return "";
+}
 var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#_';
 function encode64(strascii)
 {
@@ -169,22 +185,6 @@ function encode64(strascii)
 		output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2) + keyStr.charAt(enc3) + keyStr.charAt(enc4);
 	}
 	return output;
-}
-function getCheckedRadio(radioObj)
-{
-	if (!radioObj) return "";
-	var radioLength = radioObj.length;
-	if (radioLength == undefined)
-	{
-		if(radioObj.checked)
-			return radioObj.value;
-		else
-			return "";
-	}
-	for (var i = 0; i < radioLength; i++)
-		if(radioObj[i].checked)
-			return radioObj[i].value;
-	return "";
 }
 function decode64(str64)
 {

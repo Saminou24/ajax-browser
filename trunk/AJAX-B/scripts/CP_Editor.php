@@ -3,7 +3,7 @@
 		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
 		<title>CodePress <?php echo $file;?></title>
 	</head>
-	<script type="text/javascript" src="<?php echo $InstallDir; ?>codepress/codepress.js" ></script>
+	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>codepress/codepress.js" ></script>
 <script type="text/javascript">
 function ManageKeyboardEvent (event)
 {
@@ -45,7 +45,7 @@ span {position:absolute;top:1px;}
 </style>
 	<body onkeypress="ManageKeyboardEvent(event);">
 <?php
-foreach (glob ($InstallDir.'codepress/languages/*.css') as $key=>$val)
+foreach (glob (INSTAL_DIR.'codepress/languages/*.css') as $key=>$val)
 {
 	$lst_mod[] = '
 <tr onclick="CP.edit(CP.value, \''.pathinfo($val, PATHINFO_FILENAME).'\'); document.getElementById(\'CP_cp\').style.display=\'none\';">
@@ -56,13 +56,13 @@ foreach (glob ($InstallDir.'codepress/languages/*.css') as $key=>$val)
 }
 ?>
 <span id="Mcolor" onmouseover="this.childNodes[3].style.display='block';" onmouseout="this.childNodes[3].style.display='none';">
-	<img src="<?php echo $InstallDir; ?>icones/MiniMenu.png">
+	<img src="<?php echo INSTAL_DIR; ?>icones/MiniMenu.png">
 	<table id="colorlst" class="menu">
 	<?php echo implode ("\n",$lst_mod); ?>
 	</table>
 </span>
 <span id="Msave" onclick="alert(CP.getCode());">
-	<img src="<?php echo $InstallDir; ?>icones/Download.png">
+	<img src="<?php echo INSTAL_DIR; ?>icones/Download.png">
 </span>
 <textarea id="CP" class="codepress php <?php echo $cp_mode;?>" wrap="off">
 <?php echo file_get_contents($file);?>

@@ -12,7 +12,7 @@
 <div class="_DivGroup" id="<?php echo $parent64;?>">
 	<div class="This" title="<?php echo decode64($parent64);?>" onclick="location.href='<?php echo str_replace($racine64, $parent64, RebuildURL())?>'">
 		<span class="left">
-			<span class="IndentImg"><IMG class="curshand" src="<?php echo $InstallDir; ?>icones/type-folder...png"/></span>
+			<span class="IndentImg"><IMG class="curshand" src="<?php echo INSTAL_DIR; ?>icones/type-folder...png"/></span>
 			<span class="IcoName">
 				<span class="Name"><?php echo str_replace('//', '/', realpath(decode64($parent64)).'/')?></span>
 			</span>
@@ -34,8 +34,8 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE || isset($ie))
 	{
 		$last=array_pop($Lst);
 		foreach ($Lst as $item)
-			echo DegradeMode ($item, '<IMG src="'.$InstallDir.'icones/Vide.png"/>');
-		echo DegradeMode ($last, '<IMG src="'.$InstallDir.'icones/Vide.png"/>','End');
+			echo DegradeMode ($item, '<IMG src="'.INSTAL_DIR.'icones/Vide.png"/>');
+		echo DegradeMode ($last, '<IMG src="'.INSTAL_DIR.'icones/Vide.png"/>','End');
 	}
 	echo '<a href="http://www.mozilla-europe.org/">'.$ABS['getFF'].'</a>';
 }
@@ -45,14 +45,14 @@ if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE || isset($ie))
 <?php
 function DegradeMode ($Item, $IndOffset, $end='', $force=false)
 {
-	global $racine64, $modelArbs, $InstallDir;
+	global $racine64, $modelArbs;
 	$item=InfosByURL($Item);
 	$ReplaceLst = array (
 		'%item%' => $item['basename'],
 		'%item64%' => encode64($Item),
 		'%icone%' =>FileIco($Item),
 		'%IndOffset%' => $IndOffset,
-		'%ArbImg%' => '<IMG '.(is_dir($Item)?'class="curshand" ':'').'src="'.$InstallDir.'icones/'.$end.(is_dir($Item)?'DirPlus':'File').'.png" onclick="RequestLoad(\''.encode64($Item).'\')"/>',
+		'%ArbImg%' => '<IMG '.(is_dir($Item)?'class="curshand" ':'').'src="'.INSTAL_DIR.'icones/'.$end.(is_dir($Item)?'DirPlus':'File').'.png" onclick="RequestLoad(\''.encode64($Item).'\')"/>',
 		'%content%' => is_dir($Item)?$item['content0'].' Dossier(s), '.$item['content1'].' Fichier(s).':(isset($item['content0'])?'[X='.$item['content0'].'px, Y='.$item['content1'].'px]':''),
 		'%real_size%' => $item['size'],
 		'%size%' => SizeConvert ($item['size']),

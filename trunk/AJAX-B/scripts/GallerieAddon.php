@@ -53,6 +53,7 @@ function loadMini()
 function AddItem(dir, element)
 {
 	var item = element.split('\t');
+	item[0] = decode64(item[0]);
 	var ext = item[0].split(".");
 	Item = model.replace(/%item%/g, escape(item[0]));
 	Item = Item.replace(/%item64%/g, encode64(dir+item[0]));

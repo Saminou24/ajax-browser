@@ -1,7 +1,7 @@
 <?php
 function LstAccount ()
 {
-	global $ABS, $InstallDir;
+	global $ABS;
 ?>
 <table id='UsrLst' class="LstArray">
 	<colgroup><col width='130px'><col width='30px'></colgroup>
@@ -12,8 +12,8 @@ function LstAccount ()
 		<tr title="<?php echo $ABS[3].' : '.$UserConf['last']; ?>">
 			<td class="bold italic"><?php echo $UserName.' ( '.array_sum ($UserConf['IP_count']).' )';?></td>
 			<td>
-				<IMG src='<?php echo $InstallDir; ?>icones/Infos.png' title='<?php echo $ABS[601]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=edituser&user=<?php echo $UserName;?>', onEnd:'OpenBox(request.responseText);'});"/>
-				<IMG src='<?php echo $InstallDir; ?>icones/Trash.png' title='<?php echo $ABS[602]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=removeuser&user=<?php echo $UserName;?>', onEnd:'PopBox(\'mode=request&accounts=\',\'OpenBox(request.responseText);\');'});"/>
+				<IMG src='<?php echo INSTAL_DIR; ?>icones/Infos.png' title='<?php echo $ABS[601]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=edituser&user=<?php echo $UserName;?>', onEnd:'OpenBox(request.responseText);'});"/>
+				<IMG src='<?php echo INSTAL_DIR; ?>icones/Trash.png' title='<?php echo $ABS[602]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=removeuser&user=<?php echo $UserName;?>', onEnd:'PopBox(\'mode=request&accounts=\',\'OpenBox(request.responseText);\');'});"/>
 			</td>
 		</tr>
   <?php
@@ -27,7 +27,7 @@ function LstAccount ()
 		</SELECT>
 			</td>
 			<td title="UnblacListed this">
-				<IMG style="vertical-align:middle;text-align:center;" src='<?php echo $InstallDir; ?>icones/type-reload.png' title='<?php echo $ABS[652]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=&UnBlackListed=<?php echo $_SERVER['REMOTE_ADDR'];?>', onEnd:'OpenBox(request.responseText);'});"/>
+				<IMG style="vertical-align:middle;text-align:center;" src='<?php echo INSTAL_DIR; ?>icones/type-reload.png' title='<?php echo $ABS[652]; ?>' onclick="RQT.get(ServActPage,{method:'post', parameters:'mode=request&accounts=&UnBlackListed=<?php echo $_SERVER['REMOTE_ADDR'];?>', onEnd:'OpenBox(request.responseText);'});"/>
 			</td>
 		</tr>
 		<tr>
@@ -40,7 +40,7 @@ function LstAccount ()
 }
 function editAccount($UserName, $StrToSaveThis, $onend)
 {
-	global $ABS, $InstallDir;
+	global $ABS;
 ?>
 <table style="width:400px;margin:3px;margin-right:15px;">
 	<tr>
@@ -56,13 +56,13 @@ function editAccount($UserName, $StrToSaveThis, $onend)
 					<td><input class="border" title="<?php echo $ABS[609]; ?>" disabled=true type='text' name='code' id="ChgCODE" value="<?php echo $ABS[608]; ?>"/></td>
 				</tr>
 <?php
-	$LangLst = DirSort ($InstallDir, array('Language*.php'));
+	$LangLst = DirSort (INSTAL_DIR, array('Language*.php'));
 	if ($LangLst)
 	{
 		$realABS = $ABS;
 		foreach ($LangLst as $Lang)
 		{ // checked="checked"
-			include ($InstallDir.$Lang);
+			include (INSTAL_DIR.$Lang);
 			echo "	<tr><td  colspan=\"2\" class=\"center\">
 		<INPUT type=radio name=\"LANG\" value=\"".encode64($Lang)."\" id=\"".encode64($Lang)."\" ".(($GLOBALS['AJAX-Var']['accounts'][$UserName]['language_file']==$Lang) ? "checked=\"checked\"" : "").">
 			<label for=\"".encode64($Lang)."\" title=\"By: ".$ABS['language_translator']."\">".$ABS['language_in_Language'].' ('.$ABS['language_in_English'].') V'.$ABS['language_version'].' <img  '.$ABS['language_src_flag']." title=\"".$ABS['language_abbreviation']."\"></label><br/>
@@ -182,7 +182,7 @@ echo "+ '&def_racine='+encode64(form.def_racine.value)+ '&VIEWhiden='+form.VIEWh
 }
 function saveAccount($UserName)
 {
-	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $InstallDir, $LANG, $UNCOMP, $file_accounts;
+	global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $LANG, $UNCOMP, $file_accounts;
 	$droit = $_SESSION['AJAX-B']['droits'];
 	$is_admin = $droit['GLOBAL_ACCOUNTS'];
 
