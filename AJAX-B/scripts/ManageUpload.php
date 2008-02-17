@@ -37,7 +37,7 @@ if (!empty($_FILES))
 }
 else
 {
-echo '	<body style="font-size:10px;padding:0px;margin:0px;"><img src="'.$InstallDir.'icones/loader-2.gif" style="display:none;">
+echo '	<body style="font-size:10px;padding:0px;margin:0px;"><img src="'.INSTAL_DIR.'icones/loader-2.gif" style="display:none;">
 		<form METHOD="post" action="" enctype="multipart/form-data" style="padding:0px;margin:0px;">
 			<input type="hidden" name="dest" value="'.$dest.'">
 			<input type="file" name="aFile" style="text-align:center;margin-top:1px;" onchange="this.parentNode.parentNode.firstChild.style.display=\'block\';this.parentNode.style.display=\'none\';this.parentNode.submit();">

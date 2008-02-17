@@ -1,11 +1,11 @@
 <?php
 function editSetting ()
 {
-global $version, $ABS;
+global $ABS;
 ?>
 <table style="width:400px;margin:3px;margin-right:15px;">
 	<tr>
-	<tr><td class="border center large" colspan="2"><?php echo $ABS[501].' : '.$version;?></td></tr>
+	<tr><td class="border center large" colspan="2"><?php echo $ABS[501].' : '.VERSION;?></td></tr>
 		<td class="border"><?php echo $ABS[502];?><br/>
 			<input class="border w1" type='text' name='admin_email' value="<?php echo $GLOBALS['AJAX-Var']['global']['admin_email']; ?>"/><?php echo $ABS[503];?>
 		</td>
@@ -17,12 +17,12 @@ global $version, $ABS;
 <?php
 if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 {
-	list($V1, $V2, $V3, $V4) = sscanf($version,'%d.%d.%d%s');
-	$NewVersion = @file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/AJAX-B_Pro/LastVersion.php?version');
+	list($V1, $V2, $V3, $V4) = sscanf(VERSION,'%d.%d.%d%s');
+	$NewVersion = @file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php?version');
 	list($v1, $v2, $v3, $v4) = sscanf($NewVersion, '%d.%d.%d%s');
 	if (!$NewVersion) echo $ABS[506];
 	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
-		echo '<a href="?mode=request&maj">'.$ABS[508].' : '.$NewVersion.'</a>'.@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/AJAX-B_Pro/LastVersion.php?addons');
+		echo '<a href="?mode=request&maj">'.$ABS[508].' : '.$NewVersion.'</a>'.@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php?addons');
 	else echo $ABS[507];
 }
 ?>
@@ -90,7 +90,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 }
 function saveSetting ()
 {
-	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale,$InstallDir,$UnBlackListed, $file_globalconf;
+	global $admin_email, $ajaxb_miror, $restrict_mask, $always_mask, $codepress_mask, $mini_dir, $spy_dir, $ip, $log, $action, $browse, $mini_intervale,$UnBlackListed, $file_globalconf;
 	$GLOBALS['AJAX-Var']['global'] = array
 	(
 		'admin_email' => decode64($admin_email),

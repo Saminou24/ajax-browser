@@ -44,6 +44,7 @@ function OpenDir (dir64, array)
 function AddItem (dir, element, LstIndent, end)
 {
 	item=element.split("\t");
+	item[0] = decode64(item[0]);
 	Item = model.replace(/%item%/g, item[0]);
 	Item = Item.replace(/%item64%/g, encode64(dir+item[0]));
 	Item = Item.replace(/%icone%/g,FileIco(item[0]));

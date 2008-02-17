@@ -10,7 +10,7 @@
  +--------------------------------------------------*/
 ?>
 <center style="padding:20px;">
-	<b>AJAX-Browser V<?php echo $version; ?></b><br>
+	<b>AJAX-Browser V<?php echo VERSION; ?></b><br>
 	<?php echo $ABS[0];?><br>
 	<br>Copyright (C) 2007 : Lopez Alban<br>
 	<br><?php echo $ABS[30];?> :<br>

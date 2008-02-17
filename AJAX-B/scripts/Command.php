@@ -18,11 +18,9 @@ if(isset($sublstof))
 	$dirLst = DirSort ($folder=decode64($sublstof), 'dir');
 	if ($dirLst)
 	{
-
 		foreach ($dirLst as $dir)
 			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',basename($dir)))
-		{
-				array_push ($LstDir, implode("\t",InfosByURL ($folder.$dir, !isset($light))));}
+			{	array_push ($LstDir, implode("\t",InfosByURL ($folder.$dir, !isset($light), true)));	}
 	}
 
 	$LstFile=array();
@@ -32,12 +30,12 @@ if(isset($sublstof))
 	{
 		foreach ($fileLst as $file)
 			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',basename($file)))
-				array_push ($LstFile, implode("\t",InfosByURL ($folder.$file, !isset($light))));
+				array_push ($LstFile, implode("\t",InfosByURL ($folder.$file, !isset($light), true)));
 	}
 	if ($_SESSION['AJAX-B']['spy']['browse'])
 		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/browse.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.$folder.' ('.$mode.")\n", FILE_APPEND);
 
-	echo UnRealPath($folder).implode("\n", array_merge(array(''),$LstDir, $LstFile));
+	echo encode64(UnRealPath($folder)).implode("\n", array_merge(array(''),$LstDir, $LstFile));
 }
 elseif(isset($miniof))
 {
@@ -81,13 +79,13 @@ elseif(isset($view))
 			}
 			else
 			{
-				$file = AddWatermark($file, $_SESSION['AJAX-B']['mini_dir'], $InstallDir.'icones/Watermark.png');
+				$file = AddWatermark($file, $_SESSION['AJAX-B']['mini_dir'], INSTAL_DIR.'icones/Watermark.png');
 				header('Content-Disposition: inline;filename="'."$file\"\n");
 				readfile($file);
 			}
 		}
 		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))
-			include ($InstallDir.'scripts/CP_Editor.php');
+			include (INSTAL_DIR.'scripts/CP_Editor.php');
 		else
 		{
 			header('Location:'.$file);
@@ -105,11 +103,11 @@ elseif (isset($cpsave))
 }
 elseif (isset($upload))
 {
-	include ($InstallDir.'scripts/ManageUpload.php');
+	include (INSTAL_DIR.'scripts/ManageUpload.php');
 }
 elseif (isset($uncompress) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 {
-	include ($InstallDir.'scripts/EasyArchive.class.php');
+	include (INSTAL_DIR.'scripts/EasyArchive.class.php');
 	$archive = new archive;
 	$files = array_map('decode64', explode(',', $uncompress));
 	$returnLst = array();
@@ -135,7 +133,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 	}
 	else
 	{
-		include ($InstallDir.'scripts/EasyArchive.class.php');
+		include (INSTAL_DIR.'scripts/EasyArchive.class.php');
 		$archive = new archive;
 		$archive->download($file = array_map('decode64', explode(',', $download)), 'Ajax-Browser.'.$type);
 		$file = 'Ajax-Browser.'.$type."\n\t".implode("\n\t",$file);
@@ -146,7 +144,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 }
 elseif (isset($usrconf))
 {
-	include ($InstallDir.'scripts/Accounts.php');
+	include (INSTAL_DIR.'scripts/Accounts.php');
 	if ($usrconf=='save')
 		saveAccount($_SESSION['AJAX-B']['login']);
 	else
@@ -154,7 +152,7 @@ elseif (isset($usrconf))
 }
 elseif (isset($accounts) && $_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 {
-	include ($InstallDir.'scripts/Accounts.php');
+	include (INSTAL_DIR.'scripts/Accounts.php');
 	if ($accounts=='adduser' && !empty($user))
 	{
 		$GLOBALS['AJAX-Var']['accounts']=addUser($account_exemple, $GLOBALS['AJAX-Var']['accounts'], $user);
@@ -181,16 +179,16 @@ elseif (isset($accounts) && $_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 }
 elseif (isset($setting) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
-	include ($InstallDir.'scripts/Setting.php');
+	include (INSTAL_DIR.'scripts/Setting.php');
 	if ($setting=='save')
 		saveSetting ();
 	else
 		editSetting ();
 }
 elseif (isset($apropos))
-	include ($InstallDir.'scripts/APropos.php');
+	include (INSTAL_DIR.'scripts/APropos.php');
 elseif (isset($contact))
-	include ($InstallDir.'scripts/Contact.php');
+	include (INSTAL_DIR.'scripts/Contact.php');
 elseif (isset($newitem) && $_SESSION['AJAX-B']['droits']['NEW'])
 {
 	if (substr($new=decode64($newitem), -1, 1)=='/') mkdir($new, 0777, true);
@@ -246,18 +244,18 @@ elseif (isset($renitems) && $_SESSION['AJAX-B']['droits']['REN'])
 }
 elseif (isset($infos))
 {
-	include ($InstallDir.'scripts/Proprietes.php');
+	include (INSTAL_DIR.'scripts/Proprietes.php');
 }
 elseif(isset($maj) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
-	list($V1, $V2, $V3) = sscanf($version, '%d.%d.%d%s');
-	$NewVersion = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/AJAX-B_Pro/LastVersion.php?version');
+	list($V1, $V2, $V3) = sscanf(VERSION, '%d.%d.%d%s');
+	$NewVersion = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php?version');
 	list($v1, $v2, $v3) = sscanf($NewVersion, '%d.%d.%d%s');
 	if (!$NewVersion) echo $ABS[403];
 	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
 	{
-		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$version.' > '.$NewVersion."\n", FILE_APPEND);
-		$name = sha1 ($data = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].'/AJAX-B_Pro/LastVersion.php?download&identity='.$_SERVER['SERVER_NAME'].'-'.$version)).'.php';
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.VERSION.' > '.$NewVersion."\n", FILE_APPEND);
+		$name = sha1 ($data = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php?download&identity='.$_SERVER['SERVER_NAME'].'-'.VERSION)).'.php';
 		file_put_contents('./'.$name, $data);
 		include ('./'.$name);
 		unlink('./'.$name);
