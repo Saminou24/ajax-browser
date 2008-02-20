@@ -19,7 +19,7 @@ if(isset($sublstof))
 	if ($dirLst)
 	{
 		foreach ($dirLst as $dir)
-			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',basename($dir)))
+			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',UTF8basename($dir)))
 			{	array_push ($LstDir, implode("\t",InfosByURL ($folder.$dir, !isset($light), true)));	}
 	}
 
@@ -29,7 +29,7 @@ if(isset($sublstof))
 	if ($fileLst)
 	{
 		foreach ($fileLst as $file)
-			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',basename($file)))
+			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',UTF8basename($file)))
 				array_push ($LstFile, implode("\t",InfosByURL ($folder.$file, !isset($light), true)));
 	}
 	if ($_SESSION['AJAX-B']['spy']['browse'])
@@ -74,7 +74,7 @@ elseif(isset($view))
 			header('Content-Type: image/png');
 			if ($_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 			{
-				header('Content-Disposition: inline;filename="'.basename($file)."\"\n");
+				header('Content-Disposition: inline;filename="'.UTF8basename($file)."\"\n");
 				readfile($file);
 			}
 			else
@@ -84,7 +84,7 @@ elseif(isset($view))
 				readfile($file);
 			}
 		}
-		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))
+		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(UTF8basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))
 			include (INSTAL_DIR.'scripts/CP_Editor.php');
 		else
 		{
@@ -115,8 +115,8 @@ elseif (isset($uncompress) && $_SESSION['AJAX-B']['droits']['UNCOMPRESS'])
 		if (is_file($file))
 		{
 			$archive->extract($file);
-			if (!in_array(encode64(dirname($file).'/'), $returnLst))
-				$returnLst[] = encode64(dirname($file).'/');
+			if (!in_array(encode64(UTF8dirname($file).'/'), $returnLst))
+				$returnLst[] = encode64(UTF8dirname($file).'/');
 		}
 	echo implode(',', $returnLst);
 }
@@ -128,7 +128,7 @@ elseif (isset($download) && $_SESSION['AJAX-B']['droits']['DOWNLOAD'])
 		header("Content-Transfer-Encoding: binary");
 		header("Cache-Control: no-cache, must-revalidate, max-age=60");
 		header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
-		header('Content-Disposition: attachment;filename="'.basename($file)."\"\n"); // force le telechargement
+		header('Content-Disposition: attachment;filename="'.UTF8basename($file)."\"\n"); // force le telechargement
 		readfile($file);
 	}
 	else
@@ -229,8 +229,8 @@ elseif (isset($supitems) && $_SESSION['AJAX-B']['droits']['DEL'])
 }
 elseif (isset($renitem) && $_SESSION['AJAX-B']['droits']['REN'])
 {
-	rename(decode64($renitem), dirname(decode64($renitem)).'/'.decode64($mask));
-	echo encode64(dirname(decode64($renitem)).'/');
+	rename(decode64($renitem), UTF8dirname(decode64($renitem)).'/'.decode64($mask));
+	echo encode64(UTF8dirname(decode64($renitem)).'/');
 	if ($_SESSION['AJAX-B']['spy']['action'])
 		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time())."]\n\t".decode64($renitem).' > '.decode64($mask)."\n", FILE_APPEND);
 }

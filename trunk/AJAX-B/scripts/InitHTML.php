@@ -61,6 +61,7 @@ function FileIco (File)
 	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-drag.js"></script>
 	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-event.js"></script>
 	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Common.js"></script>
+	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/UTF8Base64.js"></script>
 <body onload="RequestLoad('<?php echo $racine64?>');promtMAJ();" onkeypress="ManageKeyboardEvent(event);" oncontextmenu="event.stopPropagation();return false;">
 	<span class="close">
 		<span style='padding:2px;'>

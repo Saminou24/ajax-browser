@@ -46,7 +46,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	<tr><td colspan="2"><br/></td></tr>
 	<tr>
 		<td class="border" title=""><?php echo $ABS[512];?><br/><br/>
-			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="spy_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['global']['spy_dir']; ?>"/><br/>
+			<INPUT class="w1" type='text' ondblclick="this.value=base64.decode(racine64);" title="<?php echo $ABS[500];?>" name="spy_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['global']['spy_dir']; ?>"/><br/>
 		</td>
 		<td class="border"><?php echo $ABS[513];?><br/>
 		<input name="ip" id="ip" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['global']['spy']['ip']?'checked':'');?>>
@@ -61,7 +61,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	<tr><td colspan="2"><br/></td></tr>
 	<tr>
 		<td title="" class="border"><?php echo $ABS[520];?><br/>
-			<INPUT class="w1" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500];?>" name="mini_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['global']['mini_dir']; ?>"/>
+			<INPUT class="w1" type='text' ondblclick="this.value=base64.decode(racine64);" title="<?php echo $ABS[500];?>" name="mini_dir" VALUE="<?php echo $GLOBALS['AJAX-Var']['global']['mini_dir']; ?>"/>
 		<td title=""><span id="erasemini" class="button center" onclick="RQT.get(ServActPage,{parameters:'mode=request&erasemini=',onEnd:'ID(\'erasemini\').parentNode.innerHTML=request.responseText;',});"><?php echo $ABS[527];?></span></td>
 	</tr>
 	<tr>
@@ -83,7 +83,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	<tr>
 		<td class="button center" style="width:50%;" onclick="PopBox('mode=request&accounts=','OpenBox(request.responseText);')"><?php echo $ABS[4];?></td>
 		<td class="button center" style="width:50%;" onclick="form=document.forms[0];PopBox('mode=request&setting=save'+
-'&admin_email='+encode64(form.admin_email.value)+ '&mini_intervale='+getCheckedRadio(form.mini_intervale)+ '&ajaxb_miror='+form.ajaxb_miror.value+ '&mini_dir='+encode64(form.mini_dir.value)+ '&spy_dir='+encode64(form.spy_dir.value)+ '&ip='+form.ip.checked+ '&log='+form.log.checked+ '&action='+form.action.checked+ '&browse='+form.browse.checked+ '&always_mask='+encode64(form.always_mask.value)+ '&restrict_mask='+encode64(form.restrict_mask.value)+ '&codepress_mask='+encode64(form.codepress_mask.value), 'ID(\'Box\').style.display=\'none\'')"><?php echo $ABS[10];?></td>
+'&admin_email='+base64.encode(form.admin_email.value)+ '&mini_intervale='+getCheckedRadio(form.mini_intervale)+ '&ajaxb_miror='+form.ajaxb_miror.value+ '&mini_dir='+base64.encode(form.mini_dir.value)+ '&spy_dir='+base64.encode(form.spy_dir.value)+ '&ip='+form.ip.checked+ '&log='+form.log.checked+ '&action='+form.action.checked+ '&browse='+form.browse.checked+ '&always_mask='+base64.encode(form.always_mask.value)+ '&restrict_mask='+base64.encode(form.restrict_mask.value)+ '&codepress_mask='+base64.encode(form.codepress_mask.value), 'ID(\'Box\').style.display=\'none\'')"><?php echo $ABS[10];?></td>
 	</tr>
 </table>
 <?php

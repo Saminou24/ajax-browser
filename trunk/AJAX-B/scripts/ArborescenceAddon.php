@@ -3,7 +3,10 @@
 ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
 function RequestLoad(dir64, force)
 {
-	if (!(ptr64 = ID(dir64)) || !is_dir(decode64(dir64))) return false;
+/*	if (!(ptr64 = ID(dir64))) alert('ptr64 = 0');
+	if (!(test2 = is_dir(base64.decode(dir64))))  alert(dir64+' = '+test2+' = 0');*/
+	
+	if (!(ptr64 = ID(dir64)) || !is_dir(base64.decode(dir64))) return false;
 	force = force ? true : false;
 	ptr = ptr64.childNodes[1].childNodes[1].childNodes[1].lastChild;
 	if (ptr.src.indexOf("DirPlus.png")!=-1 || force==true)
@@ -36,7 +39,7 @@ function OpenDir (dir64, array)
 	else
 		LstIndent += "<IMG  src='"+InstallDir+"icones/Next.png' />";
 	for (i=1;i<array.length;i++)
-		Include += AddItem (decode64(dir64), array[i],LstIndent, (i==array.length-1)?"End":"");
+		Include += AddItem (base64.decode(dir64), array[i],LstIndent, (i==array.length-1)?"End":"");
 	Open_Dir.childNodes[3].innerHTML = Include;
 	Open_Dir.childNodes[3].style.display = "block";
 	IndentImg.lastChild.src = IndentImg.lastChild.src.replace("Loading.gif", "DirMoin.png");
@@ -44,12 +47,12 @@ function OpenDir (dir64, array)
 function AddItem (dir, element, LstIndent, end)
 {
 	item=element.split("\t");
-	item[0] = decode64(item[0]);
+	item[0] = base64.decode(item[0]);
 	Item = model.replace(/%item%/g, item[0]);
-	Item = Item.replace(/%item64%/g, encode64(dir+item[0]));
+	Item = Item.replace(/%item64%/g, base64.encode(dir+item[0]));
 	Item = Item.replace(/%icone%/g,FileIco(item[0]));
 	Item = Item.replace(/%IndOffset%/g, LstIndent);
-	Item = Item.replace(/%ArbImg%/g, '<IMG '+(is_dir(item[0])?'class="curshand" ':'')+'src="'+InstallDir+'icones/'+end+(is_dir(item[0])?'DirPlus':'File')+'.png" onclick="RequestLoad(\''+encode64(dir+item[0])+'\');"/>');
+	Item = Item.replace(/%ArbImg%/g, '<IMG '+(is_dir(item[0])?'class="curshand" ':'')+'src="'+InstallDir+'icones/'+end+(is_dir(item[0])?'DirPlus':'File')+'.png" onclick="RequestLoad(\''+base64.encode(dir+item[0])+'\');"/>');
 	Item = Item.replace(/%content%/g, is_dir(item[0])?item[9]+' Dossier(s), '+item[10]+' Fichier(s)':(item[9]?'[X='+item[9]+'px, Y='+item[10]+'px]':''));
 	Item = Item.replace(/%real_size%/g, item[1]);
 	Item = Item.replace(/%size%/g, SizeConvert (item[1]));
@@ -61,7 +64,7 @@ function AddItem (dir, element, LstIndent, end)
 	Item = Item.replace(/%gidname%/g, item[7]);
 	Item = Item.replace(/%gid%/g, item[8]);
 	Item = Item.replace(/%droits%/g, item[4]);
-	Item = Item.replace(/%link%/g, is_dir(dir+item[0])?location.search.replace(racine64, encode64(dir+item[0])):'?mode=request&view='+encode64(dir+item[0]));
+	Item = Item.replace(/%link%/g, is_dir(dir+item[0])?location.search.replace(racine64, base64.encode(dir+item[0])):'?mode=request&view='+base64.encode(dir+item[0]));
 	return Item;
 }
 function findItem64 (ptr)

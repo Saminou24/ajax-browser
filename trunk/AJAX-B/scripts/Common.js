@@ -60,7 +60,7 @@ function CP_Send(id)
 	RQT.get
 	(ServActPage, // on joint la page en cour
 		{
-			parameters:'mode=request&cpsave='+id.slice(2,id.length)+'&cpdata='+encode64(ID(id).getCode()),
+			parameters:'mode=request&cpsave='+id.slice(2,id.length)+'&cpdata='+base64.encode(ID(id).getCode()),
 			onEnd:'ID("drag_"'+id.slice(2,id.length)+').setAttribute("title",request.responseText)',
 			onError:'alert("Error !");'
 		}
@@ -127,10 +127,10 @@ function getDest()
 }
 function dirDest(id64)
 {
-	if (is_dir(decode64(id64)))
+	if (is_dir(base64.decode(id64)))
 		return id64;
 	else
-		return encode64(dirname(decode64(id64)));
+		return base64.encode(dirname(base64.decode(id64)));
 }
 function is_dir(str)
 {
@@ -160,54 +160,6 @@ function getCheckedRadio(radioObj)
 		if(radioObj[i].checked)
 			return radioObj[i].value;
 	return "";
-}
-var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#_';
-function encode64(strascii)
-{
-	var output = '';
-	var chr1, chr2, chr3;
-	var enc1, enc2, enc3, enc4;
-	var i = 0;
-	while (i < strascii.length)
-	{
-		chr1 = strascii.charCodeAt(i++);
-		chr2 = strascii.charCodeAt(i++);
-		chr3 = strascii.charCodeAt(i++);
-		enc1 = chr1 >> 2;
-		enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-		enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-		enc4 = chr3 & 63;
-
-		if (isNaN(chr2))
-			enc3 = enc4 = 64;
-		else if (isNaN(chr3))
-			enc4 = 64;
-		output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2) + keyStr.charAt(enc3) + keyStr.charAt(enc4);
-	}
-	return output;
-}
-function decode64(str64)
-{
-	var output = '';
-	var chr1, chr2, chr3;
-	var enc1, enc2, enc3, enc4;
-	var i = 0;
-	while (i < str64.length)
-	{
-		enc1 = keyStr.indexOf(str64.charAt(i++));
-		enc2 = keyStr.indexOf(str64.charAt(i++));
-		enc3 = keyStr.indexOf(str64.charAt(i++));
-		enc4 = keyStr.indexOf(str64.charAt(i++));
-		chr1 = (enc1 << 2) | (enc2 >> 4);
-		chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-		chr3 = ((enc3 & 3) << 6) | enc4;
-		output = output + String.fromCharCode(chr1);
-		if (enc3 != 64)
-			output = output + String.fromCharCode(chr2);
-		if (enc4 != 64)
-			output = output + String.fromCharCode(chr3);
-	}
-	return output;
 }
 function highlight ()
 {

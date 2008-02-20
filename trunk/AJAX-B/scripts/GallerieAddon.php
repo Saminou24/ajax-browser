@@ -25,7 +25,7 @@ function OpenDir (array)
 {
  	var i, Include='';
 	for (i=1;i<array.length;i++)
-		Include += AddItem (decode64(racine64), array[i]);
+		Include += AddItem (base64.decode(racine64), array[i]);
 	PtrGal = ID ("Gal");
 	PtrGal.innerHTML = Include;
 }
@@ -53,15 +53,15 @@ function loadMini()
 function AddItem(dir, element)
 {
 	var item = element.split('\t');
-	item[0] = decode64(item[0]);
+	item[0] = base64.decode(item[0]);
 	var ext = item[0].split(".");
 	Item = model.replace(/%item%/g, escape(item[0]));
-	Item = Item.replace(/%item64%/g, encode64(dir+item[0]));
+	Item = Item.replace(/%item64%/g, base64.encode(dir+item[0]));
 	Item = Item.replace(/%icone%/g,InstallDir+'icones/type-'+FileIco(item[0])+'.png');
 	typeMime = item[2].replace(/^(\w+)[/](\w+)$/, "$2").toLowerCase();
 	if (typeMime=="png" || typeMime=="jpeg" || typeMime=="jpg" || typeMime=="gif" || typeMime=="bmp")
 	{
-		MiniLst.push(encode64(dir+item[0]));
+		MiniLst.push(base64.encode(dir+item[0]));
 		Item = Item.replace(/%name%/g, '');
 	}
 	else
@@ -69,7 +69,7 @@ function AddItem(dir, element)
 	Item = Item.replace(/%real_size%/g, item[1]);
 	Item = Item.replace(/%size%/g, SizeConvert (item[1]));
 	Item = Item.replace(/%type%/g, item[2]);
-	Item = Item.replace(/%link%/g, is_dir(item[0])?location.search.replace(racine64, encode64(dir+item[0])):'?mode=request&view='+encode64(dir+item[0]));
+	Item = Item.replace(/%link%/g, is_dir(item[0])?location.search.replace(racine64, base64.encode(dir+item[0])):'?mode=request&view='+base64.encode(dir+item[0]));
 	return Item;
 }
 function findItem64 (ptr)
