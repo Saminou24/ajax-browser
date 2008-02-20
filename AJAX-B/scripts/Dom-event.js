@@ -54,7 +54,7 @@ function ManageMouseEvent (event)
 	dragFiles = false;
 	if ((event.button===0 || event.button==1) && event.shiftKey && SelectLst.length>0)
 	{// SHIFT select
-		tmp = new Array(decode64(SelectLst[SelectLst.length-1]), decode64(PtrItem.id));
+		tmp = new Array(base64.decode(SelectLst[SelectLst.length-1]), base64.decode(PtrItem.id));
 		if (is_dir(tmp[0]) != is_dir(tmp[1]))
 		{
 			if (is_dir(tmp[0]))
@@ -70,7 +70,7 @@ function ManageMouseEvent (event)
 		{
 			limitSel = tmp.sort();
 		}
-		limitSel = Array(ID(encode64(limitSel[0])), ID(encode64(limitSel[1])));
+		limitSel = Array(ID(base64.encode(limitSel[0])), ID(base64.encode(limitSel[1])));
 		nextPtr = limitSel[0];
 		while (nextPtr.id != limitSel[1].id)
 		{
@@ -158,7 +158,7 @@ function _esc ()
 }
 function _view (item64, event)
 {
-	if (is_dir(decode64(item64)))
+	if (is_dir(base64.decode(item64)))
 	{
 		if(event.ctrlKey)
 		{
@@ -180,7 +180,7 @@ function _enter (event)
 {
 	SelectLst.forEach(function(element, index, array)
 	{
-		if (!is_dir(decode64(element)) || event.ctrlKey)
+		if (!is_dir(base64.decode(element)) || event.ctrlKey)
 			{_view (element, event);}
 		else if (mode=='gallerie')
 		{
@@ -206,13 +206,13 @@ function _uncompress()
 }
 function _new ()
 {
-	dest = decode64(getDest());
+	dest = base64.decode(getDest());
 	newitem = prompt(dest+"\n"+ABS908+"\n("+ABS909+"):\n", "New/");
 	RQT.get
 	(ServActPage,
 		{
-			parameters:'mode=request&newitem='+encode64( dest + newitem),
-			onEnd:'if (ID(encode64(dest))) RequestLoad("'+encode64(dest)+'",true);'
+			parameters:'mode=request&newitem='+base64.encode( dest + newitem),
+			onEnd:'if (ID(base64.encode(dest))) RequestLoad("'+base64.encode(dest)+'",true);'
 		}
 	);
 }
@@ -222,7 +222,7 @@ function _multiRename ()
 	RQT.get
 	(ServActPage,
 		{
-			parameters:'mode=request&mask='+encode64(mask)+'&renitems='+SelectLst.join(','),
+			parameters:'mode=request&mask='+base64.encode(mask)+'&renitems='+SelectLst.join(','),
 			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
 		}
 	);
@@ -237,7 +237,7 @@ function _rename ()
 		ptrRen.style.left = baliseName.offsetLeft+"px";
 		ptrRen.style.display = "block";
 		ptrRen.defaultValue = SelectLst[0];
-		ptrRen.value = basename(decode64(SelectLst[0]));
+		ptrRen.value = basename(base64.decode(SelectLst[0]));
 		ptrRen.focus();
 	}
 	else if (SelectLst.length>1) {_multiRename ();}
@@ -249,7 +249,7 @@ function _sendRen()
 	RQT.get
 	(ServActPage,
 		{
-			parameters:'mode=request&renitem='+ptrRen.defaultValue+'&mask='+encode64(ptrRen.value),
+			parameters:'mode=request&renitem='+ptrRen.defaultValue+'&mask='+base64.encode(ptrRen.value),
 			onEnd:'ID("renOne").style.display = "none";UnSelectAll();RequestLoad(request.responseText,true);'
 		}
 	);
@@ -324,7 +324,7 @@ function _remove ()
 {
 	highlight ();
 	strLst = Array();
-	SelectLst.forEach(function(element, index, array) {this.push(basename(decode64(element)));}, strLst);
+	SelectLst.forEach(function(element, index, array) {this.push(basename(base64.decode(element)));}, strLst);
 	if (SelectLst.length>0 && confirm (ABS917+"\n\n"+strLst.join('\n')))
 	{
 		RQT.get
@@ -344,7 +344,7 @@ function _rightClick (event)
 	ThisItem = PtrItem.id;
 	ptr = ID('Menu');
 	Drag.init(ID('MDragZone'), ptr);
-	ptr.childNodes['1'].firstChild.innerHTML = basename(decode64(ThisItem));
+	ptr.childNodes['1'].firstChild.innerHTML = basename(base64.decode(ThisItem));
 	ptr.style.top = event.pageY;
 	ptr.style.left = event.pageX;
 	if (SelectLst.indexOf(ThisItem)==-1)

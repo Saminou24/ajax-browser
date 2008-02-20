@@ -24,7 +24,7 @@ $intaller = new MakeIntall (
 <li>Without access authorization the parent folder is not browsable but all link are browsable.</li>
 <li>Debug picture loading in gallery mode</li>
 <li>File Uploading debug</li>
-<li></li>
+<li>NOW AVAIBLE : UTF8 Capability</li>
 ',
 
 	'comment' => '-------------------------------------------------

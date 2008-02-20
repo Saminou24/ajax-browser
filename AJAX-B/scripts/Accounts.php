@@ -87,7 +87,7 @@ function editAccount($UserName, $StrToSaveThis, $onend)
 if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['AJAX-B']['login'] && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING']))
 {?>
 			<?php echo $ABS[611]; ?><br/>
-			<INPUT class="border" type='text' ondblclick="this.value=decode64(racine64);" title="<?php echo $ABS[500]; ?>" name="def_racine" VALUE="<?php echo $GLOBALS['AJAX-Var']['accounts'][$UserName]['def_racine']; ?>"/><br/>
+			<INPUT class="border" type='text' ondblclick="this.value=base64.decode(racine64);" title="<?php echo $ABS[500]; ?>" name="def_racine" VALUE="<?php echo $GLOBALS['AJAX-Var']['accounts'][$UserName]['def_racine']; ?>"/><br/>
 			<INPUT name="VIEWparent" id="..VIEW" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['..VIEW']?'checked':'');?>>
 				<label for="..VIEW"><?php echo $ABS[612]; ?></label><br/>
 <?php }?>
@@ -174,8 +174,8 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
 	<tr>
 		<td class="button center" style="width:50%;" onclick="PopBox('mode=request&accounts=','OpenBox(request.responseText);')"><?php echo $ABS[4]; ?></td>
 		<td class="button center" style="width:50%;" onclick="form=document.forms[0];PopBox('mode=request<?php echo $StrToSaveThis;?>'+
-(form.NewCode.checked?'&code='+form.code.value:'')+ '&def_mode='+getCheckedRadio(form.def_mode)+ '&mini_size='+getCheckedRadio(form.mini_size)+ '&usr_email='+encode64(form.usr_email.value)+ '&LANG='+getCheckedRadio(form.LANG)<?php if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['AJAX-B']['login'] && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING']))
-echo "+ '&def_racine='+encode64(form.def_racine.value)+ '&VIEWhiden='+form.VIEWhiden.checked+ '&VIEWparent='+form.VIEWparent.checked+ '&DEL='+form.DEL.checked+ '&NEW='+form.NEW.checked+ '&REN='+form.REN.checked+ '&COPIE='+form.COPY.checked+ '&MOVE='+form.MOVE.checked+ '&CP_VIEW='+form.CP_VIEW.checked+ '&CP_EDIT='+form.CP_EDIT.checked+ '&DOWNLOAD='+form.DOWNLOAD.checked+ '&GLOBAL_SETTING='+form.GLOBAL_SETTING.checked+ '&GLOBAL_ACCOUNTS='+form.GLOBAL_ACCOUNTS.checked+ '&UPLOAD='+getCheckedRadio(form.UPLOAD)+ '&UNCOMP='+form.UNCOMP.checked";?>, '<?php echo $onend;?>')"><?php echo $ABS[10]; ?></td>
+(form.NewCode.checked?'&code='+form.code.value:'')+ '&def_mode='+getCheckedRadio(form.def_mode)+ '&mini_size='+getCheckedRadio(form.mini_size)+ '&usr_email='+base64.encode(form.usr_email.value)+ '&LANG='+getCheckedRadio(form.LANG)<?php if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['AJAX-B']['login'] && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING']))
+echo "+ '&def_racine='+base64.encode(form.def_racine.value)+ '&VIEWhiden='+form.VIEWhiden.checked+ '&VIEWparent='+form.VIEWparent.checked+ '&DEL='+form.DEL.checked+ '&NEW='+form.NEW.checked+ '&REN='+form.REN.checked+ '&COPIE='+form.COPY.checked+ '&MOVE='+form.MOVE.checked+ '&CP_VIEW='+form.CP_VIEW.checked+ '&CP_EDIT='+form.CP_EDIT.checked+ '&DOWNLOAD='+form.DOWNLOAD.checked+ '&GLOBAL_SETTING='+form.GLOBAL_SETTING.checked+ '&GLOBAL_ACCOUNTS='+form.GLOBAL_ACCOUNTS.checked+ '&UPLOAD='+getCheckedRadio(form.UPLOAD)+ '&UNCOMP='+form.UNCOMP.checked";?>, '<?php echo $onend;?>')"><?php echo $ABS[10]; ?></td>
 	</tr>
 </table>
 <?php

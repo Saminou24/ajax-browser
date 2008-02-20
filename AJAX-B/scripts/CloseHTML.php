@@ -1,5 +1,4 @@
 		</div>
-
 <div id="Menu" class="Movable">
 	<div id="MDragZone" class="Dragable"><span class="titre"></span></div>
 	<div id="MBoxContent">

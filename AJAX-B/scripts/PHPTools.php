@@ -33,21 +33,22 @@ if (!function_exists('file_put_contents'))
 }
 function UTF8basename($str)
 {// for UTF-8 compatible
-	$str = explode('/', $str);
 	$name='';
+	$str = explode('/', $str);
 	while ($name=='') $name=array_pop($str);
 	return $name;
 }
 function UTF8dirname($str)
 {// for UTF-8 compatible
-	array_pop($str = explode('/', $str));
-	return implode($str);
+	$name='';
+	$str = explode('/', $str);
+	while ($name=='') $name=array_pop($str);
+	return implode('/', $str);
 }
-
 /* PHP prototype */
 
 $no64 = array('+','/','=');
-$yes64 = array('@','#','_');
+$yes64 = array('@','.','_');
 function encode64($str)
 {	global $no64, $yes64; return str_replace($no64,$yes64,base64_encode($str));}
 function decode64($str)
@@ -60,12 +61,6 @@ function SizeConvert ($Size)
 	while ($Size/pow(1024, $Unit)>1024) $Unit++;
 	return round($Size/pow(1024, $Unit), $Unit).' '.$UnitArray[$Unit];
 }
-// function file_put_contents ($file, $Txt, $access='add')
-// { // file_put_contents ($file, $Txt, true='add')
-// 	$mode = array( 'add' =>  FILE_APPEND , 'sup' => null);
-// 	if (!is_dir(dirname($file))) mkdir(dirname($file), 0777, true);
-// 	return file_put_contents ($file, $Txt, $mode[$access]);
-// }
 function microtime_float()
 {
 	list($usec, $sec) = explode(' ', microtime());
@@ -91,7 +86,7 @@ function AddWatermark($src, $dir, $wmk)
 	{
 		if ($src_size[0]>$wmk_size[0] && $src_size[1]>$wmk_size[1] && function_exists('imagejpeg'))
 		{
-			if (!is_dir(dirname($FileDest))) mkdir(dirname($FileDest), 0777, true);
+			if (!is_dir(UTF8dirname($FileDest))) mkdir(UTF8dirname($FileDest), 0777, true);
 			$wmk_img = imagecreatefrompng($wmk);
 			imagealphablending($wmk_img,true);
 			switch ($src_size[2])					// avant de travailler sur une image il faut la decompresser
@@ -133,7 +128,7 @@ function CreatMini( $File, $dir, $Max=100, $Force=false)
 			else $coef = $size[1]/$Max;
 			if ($coef>1 && function_exists('imagejpeg'))
 			{
-				if (!is_dir(dirname($FileDest))) mkdir(dirname($FileDest), 0777, true);
+				if (!is_dir(UTF8dirname($FileDest))) mkdir(UTF8dirname($FileDest), 0777, true);
 				$dest_l = (int)($size[0]/$coef);
 				$dest_h = (int)($size[1]/$coef);
 				switch ($size[2])					// avant de travailler sur une image il faut la decompresser
@@ -187,12 +182,12 @@ function CopyItems($Source, $Dest)
 {
 	if (is_dir($Source))
 	{
-		mkdir($Dest.basename($Source), 0777, true);
+		mkdir($Dest.UTF8basename($Source), 0777, true);
 		if (is_array($SubFile = DirSort ($Source)))
 			foreach ($SubFile as $File)
-				CopyItems($Source.$File, $Dest.basename($Source).'/');
+				CopyItems($Source.$File, $Dest.UTF8basename($Source).'/');
 	}
-	else copy($Source, $Dest.basename($Source));
+	else copy($Source, $Dest.UTF8basename($Source));
 }
 function Move ($file, $filedest)
 {
@@ -211,8 +206,8 @@ function pasteItems ($dest)
 		}
 		elseif ($_SESSION['AJAX-B']['paste_mode']=='move' && $_SESSION['AJAX-B']['droits']['MOVE'])			// CUT => PASTE
 		{
-			if (Move(decode64($file64), decode64($dest).basename(decode64($file64))) && !in_array(encode64(dirname(decode64($file64)).'/'), $returnLst))
-				$returnLst[] = encode64(dirname(decode64($file64)).'/');
+			if (Move(decode64($file64), decode64($dest).UTF8basename(decode64($file64))) && !in_array(encode64(UTF8dirname(decode64($file64)).'/'), $returnLst))
+				$returnLst[] = encode64(UTF8dirname(decode64($file64)).'/');
 		}
 	}
 	if ($_SESSION['AJAX-B']['spy']['action'])
@@ -232,14 +227,14 @@ function MultiRen ($files, $mask)
 	foreach ($files as $num => $file)
 	{
 		$ext = pathinfo($file, PATHINFO_EXTENSION) ? ".".pathinfo($file, PATHINFO_EXTENSION) : "";
-		$ArrayReplace = array(basename($file, $ext), basename(dirname($file)), str_pad($num+1, strlen(strval(count($files))), "0", STR_PAD_LEFT));
+		$ArrayReplace = array(UTF8basename($file, $ext), UTF8basename(UTF8dirname($file)), str_pad($num+1, strlen(strval(count($files))), "0", STR_PAD_LEFT));
 		$TmpStr = str_replace (array("*","~","#"), $ArrayReplace, $mask);
-		$DestFile = dirname ($file)."/".((!strcmp(strrchr($mask,"!"), "!")) ? substr($TmpStr, 0, -1) : ($TmpStr.(pathinfo(dirname($file).$TmpStr, PATHINFO_EXTENSION) ? "" : $ext)));
+		$DestFile = UTF8dirname ($file)."/".((!strcmp(strrchr($mask,"!"), "!")) ? substr($TmpStr, 0, -1) : ($TmpStr.(pathinfo(UTF8dirname($file).$TmpStr, PATHINFO_EXTENSION) ? "" : $ext)));
 		if (rename($file, $DestFile))
 		{
-			$spy .= "\t".$file.' > '.basename($DestFile)."\n";
-			if (!in_array(encode64(dirname($file).'/'), $returnLst))
-				$returnLst[] = encode64(dirname($file).'/');
+			$spy .= "\t".$file.' > '.UTF8basename($DestFile)."\n";
+			if (!in_array(encode64(UTF8dirname($file).'/'), $returnLst))
+				$returnLst[] = encode64(UTF8dirname($file).'/');
 		}
 	}
 	if ($_SESSION['AJAX-B']['spy']['action'])

@@ -9,32 +9,35 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-if (getcwd() != dirname(__FILE__))
-	chdir(dirname(__FILE__));
+// if (getcwd() != UTF8dirname(__FILE__))
+// 	chdir(UTF8dirname(__FILE__));
 
 foreach($_POST as $key=>$val)
 	${$key}=$val;
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-$version="0.9.32-Upload_debug";
+// $version="0.9.32-Upload_debug";
+// $InstallDir = './AJAX-B/';
 
-$InstallDir = './AJAX-B/'; // define("INSTALL_DIR", "./AJAX-B/");
+define("INSTAL_DIR", "./AJAX-B/");
+define("VERSION", "0.9.33-UTF-8_Avaible_Pro");
+define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
-require ($InstallDir . 'scripts/PHPTools.php');		// always loaded
-require ($InstallDir . 'scripts/ExploreTools.php');	// always loaded
-	require ($InstallDir . 'Language.php');			// always loaded
-require ($InstallDir . 'scripts/SessionTools.php');	// always loaded
-require ($InstallDir . 'scripts/UrlTools.php');	// always loaded
+require (INSTAL_DIR . 'scripts/PHPTools.php');		// always loaded
+require (INSTAL_DIR . 'scripts/ExploreTools.php');	// always loaded
+	require (INSTAL_DIR . 'Language.php');			// always loaded
+require (INSTAL_DIR . 'scripts/SessionTools.php');	// always loaded
+require (INSTAL_DIR . 'scripts/UrlTools.php');	// always loaded
 
-if (isset($_SESSION['AJAX-B']['language_file']) && is_file($InstallDir . $_SESSION['AJAX-B']['language_file']))
-	require ($InstallDir . $_SESSION['AJAX-B']['language_file']);
+if (isset($_SESSION['AJAX-B']['language_file']) && is_file(INSTAL_DIR . $_SESSION['AJAX-B']['language_file']))
+	require (INSTAL_DIR . $_SESSION['AJAX-B']['language_file']);
 
 $StartPhpScripte = microtime_float();
 
 if (strpos($mode,'request')!==false)
 {
-	require ($InstallDir . 'scripts/Command.php');
+	require (INSTAL_DIR . 'scripts/Command.php');
 	exit();
 }
 else
@@ -42,22 +45,22 @@ else
 	if (strpos($mode,'gallerie')!==false)
 	{
 		$ChangeMode=array('current'=>'gallerie','next'=>'arborescence', 'change'=>$ABS[12]);
-		require ($InstallDir . 'scripts/InitHTML.php');
-		require ($InstallDir . 'scripts/GallerieAddon.php');
-		require ($InstallDir . 'scripts/Gallerie.php');
+		require (INSTAL_DIR . 'scripts/InitHTML.php');
+		require (INSTAL_DIR . 'scripts/GallerieAddon.php');
+		require (INSTAL_DIR . 'scripts/Gallerie.php');
 	}
 	elseif (strpos($mode,'arborescence')!==false)
 	{
 		$ChangeMode=array('current'=>'arborescence','next'=>'gallerie', 'change'=>$ABS[13]);
-		require ($InstallDir . 'scripts/InitHTML.php');
-		require ($InstallDir . 'scripts/ArborescenceAddon.php');
-		require ($InstallDir . 'scripts/Arborescence.php');
+		require (INSTAL_DIR . 'scripts/InitHTML.php');
+		require (INSTAL_DIR . 'scripts/ArborescenceAddon.php');
+		require (INSTAL_DIR . 'scripts/Arborescence.php');
 	}
 	else exit ();
-	require ($InstallDir . 'scripts/CloseHTML.php');
+	require (INSTAL_DIR . 'scripts/CloseHTML.php');
 }
 if (is_file('./MakeInstallClass.php'))
 {?>
-<a class="bottomleft" href="./MakeInstallClass.php?version=<? echo $version;?>">NewSave V<?echo $version;?></a>
+<a class="bottomleft" href="./MakeInstallClass.php?version=<? echo VERSION;?>">NewSave V<?echo VERSION;?></a>
 <a class="bottomleft" href="https://www.google.com/analytics/home/?hl=fr">stat google</a>
 <?php } ?>
