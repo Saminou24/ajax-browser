@@ -25,23 +25,9 @@
 		</span>
 	</div>
 	<div class="Content" style="display:block;">
-<?php
-echo DegradeMode (decode64($racine64), '', 'End', true);
-if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE || isset($ie))
-{
-	$Lst=DirSort (decode64($racine64),'all',decode64($racine64));
-	if ($Lst)
-	{
-		$last=array_pop($Lst);
-		foreach ($Lst as $item)
-			echo DegradeMode ($item, '<IMG src="'.INSTAL_DIR.'icones/Vide.png"/>');
-		echo DegradeMode ($last, '<IMG src="'.INSTAL_DIR.'icones/Vide.png"/>','End');
-	}
-	echo '<a href="http://www.mozilla-europe.org/">'.$ABS['getFF'].'</a>';
-}
-?>
-		</div>
+	<?php echo DegradeMode (decode64($racine64), '', 'End', true);?>
 	</div>
+</div>
 <?php
 function DegradeMode ($Item, $IndOffset, $end='', $force=false)
 {

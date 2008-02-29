@@ -1,6 +1,5 @@
 <html style="padding:0px;margin:0px;">
 <?php
-
 // 	ini_set('upload_tmp_dir','./'); //    * upload_tmp_dir
 // 	ini_set('file_uploads','true'); //    * file_uploads
 // 	ini_set('max_execution_time','3600'); //    * max_execution_time
@@ -9,9 +8,9 @@
 // 	ini_set('post_max_size','1034M'); //    * post_max_size
 // 	ini_set('upload_max_filesize','1024M'); //    * upload_max_filesize
 
+echo '<body style="font-size:10px;padding:0px;margin:0px;" onload=""><img src="'.INSTAL_DIR.'icones/loader-2.gif" style="display:none;">';
 if (!empty($_FILES))
 {
-	echo '<body style="font-size:10px;padding:0px;margin:0px;" onload="top.RequestLoad(\''.$dest.'\',true);">';
 	if (!empty($_FILES['aFile']))
 	{
 		if (!$_FILES['aFile']['error'])
@@ -35,12 +34,10 @@ if (!empty($_FILES))
 	}
 	else echo $ABS[805]."<br />";
 }
-else
-{
-echo '	<body style="font-size:10px;padding:0px;margin:0px;"><img src="'.INSTAL_DIR.'icones/loader-2.gif" style="display:none;">
+echo "Destination : ".decode64($dest)." ";?>
 		<form METHOD="post" action="" enctype="multipart/form-data" style="padding:0px;margin:0px;">
-			<input type="hidden" name="dest" value="'.$dest.'">
-			<input type="file" name="aFile" style="text-align:center;margin-top:1px;" onchange="this.parentNode.parentNode.firstChild.style.display=\'block\';this.parentNode.style.display=\'none\';this.parentNode.submit();">
-		</form>';}?>
+			<input type="hidden" name="dest" value="<?php echo $dest;?>">
+			<input type="file" name="aFile" style="" onchange="this.parentNode.parentNode.firstChild.style.display='block';this.parentNode.style.display='none';this.parentNode.submit();">
+		</form>
 	</body>
 </html>

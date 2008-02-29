@@ -1,23 +1,24 @@
 /*
  * CodePress - Real Time Syntax Highlighting Editor written in JavaScript - http://codepress.org/
- * 
  * Copyright (C) 2006 Fernando M.A.d.S. <fermads@gmail.com>
- *
  * This program is free software; you can redistribute it and/or modify it under the terms of the 
  * GNU Lesser General Public License as published by the Free Software Foundation.
- * 
  * Read the full licence: http://www.opensource.org/licenses/lgpl-license.php
  */
+var ServActPage = ((location.href.split("?"))[0]);
+lstGet = location.search.slice(1,window.location.search.length).split("&");
+	for(i=0;lstGet[i];i++)
+		eval((lstGet[i].split("="))[0]+"='"+(lstGet[i].split("="))[1]+"';");
 
 CodePress = function(obj) {
 	var self = document.createElement('iframe');
+//	self.style.height = self.textarea.clientHeight +'px';
+//	self.style.width = self.textarea.clientWidth +'px';
+// 	self.style.border = '1px solid gray';
 	self.textarea = obj;
 	self.textarea.disabled = true;
 	self.textarea.style.overflow = 'hidden';
-	self.style.height = self.textarea.clientHeight +'px';
-	self.style.width = self.textarea.clientWidth +'px';
 	self.textarea.style.overflow = 'auto';
-	self.style.border = '1px solid gray';
 	self.frameBorder = 0; // remove IE internal iframe border
 	self.style.visibility = 'hidden';
 	self.style.position = 'absolute';
@@ -26,7 +27,7 @@ CodePress = function(obj) {
 	self.initialize = function() {
 		self.editor = self.contentWindow.CodePress;
 		self.editor.body = self.contentWindow.document.getElementsByTagName('body')[0];
-		self.editor.setCode(self.textarea.value);
+		self.editor.setCode(self.contentWindow.base64.decode(self.textarea.value));
 		self.setOptions();
 		self.editor.syntaxHighlight('init');
 		self.textarea.style.display = 'none';
@@ -40,7 +41,7 @@ CodePress = function(obj) {
 		if(obj) self.textarea.value = document.getElementById(obj) ? document.getElementById(obj).value : obj;
 		if(!self.textarea.disabled) return;
 		self.language = language ? language : self.getLanguage();
-		self.src = CodePress.path+'codepress.html?language='+self.language+'&ts='+(new Date).getTime();
+		self.src = CodePress.path+'codepress.html?view='+view+'&language='+self.language+'&ts='+(new Date).getTime();
 		if(self.attachEvent) self.attachEvent('onload',self.initialize);
 		else self.addEventListener('load',self.initialize,false);
 	}

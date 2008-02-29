@@ -28,7 +28,7 @@ CodePress = {
 		cc = '\u2009'; // carret char
 		editor = document.getElementsByTagName('pre')[0];
 		document.designMode = 'on';
-		document.addEventListener('keypress', this.keyHandler, true);
+		document.addEventListener('keypress', this.keyHandler, false);
 		window.addEventListener('scroll', function() { if(!CodePress.scrolling) CodePress.syntaxHighlight('scroll') }, false);
 		completeChars = this.getCompleteChars();
 		completeEndingChars =  this.getCompleteEndingChars();
@@ -36,10 +36,9 @@ CodePress = {
 
 	// treat key bindings
 	keyHandler : function(evt) {
-    	keyCode = evt.keyCode;	
+		keyCode = evt.keyCode;
 		charCode = evt.charCode;
 		fromChar = String.fromCharCode(charCode);
-
 		if((evt.ctrlKey || evt.metaKey) && evt.shiftKey && charCode!=90)  { // shortcuts = ctrl||appleKey+shift+key!=z(undo) 
 			CodePress.shortcuts(charCode?charCode:keyCode);
 		}
@@ -47,7 +46,7 @@ CodePress = {
 			if(!CodePress.completeEnding(fromChar))
 			     CodePress.complete(fromChar);
 		}
-	    else if(chars.indexOf('|'+charCode+'|')!=-1||keyCode==13) { // syntax highlighting
+		else if(chars.indexOf('|'+charCode+'|')!=-1||keyCode==13) { // syntax highlighting
 			top.setTimeout(function(){CodePress.syntaxHighlight('generic');},100);
 		}
 		else if(keyCode==9 || evt.tabKey) {  // snippets activation (tab)
@@ -66,7 +65,21 @@ CodePress = {
 		else if(charCode==99 && evt.ctrlKey)  { // handle cut
 		 	//alert(window.getSelection().getRangeAt(0).toString().replace(/\t/g,'FFF'));
 		}
-
+		else if ((charCode==115 || charCode==19) && evt.ctrlKey)
+		{
+			if (evt.stopPropagation)
+			{
+				evt.stopPropagation();
+			}
+			if (evt.preventDefault)
+			{
+				evt.preventDefault();
+			}
+			evt.returnValue = false;
+			evt.cancelBubble = true;
+			SaveMe(base64.encode(top.cp1.getCode()));
+			return false;
+		}
 	},
 
 	// put cursor back to its original position after every parsing

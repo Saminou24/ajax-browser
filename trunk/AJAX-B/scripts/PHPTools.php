@@ -48,7 +48,7 @@ function UTF8dirname($str)
 /* PHP prototype */
 
 $no64 = array('+','/','=');
-$yes64 = array('@','.','_');
+$yes64 = array(',','.',';');
 function encode64($str)
 {	global $no64, $yes64; return str_replace($no64,$yes64,base64_encode($str));}
 function decode64($str)
@@ -169,6 +169,7 @@ function addUser ($exemple, $arrayDest, $name, $code='',$racine='./')
 }
 function SupItem($Item)
 {
+	echo $Item;
 	if (is_dir($Item))
 	{
 		if (is_array($SubFile = DirSort ($Item)))
