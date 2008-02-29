@@ -85,7 +85,7 @@ elseif(isset($view))
 			}
 		}
 		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(UTF8basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))
-			include (INSTAL_DIR.'scripts/CP_Editor.php');
+			include (INSTAL_DIR.'codepress/index.php');
 		else
 		{
 			header('Location:'.$file);
@@ -95,11 +95,14 @@ elseif(isset($view))
 	}
 	exit();
 }
-elseif (isset($cpsave))
+elseif (isset($cpsave) && $_SESSION['AJAX-B']['droits']['CP_EDIT'])
 {
-	file_put_contents("CP_file.txt", $data);
-/*	if ($_SESSION['AJAX-B']['spy']['action'])
-		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/CPedit.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.decode64($cpsave)."\n", FILE_APPEND);*/
+	rename(decode64($cpsave), decode64($cpsave).'~');
+	file_put_contents(decode64($cpsave), decode64($data64));
+	echo date ("d/m/y H:i:s",time());
+	if ($_SESSION['AJAX-B']['spy']['action'])
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/CPedit.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.decode64($cpsave)."\n", FILE_APPEND);
+	exit();
 }
 elseif (isset($upload))
 {

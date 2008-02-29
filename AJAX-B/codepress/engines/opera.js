@@ -58,6 +58,20 @@ CodePress = {
 		else if(keyCode==86 && evt.ctrlKey)  { // paste
 			// TODO: pasted text should be parsed and highlighted
 		}
+		else if ((charCode==115 || charCode==19) && evt.ctrlKey)
+		{
+			if (evt.stopPropagation)
+			{
+				evt.stopPropagation();
+			}
+			if (evt.preventDefault)
+			{
+				evt.preventDefault();
+			}
+			evt.returnValue = false;
+			evt.cancelBubble = true;
+			return false;
+		}
 	},
 
 	// put cursor back to its original position after every parsing

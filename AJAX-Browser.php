@@ -17,16 +17,13 @@ foreach($_POST as $key=>$val)
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
-// $version="0.9.32-Upload_debug";
-// $InstallDir = './AJAX-B/';
-
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "0.9.33-UTF-8_Avaible_Pro");
+define("VERSION", "0.9.35Pro-CodePress-alpha1");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
 require (INSTAL_DIR . 'scripts/PHPTools.php');		// always loaded
 require (INSTAL_DIR . 'scripts/ExploreTools.php');	// always loaded
-	require (INSTAL_DIR . 'Language.php');			// always loaded
+	require (INSTAL_DIR . 'Language en.php');			// always loaded
 require (INSTAL_DIR . 'scripts/SessionTools.php');	// always loaded
 require (INSTAL_DIR . 'scripts/UrlTools.php');	// always loaded
 

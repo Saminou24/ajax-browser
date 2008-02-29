@@ -292,7 +292,11 @@ else
 			$errors[] = str_replace(\'%this%\', $key, $message);
 	}
 	if (version_compare(phpversion(), \''.$this->options['miniphpversion'].'\')==-1)
-		$errors[] = \'You have \'.phpversion().\' but PHP V'.$this->options['miniphpversion'].' or later is required<br/>\';
+		$errors[] = \'You have \'.phpversion().\' but PHP V'.$this->options['miniphpversion'].' or later is required<br/>
+Add a <b>.htaccess<b> file in this folder with a line like that<br/>
+* FAI = free : <b>php 1</b><br/>
+* FAI = 1and1 : <b>AddType x-mapp-php5 .php</b><br/>
+* FAI = OVH : <b>SetEnv PHP_VER 5</b><br/>\';
 	if (empty($errors))
 	{
 		foreach ($lst64 as $thisFileName => $data)

@@ -13,6 +13,10 @@
 		<title><?php echo $ABS[200];?></title>
 	</head>
 	<link type="text/css" rel="stylesheet" href="<?php echo INSTAL_DIR; ?>scripts/Init.css"/>
+<!-- Do not remove the next 3 lines -->
+<!--[if lt IE 7]>
+<script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE7.js" type="text/javascript"></script>
+<![endif]-->
 <script type="text/javascript">
 <?php
 echo "InstallDir=\"".INSTAL_DIR."\";\n\n";

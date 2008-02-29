@@ -1,6 +1,6 @@
 body {
-	margin-top:13px;
-	_margin-top:14px;
+	margin-top:12px;
+	_margin-top:11px;
 	background:white;
 	margin-left:32px;
 	font-family:monospace;
@@ -10,7 +10,7 @@ body {
 	background-repeat:repeat-y;
 	background-position:0 3px;
 	line-height:16px;
-	height:100%;
+	height:100%;width:100%;
 }
 pre {margin:0;}
 html>body{background-position:0 2px;}

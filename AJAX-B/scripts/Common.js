@@ -24,11 +24,14 @@ RQT=
 		var onError = options.onError || 'alert("'+ABS900+'");';
 		var request;
 
-		if(window.XMLHttpRequest)
+		if(window.XMLHttpRequest)   // tous les naviguateurs W3C
 			{ request = new XMLHttpRequest();}
-		else
+		else if (window.ActiveXObject)   // Internet Explorer
+			{ request = new ActiveXObject("Microsoft.XMLHTTP");}
+   		else
 		{
-			alert('Votre navigateur n\'est pas supporte');
+			alert('AJAX is not avaible.');
+			request = false;
 			return false;
 		}
 

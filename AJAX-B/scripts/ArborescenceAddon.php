@@ -1,6 +1,6 @@
 <script type="text/javascript">
  	model = "<?php echo str_replace(array('"',"\n"), array('\"','\n'), $modelArbs); ?>";
-ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
+ID('All').oncontextmenu=function (event) { event.stop();return false; }; // block le click droit sous firefox
 function RequestLoad(dir64, force)
 {
 /*	if (!(ptr64 = ID(dir64))) alert('ptr64 = 0');

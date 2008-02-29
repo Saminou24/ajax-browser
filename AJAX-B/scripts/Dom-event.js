@@ -1,5 +1,15 @@
 var SelectLst = new Array();
 var PtrItem, dragFiles, Dest;
+// 	if (!event.stopPropagation)
+// 	{
+// 		event.stopPropagation = function() {this.cancelBubble = true;};
+// 		event.preventDefault = function() {this.returnValue = false;};
+// 	}
+// 	if (!event.stop)
+// 	{
+// 		event.stop = function() { this.stopPropagation(); this.preventDefault(); };
+// 	}
+
 function ManageAllEvent(event)
 {
 	PtrItem = findItem64(event.target);
@@ -48,9 +58,23 @@ function ManageAllEvent(event)
 		return false;
 	}
 }
+function StopEvent(evt)
+{
+	if (evt.stopPropagation)
+	{
+		evt.stopPropagation();
+	}
+	if (evt.preventDefault)
+	{
+		evt.preventDefault();
+	}
+	evt.returnValue = false;
+	evt.cancelBubble = true;
+	return false;
+}
 function ManageMouseEvent (event)
 {
-	event.stopPropagation();
+	StopEvent(event)
 	dragFiles = false;
 	if ((event.button===0 || event.button==1) && event.shiftKey && SelectLst.length>0)
 	{// SHIFT select
@@ -113,7 +137,7 @@ function ManageMouseEvent (event)
 }
 function ManageKeyboardEvent (event)
 {
-	event.stopPropagation();
+	StopEvent(event)
 	if (event.keyCode==13 && ID('renOne').style.display=='block') // ENTER
 		{_sendRen ();}
 	else if (event.keyCode==13) // ENTER
@@ -193,6 +217,12 @@ function _enter (event)
 	});
 	UnSelectAll ();
 }
+function _upload()
+{
+	PtrWindow = window.open(ServActPage+"?mode=request&dest="+getDest()+'&upload=', getDest(),"menubar=no,toolbar=no,tabbar=no,locationbar=no,resizable,scrollbars,status,top=0,left=0,width=450,height=50");
+	if (PtrWindow === null) {alert (ABS907);}
+
+}
 function _uncompress()
 {
 	highlight ();
@@ -208,24 +238,30 @@ function _new ()
 {
 	dest = base64.decode(getDest());
 	newitem = prompt(dest+"\n"+ABS908+"\n("+ABS909+"):\n", "New/");
-	RQT.get
-	(ServActPage,
-		{
-			parameters:'mode=request&newitem='+base64.encode( dest + newitem),
-			onEnd:'if (ID(base64.encode(dest))) RequestLoad("'+base64.encode(dest)+'",true);'
-		}
-	);
+	if(newitem)
+	{
+		RQT.get
+		(ServActPage,
+			{
+				parameters:'mode=request&newitem='+base64.encode( dest + newitem),
+				onEnd:'if (ID(base64.encode(dest))) RequestLoad("'+base64.encode(dest)+'",true);'
+			}
+		);
+	}
 }
 function _multiRename ()
 {
 	mask = prompt (ABS910+"\n"+ABS911+" :\n*	=> "+ABS912+"\n~	=> "+ABS913+"\n#	=> "+ABS914+"\n!	=> "+ABS915+"\n"+ABS916+" : ~ - * (#)!\n./MyDir/MyFile.EXT >> ./MyDir/MyDir - MyFile (1)","~ - *.tmp");
-	RQT.get
-	(ServActPage,
-		{
-			parameters:'mode=request&mask='+base64.encode(mask)+'&renitems='+SelectLst.join(','),
-			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
-		}
-	);
+	if(mask)
+	{
+		RQT.get
+		(ServActPage,
+			{
+				parameters:'mode=request&mask='+base64.encode(mask)+'&renitems='+SelectLst.join(','),
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
+			}
+		);
+	}
 }
 function _rename ()
 {
@@ -331,7 +367,7 @@ function _remove ()
 		(ServActPage,
 			{
 				parameters:'mode=request&supitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){ID(element).style.display="none"});'
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){alert(element);ID(element).style.display="none"});'
 			}
 		);
 	}
@@ -379,12 +415,4 @@ function _download(cmpMode)
 		NewWin = window.open(ServActPage+'?mode=request&type='+cmpMode+'&download='+SelectLst.join(','), 'download','top=0,left=0,width=300,height=300');
 		NewWin.setTimeout("close()",60000);
 	}
-}
-function _upload()
-{
-	ID('DragZone').childNodes[1].innerHTML='Upload';
-	ID('Box').style.display = 'block';
-	Drag.init(ID('DragZone'), ID('Box'));
-	ptrBC = ID('BoxContent');
-	OpenBox ('<span class="button right" onclick="str=this.nextSibling.rows[0].innerHTML;this.nextSibling.insertRow(0).innerHTML=str;">'+ABS918+'</span><table id="Uploader" width="450px"><tr><td><iframe src="?mode=request&dest='+getDest()+'&upload=" width="400px" height="25px"></iframe></td></tr></table>');
 }
