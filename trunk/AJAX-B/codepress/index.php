@@ -58,7 +58,7 @@
 		<div class="right">
 		<?php
 			is_array($lst = glob (INSTAL_DIR.'codepress/languages/*.css'))?$lst:array();
-			foreach ( as $key=>$val)
+			foreach ($lst as $key=>$val)
 				echo '<button onclick="cp1.edit(cp1.value, \''.pathinfo($val, PATHINFO_FILENAME).'\');">'.pathinfo($val, PATHINFO_FILENAME).'</button>';
 		?>
 		</div>
