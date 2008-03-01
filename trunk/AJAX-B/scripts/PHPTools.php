@@ -48,7 +48,7 @@ function UTF8dirname($str)
 /* PHP prototype */
 
 $no64 = array('+','/','=');
-$yes64 = array(',','.',';');
+$yes64 = array('@','^','~');
 function encode64($str)
 {	global $no64, $yes64; return str_replace($no64,$yes64,base64_encode($str));}
 function decode64($str)
@@ -169,15 +169,14 @@ function addUser ($exemple, $arrayDest, $name, $code='',$racine='./')
 }
 function SupItem($Item)
 {
-	echo $Item;
 	if (is_dir($Item))
 	{
 		if (is_array($SubFile = DirSort ($Item)))
 			foreach ($SubFile as $File)
 				SupItem($Item."/".$File);
-		return !rmdir($Item)?rename($Item, './.ajaxb-trash.dir/'):true;
+		return (!rmdir($Item)) ? rename($Item, './.ajaxb-trash.dir/') : true;
 	}
-	else return !unlink($Item)?rename($Item, './.ajaxb-trash.file'):true;
+	else return (!unlink($Item)) ? rename($Item, './.ajaxb-trash.file') : true;
 }
 function CopyItems($Source, $Dest)
 {

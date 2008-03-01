@@ -225,7 +225,7 @@ elseif (isset($supitems) && $_SESSION['AJAX-B']['droits']['DEL'])
 	$returnLst = array();
 	$lst = explode(',', $supitems);
 	foreach ($lst as $item)
-		if (SupItem(decode64($item))) $returnLst[] = $item;
+		{if (SupItem(decode64($item))) $returnLst[] = $item;}
 	echo implode(',', $returnLst);
 	if ($_SESSION['AJAX-B']['spy']['action'])
 		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/suppr.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.implode(', ', array_map("decode64", $returnLst))."\n", FILE_APPEND);

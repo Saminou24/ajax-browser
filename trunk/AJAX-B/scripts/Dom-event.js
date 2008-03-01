@@ -1,14 +1,5 @@
 var SelectLst = new Array();
 var PtrItem, dragFiles, Dest;
-// 	if (!event.stopPropagation)
-// 	{
-// 		event.stopPropagation = function() {this.cancelBubble = true;};
-// 		event.preventDefault = function() {this.returnValue = false;};
-// 	}
-// 	if (!event.stop)
-// 	{
-// 		event.stop = function() { this.stopPropagation(); this.preventDefault(); };
-// 	}
 
 function ManageAllEvent(event)
 {
@@ -137,10 +128,25 @@ function ManageMouseEvent (event)
 }
 function ManageKeyboardEvent (event)
 {
-	StopEvent(event)
-	if (event.keyCode==13 && ID('renOne').style.display=='block') // ENTER
-		{_sendRen ();}
-	else if (event.keyCode==13) // ENTER
+	if (ID('renOne').style.display=='block')
+	{
+		if (event.keyCode==13 ) // ENTER
+			{_sendRen ();}
+		else if (event.keyCode==27) // ESC
+			{_esc ();}
+		return false;
+	}
+	else if (ID('FindFilter').style.visibility=='visible')// ID('FindFilter').style.display=='block')
+	{
+		if (event.keyCode==13 ) // ENTER
+			{_esc ();}
+		else if (event.keyCode==27) // ESC
+			{_esc ();}
+		return false;
+	}
+// 	else {StopEvent(event);}
+	
+	if (event.keyCode==13) // ENTER
 		{_enter (event);}
 	else if (event.keyCode==27) // ESC
 	{
@@ -177,6 +183,7 @@ function _esc ()
 	ID('SlideLet').style.display = 'none';
 	ID('CpMvSlide').style.display = 'none';
 	ID('renOne').style.display = 'none';
+	ID('FindFilter').style.visibility='hidden';
 	dragFiles = false;
 	document.onmousemove = null;
 }
@@ -363,11 +370,12 @@ function _remove ()
 	SelectLst.forEach(function(element, index, array) {this.push(basename(base64.decode(element)));}, strLst);
 	if (SelectLst.length>0 && confirm (ABS917+"\n\n"+strLst.join('\n')))
 	{
+// 		alert(SelectLst[0]+'\n'+base64.decode(SelectLst[0])+'\n'+base64.encode(base64.decode(SelectLst[0])));
 		RQT.get
 		(ServActPage,
 			{
 				parameters:'mode=request&supitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){alert(element);ID(element).style.display="none"});'
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){ID(element).style.display="none"});'
 			}
 		);
 	}
