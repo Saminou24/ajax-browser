@@ -25,6 +25,7 @@ $intaller = new MakeIntall (
 <li>Debug picture loading in gallery mode</li>
 <li>File Uploading debug</li>
 <li>NOW AVAIBLE : UTF8 Capability</li>
+<li>CodePress (Real Time Syntax Highlighting Editor) open, editing and saving Beta Version</li>
 ',
 
 	'comment' => '-------------------------------------------------
