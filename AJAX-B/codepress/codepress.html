@@ -59,7 +59,7 @@
 		// use like that : base64.encode('剛生完寶/'); or base64.decode('5Ymb55Sf5a6M5a@2Lw__');
 		var base64 = {
 		// 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", // standard base64 encoding
-			_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.;", // my personal base64 encoding method
+			_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@^~", // my personal base64 encoding method
 			encode : function (input)
 			{
 				var output = "";
@@ -96,7 +96,7 @@
 				var chr1, chr2, chr3;
 				var enc1, enc2, enc3, enc4;
 				var i = 0;
-				input = input.replace(/[^A-Za-z0-9\,\.\;]/g, "");
+				input = input.replace(/[^A-Za-z0-9\@\^\~]/g, "");
 				while (i < input.length)
 				{
 					enc1 = this._keyStr.indexOf(input.charAt(i++));
@@ -175,7 +175,7 @@
 		}
 		ABS900='erreur !';
 		function SaveMe (Data64)
-		{alert(ServActPage);
+		{
 			RQT.get
 			(ServActPage,
 				{
