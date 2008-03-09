@@ -2,21 +2,6 @@
 <html>
 <head>
 	<title>CodePress - Real Time Syntax Highlighting Editor written in JavaScript</title>
-<!--	<script type="text/javascript">
-		ABS900='erreur !';
-		function SaveMe (Data64)
-		{
-			RQT.get
-			(ServActPage,
-				{
-					parameters:'mode=request&cpsave=< ? echo $view;?>&data64='+Data64,
-					onEnd:'ID("saved").innerHTML="Last Saved : "+request.responseText;'
-				}
-			);
-		}
-	</script>
-	<script type="text/javascript" src="< ?php echo INSTAL_DIR; ?>scripts/Common.js"></script>
-	<script type="text/javascript" src="< ?php echo INSTAL_DIR; ?>scripts/UTF8Base64.js"></script>-->
 	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>codepress/codepress.js"></script>
 	<style>
 	body {
@@ -57,7 +42,7 @@
 	<div class="top">
 		<div class="right">
 		<?php
-			is_array($lst = glob (INSTAL_DIR.'codepress/languages/*.css'))?$lst:array();
+			$lst = is_array($lst = glob (INSTAL_DIR.'codepress/languages/*.css'))?$lst:array();
 			foreach ($lst as $key=>$val)
 				echo '<button onclick="cp1.edit(cp1.value, \''.pathinfo($val, PATHINFO_FILENAME).'\');">'.pathinfo($val, PATHINFO_FILENAME).'</button>';
 		?>

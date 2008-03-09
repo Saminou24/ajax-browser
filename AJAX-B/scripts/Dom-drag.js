@@ -15,11 +15,11 @@ var Drag = {
 		o.onmousedown		= Drag.start;
 		o.hmode			= bSwapHorzRef ? false : true ;
 		o.vmode			= bSwapVertRef ? false : true ;
-		o.root = oRoot && oRoot != null ? oRoot : o ;
-		if (o.hmode  && isNaN(parseInt(o.root.style.left  ))) o.root.style.left   = '0px';
-		if (o.vmode  && isNaN(parseInt(o.root.style.top   ))) o.root.style.top    = '0px';
-		if (!o.hmode && isNaN(parseInt(o.root.style.right ))) o.root.style.right  = '0px';
-		if (!o.vmode && isNaN(parseInt(o.root.style.bottom))) o.root.style.bottom = '0px';
+		o.root = oRoot && oRoot !== null ? oRoot : o ;
+		if (o.hmode  && isNaN(parseInt(o.root.style.left  ))) {o.root.style.left   = '0px';}
+		if (o.vmode  && isNaN(parseInt(o.root.style.top   ))) {o.root.style.top    = '0px';}
+		if (!o.hmode && isNaN(parseInt(o.root.style.right ))) {o.root.style.right  = '0px';}
+		if (!o.vmode && isNaN(parseInt(o.root.style.bottom))) {o.root.style.bottom = '0px';}
 		o.minX	= typeof minX != 'undefined' ? minX : null;
 		o.minY	= typeof minY != 'undefined' ? minY : null;
 		o.maxX	= typeof maxX != 'undefined' ? maxX : null;
@@ -32,29 +32,36 @@ var Drag = {
 	},
 	start : function(e)
 	{
-		var o = Drag.obj = this;
+		Drag.obj = this;
+		var o = this;
 		e = Drag.fixE(e);
 		var y = parseInt(o.vmode ? o.root.style.top  : o.root.style.bottom);
 		var x = parseInt(o.hmode ? o.root.style.left : o.root.style.right );
 		o.root.onDragStart(x, y);
 		o.lastMouseX	= e.clientX;
 		o.lastMouseY	= e.clientY;
-		if (o.hmode) {
-			if (o.minX != null)	o.minMouseX	= e.clientX - x + o.minX;
-			if (o.maxX != null)	o.maxMouseX	= o.minMouseX + o.maxX - o.minX;
-		} else {
-			if (o.minX != null) o.maxMouseX = -o.minX + e.clientX + x;
-			if (o.maxX != null) o.minMouseX = -o.maxX + e.clientX + x;
+		if (o.hmode)
+		{
+			if (o.minX !== null) {o.minMouseX = e.clientX - x + o.minX;}
+			if (o.maxX !== null) {o.maxMouseX = o.minMouseX + o.maxX - o.minX;}
 		}
-		if (o.vmode) {
-			if (o.minY != null)	o.minMouseY	= e.clientY - y + o.minY;
-			if (o.maxY != null)	o.maxMouseY	= o.minMouseY + o.maxY - o.minY;
-		} else {
-			if (o.minY != null) o.maxMouseY = -o.minY + e.clientY + y;
-			if (o.maxY != null) o.minMouseY = -o.maxY + e.clientY + y;
+		else
+		{
+			if (o.minX !== null) {o.maxMouseX = -o.minX + e.clientX + x;}
+			if (o.maxX !== null) {o.minMouseX = -o.maxX + e.clientX + x;}
+		}
+		if (o.vmode)
+		{
+			if (o.minY !== null) {o.minMouseY = e.clientY - y + o.minY;}
+			if (o.maxY !== null) {o.maxMouseY = o.minMouseY + o.maxY - o.minY;}
+		}
+		else
+		{
+			if (o.minY !== null) {o.maxMouseY = -o.minY + e.clientY + y;}
+			if (o.maxY !== null) {o.minMouseY = -o.maxY + e.clientY + y;}
 		}
 		document.onmousemove	= Drag.drag;
-		document.onmouseup		= Drag.end;
+		document.onmouseup	= Drag.end;
 		return false;
 	},
 	drag : function(e)
@@ -66,14 +73,14 @@ var Drag = {
 		var y = parseInt(o.vmode ? o.root.style.top  : o.root.style.bottom);
 		var x = parseInt(o.hmode ? o.root.style.left : o.root.style.right );
 		var nx, ny;
-		if (o.minX != null) ex = o.hmode ? Math.max(ex, o.minMouseX) : Math.min(ex, o.maxMouseX);
-		if (o.maxX != null) ex = o.hmode ? Math.min(ex, o.maxMouseX) : Math.max(ex, o.minMouseX);
-		if (o.minY != null) ey = o.vmode ? Math.max(ey, o.minMouseY) : Math.min(ey, o.maxMouseY);
-		if (o.maxY != null) ey = o.vmode ? Math.min(ey, o.maxMouseY) : Math.max(ey, o.minMouseY);
+		if (o.minX !== null) {ex = o.hmode ? Math.max(ex, o.minMouseX) : Math.min(ex, o.maxMouseX);}
+		if (o.maxX !== null) {ex = o.hmode ? Math.min(ex, o.maxMouseX) : Math.max(ex, o.minMouseX);}
+		if (o.minY !== null) {ey = o.vmode ? Math.max(ey, o.minMouseY) : Math.min(ey, o.maxMouseY);}
+		if (o.maxY !== null) {ey = o.vmode ? Math.min(ey, o.maxMouseY) : Math.max(ey, o.minMouseY);}
 		nx = x + ((ex - o.lastMouseX) * (o.hmode ? 1 : -1));
 		ny = y + ((ey - o.lastMouseY) * (o.vmode ? 1 : -1));
-		if (o.xMapper)		nx = o.xMapper(y)
-		else if (o.yMapper)	ny = o.yMapper(x)
+		if (o.xMapper)		{nx = o.xMapper(y)}
+		else if (o.yMapper)	{ny = o.yMapper(x)}
 		Drag.obj.root.style[o.hmode ? 'left' : 'right'] = nx + 'px';
 		Drag.obj.root.style[o.vmode ? 'top' : 'bottom'] = ny + 'px';
 		Drag.obj.lastMouseX	= ex;
@@ -91,9 +98,9 @@ var Drag = {
 	},
 	fixE : function(e)
 	{
-		if (typeof e == 'undefined') e = window.event;
-		if (typeof e.layerX == 'undefined') e.layerX = e.offsetX;
-		if (typeof e.layerY == 'undefined') e.layerY = e.offsetY;
+		if (typeof e == 'undefined') {e = window.event;}
+		if (typeof e.layerX == 'undefined') {e.layerX = e.offsetX;}
+		if (typeof e.layerY == 'undefined') {e.layerY = e.offsetY;}
 		return e;
 	}
 };

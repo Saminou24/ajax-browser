@@ -1,52 +1,244 @@
 var SelectLst = new Array();
 var PtrItem, dragFiles, Dest;
 
-function ManageAllEvent(event)
+
+function _esc ()
 {
-	PtrItem = findItem64(event.target);
+	UnSelectAll ();
 	ID('Menu').style.display = 'none';
+	ID('Box').style.display = 'none';
+	ID('SlideLet').style.display = 'none';
+	ID('CpMvSlide').style.display = 'none';
+	ID('renOne').style.display = 'none';
+	ID('FindFilter').style.visibility='hidden';
+	dragFiles = false;
 	document.onmousemove = null;
-	if (PtrItem)
+}
+function _view (item64, event)
+{
+	if (is_dir(base64.decode(item64)))
 	{
-		if(event.type=='mouseup')
+		if(event.ctrlKey)
 		{
-			(ptrSel = ID('CpMvSlide')).style.display = 'none';
-			ptrSel.innerHTML = '';
-			(ptrm = ID('SlideLet')).style.display = 'none';
-			if (dragFiles && dragFiles!=PtrItem.id)
-			{
-				dragFiles = false;
-				ptrm.style.top = event.pageY-2;
-				ptrm.style.left = event.pageX-2;
-				ptrm.style.display = 'block';
-			}
-			else
-			{
-				return new ManageMouseEvent (event);
-			}
+			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+item64, "racine64"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
+			if (PtrWindow === null) {alert (ABS907);}
+			else {PtrWindow.focus();}
 		}
-		else if (event.type=='mousedown')// && (SelectLst.length==0 || dragFiles==PtrItem))
-		{
-			if (SelectLst.indexOf(PtrItem.id)!=-1)
-			{
-				dragFiles = PtrItem.id;
-				ptrSel = ID('CpMvSlide');
-				ptrSel.innerHTML = innerICOs();
-				Drag.init(ptrSel, ptrSel);
-				ptrSel.style.top = event.pageY+2;
-				ptrSel.style.left = event.pageX+2;
-				ptrSel.style.display = 'block';
-				document.onmousemove = function (event)
-				{
-					ptrSel.style.top = event.pageY+2;
-					ptrSel.style.left = event.pageX+2;
-				};
-			}
-		}
+		else
+			{location.href=ServActPage+"?mode="+mode+"&racine64="+item64;}
 	}
-	else 
+	else
 	{
-		return false;
+		PtrWindow = window.open(ServActPage+"?mode=request&view="+item64, "view_"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
+		if (PtrWindow === null) {alert (ABS907);}
+		else {PtrWindow.focus();}
+	}
+}
+function _enter (event)
+{
+	SelectLst.forEach(function(element, index, array)
+	{
+		if (!is_dir(base64.decode(element)) || event.ctrlKey)
+			{_view (element, event);}
+		else if (mode=='gallerie')
+		{
+			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+element, "racine64"+element,"menubar,toolbar,location,resizable,scrollbars,status");
+			if (PtrWindow === null) {alert (ABS907);}
+			else {PtrWindow.focus();}
+		}
+		else if (mode=='arborescence')
+			{RequestLoad(element);}
+	});
+	UnSelectAll ();
+}
+function _upload()
+{
+	PtrWindow = window.open(ServActPage+"?mode=request&dest="+getDest()+'&upload=', getDest(),"menubar=no,toolbar=no,tabbar=no,locationbar=no,resizable,scrollbars,status,top=0,left=0,width=450,height=50");
+	if (PtrWindow === null) {alert (ABS907);}
+
+}
+function _uncompress()
+{
+	highlight ();
+	RQT.get(ServActPage,
+		{
+			parameters:'mode=request&uncompress='+SelectLst.join(','),
+			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
+		}
+	);
+}
+function _new ()
+{
+	dest = base64.decode(getDest());
+	newitem = prompt(dest+"\n"+ABS908+"\n("+ABS909+"):\n", "New/");
+	if(newitem)
+	{
+		RQT.get(ServActPage,
+			{
+				parameters:'mode=request&newitem='+base64.encode( dest + newitem),
+				onEnd:'if (ID(base64.encode(dest))) RequestLoad("'+base64.encode(dest)+'",true);'
+			}
+		);
+	}
+}
+function _multiRename ()
+{
+	mask = prompt (ABS910+"\n"+ABS911+" :\n*	=> "+ABS912+"\n~	=> "+ABS913+"\n#	=> "+ABS914+"\n!	=> "+ABS915+"\n"+ABS916+" : ~ - * (#)!\n./MyDir/MyFile.EXT >> ./MyDir/MyDir - MyFile (1)","~ - *.tmp");
+	if(mask)
+	{
+		RQT.get(ServActPage,
+			{
+				parameters:'mode=request&mask='+base64.encode(mask)+'&renitems='+SelectLst.join(','),
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
+			}
+		);
+	}
+}
+function _rename ()
+{
+	if (SelectLst.length==1)
+	{
+		ptrRen = ID("renOne");
+		baliseName = ID(SelectLst[0]).childNodes[1].childNodes[1].childNodes[3].childNodes[3];
+		ptrRen.style.top = (baliseName.offsetTop)+"px";
+		ptrRen.style.left = baliseName.offsetLeft+"px";
+		ptrRen.style.display = "block";
+		ptrRen.defaultValue = SelectLst[0];
+		ptrRen.value = basename(base64.decode(SelectLst[0]));
+		ptrRen.focus();
+	}
+	else if (SelectLst.length>1) {_multiRename ();}
+	dragFiles = false;
+}
+function _sendRen()
+{
+	ptrRen = ID("renOne");
+	RQT.get(ServActPage,
+		{
+			parameters:'mode=request&renitem='+ptrRen.defaultValue+'&mask='+base64.encode(ptrRen.value),
+			onEnd:'ID("renOne").style.display = "none";UnSelectAll();RequestLoad(request.responseText,true);'
+		}
+	);
+}
+function _copy ()
+{
+	if (SelectLst.length>0)
+	{
+		highlight ();
+		RQT.get(ServActPage,
+			{
+				parameters:'mode=request&copyitems='+SelectLst.join(','),
+				onEnd:false
+			}
+		);
+	}
+}
+function _cut ()
+{
+	if (SelectLst.length>0)
+	{
+		highlight ();
+		RQT.get(ServActPage,
+			{
+				parameters:'mode=request&moveitems='+SelectLst.join(','),
+				onEnd:false
+			}
+		);
+	}
+}
+function _copy_paste ()
+{
+	if (SelectLst.length>0)
+	{
+		highlight ();
+		RQT.get(ServActPage,
+			{
+				parameters:'mode=request&dest='+dirDest(PtrItem.id)+'&copyitems='+SelectLst.join(','),
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
+			}
+		);
+	}
+}
+function _cut_paste ()
+{
+	if (SelectLst.length>0)
+	{
+		highlight ();
+		RQT.get(ServActPage,
+			{
+				parameters:'mode=request&dest='+dirDest(PtrItem.id)+'&moveitems='+SelectLst.join(','),
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
+			}
+		);
+	}
+}
+function _paste()
+{
+	RQT.get(ServActPage,
+		{
+			parameters:'mode=request&pastedest='+getDest(),
+			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
+		}
+	);
+}
+function _remove ()
+{
+	highlight ();
+	strLst = Array();
+	SelectLst.forEach(function(element, index, array) {this.push(basename(base64.decode(element)));}, strLst);
+	if (SelectLst.length>0 && confirm (ABS917+"\n\n"+strLst.join('\n')))
+	{
+// 		alert(SelectLst[0]+'\n'+base64.decode(SelectLst[0])+'\n'+base64.encode(base64.decode(SelectLst[0])));
+		RQT.get(ServActPage,
+			{
+				parameters:'mode=request&supitems='+SelectLst.join(','),
+				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){ID(element).style.display="none"});'
+			}
+		);
+	}
+	dragFiles = false;
+}
+function _rightClick (event)
+{
+	ID('Box').style.display = 'none';
+	dragFiles = false;
+	ThisItem = PtrItem.id;
+	ptr = ID('Menu');
+	Drag.init(ID('MDragZone'), ptr);
+	ptr.childNodes['1'].firstChild.innerHTML = basename(base64.decode(ThisItem));
+	ptr.style.top = event.pageY;
+	ptr.style.left = event.pageX;
+	if (SelectLst.indexOf(ThisItem)==-1)
+	{
+		UnSelectAll ();
+		SelectLst.push(ThisItem);
+		ChangeBG (PtrItem, true);
+	}
+	ObjInnerView (ptr);
+	return false;
+}
+function UnSelectAll ()
+{
+	dragFiles = false;
+	SelectLst.forEach(function(element, index, array){if (ID(element)){ChangeBG(ID(element), false);}})
+	SelectLst = new Array();
+}
+function _properties()
+{
+	if (SelectLst.length>0)
+	{
+		highlight ();
+		ID('DragZone').childNodes[1].innerHTML='Propriete(s)';
+		PopBox('mode=request&infos='+SelectLst.join(','),'OpenBox(request.responseText);');
+	}
+}
+function _download(cmpMode)
+{
+	if (SelectLst.length>0)
+	{
+		highlight ();
+		NewWin = window.open(ServActPage+'?mode=request&type='+cmpMode+'&download='+SelectLst.join(','), 'download','top=0,left=0,width=300,height=300');
+		NewWin.setTimeout("close()",60000);
 	}
 }
 function StopEvent(evt)
@@ -63,13 +255,13 @@ function StopEvent(evt)
 	evt.cancelBubble = true;
 	return false;
 }
-function ManageMouseEvent (event)
+function ManageMouseEvent(event)
 {
-	StopEvent(event)
+	StopEvent(event);
 	dragFiles = false;
-	if ((event.button===0 || event.button==1) && event.shiftKey && SelectLst.length>0)
+	if ((event.button === 0 || event.button == 1) && event.shiftKey && SelectLst.length > 0)
 	{// SHIFT select
-		tmp = new Array(base64.decode(SelectLst[SelectLst.length-1]), base64.decode(PtrItem.id));
+		tmp = new Array(base64.decode(SelectLst[SelectLst.length - 1]), base64.decode(PtrItem.id));
 		if (is_dir(tmp[0]) != is_dir(tmp[1]))
 		{
 			if (is_dir(tmp[0]))
@@ -89,7 +281,7 @@ function ManageMouseEvent (event)
 		nextPtr = limitSel[0];
 		while (nextPtr.id != limitSel[1].id)
 		{
-			if (SelectLst.indexOf(nextPtr.id)==-1)
+			if (SelectLst.indexOf(nextPtr.id) == -1)
 			{
 				ChangeBG (nextPtr, true);
 				SelectLst.push(nextPtr.id);
@@ -150,8 +342,7 @@ function ManageKeyboardEvent (event)
 		{_enter (event);}
 	else if (event.keyCode==27) // ESC
 	{
-		RQT.get
-		(ServActPage,
+		RQT.get(ServActPage,
 			{
 				parameters:'mode=request&noitems=',
 				onEnd:false
@@ -175,252 +366,51 @@ function ManageKeyboardEvent (event)
 		{_properties ();}*/
 	return false;
 }
-function _esc ()
+function ManageAllEvent(event)
 {
-	UnSelectAll ();
+	PtrItem = findItem64(event.target);
 	ID('Menu').style.display = 'none';
-	ID('Box').style.display = 'none';
-	ID('SlideLet').style.display = 'none';
-	ID('CpMvSlide').style.display = 'none';
-	ID('renOne').style.display = 'none';
-	ID('FindFilter').style.visibility='hidden';
-	dragFiles = false;
 	document.onmousemove = null;
-}
-function _view (item64, event)
-{
-	if (is_dir(base64.decode(item64)))
+	if (PtrItem)
 	{
-		if(event.ctrlKey)
+		if(event.type=='mouseup')
 		{
-			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+item64, "racine64"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
-			if (PtrWindow === null) {alert (ABS907);}
-			else {PtrWindow.focus();}
+			(ptrSel = ID('CpMvSlide')).style.display = 'none';
+			ptrSel.innerHTML = '';
+			(ptrm = ID('SlideLet')).style.display = 'none';
+			if (dragFiles && dragFiles!=PtrItem.id)
+			{
+				dragFiles = false;
+				ptrm.style.top = event.pageY-2;
+				ptrm.style.left = event.pageX-2;
+				ptrm.style.display = 'block';
+			}
+			else
+			{
+				return new ManageMouseEvent (event);
+			}
 		}
-		else
-			{location.href=ServActPage+"?mode="+mode+"&racine64="+item64;}
-	}
-	else
-	{
-		PtrWindow = window.open(ServActPage+"?mode=request&view="+item64, "view_"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
-		if (PtrWindow === null) {alert (ABS907);}
-		else {PtrWindow.focus();}
-	}
-}
-function _enter (event)
-{
-	SelectLst.forEach(function(element, index, array)
-	{
-		if (!is_dir(base64.decode(element)) || event.ctrlKey)
-			{_view (element, event);}
-		else if (mode=='gallerie')
+		else if (event.type=='mousedown')// && (SelectLst.length==0 || dragFiles==PtrItem))
 		{
-			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+element, "racine64"+element,"menubar,toolbar,location,resizable,scrollbars,status");
-			if (PtrWindow === null) {alert (ABS907);}
-			else {PtrWindow.focus();}
+			if (SelectLst.indexOf(PtrItem.id)!=-1)
+			{
+				dragFiles = PtrItem.id;
+				ptrSel = ID('CpMvSlide');
+				ptrSel.innerHTML = innerICOs();
+				Drag.init(ptrSel, ptrSel);
+				ptrSel.style.top = event.pageY+2;
+				ptrSel.style.left = event.pageX+2;
+				ptrSel.style.display = 'block';
+				document.onmousemove = function (event)
+				{
+					ptrSel.style.top = event.pageY+2;
+					ptrSel.style.left = event.pageX+2;
+				};
+			}
 		}
-		else if (mode=='arborescence')
-			{RequestLoad(element);}
-	});
-	UnSelectAll ();
-}
-function _upload()
-{
-	PtrWindow = window.open(ServActPage+"?mode=request&dest="+getDest()+'&upload=', getDest(),"menubar=no,toolbar=no,tabbar=no,locationbar=no,resizable,scrollbars,status,top=0,left=0,width=450,height=50");
-	if (PtrWindow === null) {alert (ABS907);}
-
-}
-function _uncompress()
-{
-	highlight ();
-	RQT.get
-	(ServActPage,
-		{
-			parameters:'mode=request&uncompress='+SelectLst.join(','),
-			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
-		}
-	);
-}
-function _new ()
-{
-	dest = base64.decode(getDest());
-	newitem = prompt(dest+"\n"+ABS908+"\n("+ABS909+"):\n", "New/");
-	if(newitem)
-	{
-		RQT.get
-		(ServActPage,
-			{
-				parameters:'mode=request&newitem='+base64.encode( dest + newitem),
-				onEnd:'if (ID(base64.encode(dest))) RequestLoad("'+base64.encode(dest)+'",true);'
-			}
-		);
 	}
-}
-function _multiRename ()
-{
-	mask = prompt (ABS910+"\n"+ABS911+" :\n*	=> "+ABS912+"\n~	=> "+ABS913+"\n#	=> "+ABS914+"\n!	=> "+ABS915+"\n"+ABS916+" : ~ - * (#)!\n./MyDir/MyFile.EXT >> ./MyDir/MyDir - MyFile (1)","~ - *.tmp");
-	if(mask)
+	else 
 	{
-		RQT.get
-		(ServActPage,
-			{
-				parameters:'mode=request&mask='+base64.encode(mask)+'&renitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
-			}
-		);
-	}
-}
-function _rename ()
-{
-	if (SelectLst.length==1)
-	{
-		ptrRen = ID("renOne");
-		baliseName = ID(SelectLst[0]).childNodes[1].childNodes[1].childNodes[3].childNodes[3];
-		ptrRen.style.top = (baliseName.offsetTop)+"px";
-		ptrRen.style.left = baliseName.offsetLeft+"px";
-		ptrRen.style.display = "block";
-		ptrRen.defaultValue = SelectLst[0];
-		ptrRen.value = basename(base64.decode(SelectLst[0]));
-		ptrRen.focus();
-	}
-	else if (SelectLst.length>1) {_multiRename ();}
-	dragFiles = false;
-}
-function _sendRen()
-{
-	ptrRen = ID("renOne");
-	RQT.get
-	(ServActPage,
-		{
-			parameters:'mode=request&renitem='+ptrRen.defaultValue+'&mask='+base64.encode(ptrRen.value),
-			onEnd:'ID("renOne").style.display = "none";UnSelectAll();RequestLoad(request.responseText,true);'
-		}
-	);
-}
-function _copy ()
-{
-	if (SelectLst.length>0)
-	{
-		highlight ();
-		RQT.get
-		(ServActPage,
-			{
-				parameters:'mode=request&copyitems='+SelectLst.join(','),
-				onEnd:false
-			}
-		);
-	}
-}
-function _cut ()
-{
-	if (SelectLst.length>0)
-	{
-		highlight ();
-		RQT.get
-		(ServActPage,
-			{
-				parameters:'mode=request&moveitems='+SelectLst.join(','),
-				onEnd:false
-			}
-		);
-	}
-}
-function _copy_paste ()
-{
-	if (SelectLst.length>0)
-	{
-		highlight ();
-		RQT.get
-		(ServActPage,
-			{
-				parameters:'mode=request&dest='+dirDest(PtrItem.id)+'&copyitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
-			}
-		);
-	}
-}
-function _cut_paste ()
-{
-	if (SelectLst.length>0)
-	{
-		highlight ();
-		RQT.get
-		(ServActPage,
-			{
-				parameters:'mode=request&dest='+dirDest(PtrItem.id)+'&moveitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
-			}
-		);
-	}
-}
-function _paste()
-{
-	RQT.get
-	(ServActPage,
-		{
-			parameters:'mode=request&pastedest='+getDest(),
-			onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){RequestLoad(element,true);});'
-		}
-	);
-}
-function _remove ()
-{
-	highlight ();
-	strLst = Array();
-	SelectLst.forEach(function(element, index, array) {this.push(basename(base64.decode(element)));}, strLst);
-	if (SelectLst.length>0 && confirm (ABS917+"\n\n"+strLst.join('\n')))
-	{
-// 		alert(SelectLst[0]+'\n'+base64.decode(SelectLst[0])+'\n'+base64.encode(base64.decode(SelectLst[0])));
-		RQT.get
-		(ServActPage,
-			{
-				parameters:'mode=request&supitems='+SelectLst.join(','),
-				onEnd:'UnSelectAll();request.responseText.split(",").forEach(function(element, index, array){ID(element).style.display="none"});'
-			}
-		);
-	}
-	dragFiles = false;
-}
-function _rightClick (event)
-{
-	ID('Box').style.display = 'none';
-	dragFiles = false;
-	ThisItem = PtrItem.id;
-	ptr = ID('Menu');
-	Drag.init(ID('MDragZone'), ptr);
-	ptr.childNodes['1'].firstChild.innerHTML = basename(base64.decode(ThisItem));
-	ptr.style.top = event.pageY;
-	ptr.style.left = event.pageX;
-	if (SelectLst.indexOf(ThisItem)==-1)
-	{
-		UnSelectAll ();
-		SelectLst.push(ThisItem);
-		ChangeBG (PtrItem, true);
-	}
-	ObjInnerView (ptr);
-	return false;
-}
-function UnSelectAll ()
-{
-	dragFiles = false;
-	SelectLst.forEach(function(element, index, array){if (ID(element))ChangeBG(ID(element), false)})
-	SelectLst = new Array();
-}
-function _properties()
-{
-	if (SelectLst.length>0)
-	{
-		highlight ();
-		ID('DragZone').childNodes[1].innerHTML='Propriete(s)';
-		PopBox('mode=request&infos='+SelectLst.join(','),'OpenBox(request.responseText);');
-	}
-}
-function _download(cmpMode)
-{
-	if (SelectLst.length>0)
-	{
-		highlight ();
-		NewWin = window.open(ServActPage+'?mode=request&type='+cmpMode+'&download='+SelectLst.join(','), 'download','top=0,left=0,width=300,height=300');
-		NewWin.setTimeout("close()",60000);
+		return false;
 	}
 }
