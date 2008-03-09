@@ -17,15 +17,17 @@ $intaller = new MakeIntall (
 	'version' => $_GET['version'],
 	'projetName'=> 'AJAX-Browser',
 
-	'addons' => '<li>Include Watermark on picture for no download avaible accounts</li>
+	'addons' => '<li><b>PHP5.0 is needed</b></li>
+<li><b>Include Watermark on picture for no download avaible accounts</b></li>
+<li><b>Include Archives functions Download/Extract/Infos for ZIP,TAR,GZIP,BZIP2</b></li>
+<li><b>CodePress (Real Time Syntax Highlighting Editor) open, editing and saving Beta Version</b></li>
 <li>Debug url for open file action</li>
 <li>Improve opening behaviour with double-click or press [Enter] with or without [Ctrl] key</li>
-<li>Properties of archives (Numbers of items, Compressed size, Uncompressed size, Ratio of compression)</li>
 <li>Without access authorization the parent folder is not browsable but all link are browsable.</li>
 <li>Debug picture loading in gallery mode</li>
 <li>File Uploading debug</li>
 <li>NOW AVAIBLE : UTF8 Capability</li>
-<li>CodePress (Real Time Syntax Highlighting Editor) open, editing and saving Beta Version</li>
+<li>Alway include the old function</li>
 ',
 
 	'comment' => '-------------------------------------------------
@@ -40,7 +42,7 @@ $intaller = new MakeIntall (
 
 	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
 	'excludes'=>array('*~','*.conf','*.svn/*','*Mini/*','*Spy/*'),
-	'filesName' => array('../Archives/AJAX-B_%version%.php','../Archives/LastVersion.php','../AJAX-B_Pro/LastVersion.php'),
+	'filesName' => array('../../AJAX-B_Pro/AJAX-B_%version%.php','./LastVersion.php','../../AJAX-B_Pro/LastVersion.php'),
 	'no_replace'=>array('*.conf','*.png','*.gif'),
 	'miniphpversion'=>'5.0.0',
 	'useful'=>array(
