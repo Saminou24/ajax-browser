@@ -46,6 +46,7 @@ $ABS = array( // Ajax Browser Sentences
 35 => ' tentatives, Vous etes blacklisté !',
 36 => 'Decompresser ici',
 37 => 'Contribuer ou financer.',
+38 => 'Veuillez activer le Java Script pour utiliser AJAX-Browser',
 
 // fichier ManageSuperGlobales.php
 100 => 'Impossible de créer le fichier ´*.conf´ dans ´.AJAX-B´ veuillez verifier les droits',
