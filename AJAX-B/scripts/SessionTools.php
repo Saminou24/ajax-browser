@@ -58,6 +58,8 @@ $ajaxb_conf_exemple = array (
 	);
 
 		$spath=session_save_path();
+		if (strpos ($spath, ";") !== FALSE)
+			$spath = substr ($spath, strpos ($spath, ";")+1);
 		if (!is_dir($spath) && !empty($spath))
 		{
 			$ErrrorMsg .= __FILE__."\n".'Problem on line '.(__LINE__ - 2)."\n";
@@ -71,16 +73,16 @@ $ajaxb_conf_exemple = array (
 		ini_set('session.use_only_cookies', '0');
 		session_cache_limiter ('nocache');
 		session_cache_expire (60);			// Configure le délai d'expiration à 30 minutes
-		session_start();						// On démarre la session avant toute autre chose
+		session_start();				// On démarre la session avant toute autre chose
 
 	if (isset($stop))
 	{
-		$_SESSION['AJAX-B'] = array(0);	// on vide bien la variable de session
+		$_SESSION['AJAX-B'] = array(0);		// on vide bien la variable de session
 		unset($_SESSION['AJAX-B']);		// et on detruit le contenue de session ki nous conserne
 		if (empty($_SESSION))			// si aprés ca la session est vide on peut en deduire que personne d'autre ne l'utilise
 		{
 			setcookie(session_name(), '', time()-100000, '/');	// on force le cookie de session a etre périmé
-			session_destroy();								 // on detruit la session sur le serveur
+			session_destroy();					// on detruit la session sur le serveur
 		}
 	}
 
@@ -113,9 +115,11 @@ $ajaxb_conf_exemple = array (
 		input:hover {background:rgb(230,250,210);}
 		td, tr {vertical-align:middle;text-align:center;}
 		div {margin-left: auto;margin-right:auto;background-color:rgb(220,230,255);padding:2px 10px;width:250px;-moz-border-radius:8px;font-weight:bold;border:1px solid gray;}
+		h1 {text-align:center;color:red;}
 	</style>
-	<body onLoad="document.getElementById('login').focus()">
+	<body onLoad="document.getElementById('JSError').style.display='none';document.getElementById('login').focus()">
 		<form method="post" action="?">
+		<h1 id="JSError"><?php echo $ABS[38];?></h1>
 		<table >
 		<tr>
 			<td>
@@ -190,12 +194,14 @@ $ajaxb_conf_exemple = array (
 				input:hover {background:rgb(230,250,210);}
 				td, tr {vertical-align:middle;text-align:center;}
 				div {margin-left: auto;margin-right:auto;background-color:rgb(220,230,255);padding:2px 10px;width:250px;-moz-border-radius:8px;font-weight:bold;border:1px solid gray;}
+				h1 {text-align:center;color:red;}
 			</style>
 			<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-drag.js"></script>
 			<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-event.js"></script>
 			<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Common.js"></script>
-			<body onLoad="document.getElementById('login').focus()">
+			<body onLoad="document.getElementById('JSError').style.display='none';document.getElementById('login').focus()">
 			<form method="post" action="?">
+			<h1 id="JSError"><?php echo $ABS[38];?></h1>
 				<table >
 				<tr>
 					<td>
