@@ -4,9 +4,15 @@
  | Copyright (c) 2007 Alban LOPEZ
  | Email bugs/suggestions to alban.lopez+easyzip@gmail.com
  +--------------------------------------------------
- | This script has been created and released under
- | the GNU GPL and is free to use and redistribute
- | only if this copyright statement is not removed
+ | This file is part of EasyArchive.class V0.8.
+ | EasyArchive is free software: you can redistribute it and/or modify
+ | it under the terms of the GNU General Public License as published by
+ | the Free Software Foundation, either version 3 of the License, or
+ | (at your option) any later version.
+ | EasyArchive is distributed in the hope that it will be useful,
+ | but WITHOUT ANY WARRANTY; without even the implied warranty of
+ | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ | See the GNU General Public License for more details on http://www.gnu.org/licenses/
  +--------------------------------------------------
  http://www.phpclasses.org/browse/package/4239.html **/
 class zip

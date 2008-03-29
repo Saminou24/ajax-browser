@@ -18,6 +18,7 @@ $intaller = new MakeIntall (
 	'projetName'=> 'AJAX-Browser',
 
 	'addons' => '<li><b>PHP5.0 is needed</b></li>
+<li>Alway include the old function</li>
 <li><b>Include Watermark on picture for no download avaible accounts</b></li>
 <li><b>Include Archives functions Download/Extract/Infos for ZIP,TAR,GZIP,BZIP2</b></li>
 <li><b>CodePress (Real Time Syntax Highlighting Editor) open, editing and saving Beta Version</b></li>
@@ -27,7 +28,9 @@ $intaller = new MakeIntall (
 <li>Debug picture loading in gallery mode</li>
 <li>File Uploading debug</li>
 <li>NOW AVAIBLE : UTF8 Capability</li>
-<li>Alway include the old function</li>
+<li>You have the possibility to diferenciate Watermark depending on users, like that ./AJAX-B/icones/Watermark-USERNAME.png</li>
+<li>VIEW and SUBLSTOF request mode now accept standard file adress ex: ?mode=request&sublstof=./</li>
+<li>I have added the MATCH filter, you can use it to find quickly one file : the folder size will be 0 Oct if there is no match.</li>
 ',
 
 	'comment' => '-------------------------------------------------

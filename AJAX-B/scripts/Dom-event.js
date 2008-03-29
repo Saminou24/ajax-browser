@@ -20,12 +20,12 @@ function _view (item64, event)
 	{
 		if(event.ctrlKey)
 		{
-			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+item64, "racine64"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
+			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+item64+"&match="+match, "racine64"+item64,"menubar,toolbar,location,resizable,scrollbars,status");
 			if (PtrWindow === null) {alert (ABS907);}
 			else {PtrWindow.focus();}
 		}
 		else
-			{location.href=ServActPage+"?mode="+mode+"&racine64="+item64;}
+			{location.href=ServActPage+"?mode="+mode+"&racine64="+item64+"&match="+match;}
 	}
 	else
 	{
@@ -42,7 +42,7 @@ function _enter (event)
 			{_view (element, event);}
 		else if (mode=='gallerie')
 		{
-			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+element, "racine64"+element,"menubar,toolbar,location,resizable,scrollbars,status");
+			PtrWindow = window.open(ServActPage+"?mode="+mode+"&racine64="+element+"&match="+match, "racine64"+element,"menubar,toolbar,location,resizable,scrollbars,status");
 			if (PtrWindow === null) {alert (ABS907);}
 			else {PtrWindow.focus();}
 		}
@@ -229,15 +229,19 @@ function _properties()
 	{
 		highlight ();
 		ID('DragZone').childNodes[1].innerHTML='Propriete(s)';
-		PopBox('mode=request&infos='+SelectLst.join(','),'OpenBox(request.responseText);');
+		PopBox('mode=request&infos='+SelectLst.join(',')+'&match='+match,'OpenBox(request.responseText);');
 	}
+}
+function _match(filter)
+{
+	location.href=ServActPage+"?mode="+mode+"&racine64="+racine64+"&match="+filter;
 }
 function _download(cmpMode)
 {
 	if (SelectLst.length>0)
 	{
 		highlight ();
-		NewWin = window.open(ServActPage+'?mode=request&type='+cmpMode+'&download='+SelectLst.join(','), 'download','top=0,left=0,width=300,height=300');
+		NewWin = window.open(ServActPage+'?mode=request&type='+cmpMode+'&download='+SelectLst.join(',')+'&match='+match, 'download','top=0,left=0,width=300,height=300');
 		NewWin.setTimeout("close()",60000);
 	}
 }
@@ -331,7 +335,7 @@ function ManageKeyboardEvent (event)
 	else if (ID('FindFilter').style.visibility=='visible')// ID('FindFilter').style.display=='block')
 	{
 		if (event.keyCode==13 ) // ENTER
-			{_esc ();}
+			{_match (ID('matchFilter').value);}
 		else if (event.keyCode==27) // ESC
 			{_esc ();}
 		return false;

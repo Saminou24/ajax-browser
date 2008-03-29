@@ -18,7 +18,7 @@ foreach($_GET as $key=>$val)
 	${$key}=$val;
 
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "0.9.36 Pro CodePress Beta 1");
+define("VERSION", "0.9.38 Pro MatchFilter");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
 require (INSTAL_DIR . 'scripts/PHPTools.php');		// always loaded

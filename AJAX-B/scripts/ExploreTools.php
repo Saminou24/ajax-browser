@@ -63,8 +63,8 @@ function InfosByURL ($url, $allinfos=true, $base64=false)
 			$infos['gid'] = $grp['gid'];
 		if (is_dir($url))
 		{
-			$infos['content0'] = ($tmp=DirSort ($url,'dir'))?count ($tmp):0;	// count(subdir)
-			$infos['content1'] = ($tmp=DirSort ($url,'file'))?count ($tmp):0;	// count(subfile)
+			$infos['content0'] = CountDir($url, false);
+			$infos['content1'] = CountFile($url, false); // ($tmp=DirSort ($url,'file'))?count ($tmp):0;	// count(subfile)
 		}
 		elseif (strpos($infos['type'], 'image') && @exif_imagetype($url))
 			list ($infos['content0'], $infos['content1']) = @getimagesize($url);
@@ -73,7 +73,7 @@ function InfosByURL ($url, $allinfos=true, $base64=false)
 }
 function SizeDir ($Folder)
 {
-	global $speed, $StartPhpScripte, $OverTime;
+	global $speed, $StartPhpScripte, $OverTime, $match;
 	$OverTime=3;
 	if (microtime_float()-$StartPhpScripte < $OverTime && count(explode($Folder,'/')) < 30)
 	{
@@ -84,7 +84,7 @@ function SizeDir ($Folder)
 			foreach ($dirLst as $dir)
 				$SizeAll += SizeDir ($Folder.$dir.'/');
 		}
-		$fileLst=DirSort ($Folder, isset($_SESSION['AJAX-B']['match']) ? explode(',',$_SESSION['AJAX-B']['match']) : 'file');
+		$fileLst=DirSort ($Folder, $match=='*' ? 'file' : explode(',', $match));
 		if ($fileLst)
 		{
 			foreach ($fileLst as $key => $file)
@@ -111,27 +111,28 @@ function SizeAll($path)
 	}
 	return $size;
 }
-function CountDir($path)
+function CountDir($path, $recursive=true)
 {
-	if (!is_dir($path))
-		return 0;
+	$nbr = 0;
 	$dir = opendir($path);
 	while ($file = readdir($dir))
 	{
-		if (is_dir($path."/".$file) && $file!="." && $file !="..")
-			$nbr += CountDir($path."/".$file);
+		if (is_dir($path."/".$file) && $file!="." && $file !=".." && ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.', $file)))
+			$nbr += $recursive ? CountDir($path."/".$file, $recursive)+1 : 1;
 	}
-	return $nbr+1;
+	return $nbr;
 }
-function CountFile($path)
+function CountFile($path, $recursive=true)
 {
-	if (!is_dir($path))
-		return 1;
+	global $match;
+	$nbr = 0;
 	$dir = opendir($path);
 	while ($file = readdir($dir))
 	{
-		if (is_file($path."/".$file))
-			$nbr += CountFile($path."/".$file);
+		if (is_file($path."/".$file) && ArrayMatch(explode(',', $match), $path."/".$file) && ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.', $file)))
+			$nbr ++;
+		elseif (is_dir($path."/".$file) && $recursive && $file!="." && $file !="..")
+			$nbr += CountFile ($path."/".$file, $recursive);
 	}
 	return $nbr;
 }
@@ -148,7 +149,7 @@ function DirSort ($rep, $mask='all', $Prefixe='')
 	if ($mask=='all')
 	{
 		$Lst1 = DirSort ($rep, 'dir', $Prefixe);		// cree une liste ordonnee des repertoires
-		$Lst2 = DirSort ($rep,  isset($_SESSION['AJAX-B']['match']) ? explode(',',$_SESSION['AJAX-B']['match']) : 'file', $Prefixe);		// cree une liste ordonnee des fichiers ( isset($_GET['match']) ? explode(',',$_GET['match']) : 'file' )
+		$Lst2 = DirSort ($rep, 'file', $Prefixe);		// cree une liste ordonnee des fichiers ( isset($_GET['match']) ? explode(',',$_GET['match']) : 'file' )
 		if ($Lst2 || $Lst1)				// si l'un des 2 n'est pas vide...
 			return array_merge( $Lst1 ? $Lst1 : array(), $Lst2 ? $Lst2 : array() );       // alors on renvois la concatenation des 2 string
 		else return false;				// resultat d'un dossier vide

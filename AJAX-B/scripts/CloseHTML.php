@@ -42,7 +42,6 @@
 		</div>
 	</div>
 </form>
-	<a class="bottomright" href="http://ajaxbrowser.free.fr/Docs/contact.php"><?php echo $ABS[30];?></a>
 	</body>
 </html>
 <?php
