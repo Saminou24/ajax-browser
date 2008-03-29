@@ -24,10 +24,16 @@ for ($i=900;$i<1000;$i++)
 	if (isset($ABS[$i])) echo "ABS$i=\"".$ABS[$i]."\";\n";
 if (isset($ABS[29])) echo "ABS29=\"".$ABS[29]."\";\n";
 ?>
+
 function promtMAJ()
 {
 <?php
-if (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
+if (array_sum($_SESSION['AJAX-B']['IP_count'])<3)
+{
+	echo "ID('DragZone').childNodes[1].innerHTML='Mon Compte';\n";
+	echo "PopBox('mode=request&usrconf=','OpenBox(request.responseText);');\n";
+}
+elseif (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
 	list($V1, $V2, $V3, $V4) = sscanf(VERSION,'%d.%d.%d%s');
 	$NewVersion = @file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php?version');
@@ -41,6 +47,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits'][
 }
 ?>
 }
+
 function FileIco (File)
 {
 	if (is_dir(File)) return "folder.";
@@ -71,8 +78,16 @@ function FileIco (File)
 		<span style='padding:2px;'>
 			<a href="<?php echo str_replace($ChangeMode['current'], $ChangeMode['next'], RebuildURL ())?>"><?php echo $ABS[2].' '.$ChangeMode['change']?></a>
 		</span>
-			<span style='padding:2px;'><a href="?stop"><?php echo $ABS[7];?></a></span><br>
-			<span style='padding:2px;'><a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/help.php"><?php echo $ABS[8];?></a></span>
+		<span style='padding:2px;'>
+			<a href="?stop"><?php echo $ABS[7];?></a>
+		</span><br>
+
+		<span style='padding:2px;'>
+			<a href="http://ajaxbrowser.free.fr/Docs/contact.php"><?php echo $ABS[30];?></a>
+		</span>
+		<span style='padding:2px;'>
+			<a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/help.php"><?php echo $ABS[8];?></a>
+		</span>
 	</span>
 		<div class="italic" style="margin:3px;"><span class="bold"><?php echo $_SESSION['AJAX-B']['login']." [".$_SERVER['REMOTE_ADDR']."]"?></span><br />
 			<?php echo $ABS[3].' : '.$_SESSION['AJAX-B']['last'].', '.$ABS[9].' : '.array_sum ($_SESSION['AJAX-B']['IP_count'])?></div>
@@ -97,7 +112,7 @@ function FileIco (File)
 		<IMG onclick="ID('DragZone').childNodes[1].innerHTML='Contact Admin';PopBox('mode=request&contact=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/E-mail.png" title="<?php echo $ABS[207];?>"/>
 				<IMG onclick="if(ID('FindFilter').style.visibility!='visible'){ID('FindFilter').style.visibility='visible';ID('matchFilter').focus();}else ID('FindFilter').style.visibility='hidden';" src="<?php echo INSTAL_DIR; ?>icones/FindFilter.png" title="<?php echo $ABS[208];?>"/>
 		<div id="FindFilter">
-				<input name='match' id='matchFilter'>
+				<input name='match' id='matchFilter' value='<? echo $match;?>'>
 		</div>
 	</td>
 	<td style='font-size:11px;font-weight:bold;font-style:italic;text-align:center;'>

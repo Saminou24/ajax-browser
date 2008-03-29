@@ -15,7 +15,7 @@ function RequestLoad(dir64, force)
 		RQT.get
 		(ServActPage, // on joint la page en cour
 			{
-				parameters:'mode=request&sublstof='+dir64, // devrais coserver les autre parametre...
+				parameters:'mode=request&sublstof='+dir64+'&match='+match, // devrais coserver les autre parametre...
 				onEnd:'OpenDir("'+dir64+'", request.responseText.split("\\n"))' // alert(request.responseText);
 			}
 		);

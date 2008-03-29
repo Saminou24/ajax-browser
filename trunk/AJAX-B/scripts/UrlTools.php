@@ -70,7 +70,7 @@ if (!empty($_SESSION['AJAX-B']['mini_dir']) && !is_dir($_SESSION['AJAX-B']['mini
 	}
 function RebuildURL ()
 {
-	global $login, $mode, $racine64, $ie, $db;
-	return '?mode='.$mode.'&racine64='.$racine64.(isset($ie)?'&ie':'').(isset($db)?'&db':'');
+	global $login, $mode, $racine64, $ie, $db, $match;
+	return '?mode='.$mode.'&racine64='.$racine64.'&match='.(isset($match)?$match:'*').(isset($ie)?'&ie':'').(isset($db)?'&db':'');
 }
 ?>

@@ -16,7 +16,7 @@ function RequestLoad(dir64)
 	RQT.get
 	(ServActPage, // on joint la page en cour
 		{
-			parameters:'mode=request&sublstof='+racine64+'&light=on',
+			parameters:'mode=request&sublstof='+racine64+'&light=on'+'&match='+match,
 			onEnd:'OpenDir(request.responseText.split("\\n"));MiniLstDef=MiniLst;intervalID=window.setInterval(loadMini,<?php echo $_SESSION['AJAX-B']['mini_intervale']; ?>);',
 		}
 	);

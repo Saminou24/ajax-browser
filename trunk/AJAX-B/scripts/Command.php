@@ -15,12 +15,13 @@ $GLOBALS['AJAX-Var']['blacklist'] = eval('return '.file_get_contents($file_black
 if(isset($sublstof))
 {
 	$LstDir=array();
-	$dirLst = DirSort ($folder=decode64($sublstof), 'dir');
+	$folder = is_dir($sublstof) ? $sublstof : decode64($sublstof);
+	$dirLst = DirSort ($folder, 'dir');
 	if ($dirLst)
 	{
 		foreach ($dirLst as $dir)
 			if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',UTF8basename($dir)))
-			{	array_push ($LstDir, implode("\t",InfosByURL ($folder.$dir, !isset($light), true)));	}
+				array_push ($LstDir, implode("\t",InfosByURL ($folder.$dir, !isset($light), true)));
 	}
 
 	$LstFile=array();
@@ -67,7 +68,8 @@ elseif(isset($erasemini))
 }
 elseif(isset($view))
 {
-	if (is_file($file = decode64($view)))
+	$file = file_exists($view) ? $view : decode64($view);
+	if (is_file($file))
 	{
 		if (@getimagesize($file))
 		{
@@ -79,8 +81,9 @@ elseif(isset($view))
 			}
 			else
 			{
-				$file = AddWatermark($file, $_SESSION['AJAX-B']['mini_dir'], INSTAL_DIR.'icones/Watermark.png');
-				header('Content-Disposition: inline;filename="'."$file\"\n");
+				$wm =  is_file(INSTAL_DIR.'icones/Watermark-'.$_SESSION['AJAX-B']['login'].'.png') ?  INSTAL_DIR.'icones/Watermark-'.$_SESSION['AJAX-B']['login'].'.png' : INSTAL_DIR.'icones/Watermark.png';
+				$file = AddWatermark($file, $_SESSION['AJAX-B']['mini_dir'], $wm);
+				header('Content-Disposition: inline;filename="'.$file."\"\n");
 				readfile($file);
 			}
 		}
