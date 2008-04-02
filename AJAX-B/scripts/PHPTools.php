@@ -31,6 +31,13 @@ if (!function_exists('file_put_contents'))
 		}
 	}
 }
+function FileTypeApprover($Name)
+{
+	$UPLOAD = $_SESSION['AJAX-B']['droits']['UPLOAD'];
+	if ((ArrayMatch($_SESSION['AJAX-B']['always_mask'],$Name ) && $UPLOAD=='OnlyAlways') || (!ArrayMatch($_SESSION['AJAX-B']['restrict_mask'], $Name) && $UPLOAD=='ExceptRestrict') ||  $UPLOAD=='ALL')
+		return true;
+	return false;
+}
 function UTF8basename($str)
 {// for UTF-8 compatible
 	$name='';
@@ -230,11 +237,14 @@ function MultiRen ($files, $mask)
 		$ArrayReplace = array(UTF8basename($file, $ext), UTF8basename(UTF8dirname($file)), str_pad($num+1, strlen(strval(count($files))), "0", STR_PAD_LEFT));
 		$TmpStr = str_replace (array("*","~","#"), $ArrayReplace, $mask);
 		$DestFile = UTF8dirname ($file)."/".((!strcmp(strrchr($mask,"!"), "!")) ? substr($TmpStr, 0, -1) : ($TmpStr.(pathinfo(UTF8dirname($file).$TmpStr, PATHINFO_EXTENSION) ? "" : $ext)));
-		if (rename($file, $DestFile))
+		if (FileTypeApprover($DestFile))
 		{
-			$spy .= "\t".$file.' > '.UTF8basename($DestFile)."\n";
-			if (!in_array(encode64(UTF8dirname($file).'/'), $returnLst))
-				$returnLst[] = encode64(UTF8dirname($file).'/');
+			if (rename($file, $DestFile))
+			{
+				$spy .= "\t".$file.' > '.UTF8basename($DestFile)."\n";
+				if (!in_array(encode64(UTF8dirname($file).'/'), $returnLst))
+					$returnLst[] = encode64(UTF8dirname($file).'/');
+			}
 		}
 	}
 	if ($_SESSION['AJAX-B']['spy']['action'])
