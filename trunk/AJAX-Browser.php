@@ -18,14 +18,14 @@ foreach($_GET as $key=>$val)
 	${$key}=$val;
 
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "0.9.38 Pro MatchFilter");
+define("VERSION", "0.9.40-Pro_ControlFileType_ImproveUpgrade");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
 require (INSTAL_DIR . 'scripts/PHPTools.php');		// always loaded
 require (INSTAL_DIR . 'scripts/ExploreTools.php');	// always loaded
-	require (INSTAL_DIR . 'Language en.php');			// always loaded
+	require (INSTAL_DIR . 'Language en.php');	// always loaded
 require (INSTAL_DIR . 'scripts/SessionTools.php');	// always loaded
-require (INSTAL_DIR . 'scripts/UrlTools.php');	// always loaded
+require (INSTAL_DIR . 'scripts/UrlTools.php');		// always loaded
 
 if (isset($_SESSION['AJAX-B']['language_file']) && is_file(INSTAL_DIR . $_SESSION['AJAX-B']['language_file']))
 	require (INSTAL_DIR . $_SESSION['AJAX-B']['language_file']);

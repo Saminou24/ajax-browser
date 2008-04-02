@@ -31,6 +31,7 @@ $intaller = new MakeIntall (
 <li>You have the possibility to diferenciate Watermark depending on users, like that ./AJAX-B/icones/Watermark-USERNAME.png</li>
 <li>VIEW and SUBLSTOF request mode now accept standard file adress ex: ?mode=request&sublstof=./</li>
 <li>I have added the MATCH filter, you can use it to find quickly one file : the folder size will be 0 Oct if there is no match.</li>
+<li>Debug php and alert on wrong login</li>
 ',
 
 	'comment' => '-------------------------------------------------

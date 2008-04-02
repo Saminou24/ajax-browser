@@ -15,9 +15,7 @@ if (!empty($_FILES))
 	{
 		if (!$_FILES['aFile']['error'])
 		{
-			if ((ArrayMatch($_SESSION['AJAX-B']['always_mask'],$_FILES['aFile']['name'] ) && $_SESSION['AJAX-B']['droits']['UPLOAD']=='OnlyAlways')
-			 || (!ArrayMatch($_SESSION['AJAX-B']['restrict_mask'], $_FILES['aFile']['name']) && $_SESSION['AJAX-B']['droits']['UPLOAD']=='ExceptRestrict')
-			 ||  $_SESSION['AJAX-B']['droits']['UPLOAD']=='ALL')
+			if (FileTypeApprover($_FILES['aFile']['name']))
 			{
 				$DestFile = decode64($dest).$_FILES['aFile']['name'];
 				if (move_uploaded_file($_FILES['aFile']['tmp_name'], $DestFile))

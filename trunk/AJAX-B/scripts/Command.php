@@ -100,11 +100,14 @@ elseif(isset($view))
 }
 elseif (isset($cpsave) && $_SESSION['AJAX-B']['droits']['CP_EDIT'])
 {
-	rename(decode64($cpsave), decode64($cpsave).'~');
-	file_put_contents(decode64($cpsave), decode64($data64));
-	echo date ("d/m/y H:i:s",time());
-	if ($_SESSION['AJAX-B']['spy']['action'])
-		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/CPedit.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.decode64($cpsave)."\n", FILE_APPEND);
+	if (FileTypeApprover(decode64($cpsave)))
+	{
+		rename(decode64($cpsave), decode64($cpsave).'~');
+		file_put_contents(decode64($cpsave), decode64($data64));
+		echo date ("d/m/y H:i:s",time());
+		if ($_SESSION['AJAX-B']['spy']['action'])
+			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/CPedit.spy', $_SESSION['AJAX-B']['login'].'['.date ("d/m/y H:i:s",time()).'] >  '.decode64($cpsave)."\n", FILE_APPEND);
+	}
 	exit();
 }
 elseif (isset($upload))
@@ -198,9 +201,9 @@ elseif (isset($contact))
 elseif (isset($newitem) && $_SESSION['AJAX-B']['droits']['NEW'])
 {
 	if (substr($new=decode64($newitem), -1, 1)=='/') mkdir($new, 0777, true);
-	elseif (!is_file($new)) file_put_contents ($new, "");
+	elseif (!is_file($new) && FileTypeApprover($new) ) file_put_contents ($new, '');
 	if ($_SESSION['AJAX-B']['spy']['action'])
-		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/new.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$new."\n", FILE_APPEND);
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/new.spy', $_SESSION['AJAX-B']['login'].' ['.date ('d/m/y H:i:s',time()).'] > '.$new."\n", FILE_APPEND);
 }
 elseif (isset($noitems))
 {
@@ -235,10 +238,13 @@ elseif (isset($supitems) && $_SESSION['AJAX-B']['droits']['DEL'])
 }
 elseif (isset($renitem) && $_SESSION['AJAX-B']['droits']['REN'])
 {
-	rename(decode64($renitem), UTF8dirname(decode64($renitem)).'/'.decode64($mask));
-	echo encode64(UTF8dirname(decode64($renitem)).'/');
-	if ($_SESSION['AJAX-B']['spy']['action'])
-		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time())."]\n\t".decode64($renitem).' > '.decode64($mask)."\n", FILE_APPEND);
+	if (FileTypeApprover(decode64($mask)))
+	{
+		rename(decode64($renitem), UTF8dirname(decode64($renitem)).'/'.decode64($mask));
+		echo encode64(UTF8dirname(decode64($renitem)).'/');
+		if ($_SESSION['AJAX-B']['spy']['action'])
+			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/rename.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time())."]\n\t".decode64($renitem).' > '.decode64($mask)."\n", FILE_APPEND);
+	}
 }
 elseif (isset($renitems) && $_SESSION['AJAX-B']['droits']['REN'])
 {
@@ -254,18 +260,16 @@ elseif (isset($infos))
 }
 elseif(isset($maj) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
-	list($V1, $V2, $V3) = sscanf(VERSION, '%d.%d.%d%s');
-	$NewVersion = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php?version');
-	list($v1, $v2, $v3) = sscanf($NewVersion, '%d.%d.%d%s');
-	if (!$NewVersion) echo $ABS[403];
-	elseif ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
+	$repositoryURL = 'http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php';
+	$data = file_get_contents ($repositoryURL.'?download&identity='.str_replace(array(' '), array(''),$_SERVER['SERVER_NAME'].'-'.VERSION));
+	if (strlen($data))
 	{
-		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.VERSION.' > '.$NewVersion."\n", FILE_APPEND);
-		$name = sha1 ($data = file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php?download&identity='.$_SERVER['SERVER_NAME'].'-'.VERSION)).'.php';
-		file_put_contents('./'.$name, $data);
-		include ('./'.$name);
-		unlink('./'.$name);
+		$name = './'.sha1 ($data).'.php';
+		file_put_contents($name, $data);
+		include ($name);
+		unlink($name);
+		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.VERSION.' > '.$version."\n", FILE_APPEND);
 	}
-	else echo $ABS[402];
+	else echo $ABS[403];
 }
 ?>
