@@ -268,7 +268,8 @@ elseif(isset($maj) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 		file_put_contents($name, $data);
 		include ($name);
 		unlink($name);
-		file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.VERSION.' > '.$version."\n", FILE_APPEND);
+		if ($_SESSION['AJAX-B']['spy']['action'])
+			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/UPGRADE.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.VERSION.' > '.$version."\n", FILE_APPEND);
 	}
 	else echo $ABS[403];
 }

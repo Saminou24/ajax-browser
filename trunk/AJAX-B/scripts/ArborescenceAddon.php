@@ -8,7 +8,7 @@ function RequestLoad(dir64, force)
 	
 	if (!(ptr64 = ID(dir64)) || !is_dir(base64.decode(dir64))) return false;
 	force = force ? true : false;
-	ptr = ptr64.childNodes[1].childNodes[1].childNodes[1].lastChild;
+	ptr = ptr64.childNodes[0].childNodes[0].childNodes[0].lastChild;
 	if (ptr.src.indexOf("DirPlus.png")!=-1 || force==true)
 	{
 		ptr.src = ptr.src.replace("DirPlus.png", "Loading.gif");
@@ -23,7 +23,7 @@ function RequestLoad(dir64, force)
 	else
 	{
 		ptr.src = ptr.src.replace( "DirMoin.png", "Loading.gif");
-		ptr64.childNodes[3].style.display = "none";
+		ptr64.childNodes[1].style.display = "none";
 		ptr.src = ptr.src.replace("Loading.gif", "DirPlus.png");
 	}
 	_esc ();
@@ -31,7 +31,7 @@ function RequestLoad(dir64, force)
 function OpenDir (dir64, array)
 {
  	var i, Include='', IndentImg='',LstIndent='';
-	IndentImg =(Open_Dir= ID(dir64)).childNodes[1].childNodes[1].childNodes[1];
+	IndentImg =(Open_Dir= ID(dir64)).childNodes[0].childNodes[0].childNodes[0];
 	for (i=0;i<IndentImg.childNodes.length-1;i++)
 		LstIndent += "<IMG  src='"+IndentImg.childNodes[i].src+"' />";
 	if (IndentImg.lastChild.src.indexOf("End")!=-1)
@@ -40,13 +40,13 @@ function OpenDir (dir64, array)
 		LstIndent += "<IMG  src='"+InstallDir+"icones/Next.png' />";
 	for (i=1;i<array.length;i++)
 		Include += AddItem (base64.decode(dir64), array[i],LstIndent, (i==array.length-1)?"End":"");
-	Open_Dir.childNodes[3].innerHTML = Include;
-	Open_Dir.childNodes[3].style.display = "block";
+	Open_Dir.childNodes[1].innerHTML = Include;
+	Open_Dir.childNodes[1].style.display = "block";
 	IndentImg.lastChild.src = IndentImg.lastChild.src.replace("Loading.gif", "DirMoin.png");
 }
 function AddItem (dir, element, LstIndent, end)
 {
-	item=element.split("\t");
+	var item=element.split("\t");
 	item[0] = base64.decode(item[0]);
 	Item = model.replace(/%item%/g, item[0]);
 	Item = Item.replace(/%item64%/g, base64.encode(dir+item[0]));
@@ -81,13 +81,13 @@ function ChangeBG (ptr, statut)
 	if (!ptr) return null;
 	else if (statut)
 	{
-		ptr.childNodes[1].style.backgroundColor="rgb(220,230,255)";
-		ptr.childNodes[3].style.backgroundColor="rgb(236,246,255)";
+		ptr.childNodes[0].style.backgroundColor="rgb(220,230,255)";
+		ptr.childNodes[1].style.backgroundColor="rgb(236,246,255)";
 	}
 	else
 	{
+		ptr.childNodes[0].style.backgroundColor="";
 		ptr.childNodes[1].style.backgroundColor="";
-		ptr.childNodes[3].style.backgroundColor="";
 	}
 	return ptr.childNodes[1];
 }
@@ -96,7 +96,7 @@ function innerICOs (ptr)
 	str = '';
 	SelectLst.forEach(
 		function(element, index, array)
-		{if (index<9) str += '<div class="c'+(index)+'">'+ID(element).childNodes[1].childNodes[1].childNodes[3].innerHTML+'</div>';} );
+		{if (index<9) str += '<div class="c'+(index)+'">'+ID(element).childNodes[0].childNodes[0].childNodes[1].innerHTML+'</div>';} );
 	return str;
 }
 </script>

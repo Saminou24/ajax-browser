@@ -18,7 +18,7 @@ foreach($_GET as $key=>$val)
 	${$key}=$val;
 
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "0.9.40-Pro_ControlFileType_ImproveUpgrade");
+define("VERSION", "0.9.43-Pro_UltraDownloadWeb2Web_DebugEasyArchives0.9_IE7PreAlpha");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
 require (INSTAL_DIR . 'scripts/PHPTools.php');		// always loaded

@@ -8,23 +8,3 @@
 </div>
 <div id="Gal">
 </div>
-<?php
-// function DegradeMode ($Item)
-// {
-// 	global $racine64, $modelGal;
-// 	$item=InfosByURL($Item);
-// 	$ReplaceLst = array (
-// 		'%item%' => $item['basename'],
-// 		'%item64%' => encode64($Item),
-// 				       '%icone%' =>(is_dir($Item) || !isset($item['content0'])) ? INSTAL_DIR."icones/type-".FileIco($Item).".png" : CreatMini($Item,$_SESSION['AJAX-B']['mini_dir'], $_SESSION['AJAX-B']['mini_size']),
-// 		'%name%' =>(is_dir($Item) || !isset($item['content0'])) ? '<p class="name">'.$item['basename'].'</p>' : '',
-// 		'%real_size%' => $item['size'],
-// 		'%size%' => SizeConvert ($item['size']),
-// 		'%type%' => $item['type'],
-// 		'%link%'=>is_dir($Item)?str_replace($racine64, encode64($Item), RebuildURL()):'?mode=request&view='.encode64($Item)
-// );
-// 	if ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.',$item['basename']))
-// 		return str_replace (array_keys($ReplaceLst),($ReplaceLst),$modelGal);
-// 	else return '';
-// }
-?>
