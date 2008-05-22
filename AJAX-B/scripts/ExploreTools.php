@@ -9,31 +9,9 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-$modelArbs = '
-<div class="DivGroup" id="%item64%">
-	<div class="This">
-		<span class="left" title="%content%">
-			<span class="IndentImg">%IndOffset%%ArbImg%</span>
-			<span class="IcoName">
-				<IMG src="'.INSTAL_DIR.'icones/type-%icone%.png" ondblclick="_view(\'%item64%\', event)"/>
-				<span class="Name" onclick="_rename();">%item%</span>
-			</span>
-		</span>
-		<span class="right">
-			<div class="RowTaille" title="%real_size%">%size%</div>
-			<div class="RowMIME">%type%</div>
-			<div class="RowDate" title="%real_date%">%date%</div>
-			<div class="RowDroits" title="UID:%uidname% (%uid%), GID:%gidname% (%gid%)">%droits%</div>
-		</span>
-	</div>
-	<div class="Content">
-	</div>
-</div>';
+$modelArbs = '<div class="DivGroup" id="%item64%"><div class="This"><span class="left" title="%content%"><span class="IndentImg">%IndOffset%%ArbImg%</span><span class="IcoName"><IMG src="'.INSTAL_DIR.'icones/type-%icone%.png" ondblclick="_view(\'%item64%\', event)"/><span class="Name" onclick="_rename();">%item%</span></span></span><span class="right"><div class="RowTaille" title="%real_size%">%size%</div><div class="RowMIME">%type%</div><div class="RowDate" title="%real_date%">%date%</div><div class="RowDroits" title="UID:%uidname% (%uid%), GID:%gidname% (%gid%)">%droits%</div></span></div><div class="Content"></div></div>';
 
-$modelGal='
-<div class="Gal" id="%item64%" title="%item% => %size% (%real_size%)" ondblclick="_view(\'%item64%\', event)">
-	<table><tbody><tr><td><img src="%icone%">%name%</td></tr></tbody></table>
-</div>';
+$modelGal='<div class="Gal" id="%item64%" title="%item% => %size% (%real_size%)" ondblclick="_view(\'%item64%\', event)"><table><tbody><tr><td><img src="%icone%">%name%</td></tr></tbody></table></div>';
 	$totalContent = array();
 function InfosByURL ($url, $allinfos=true, $base64=false)
 {
@@ -42,7 +20,7 @@ function InfosByURL ($url, $allinfos=true, $base64=false)
 	if (is_file($url))
 	{
 		$infos['basename'] = $base64 ? encode64(UTF8basename($url)) : UTF8basename($url);
-		$infos['size'] = sprintf("%u", filesize ($url));
+		$infos['size'] = GetFileSize($url);
 		$infos['type'] = function_exists('mime_content_type') ? str_replace(array("\t",'application'), array("",'appli.'), @mime_content_type($url)) : 'ext/'.strtolower(@pathinfo($url, PATHINFO_EXTENSION));
 	}
 	else
@@ -71,6 +49,14 @@ function InfosByURL ($url, $allinfos=true, $base64=false)
 	}
 	return $infos;
 }
+function GetFileSize($file)
+{
+	$size = @trim(`stat -c%s $file`);
+	if (ereg ("^[1-9][0-9]{1,99}$", $size))
+		return $size;
+	else
+		return sprintf("%u", @filesize ($file));
+}
 function SizeDir ($Folder)
 {
 	global $speed, $StartPhpScripte, $OverTime, $match;
@@ -88,11 +74,9 @@ function SizeDir ($Folder)
 		if ($fileLst)
 		{
 			foreach ($fileLst as $key => $file)
-				$SizeAll += sprintf("%u", @filesize ($Folder.$file));
+				$SizeAll += GetFileSize($Folder.$file);
 		}
-// 		if (microtime_float()-$StartPhpScripte < $OverTime)
 		return sprintf("%u", $SizeAll);
-// 		else return -1;
 	}
 	else
 		return -1;

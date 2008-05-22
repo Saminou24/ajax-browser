@@ -193,7 +193,6 @@ $ajaxb_conf_exemple = array (
 				html, body, table { position: absolute;width:100%;height:100%;padding:0px;margin:0px;overflow:none;}
 				body {font-size:10px;}
 				input, span {width:120px;}
-				input:hover {background:rgb(230,250,210);}
 				td, tr {vertical-align:middle;text-align:center;}
 				div {margin-left: auto;margin-right:auto;background-color:rgb(220,230,255);padding:2px 10px;width:250px;-moz-border-radius:8px;font-weight:bold;border:1px solid gray;}
 				h1 {text-align:center;color:red;}
@@ -224,7 +223,7 @@ function vibre (nbr)
 						<div>
 							<p><span class="<?php if (!isset($GLOBALS['AJAX-Var']['accounts'][$login]) && isset($login)) echo 'red';?>"><?php echo $ABS[5];?> : </span><input type="text" id="login" name="login" value="<?php echo $login?$login:"anonymous"; ?>"></p>
 							<p><span class="<?php if (!isset($GLOBALS['AJAX-Var']['accounts'][$login]) && isset($login)) echo 'red';?>"><?php echo $ABS[6];?> : </span><input type="password" name="code"></p>
-							<p><button type="submit" name="mode" value="arborescence"><?php echo $ABS[12];?></button><button type="submit" name="mode" value="gallerie"><?php echo $ABS[13];?></button></p>
+							<p><input type="submit" name="mode" value="arborescence" title="<?php echo $ABS[12];?>"><input type="submit" name="mode" value="gallerie" title="<?php echo $ABS[13];?>"></p>
 							<a href="http://ajaxbrowser.free.fr/"><?php echo $ABS[301];?></a>
 						</div>
 					</td>

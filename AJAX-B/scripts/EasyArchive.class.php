@@ -4,7 +4,7 @@
  | Copyright (c) 2007 Alban LOPEZ
  | Email bugs/suggestions to alban.lopez+eazyarchive@gmail.com
  +--------------------------------------------------
- | This file is part of EasyArchive.class V0.8.
+ | This file is part of EasyArchive.class V0.9.
  | EasyArchive is free software: you can redistribute it and/or modify
  | it under the terms of the GNU General Public License as published by
  | the Free Software Foundation, either version 3 of the License, or
@@ -97,7 +97,7 @@ class archive
 			}
 			if ($returnFile)
 			{
-				file_put_contents($src, $dest);
+				file_put_contents($dest, $src);
 				return $dest;
 			}
 			return $src;

@@ -8,9 +8,9 @@
  | the GNU GPL and is free to use and redistribute
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
- 	var model = "<?php echo str_replace(array('"',"\n"), array('\"','\n'), $modelGal); ?>";
+	var model = "<?php echo str_replace(array('"',"\n"), array('\"','\n'), $modelGal); ?>";
 	MiniLst = new Array();
-ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
+	ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
 function RequestLoad(dir64)
 {// ici dir64 ne sert a rien, mais il est imposé par par le code en mode arborescence !
 	RQT.get
@@ -34,12 +34,12 @@ function loadMini()
 	if (MiniLst.length>0)
 	{
 		first = MiniLst.shift();
-		ID(first).childNodes[1].firstChild.firstChild.firstChild.firstChild.src = InstallDir+'icones/Loading.gif';
+		ID(first).childNodes[0].firstChild.firstChild.firstChild.firstChild.src = InstallDir+'icones/Loading.gif';
 		RQT.get
 		(ServActPage, // on joint la page en cour
 			{
 				parameters:'mode=request&miniof='+first,
-				onEnd:'ID("'+first+'").childNodes[1].firstChild.firstChild.firstChild.firstChild.src = request.responseText',
+				onEnd:'ID("'+first+'").childNodes[0].firstChild.firstChild.firstChild.firstChild.src = request.responseText',
 			}
 		);
 	}
@@ -86,25 +86,25 @@ function ChangeBG (PtrItem, statut)
 	if (!PtrItem) return null;
 	else if (statut)
 	{
-		PtrItem.childNodes[1].firstChild.firstChild.style.backgroundColor="rgb(220,230,255)";
+		PtrItem.childNodes[0].firstChild.firstChild.style.backgroundColor="rgb(220,230,255)";
 		PtrItem.style.borderColor="#333";
 	}
 	else
 	{
-		PtrItem.childNodes[1].firstChild.firstChild.style.backgroundColor="";
+		PtrItem.childNodes[0].firstChild.firstChild.style.backgroundColor="";
 		PtrItem.style.borderColor="#DDD";
 	}
-	return PtrItem.childNodes[1].firstChild.firstChild;
+	return PtrItem.childNodes[0].firstChild.firstChild;
 }
 function innerICOs ()
 {
-str = '<div class="Gal small">'+ID(SelectLst[0]).childNodes[1].innerHTML+'</div>';
+str = '<div class="Gal small">'+ID(SelectLst[0]).childNodes[0].innerHTML+'</div>';
 if (SelectLst[1])
-	str += '<div class="Gal small c1">'+ID(SelectLst[1]).childNodes[1].innerHTML+'</div>';
+	str += '<div class="Gal small c1">'+ID(SelectLst[1]).childNodes[0].innerHTML+'</div>';
 if (SelectLst[2])
-	str += '<div class="Gal small c2">'+ID(SelectLst[2]).childNodes[1].innerHTML+'</div>';
+	str += '<div class="Gal small c2">'+ID(SelectLst[2]).childNodes[0].innerHTML+'</div>';
 if (SelectLst[3])
-	str += '<div class="Gal small c3">'+ID(SelectLst[3]).childNodes[1].innerHTML+'</div>';
+	str += '<div class="Gal small c3">'+ID(SelectLst[3]).childNodes[0].innerHTML+'</div>';
 	return str;
 }
 </script>

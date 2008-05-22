@@ -4,7 +4,7 @@
  | Copyright (c) 2007 Alban LOPEZ
  | Email bugs/suggestions to alban.lopez+eazybzip2@gmail.com
  +--------------------------------------------------
- | This file is part of EasyArchive.class V0.8.
+ | This file is part of EasyArchive.class V0.9.
  | EasyArchive is free software: you can redistribute it and/or modify
  | it under the terms of the GNU General Public License as published by
  | the Free Software Foundation, either version 3 of the License, or
@@ -26,7 +26,7 @@ $test->extractBzip2('./toto.bzip2', './new/');
 **/
 	function makeBzip2($src, $dest=false)
 	{
-		$Bzip2 = bzcompress((is_file($src) ? file_get_contents ($src) : $src), 6);
+		$Bzip2 = bzcompress((strpos(chr(0),$src) ? file_get_contents ($src) : $src), 6);
 		if (empty($dest)) return $Bzip2;
 		elseif (file_put_contents($dest, $Bzip2)) return $dest;
 		return false;

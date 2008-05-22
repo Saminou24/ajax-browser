@@ -30,7 +30,7 @@ function promtMAJ()
 <?php
 if (array_sum($_SESSION['AJAX-B']['IP_count'])<3)
 {
-	echo "ID('DragZone').childNodes[1].innerHTML='Mon Compte';\n";
+	echo "ID('DragZone').childNodes[0].innerHTML='Mon Compte';\n";
 	echo "PopBox('mode=request&usrconf=','OpenBox(request.responseText);');\n";
 }
 elseif (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
@@ -40,7 +40,7 @@ elseif (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droit
 	list($v1, $v2, $v3, $v4) = sscanf($NewVersion, '%d.%d.%d%s');
 	if ($v1*1000+$v2*100+$v3 > $V1*1000+$V2*100+$V3)
 	{
-		echo "ID('DragZone').childNodes[1].innerHTML='Upgrade';\n";
+		echo "ID('DragZone').childNodes[0].innerHTML='Upgrade';\n";
 		echo "ID('Box').style.display = 'block';\n";
 		echo "OpenBox ('<a href=\"http://ajaxbrowser.free.fr/Ajax-B_Pub/en/contribute.php\">".$ABS[37]."</a><br/><br/><a href=\"?mode=request&maj\">".$ABS[508].' : '.$NewVersion."</a>".str_replace(array("\n","\""), array("","\\\"") ,@file_get_contents ('http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php?addons'))."<br/>');";
 	}
@@ -95,21 +95,28 @@ function FileIco (File)
 <colgroup> <col width='195'><col><col width='140'></colgroup>
 <tbody>
 	<tr><td style='padding-top:2px;'>
-		<?php if ($_SESSION['AJAX-B']['droits']['NEW']) {?><IMG onclick="_new();" src="<?php echo INSTAL_DIR; ?>icones/New.png" title="<?php echo $ABS[201];?>"/><?php }?>
-		<?php if ($_SESSION['AJAX-B']['droits']['REN']) {?><IMG onmouseup="ID('CpMvSlide').style.display = 'none';_rename();" src="<?php echo INSTAL_DIR; ?>icones/Ren.png" title="<?php echo $ABS[202];?>"/><?php }?>
-		<?php if ($_SESSION['AJAX-B']['droits']['DEL']) {?><IMG onmouseup="ID('CpMvSlide').style.display = 'none';_remove();" src="<?php echo INSTAL_DIR; ?>icones/Sup.png" title="<?php echo $ABS[203];?>"/><?php }?>
-		<?php if ($_SESSION['AJAX-B']['droits']['DOWNLOAD']) {?><span onmouseover="ID('zipper').style.visibility='visible';" onmouseout="ID('zipper').style.visibility='hidden';">
+		<?php if ($_SESSION['AJAX-B']['droits']['NEW']) {?>
+			<IMG onclick="_new();" src="<?php echo INSTAL_DIR; ?>icones/New.png" title="<?php echo $ABS[201];?>"/>
+		<?php } if ($_SESSION['AJAX-B']['droits']['REN']) {?>
+			<IMG onmouseup="ID('CpMvSlide').style.display = 'none';_rename();" src="<?php echo INSTAL_DIR; ?>icones/Ren.png" title="<?php echo $ABS[202];?>"/>
+		<?php } if ($_SESSION['AJAX-B']['droits']['DEL']) {?>
+			<IMG onmouseup="ID('CpMvSlide').style.display = 'none';_remove();" src="<?php echo INSTAL_DIR; ?>icones/Sup.png" title="<?php echo $ABS[203];?>"/>
+		<?php } if ($_SESSION['AJAX-B']['droits']['DOWNLOAD']) {?><span onmouseover="ID('zipper').style.visibility='visible';" onmouseout="ID('zipper').style.visibility='hidden';">
 				<IMG onclick="if(ID('zipper').style.visibility!='visible')ID('zipper').style.visibility='visible';else ID('zipper').style.visibility='hidden';" src="<?php echo INSTAL_DIR; ?>icones/Download.png" title="<?php echo $ABS[204];?>"/>
 			<div id="zipper">
-				<div onmouseup="_download('no');" class='action'><IMG src="<?php echo INSTAL_DIR; ?>icones/type-unknown.png"/><?php echo $ABS[23];?></div>
-				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('zip');" class='action' title="<?php echo $ABS[205];?>*.ZIP"><IMG src="<?php echo INSTAL_DIR; ?>icones/type-zip.png"/>ZIP</div>
-				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar');" class='action' title="<?php echo $ABS[205];?>*.TAR"><IMG src="<?php echo INSTAL_DIR; ?>icones/type-tar.png"/>TAR</div>
-				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.gzip');" class='action' title="<?php echo $ABS[205];?>*.GZIP"><IMG src="<?php echo INSTAL_DIR; ?>icones/type-gzip.png"/>TAR.GZIP</div>
-				<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.bzip2');" class='action' title="<?php echo $ABS[205];?>*.BZIP2"><IMG src="<?php echo INSTAL_DIR; ?>icones/type-bzip2.png"/>TAR.BZIP2</div>
+					<div onmouseup="_download('no');" class='action'><IMG src="<?php echo INSTAL_DIR; ?>icones/type-unknown.png"/><?php echo $ABS[23];?></div>
+				<?php if (function_exists('zip_open')) {?>
+					<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('zip');" class='action' title="<?php echo $ABS[205];?>*.ZIP"><IMG src="<?php echo INSTAL_DIR; ?>icones/type-zip.png"/>ZIP</div><?php }?>
+					<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar');" class='action' title="<?php echo $ABS[205];?>*.TAR"><IMG src="<?php echo INSTAL_DIR; ?>icones/type-tar.png"/>TAR</div>
+				<?php if (function_exists('gzencode')) {?>
+					<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.gzip');" class='action' title="<?php echo $ABS[205];?>*.GZIP"><IMG src="<?php echo INSTAL_DIR; ?>icones/type-gzip.png"/>TAR.GZIP</div>
+				<?php } if (function_exists('bzcompress')) {?>
+					<div onmouseup="ID('CpMvSlide').style.display = 'none';_download('tar.bzip2');" class='action' title="<?php echo $ABS[205];?>*.BZIP2"><IMG src="<?php echo INSTAL_DIR; ?>icones/type-bzip2.png"/>TAR.BZIP2</div>
+				<?php }?>
 			</div>
 		</span><?php }?>
 		<?php if ($_SESSION['AJAX-B']['droits']['UPLOAD']!='NO') {?><IMG onclick="_upload();" src="<?php echo INSTAL_DIR; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/><?php }?>
-		<IMG onclick="ID('DragZone').childNodes[1].innerHTML='Contact Admin';PopBox('mode=request&contact=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/E-mail.png" title="<?php echo $ABS[207];?>"/>
+		<IMG onclick="ID('DragZone').childNodes[0].innerHTML='Contact Admin';PopBox('mode=request&contact=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/E-mail.png" title="<?php echo $ABS[207];?>"/>
 				<IMG onclick="if(ID('FindFilter').style.visibility!='visible'){ID('FindFilter').style.visibility='visible';ID('matchFilter').focus();}else ID('FindFilter').style.visibility='hidden';" src="<?php echo INSTAL_DIR; ?>icones/FindFilter.png" title="<?php echo $ABS[208];?>"/>
 		<div id="FindFilter">
 				<input name='match' id='matchFilter' value='<? echo $match;?>'>
@@ -130,14 +137,14 @@ function FileIco (File)
 <?php
 if ($_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {?>
-		<IMG onclick="ID('DragZone').childNodes[1].innerHTML='Setting';PopBox('mode=request&setting=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/Setting.png" title="<?php echo $ABS[210];?>"/>
+		<IMG onclick="ID('DragZone').childNodes[0].innerHTML='Setting';PopBox('mode=request&setting=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/Setting.png" title="<?php echo $ABS[210];?>"/>
 <?php }
 if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'])
 {?>
-		<IMG onclick="ID('DragZone').childNodes[1].innerHTML='<?php echo $ABS[211];?>';PopBox('mode=request&accounts=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/Account.png" title="<?php echo $ABS[211];?>"/>
+		<IMG onclick="ID('DragZone').childNodes[0].innerHTML='<?php echo $ABS[211];?>';PopBox('mode=request&accounts=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/Account.png" title="<?php echo $ABS[211];?>"/>
 <?php }?>
-		<IMG onclick="ID('DragZone').childNodes[1].innerHTML='Mon Compte';PopBox('mode=request&usrconf=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/User_edit.png" title="<?php echo $ABS[212];?>"/>
-		<IMG onclick="ID('DragZone').childNodes[1].innerHTML='A propos';PopBox('mode=request&apropos=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/APropos.png" title="<?php echo $ABS[213];?>"/>
+		<IMG onclick="ID('DragZone').childNodes[0].innerHTML='Mon Compte';PopBox('mode=request&usrconf=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/User_edit.png" title="<?php echo $ABS[212];?>"/>
+		<IMG onclick="ID('DragZone').childNodes[0].innerHTML='A propos';PopBox('mode=request&apropos=','OpenBox(request.responseText);');" src="<?php echo INSTAL_DIR; ?>icones/APropos.png" title="<?php echo $ABS[213];?>"/>
 	</td></tr>
 </tbody>
 </table>

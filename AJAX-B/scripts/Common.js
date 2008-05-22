@@ -28,8 +28,8 @@ RQT=
 
 		if(window.XMLHttpRequest)   // tous les naviguateurs W3C
 			{ request = new XMLHttpRequest();}
-		else if (window.ActiveXObject)   // Internet Explorer
-			{ request = new ActiveXObject("Microsoft.XMLHTTP");}
+/*		else if (window.ActiveXObject)   // Internet Explorer
+			{ request = new ActiveXObject("Microsoft.XMLHTTP");}*/
    		else
 		{
 			alert('AJAX is not avaible.');

@@ -99,7 +99,7 @@ function _rename ()
 	if (SelectLst.length==1)
 	{
 		ptrRen = ID("renOne");
-		baliseName = ID(SelectLst[0]).childNodes[1].childNodes[1].childNodes[3].childNodes[3];
+		baliseName = ID(SelectLst[0]).childNodes[0].childNodes[0].childNodes[1].childNodes[1];
 		ptrRen.style.top = (baliseName.offsetTop)+"px";
 		ptrRen.style.left = baliseName.offsetLeft+"px";
 		ptrRen.style.display = "block";
@@ -205,7 +205,7 @@ function _rightClick (event)
 	ThisItem = PtrItem.id;
 	ptr = ID('Menu');
 	Drag.init(ID('MDragZone'), ptr);
-	ptr.childNodes['1'].firstChild.innerHTML = basename(base64.decode(ThisItem));
+	ptr.childNodes[0].firstChild.innerHTML = basename(base64.decode(ThisItem));
 	ptr.style.top = event.pageY;
 	ptr.style.left = event.pageX;
 	if (SelectLst.indexOf(ThisItem)==-1)
@@ -228,7 +228,7 @@ function _properties()
 	if (SelectLst.length>0)
 	{
 		highlight ();
-		ID('DragZone').childNodes[1].innerHTML='Propriete(s)';
+		ID('DragZone').childNodes[0].innerHTML='Propriete(s)';
 		PopBox('mode=request&infos='+SelectLst.join(',')+'&match='+match,'OpenBox(request.responseText);');
 	}
 }
@@ -372,7 +372,8 @@ function ManageKeyboardEvent (event)
 }
 function ManageAllEvent(event)
 {
-	PtrItem = findItem64(event.target);
+	var etarget = event.target ? event.target : event.srcElement; // differance IE7
+	PtrItem = findItem64(etarget);
 	ID('Menu').style.display = 'none';
 	document.onmousemove = null;
 	if (PtrItem)
@@ -385,8 +386,8 @@ function ManageAllEvent(event)
 			if (dragFiles && dragFiles!=PtrItem.id)
 			{
 				dragFiles = false;
-				ptrm.style.top = event.pageY-2;
-				ptrm.style.left = event.pageX-2;
+				ptrSel.style.top = (event.pageY?event.pageY:event.y)+2;
+				ptrSel.style.left = (event.pageX?event.pageX:event.x)+2;
 				ptrm.style.display = 'block';
 			}
 			else
@@ -402,13 +403,13 @@ function ManageAllEvent(event)
 				ptrSel = ID('CpMvSlide');
 				ptrSel.innerHTML = innerICOs();
 				Drag.init(ptrSel, ptrSel);
-				ptrSel.style.top = event.pageY+2;
-				ptrSel.style.left = event.pageX+2;
+				ptrSel.style.top = (event.pageY?event.pageY:event.y)+2;
+				ptrSel.style.left = (event.pageX?event.pageX:event.x)+2;
 				ptrSel.style.display = 'block';
 				document.onmousemove = function (event)
 				{
-					ptrSel.style.top = event.pageY+2;
-					ptrSel.style.left = event.pageX+2;
+					ptrSel.style.top = (event.pageY?event.pageY:event.y)+2;
+					ptrSel.style.left = (event.pageX?event.pageX:event.x)+2;
 				};
 			}
 		}
