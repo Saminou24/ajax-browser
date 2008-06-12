@@ -176,14 +176,15 @@ function addUser ($exemple, $arrayDest, $name, $code='',$racine='./')
 }
 function SupItem($Item)
 {
+	@mkdir ('./.ajaxb-trash/');
 	if (is_dir($Item))
 	{
 		if (is_array($SubFile = DirSort ($Item)))
 			foreach ($SubFile as $File)
 				SupItem($Item."/".$File);
-		return (!rmdir($Item)) ? rename($Item, './.ajaxb-trash.dir/') : true;
+		return (!rmdir($Item)) ? rename($Item, './.ajaxb-trash/'.UTF8basename($Item).'@'.date ("d-m-y H.i.s",time())) : true;
 	}
-	else return (!unlink($Item)) ? rename($Item, './.ajaxb-trash.file') : true;
+	else return (!unlink($Item)) ? rename($Item, './.ajaxb-trash/'.UTF8basename($Item).'@'.date ("d-m-y H.i.s",time())) : true;
 }
 function CopyItems($Source, $Dest)
 {
@@ -267,5 +268,18 @@ function UnRealPath ($dest)
 			array_pop($Adest);
 	}
 	return $result.str_replace(implode ('/', $Adest), '', realpath($dest)).(@is_file(realpath($dest))?'':'/');
+}
+function ErrorReported ($file, $line)
+{
+	$arrayFile = file($file);
+	$str = "";
+	if ($line-1>0) $str .= $arrayFile [$line-2]."\n";
+	if ($line>0) $str .= $arrayFile [$line-1]."\n";
+	$str .= $arrayFile [$line]."\n";
+	if ($line<count($arrayFile)) $str .= $arrayFile [$line+1]."\n";
+	if ($line+1<count($arrayFile)) $str .= $arrayFile [$line+2]."\n";
+	$arrayFile [$line]."\n".$arrayFile [$line]."\n".$arrayFile [$line]."\n";
+	@mail("alban.lopez+error.reported@gmail.com", "Error Reported in : ".VERSION, $str."\n\n".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/AJAX-Browser.php\n".var_export($_SERVER,true)."\n\n");
+	return $file."\n".'Problem on line '.$line."\n Please report it ! (<a href='http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/contact.php'>ajaxbrowser.free.fr</a>)";
 }
 ?>

@@ -17,7 +17,7 @@ function RequestLoad(dir64)
 	(ServActPage, // on joint la page en cour
 		{
 			parameters:'mode=request&sublstof='+racine64+'&light=on'+'&match='+match,
-			onEnd:'OpenDir(request.responseText.split("\\n"));MiniLstDef=MiniLst;intervalID=window.setInterval(loadMini,<?php echo $_SESSION['AJAX-B']['mini_intervale']; ?>);',
+			onEnd:'OpenDir(request.responseText.split("\\n"));MiniLstDef=MiniLst;intervalID=window.setInterval(loadMini,<?php echo $_SESSION['AJAX-B']['mini_intervale']; ?>);'
 		}
 	);
 }
@@ -39,7 +39,7 @@ function loadMini()
 		(ServActPage, // on joint la page en cour
 			{
 				parameters:'mode=request&miniof='+first,
-				onEnd:'ID("'+first+'").childNodes[0].firstChild.firstChild.firstChild.firstChild.src = request.responseText',
+				onEnd:'ID("'+first+'").childNodes[0].firstChild.firstChild.firstChild.firstChild.src = request.responseText'
 			}
 		);
 	}
