@@ -7,6 +7,15 @@
  | the GNU GPL and is free to use and redistribute
  | only if this copyright statement is not removed
  +-------------------------------------------------->
+<!-------------------------------------------------
+ | AJAX-Browser  -  by Alban LOPEZ
+ | Copyright (c) 2007 Alban LOPEZ
+ | Email bugs/suggestions to alban.lopez@gmail.com
+ +--------------------------------------------------
+ | This script has been created and released under
+ | the GNU GPL and is free to use and redistribute
+ | only if this copyright statement is not removed
+ +-------------------------------------------------->
 <html>
 	<head>
 		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
@@ -47,7 +56,6 @@ elseif (!empty($_SESSION['AJAX-B']['ajaxb_miror']) && $_SESSION['AJAX-B']['droit
 }
 ?>
 }
-
 function FileIco (File)
 {
 	if (is_dir(File)) return "folder.";
@@ -83,7 +91,7 @@ function FileIco (File)
 		</span><br>
 
 		<span style='padding:2px;'>
-			<a href="http://ajaxbrowser.free.fr/Docs/contact.php"><?php echo $ABS[30];?></a>
+			<a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/contact.php"><?php echo $ABS[30];?></a>
 		</span>
 		<span style='padding:2px;'>
 			<a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/help.php"><?php echo $ABS[8];?></a>

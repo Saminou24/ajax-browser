@@ -1,7 +1,6 @@
 var SelectLst = new Array();
 var PtrItem, dragFiles, Dest;
 
-
 function _esc ()
 {
 	UnSelectAll ();
@@ -188,7 +187,6 @@ function _remove ()
 	SelectLst.forEach(function(element, index, array) {this.push(basename(base64.decode(element)));}, strLst);
 	if (SelectLst.length>0 && confirm (ABS917+"\n\n"+strLst.join('\n')))
 	{
-// 		alert(SelectLst[0]+'\n'+base64.decode(SelectLst[0])+'\n'+base64.encode(base64.decode(SelectLst[0])));
 		RQT.get(ServActPage,
 			{
 				parameters:'mode=request&supitems='+SelectLst.join(','),
@@ -290,8 +288,8 @@ function ManageMouseEvent(event)
 				ChangeBG (nextPtr, true);
 				SelectLst.push(nextPtr.id);
 			}
-			if (nextPtr.nextSibling===null || nextPtr.nextSibling.nextSibling===null) { break;}
-			nextPtr = nextPtr.nextSibling.nextSibling;
+			if (nextPtr.nextSibling===null) { break;}
+			nextPtr = nextPtr.nextSibling;
 		}
 		if (SelectLst.indexOf(nextPtr.id)==-1)
 		{
@@ -332,7 +330,7 @@ function ManageKeyboardEvent (event)
 			{_esc ();}
 		return false;
 	}
-	else if (ID('FindFilter').style.visibility=='visible')// ID('FindFilter').style.display=='block')
+	else if (ID('FindFilter').style.visibility=='visible')
 	{
 		if (event.keyCode==13 ) // ENTER
 			{_match (ID('matchFilter').value);}
@@ -395,7 +393,7 @@ function ManageAllEvent(event)
 				return new ManageMouseEvent (event);
 			}
 		}
-		else if (event.type=='mousedown')// && (SelectLst.length==0 || dragFiles==PtrItem))
+		else if (event.type=='mousedown')
 		{
 			if (SelectLst.indexOf(PtrItem.id)!=-1)
 			{

@@ -3,9 +3,6 @@
 ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
 function RequestLoad(dir64, force)
 {
-/*	if (!(ptr64 = ID(dir64))) alert('ptr64 = 0');
-	if (!(test2 = is_dir(base64.decode(dir64))))  alert(dir64+' = '+test2+' = 0');*/
-	
 	if (!(ptr64 = ID(dir64)) || !is_dir(base64.decode(dir64))) return false;
 	force = force ? true : false;
 	ptr = ptr64.childNodes[0].childNodes[0].childNodes[0].lastChild;
@@ -15,8 +12,8 @@ function RequestLoad(dir64, force)
 		RQT.get
 		(ServActPage, // on joint la page en cour
 			{
-				parameters:'mode=request&sublstof='+dir64+'&match='+match, // devrais coserver les autre parametre...
-				onEnd:'OpenDir("'+dir64+'", request.responseText.split("\\n"))' // alert(request.responseText);
+				parameters:'mode=request&sublstof='+dir64+'&match='+match,
+				onEnd:'OpenDir("'+dir64+'", request.responseText.split("\\n"))'
 			}
 		);
 	}
