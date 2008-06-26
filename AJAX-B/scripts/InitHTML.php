@@ -81,7 +81,7 @@ function FileIco (File)
 	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-event.js"></script>
 	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Common.js"></script>
 	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/UTF8Base64.js"></script>
-<body onload="RequestLoad('<?php echo $racine64?>');promtMAJ();" onkeypress="ManageKeyboardEvent(event);" oncontextmenu="event.stopPropagation();return false;">
+<body onload="RequestLoad('<?php echo $racine64?>');promtMAJ();" onkeypress="ManageKeyboardEvent(event);" oncontextmenu="event.stopPropagation();void(0);return false;">
 	<span class="close">
 		<span style='padding:2px;'>
 			<a href="<?php echo str_replace($ChangeMode['current'], $ChangeMode['next'], RebuildURL ())?>"><?php echo $ABS[2].' '.$ChangeMode['change']?></a>
@@ -91,10 +91,10 @@ function FileIco (File)
 		</span><br>
 
 		<span style='padding:2px;'>
-			<a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/contact.php"><?php echo $ABS[30];?></a>
+			<a href="#" onclick="window.open('http://code.google.com/p/ajax-browser/issues/list');"><?php echo $ABS[30];?></a>
 		</span>
 		<span style='padding:2px;'>
-			<a href="http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/help.php"><?php echo $ABS[8];?></a>
+			<a href="#" onclick="window.open('http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/help.php');"><?php echo $ABS[8];?></a>
 		</span>
 	</span>
 		<div class="italic" style="margin:3px;"><span class="bold"><?php echo $_SESSION['AJAX-B']['login']." [".$_SERVER['REMOTE_ADDR']."]"?></span><br />
