@@ -86,14 +86,20 @@ function FileIco ($item)			// choisi l'icone le mieu adapté parmis ceux present
 }
 function AddWatermark($src, $dir, $wmk)
 {
-// 	global INSTAL_DIR;
-	$FileDest = $dir.'Watermark@'.md5_file($src).'.jpg';
-	if (file_exists($FileDest)) return $FileDest;
+	$FileDest = $dir.'Watermark-'.$_SESSION['AJAX-B']['login'].'@'.md5_file($src).md5_file($wmk).'.jpg';
+	if (file_exists($FileDest))
+		return $FileDest;
+	elseif (!is_dir(UTF8dirname($FileDest)))
+		mkdir(UTF8dirname($FileDest), 0777, true);
 	if(($src_size = getimagesize($src))!=false && ($wmk_size = getimagesize($wmk))!=false)
 	{
-		if ($src_size[0]>$wmk_size[0] && $src_size[1]>$wmk_size[1] && function_exists('imagejpeg'))
+		if (function_exists('imagejpeg'))
 		{
-			if (!is_dir(UTF8dirname($FileDest))) mkdir(UTF8dirname($FileDest), 0777, true);
+			if ($src_size[0]>$wmk_size[0] && $src_size[1]>$wmk_size[1]);
+			elseif($wmk_size[0]/$src_size[0]-$wmk_size[1]/$src_size[1])
+				$wmk = CreatMini($wmk , $_SESSION['AJAX-B']['mini_dir'], $src_size[0], true);
+			else
+				$wmk = CreatMini($wmk , $_SESSION['AJAX-B']['mini_dir'], $src_size[0], true);
 			$wmk_img = imagecreatefrompng($wmk);
 			imagealphablending($wmk_img,true);
 			switch ($src_size[2])					// avant de travailler sur une image il faut la decompresser
@@ -109,9 +115,9 @@ function AddWatermark($src, $dir, $wmk)
 					break;
 			}
 			imagealphablending($dest_img,true);
-			imagecopy($dest_img, $wmk_img, ($src_size[0]-$wmk_size[0]), ($src_size[1]-$wmk_size[1]), 0, 0, $wmk_size[0], $wmk_size[1]);
+			imagecopy($dest_img, $wmk_img, ($src_size[0]-$wmk_size[0])/2, ($src_size[1]-$wmk_size[1])/2, 0, 0, $wmk_size[0], $wmk_size[1]);
 			imageinterlace($dest_img, 1);
-			imagejpeg($dest_img, $FileDest, 50); // Envoie une image JPEG de la RAM vers un fichier
+			imagejpeg($dest_img, $FileDest, 80); // Envoie une image JPEG de la RAM vers un fichier
 			imagedestroy($dest_img);// Vide la memoire RAM allouee a l'image $dest_img
 			imagedestroy($wmk_img);// Vide la memoire RAM allouee a l'image $dst_img
 			if (!is_file($FileDest))
@@ -272,12 +278,12 @@ function UnRealPath ($dest)
 function ErrorReported ($file, $line)
 {
 	$arrayFile = file($file);
-	$str = "";
-	if ($line-1>0) $str .= $arrayFile [$line-2]."\n";
-	if ($line>0) $str .= $arrayFile [$line-1]."\n";
-	$str .= $arrayFile [$line]."\n";
-	if ($line<count($arrayFile)) $str .= $arrayFile [$line+1]."\n";
-	if ($line+1<count($arrayFile)) $str .= $arrayFile [$line+2]."\n";
+	$str = $file."\n";
+	if ($line-1>0) $str .= str_pad(($line-2).".", 6).$arrayFile [$line-2];
+	if ($line>0) $str .= str_pad(($line-1).".", 6).$arrayFile [$line-1];
+	$str .= str_pad(($line).".", 6).$arrayFile [$line];
+	if ($line<count($arrayFile)) $str .= str_pad(($line+1).".", 6).$arrayFile [$line+1];
+	if ($line+1<count($arrayFile)) $str .= str_pad(($line+2).".", 6).$arrayFile [$line+2];
 	$arrayFile [$line]."\n".$arrayFile [$line]."\n".$arrayFile [$line]."\n";
 	@mail("alban.lopez+error.reported@gmail.com", "Error Reported in : ".VERSION, $str."\n\n".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/AJAX-Browser.php\n".var_export($_SERVER,true)."\n\n");
 	return $file."\n".'Problem on line '.$line."\n Please report it ! (<a href='http://ajaxbrowser.free.fr/Ajax-B_Pub/fr/contact.php'>ajaxbrowser.free.fr</a>)";

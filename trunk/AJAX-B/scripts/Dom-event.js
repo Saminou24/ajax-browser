@@ -101,6 +101,7 @@ function _rename ()
 		baliseName = ID(SelectLst[0]).childNodes[0].childNodes[0].childNodes[1].childNodes[1];
 		ptrRen.style.top = (baliseName.offsetTop)+"px";
 		ptrRen.style.left = baliseName.offsetLeft+"px";
+alert(baliseName.offsetTop+"="+ptrRen.style.top+"\n"+baliseName.nodeName+"\n"+baliseName.innerHTML);
 		ptrRen.style.display = "block";
 		ptrRen.defaultValue = SelectLst[0];
 		ptrRen.value = basename(base64.decode(SelectLst[0]));

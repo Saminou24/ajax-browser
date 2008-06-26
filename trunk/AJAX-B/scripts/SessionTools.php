@@ -90,7 +90,6 @@ $ajaxb_conf_exemple = array (
 	if (!file_exists($file_blacklist)) file_put_contents($file_blacklist, 'array()');
 	if ((!file_exists($file_accounts) || filesize($file_accounts)<100) && empty($_SESSION['AJAX-B']))
 	{
-		$ErrrorMsg .= ErrorReported (__FILE__, __LINE__ - 2);
 		if ($code1==$code2 && !empty($login))
 		{
 			$account_exemple['droits']['GLOBAL_SETTING']=true;
@@ -100,7 +99,6 @@ $ajaxb_conf_exemple = array (
 		}
 		else
 		{
-			$ErrrorMsg .= ErrorReported (__FILE__, __LINE__ - 2);
 ?>
 <html>
 	<head>

@@ -9,16 +9,13 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
 
-// if (getcwd() != UTF8dirname(__FILE__))
-// 	chdir(UTF8dirname(__FILE__));
-
 foreach($_POST as $key=>$val)
 	${$key}=$val;
 foreach($_GET as $key=>$val)
 	${$key}=$val;
 
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "1.0.00-ProMulti_PreAlpha-Testing.Firefox.Konqueror.IE7.Opera.Netscape");
+define("VERSION", "1.0.01-Pro_Multi_Navigators");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
 require (INSTAL_DIR . 'scripts/PHPTools.php');		// always loaded

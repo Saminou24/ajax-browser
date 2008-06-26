@@ -101,13 +101,16 @@ function SizeAll($path)
 function CountDir($path, $recursive=true)
 {
 	$nbr = 0;
-	$dir = opendir($path);
-	while ($file = readdir($dir))
+	if (is_readable($path))
 	{
-		if ($file!="." && $file !="..")
+		$dir = opendir($path);
+		while ($file = readdir($dir))
 		{
-			if (is_dir($path."/".$file) && ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.', $file)))
-				$nbr += $recursive ? CountDir($path."/".$file, $recursive)+1 : 1;
+			if ($file!="." && $file !="..")
+			{
+				if (is_dir($path."/".$file) && ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.', $file)))
+					$nbr += $recursive ? CountDir($path."/".$file, $recursive)+1 : 1;
+			}
 		}
 	}
 	return $nbr;
@@ -116,15 +119,18 @@ function CountFile($path, $recursive=true)
 {
 	global $match;
 	$nbr = 0;
-	$dir = opendir($path);
-	while ($file = readdir($dir))
+	if (is_readable($path))
 	{
-		if ($file!="." && $file !="..")
+		$dir = opendir($path);
+		while ($file = readdir($dir))
 		{
-			if (is_file($path."/".$file) && ArrayMatch(explode(',', $match), $path."/".$file) && ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.', $file)))
-				$nbr ++;
-			elseif (is_dir($path."/".$file) && $recursive)
-				$nbr += CountFile ($path."/".$file, $recursive);
+			if ($file!="." && $file !="..")
+			{
+				if (is_file($path."/".$file) && ArrayMatch(explode(',', $match), $path."/".$file) && ($_SESSION['AJAX-B']['droits']['.VIEW'] || !ereg ('^\.', $file)))
+					$nbr ++;
+				elseif (is_dir($path."/".$file) && $recursive)
+					$nbr += CountFile ($path."/".$file, $recursive);
+			}
 		}
 	}
 	return $nbr;
