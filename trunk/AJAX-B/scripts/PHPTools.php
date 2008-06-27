@@ -93,16 +93,13 @@ function AddWatermark($src, $dir, $wmk)
 		mkdir(UTF8dirname($FileDest), 0777, true);
 	if(($src_size = getimagesize($src))!=false && ($wmk_size = getimagesize($wmk))!=false)
 	{
-		if (function_exists('imagejpeg'))
+		if (function_exists('imagecopyresampled'))
 		{
-			if ($src_size[0]>$wmk_size[0] && $src_size[1]>$wmk_size[1]);
-			elseif($wmk_size[0]/$src_size[0]-$wmk_size[1]/$src_size[1])
-				$wmk = CreatMini($wmk , $_SESSION['AJAX-B']['mini_dir'], $src_size[0], true);
-			else
-				$wmk = CreatMini($wmk , $_SESSION['AJAX-B']['mini_dir'], $src_size[0], true);
 			$wmk_img = imagecreatefrompng($wmk);
-			imagealphablending($wmk_img,true);
-			switch ($src_size[2])					// avant de travailler sur une image il faut la decompresser
+			imagealphablending ( $wmk_img , true );
+			imagesavealpha ( $wmk_img , true );
+
+			switch ($src_size[2])
 			{
 				case 1:
 					$dest_img = imagecreatefromgif($src);
@@ -114,10 +111,20 @@ function AddWatermark($src, $dir, $wmk)
 					$dest_img = imagecreatefrompng($src);
 					break;
 			}
-			imagealphablending($dest_img,true);
-			imagecopy($dest_img, $wmk_img, ($src_size[0]-$wmk_size[0])/2, ($src_size[1]-$wmk_size[1])/2, 0, 0, $wmk_size[0], $wmk_size[1]);
-			imageinterlace($dest_img, 1);
-			imagejpeg($dest_img, $FileDest, 80); // Envoie une image JPEG de la RAM vers un fichier
+			imagealphablending ( $dest_img , true );
+			imagesavealpha ( $dest_img , true );
+
+			$coef = (imagesx($dest_img)/imagesx($wmk_img) > imagesy($dest_img)/imagesy($wmk_img)) ? imagesy($dest_img)/imagesy($wmk_img) : imagesx($dest_img)/imagesx($wmk_img);
+			$src_w = imagesx($wmk_img);
+			$src_h = imagesy($wmk_img);
+			$dst_w = (int)($coef*$src_w);
+			$dst_h = (int)($coef*$src_h);
+			$dst_x = (imagesx($dest_img)-$dst_w)/2;
+			$dst_y = (imagesy($dest_img)-$dst_h)/2;
+			imagecopyresampled($dest_img, $wmk_img, $dst_x, $dst_y, 0, 0, $dst_w, $dst_h, $src_w, $src_h);
+
+// 			imagepng($dest_img, $FileDest); // Envoie une image JPEG de la RAM vers un fichier
+			imagejpeg($dest_img, $FileDest); // Envoie une image JPEG de la RAM vers un fichier
 			imagedestroy($dest_img);// Vide la memoire RAM allouee a l'image $dest_img
 			imagedestroy($wmk_img);// Vide la memoire RAM allouee a l'image $dst_img
 			if (!is_file($FileDest))
