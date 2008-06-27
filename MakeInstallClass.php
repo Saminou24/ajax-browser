@@ -17,23 +17,10 @@ $intaller = new MakeIntall (
 	'version' => $_GET['version'],
 	'projetName'=> 'AJAX-Browser',
 
-	'addons' => '<li><b>PHP5.0 is needed</b></li>
-<li>Alway include the old function</li>
-<li><b>Include Watermark on picture for no download avaible accounts</b></li>
-<li><b>Include Archives functions Download/Extract/Infos for ZIP,TAR,GZIP,BZIP2</b></li>
-<li><b>CodePress (Real Time Syntax Highlighting Editor) open, editing and saving</b> Beta Version</li>
-<li>Debug url for open file action</li>
-<li>Improve opening behaviour with double-click or press [Enter] with or without [Ctrl] key</li>
-<li>Without access authorization the parent folder is not browsable but all link are browsable.</li>
-<li>Debug picture loading in gallery mode</li>
-<li>File Uploading debug</li>
-<li>NOW AVAIBLE : UTF8 Capability</li>
-<li>You have the possibility to diferenciate Watermark depending on users, like that ./AJAX-B/icones/<b>Watermark-USERNAME.png</b></li>
-<li>VIEW and SUBLSTOF request mode now accept standard file adress ex: ?mode=request&sublstof=./</li>
-<li>I have added the MATCH filter, you can use it to find quickly one file : the folder size will be 0 Oct if there is no match.</li>
-<li>Add new function named <b>UltraDownload Web2Web</b>, you can start a download to a web file directly to your web serveur without download on your computer</li>
-<li>Debug php and alert on wrong login</li>
-<li>Debug <b>EasyArchive</b> TGZ and TBZ2</li>
+	'addons' => '<li>For PRO Version <b>PHP5.0 is needed</b></li>
+<li>Since V1.0.00</li>
+<li>IE7, Opera works in part</li>
+<li>Debug <b>Watermark</b> and improve method (now is on the middle and maximized for image fullsize)</li>
 ',
 
 	'comment' => '-------------------------------------------------
