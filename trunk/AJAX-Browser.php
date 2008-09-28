@@ -15,14 +15,14 @@ foreach($_GET as $key=>$val)
 	${$key}=$val;
 
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "1.0.02-Pro_BestWatermark");
+define("VERSION", "1.0.052-Pro_chmod-chgrp-chown");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
-require (INSTAL_DIR . 'scripts/PHPTools.php');		// always loaded
-require (INSTAL_DIR . 'scripts/ExploreTools.php');	// always loaded
-	require (INSTAL_DIR . 'Language en.php');	// always loaded
-require (INSTAL_DIR . 'scripts/SessionTools.php');	// always loaded
-require (INSTAL_DIR . 'scripts/UrlTools.php');		// always loaded
+require (INSTAL_DIR . 'scripts/PHPTools.php');
+require (INSTAL_DIR . 'scripts/ExploreTools.php');
+	require (INSTAL_DIR . 'Language en.php');
+require (INSTAL_DIR . 'scripts/SessionTools.php');
+require (INSTAL_DIR . 'scripts/UrlTools.php');
 
 if (isset($_SESSION['AJAX-B']['language_file']) && is_file(INSTAL_DIR . $_SESSION['AJAX-B']['language_file']))
 	require (INSTAL_DIR . $_SESSION['AJAX-B']['language_file']);

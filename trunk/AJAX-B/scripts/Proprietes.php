@@ -3,11 +3,26 @@
 	<tbody>
 		<tr>
 <?php
-/*
-chown(,);
-chgrp(,);
-chmod(,);
-*/
+function chmodnum($mode)
+{
+	$mode = str_pad($mode,9,'-'); // comble les manques.
+	$mode = strtr($mode, array('-'=>'0','r'=>'4','w'=>'2','x'=>'1'));
+	$newmode = '';
+	return '0'+$mode[0]+$mode[1]+$mode[2].$mode[3]+$mode[4]+$mode[5].$mode[6]+$mode[7]+$mode[8];
+}
+function chmodowngrp($path, $uid, $gid, $mode)
+{ // ATTENTION CECI EST SOUMIS AUX D'ACCES ACTUEL DE CHAQUE ELEMENT
+	if (is_dir($path))
+	{
+		$dir = opendir($path);
+		while ($file = readdir($dir))
+			if ($file != "." && $file != "..") chmodowngrp($path."/".$file, $uid, $gid, $mode);
+	}
+	@chown($path, $uid);
+	@chgrp($path, $gid);
+	@chmod($path, $mode); // chmodnum($mode));
+}
+
 	$lst = explode(',',$infos);
 	if (count($lst)==1)
 	{
