@@ -8,6 +8,10 @@
 <script language="javascript" type="text/javascript" src="<?php echo INSTAL_DIR; ?>/edit_area/edit_area_functions.js"></script>
 <script language="javascript" type="text/javascript">
 	ABS900='erreur !';
+	var ServActPage = ((top.location.href.split("?"))[0]);
+	lstGet = location.search.slice(1,window.location.search.length).split("&");
+		for(i=0;lstGet[i];i++)
+			eval((lstGet[i].split("="))[0]+"='"+(lstGet[i].split("="))[1]+"';");
 	var RQT=
 	{
 		xmlDoc : Object,
@@ -60,7 +64,7 @@
 		RQT.get
 		(ServActPage,
 			{
-				parameters:'mode=request&cpsave='+view+'&data64='+Data64,
+				parameters:'mode=request&easave='+view+'&data64='+Data64,
 				onEnd:'top.document.title=base64.decode(view)+" => Last Saved : "+request.responseText;'
 			}
 		);
