@@ -95,25 +95,24 @@ function AddWatermark($src, $dir, $wmk)
 	{
 		if (function_exists('imagecopyresampled'))
 		{
-			$wmk_img = imagecreatefrompng($wmk);
+			$wmk_img = @imagecreatefrompng($wmk);
 			imagealphablending ( $wmk_img , true );
 			imagesavealpha ( $wmk_img , true );
 
 			switch ($src_size[2])
 			{
 				case 1:
-					$dest_img = imagecreatefromgif($src);
+					$dest_img = @imagecreatefromgif($src);
 					break;
 				case 2:
-					$dest_img = imagecreatefromjpeg($src);
+					$dest_img = @imagecreatefromjpeg($src);
 					break;
 				case 3:
-					$dest_img = imagecreatefrompng($src);
+					$dest_img = @imagecreatefrompng($src);
 					break;
 			}
 			imagealphablending ( $dest_img , true );
 			imagesavealpha ( $dest_img , true );
-
 			$coef = (imagesx($dest_img)/imagesx($wmk_img) > imagesy($dest_img)/imagesy($wmk_img)) ? imagesy($dest_img)/imagesy($wmk_img) : imagesx($dest_img)/imagesx($wmk_img);
 			$src_w = imagesx($wmk_img);
 			$src_h = imagesy($wmk_img);
@@ -123,10 +122,11 @@ function AddWatermark($src, $dir, $wmk)
 			$dst_y = (imagesy($dest_img)-$dst_h)/2;
 			imagecopyresampled($dest_img, $wmk_img, $dst_x, $dst_y, 0, 0, $dst_w, $dst_h, $src_w, $src_h);
 
-// 			imagepng($dest_img, $FileDest); // Envoie une image JPEG de la RAM vers un fichier
+// 			imagepng($dest_img, $FileDest); // Envoie une image PNG de la RAM vers un fichier
 			imagejpeg($dest_img, $FileDest); // Envoie une image JPEG de la RAM vers un fichier
 			imagedestroy($dest_img);// Vide la memoire RAM allouee a l'image $dest_img
 			imagedestroy($wmk_img);// Vide la memoire RAM allouee a l'image $dst_img
+
 			if (!is_file($FileDest))
 				return FileIco ($src);
 			else return $FileDest;

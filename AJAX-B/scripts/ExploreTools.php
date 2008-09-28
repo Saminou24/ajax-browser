@@ -21,7 +21,7 @@ function InfosByURL ($url, $allinfos=true, $base64=false)
 	{
 		$infos['basename'] = $base64 ? encode64(UTF8basename($url)) : UTF8basename($url);
 		$infos['size'] = GetFileSize($url);
-		$infos['type'] = function_exists('mime_content_type') ? str_replace(array("\t",'application'), array("",'appli.'), @mime_content_type($url)) : 'ext/'.strtolower(@pathinfo($url, PATHINFO_EXTENSION));
+		$infos['type'] = (function_exists('mime_content_type') && @mime_content_type($url)!="") ? str_replace(array("\t",'application'), array("",'appli.'), @mime_content_type($url)) : 'ext/'.strtolower(@pathinfo($url, PATHINFO_EXTENSION));
 	}
 	else
 	{
