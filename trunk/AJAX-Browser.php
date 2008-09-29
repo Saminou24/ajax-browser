@@ -15,7 +15,7 @@ foreach($_GET as $key=>$val)
 	${$key}=$val;
 
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "1.0.052-Pro_chmod-chgrp-chown");
+define("VERSION", "1.0.053-Pro_EditArea");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
 require (INSTAL_DIR . 'scripts/PHPTools.php');

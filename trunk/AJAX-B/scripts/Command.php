@@ -88,7 +88,7 @@ elseif(isset($view))
 			}
 		}
 		elseif (ArrayMatch ($_SESSION['AJAX-B']['codepress_mask'], strtolower(UTF8basename($file))) && ($_SESSION['AJAX-B']['droits']['CP_VIEW'] || $_SESSION['AJAX-B']['droits']['CP_EDIT']))
-			include (INSTAL_DIR.'edit_area/index.php');
+			include (INSTAL_DIR.'scripts/EditArea.php');
 		else
 		{
 			header('Location:'.$file);

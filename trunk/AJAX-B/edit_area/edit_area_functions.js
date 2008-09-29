@@ -1012,6 +1012,7 @@
 					$(i).options[j].selected=true;
 			}
 		}
+	
 	};
 
 	// change tab for displaying a new one
