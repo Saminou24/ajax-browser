@@ -88,10 +88,14 @@ function keyDown(e){
 				use=true;
 				editArea.execCommand("redo");
 				break;
+			case "s": // marche pas
+				use=true;
+				editArea.execCommand("save");
+				break;
 			default:
-				break;			
-		}		
-	}		
+				break;
+		}
+	}
 	
 	// check to disable the redo possibility if the textarea content change
 	if(editArea.next.length > 0){
