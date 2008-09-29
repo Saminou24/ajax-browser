@@ -115,4 +115,4 @@ var base64 = {
 		}
 		return string;
 	}
-}
+};
