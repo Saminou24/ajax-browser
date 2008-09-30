@@ -16,32 +16,37 @@
 	{
 		eval((lstGet[i].split("="))[0]+"='"+(lstGet[i].split("="))[1]+"';");
 	}
+	var _title = basename (base64.decode(view));
+	top.document.title=_title;
+
 	function SaveMe (id, content)
 	{
 		RQT.get
 		(ServActPage,
 			{
 				parameters:'mode=request&cpsave='+view+'&data64='+base64.encode(content),
-				onEnd:'top.document.title=base64.decode(view)+" => Last Saved : "+request.responseText;'
+				onEnd:'top.document.title=_title+" => Saved : "+request.responseText;'
 			}
 		);
 	}
-// 	function NotSaved (id, content)
-// 	{
-// 		top.document.title="*"+base64.decode(view)
-// 	}
+	function basename (str)
+	{
+		var tmp = str.split('/').pop();
+		if (tmp==='') {return str.slice(0,-1).split('/').pop();}
+		return tmp;
+	}
 </script>
 <script language="javascript" type="text/javascript">
 	editAreaLoader.init({
-	 id : "textarea_1"		// textarea id
-	,syntax: "php"			// syntax to be uses for highgliting
-// 	,start_highlight: false		// to display with highlight mode on start-up
+	 id : "textarea_1"
+	,syntax: "php"
+// 	,start_highlight: false
 	,language: "en"
 	,allow_resize: "no"
 	,allow_toggle: false
 	,browsers: "all"
 	,toolbar: "save, |, search, go_to_line, |, undo, redo, |, charmap, select_font, syntax_selection, |, change_smooth_selection, highlight, reset_highlight, |, help"
-	,syntax_selection_allow: "css,html,js,php,python,vb,xml,c,cpp,sql,basic,pas,brainfuck"
+	,syntax_selection_allow: "css,html,js,php,python,vb,xml,c,cpp,basic,pas,brainfuck,sql,ruby,robotstxt,tsql,perl,coldfusion"
 	,plugins: "charmap"
 	,fullscreen: true
 <?php
@@ -50,7 +55,7 @@
 ?>
 //         ,show_line_colors: false
 //         ,display: "onload"
-//         ,begin_toolbar: ""
+//         ,begin_toolbar: "salut"
 //         ,end_toolbar: ""
 //         ,font_size: 10
 //         ,font_family: "monospace"
