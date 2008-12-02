@@ -1,6 +1,5 @@
 <html style="padding:0px;margin:0px;">
 <body>
-<pre>
 <?php
 // script by Evrard Ludovic (Web-Creator.be) 2008
 
@@ -67,28 +66,87 @@ else
 {
 ?>
 	<style>
-	<!--
-	.test
-	{
-		margin: 10px;
-		background: #c0c0c0;
-	}-->
+	BODY {
+		width:100%;height:100%;
+		padding:0px;margin:0px;border:0px;
+		background-image: url("http://ajaxbrowser.free.fr/logo.png");
+		background-position: bottom right;
+		background-repeat:no-repeat;}
+	div {
+/* 		width:100%; */
+	}
+	.ChoseBox {
+/* 		display:none; */
+		margin: 0px;
+		padding: 2px 5px;
+/* 		width:100%; */
+/* 		border : solid gray 1px; */
+/* 		background: rgb(220,230,255); */
+	}
+	.ChoseBox over {
+/* 		background: rgb(220,230,255); */
+	}
+	#barre {
+		background-color:rgb(220,230,255);
+		border-top:1px solid gray;
+		border-bottom:1px solid gray;
+		border-spacing:0px;
+		padding:2px;
+		margin:0px 0px;
+		width:100%;
+	}
+	table {
+		width:100%;
+	}
+	.box {
+		background-color:rgb(230,250,210);
+		border:1px solid gray;
+		
+	}
 	</style>
+<br>
+<div id='barre'></div>
+
+
+
+<table>
+<colgroup> <col width='50%'><col width='50%'><col></colgroup>
+<tbody>
+	<tr>
+		<td>
+<h3 class="ChoseBox" id="titleWaitFile">h3</h3>
+<div id="waitFile">
+</div>
+		</td>
+		<td class='box'>
+		</td>
+	</tr>
+	<tr>
+		<td>
 	<div id="uploadContent">
-		<span class="test" id="uploadMessage">T&eacute;l&eacute;chargement en cours</span>
+		<span class="ChoseBox" id="uploadMessage">T&eacute;l&eacute;chargement en cours</span>
 		<span id="parent1">chargement</span>
 	</div>
-	<h3 id="titleWaitFile">Fichier en attente:</h3>
-	<div id="waitFile">
-	</div>
+			
+		</td>
+		<td>
+			<button href="javascript:jsUpload(1);"><?php echo $ABS[806];?></button>
+		</td>
+	</tr>
+</tbody>
+</table>
+
+
+
 	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-Upload.js"></script>
-	<a href="javascript:jsUpload(1);">go</a>
+	<IMG src="<?php echo INSTAL_DIR; ?>icones/Download.png" title="<?php echo $ABS[204];?>"/>
+	<IMG src="<?php echo INSTAL_DIR; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/>
 <?php
 }
 ?>
-</pre>
-</body>
 
+</body>
+</html>
 
 
 <?php
