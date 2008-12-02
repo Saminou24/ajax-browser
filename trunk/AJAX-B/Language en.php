@@ -188,6 +188,7 @@ $ABS = array( // Ajax Browser Sentences
 803 => 'You are not allowed to upload this type of file',
 804 => 'Error, file not received',
 805 => 'No file uploaded',
+806 => 'Uploaded file(s) now !',
 
 // fichiers *.JS
 900 => 'Server error!',
