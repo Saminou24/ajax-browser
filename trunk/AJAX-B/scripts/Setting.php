@@ -40,7 +40,7 @@ if (!empty($_SESSION['AJAX-B']['ajaxb_miror']))
 	</tr>
 	<tr>
 		<td colspan="2"><?php echo $ABS[511];?><br/>
-			<INPUT class="w3" name="codepress_mask" id="codepress_mask" type="text" ondblclick="this.value='*.html,*.txt,*.php,*.php5,*.asp,*.*~';" value="<?php echo implode(',',$GLOBALS['AJAX-Var']['global']['codepress_mask']);?>">
+			<INPUT class="w3" name="codepress_mask" id="codepress_mask" type="text" ondblclick="this.value='*.htm*,*.txt,*.php,*.php5,*.asp,*.*~,.ht*,*.js,*.spy,*.conf,*.lst';" value="<?php echo implode(',',$GLOBALS['AJAX-Var']['global']['codepress_mask']);?>">
 		</td>
 	</tr>
 	<tr><td colspan="2"><br/></td></tr>

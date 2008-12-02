@@ -52,7 +52,7 @@ function _enter (event)
 }
 function _upload()
 {
-	PtrWindow = window.open(ServActPage+"?mode=request&dest="+getDest()+'&upload=', getDest(),"menubar=no,toolbar=no,tabbar=no,locationbar=no,resizable,scrollbars,status,top=0,left=0,width=450,height=50");
+	PtrWindow = window.open(ServActPage+"?mode=request&dest="+getDest()+'&upload=', getDest(),"menubar=no,toolbar=no,tabbar=no,locationbar=no,resizable,scrollbars,status,top=0,left=0,width=450,height=250");
 	if (PtrWindow === null) {alert (ABS907);}
 
 }

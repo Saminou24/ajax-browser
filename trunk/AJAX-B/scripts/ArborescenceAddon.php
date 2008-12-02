@@ -1,5 +1,5 @@
 <script type="text/javascript">
- 	model = "<?php echo str_replace(array('"',"\n"), array('\"','\n'), $modelArbs); ?>";
+	model = "<?php echo str_replace(array('"',"\n"), array('\"','\n'), $modelArbs); ?>";
 ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
 function RequestLoad(dir64, force)
 {
@@ -27,7 +27,7 @@ function RequestLoad(dir64, force)
 }
 function OpenDir (dir64, array)
 {
- 	var i, Include='', IndentImg='',LstIndent='';
+	var i, Include='', IndentImg='',LstIndent='';
 	IndentImg =(Open_Dir= ID(dir64)).childNodes[0].childNodes[0].childNodes[0];
 	for (i=0;i<IndentImg.childNodes.length-1;i++)
 		LstIndent += "<IMG  src='"+IndentImg.childNodes[i].src+"' />";
