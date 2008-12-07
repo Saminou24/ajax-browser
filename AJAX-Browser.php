@@ -15,7 +15,7 @@ foreach($_GET as $key=>$val)
 	${$key}=$val;
 
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "1.0.053-Pro_EditArea");
+define("VERSION", "1.0.054-Pro_Upload.Inspired.By_Web-Creator.be");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
 require (INSTAL_DIR . 'scripts/PHPTools.php');
