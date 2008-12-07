@@ -1,7 +1,7 @@
 <html style="padding:0px;margin:0px;">
 <body>
 <?php
-// script by Evrard Ludovic (Web-Creator.be) 2008
+// script inspired by Evrard Ludovic (Web-Creator.be) 2008
 
 // 	ini_set('upload_tmp_dir','./'); //    * upload_tmp_dir
 // 	ini_set('file_uploads','true'); //    * file_uploads
@@ -13,7 +13,7 @@
 
 if($_POST['send'] == 'true')
 {
-	print_r($_FILES);
+	$img = INSTAL_DIR."icones/CloseX.png";
 	if (!empty($_FILES))
 	{
 		if (!empty($_FILES['file']))
@@ -25,39 +25,40 @@ if($_POST['send'] == 'true')
 					$DestFile = decode64($dest).$_FILES['file']['name'];
 					if (move_uploaded_file($_FILES['file']['tmp_name'], $DestFile))
 					{
-						echo $DestFile.' > Complet ('.SizeConvert(filesize ($DestFile)).')<br>';
 						if ($_SESSION['AJAX-B']['spy']['action'])
-						      file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/upload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$DestFile.' ('.SizeConvert(filesize ($DestFile)).")\n", FILE_APPEND);
+						{
+							file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/upload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$DestFile.' ('.SizeConvert(filesize ($DestFile)).")\n", FILE_APPEND);
+						}
+						$title = $DestFile.' > Complet ('.SizeConvert(filesize ($DestFile)).')<br>';
+						$img = INSTAL_DIR."icones/Download.png";
+						$ok="parDoc.getElementById('uploadContent'+par.f).innerHTML = '';";
 					}
-					else echo $ABS[801].$DestFile."<br>".$ABS[802].' '.decode64($dest)."<br />";
+					else $title = $ABS[801].$DestFile."<br>".$ABS[802].' '.decode64($dest);
 				}
-				else echo $ABS[803]."<br />";
+				else $title = $ABS[803];
 			}
-			else echo $ABS[804]." : \"".$_FILES['file']['name']."\"<br />";
+			else $title = $ABS[804]." : ".$_FILES['file']['name'];
 		}
-		else echo $ABS[805]."<br />";
+		else $title = $ABS[805];
 	}
 ?>
 	<script language="JavaScript" type="text/javascript">
 	var parDoc = window.parent.document;
 	var par = parent;
-	var next = par.alreadySend+1;
-// 	alert(par.currentFile.length);
-	if(par.currentFile.length != par.alreadySend)
+	if(par.i > par.f)
 	{
-		par.jsUpload(next);
-// 		alert('Encore...');
+		parDoc.getElementById('file'+par.f).src="<?php echo $img;?>";
+		parDoc.getElementById('file'+par.f).title="<?php echo $title;?>";
+		parDoc.getElementById('progress1').style.width=Math.round((par.f+1)/(par.i-1)*100)+"%";
+		parDoc.getElementById('box').innerHTML = Math.round((par.f+1)/(par.i-1)*100) + "%";
+		<?php echo $ok;?>
+		(par.f)++;
+		par.jsUpload();
 	}
 	else
 	{
-		parDoc.getElementById("uploadMessage").innerHTML = "T&eacute;l&eacute;chargement termin&eacute;";
-// 		parDoc.getElementById("titleWaitFile").display = 'none';
-		parDoc.getElementById("waitFile").display = 'none';
-		par.deleteUpload('parent1');
+		par.f=0;
 	}
-// 	delete par.currentDisplayFile[0];
-	par.currentDisplayFile.splice(0,1);
-	par.modifyDisplayWait();
 	</script>
 <?php
 	exit();
@@ -68,121 +69,141 @@ else
 	<style>
 	BODY {
 		width:100%;height:100%;
+		font-size:12px;
 		padding:0px;margin:0px;border:0px;
 		background-image: url("http://ajaxbrowser.free.fr/logo.png");
 		background-position: bottom right;
-		background-repeat:no-repeat;}
+		background-repeat:no-repeat;
+	}
 	div {
-/* 		width:100%; */
+		font-size:12px;
+		font-family:sans-serif;
+		padding:3px 0px;
+		margin:0px;
 	}
-	.ChoseBox {
-/* 		display:none; */
-		margin: 0px;
-		padding: 2px 5px;
-/* 		width:100%; */
-/* 		border : solid gray 1px; */
-/* 		background: rgb(220,230,255); */
+	span {
+		font-size:12px;
+		font-family:sans-serif;
+		padding:0px;
+		margin:0px;
 	}
-	.ChoseBox over {
-/* 		background: rgb(220,230,255); */
-	}
-	#barre {
-		background-color:rgb(220,230,255);
+	.barre {
 		border-top:1px solid gray;
 		border-bottom:1px solid gray;
+		padding:0px;
+		margin:0px;
+		width:100%;
+	}
+	.progress{
+ 		background-color:rgb(120,130,255);
 		border-spacing:0px;
-		padding:2px;
-		margin:0px 0px;
+		padding:3px 0px;
+		margin:1px 0px;
+		width:0%;
+	}
+	table, tr {
+		font-size:12px;
 		width:100%;
 	}
-	table {
+	button, form, input {
+		padding:0px;
+		margin:0px;
+		text-align:center;
+	}
+	td {
+		font-size:12px;
+		vertical-align:middle;
+		padding:0px;
+		margin:0px;
+	}
+	}
+	.center{
+		text-align:center;
 		width:100%;
 	}
-	.box {
-		background-color:rgb(230,250,210);
-		border:1px solid gray;
-		
+	img {
+		padding:0px;
+		margin:0px 0px -3px 0px;
+	}
+	.zero {
+		padding:0px;
+		margin:0px;
+		border:0px;
 	}
 	</style>
-<br>
-<div id='barre'></div>
-
-
-
+<span class='center'><?php echo decode64($dest);?></span>
+<div class='barre'><div id='progress1' class='progress'></div></div>
 <table>
-<colgroup> <col width='50%'><col width='50%'><col></colgroup>
+<colgroup> <col width='50%'><col width='50%'></colgroup>
 <tbody>
 	<tr>
-		<td>
-<h3 class="ChoseBox" id="titleWaitFile">h3</h3>
-<div id="waitFile">
-</div>
+		<td colspan=2>
+			<br />
 		</td>
-		<td class='box'>
+	</tr>
+	<tr class="green">
+		<td>
+			<div id="waitFile">
+			</div>
+		</td>
+		<td id='box' class='center'>
 		</td>
 	</tr>
 	<tr>
-		<td>
-	<div id="uploadContent">
-		<span class="ChoseBox" id="uploadMessage">T&eacute;l&eacute;chargement en cours</span>
-		<span id="parent1">chargement</span>
-	</div>
-			
+		<td colspan=2>
+			<hr />
 		</td>
-		<td>
-			<button href="javascript:jsUpload(1);"><?php echo $ABS[806];?></button>
+	</tr>
+	<tr>
+		<td id="uploadContent">
+		</td>
+		<td style="text-align:center;">
+			<button onclick="jsUpload();"><?php echo $ABS[806];?></button>
 		</td>
 	</tr>
 </tbody>
 </table>
-
-
-
-	<script type="text/javascript" src="<?php echo INSTAL_DIR; ?>scripts/Dom-Upload.js"></script>
-	<IMG src="<?php echo INSTAL_DIR; ?>icones/Download.png" title="<?php echo $ABS[204];?>"/>
-	<IMG src="<?php echo INSTAL_DIR; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/>
+<div id='iframe'></div>
 <?php
 }
 ?>
-
 </body>
+<script language="JavaScript" type="text/javascript">
+
+var dest = "<?php echo $dest;?>";
+var i = 0;
+var f = 0;
+createNewUpload();
+
+function createNewUpload()
+{
+		document.getElementById('iframe').innerHTML += '<iframe class="zero" frameborder="0" height="15" width="100%" style="display:none;" id="iframe'+i+'" name="iframe'+i+'"></iframe>';
+		newform=document.createElement("div");
+		newform.setAttribute("id", "uploadContent"+i);
+		newform.setAttribute("title", "");
+		newform.setAttribute("class", "zero");
+		document.getElementById('uploadContent').appendChild(newform);
+		document.getElementById('uploadContent'+i).innerHTML = '<form action="" id="form'+i+'" method="post" target="iframe'+i+'" enctype="multipart/form-data"><input type="hidden" id="dest" name="dest" value="'+dest+'" /><input type="hidden" name="send" id="send" value="true" /><input type="file" name="file" id="file" onChange="AddWait(this);createNewUpload();" /></form>';
+		i++;
+}
+function AddWait (ptrThis)
+{
+	if (ptrThis.value != undefined)
+	{
+		ptrThis.parentNode.style.display='none';
+		document.getElementById('waitFile').innerHTML += '<IMG id="file'+(i-1)+'" value="'+ptrThis.value+'" src="<?php echo INSTAL_DIR; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/> - '+ptrThis.value+'<br>';
+	}
+}
+function jsUpload ()
+{
+	formPtr=document.getElementById('form'+f);
+	if (formPtr)
+	{
+		document.getElementById('file'+(f)).src="<?php echo INSTAL_DIR; ?>icones/Loading.gif";
+		document.getElementById('progress1').style.width=Math.round((f+0.5)/(i-1)*100)+"%";
+		document.getElementById('box').innerHTML = Math.round((f+0.5)/(i-1)*100) + "%";
+		formPtr.submit();
+	}
+}
+</script>
 </html>
-
-
-<?php
-// 
-// echo '<body style="font-size:10px;padding:0px;margin:0px;" onload=""><img src="'.INSTAL_DIR.'icones/loader-2.gif" style="display:none;">';
-// if (!empty($_FILES))
-// {
-// }
-// if (isset($ultradownload) && strpos($ultradownload, '://')!=0)
-// {
-// 	echo $GetFile = $ultradownload;
-// 	echo $start = microtime_float();
-// 	$New = file_get_contents($GetFile);
-// 	file_put_contents (decode64($dest).UTF8basename($GetFile), $New);
-// 	$end = microtime_float();
-// 	if (is_file($New))
-// 	{
-// 		echo SizeConvert(filesize($version)).' > '.$end-$start." sec\n";
-// 		if ($_SESSION['AJAX-B']['spy']['action'] && filesize(decode64($dest).UTF8basename($GetFile)) == strlen($New))
-// 			file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/ultraDownload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$GetFile.' > '.SizeConvert(filesize($New)).' > '.$end-$start." sec\n", FILE_APPEND);
-// 	}
-// }
-// else
-// {
-// 	echo $ABS[804]." : \"".$_FILES['aFile']['name']."\"<br />";
-// }
-// echo "Destination : ".decode64($dest)." ";?>
-<!--		<form METHOD="post" action="" enctype="multipart/form-data" style="padding:0px;margin:0px;">
-			<input type="hidden" name="dest" value="< ?php echo $dest;?>">
-			<label>Ultra Download (Web to Web)</label><br/>
-			<input type="input" name="ultradownload" value=""><input type="submit" onclick="this.parentNode.parentNode.firstChild.style.display='block';this.parentNode.style.display='none';" value="<?php echo $ABS[10];?>"><br/>
-		</form>
-		<form METHOD="post" action="" enctype="multipart/form-data" style="padding:0px;margin:0px;">
-			<input type="hidden" name="dest" value="< ?php echo $dest;?>">
-			<label>Upload (Your file to Web)</label><br/>
-			<input type="file" name="aFile" style="" onchange="this.parentNode.parentNode.firstChild.style.display='block';this.parentNode.style.display='none';this.parentNode.submit();">
-		</form>
-	</body>
-</html>-->
