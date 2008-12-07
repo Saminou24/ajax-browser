@@ -29,11 +29,11 @@ if($_POST['send'] == 'true')
 						{
 							file_put_contents ($_SESSION['AJAX-B']['spy_dir'].'/upload.spy', $_SESSION['AJAX-B']['login'].' ['.date ("d/m/y H:i:s",time()).'] > '.$DestFile.' ('.SizeConvert(filesize ($DestFile)).")\n", FILE_APPEND);
 						}
-						$title = $DestFile.' > Complet ('.SizeConvert(filesize ($DestFile)).')<br>';
+						$title = $DestFile.' > Complet ('.SizeConvert(filesize ($DestFile)).')';
 						$img = INSTAL_DIR."icones/Download.png";
-						$ok="parDoc.getElementById('uploadContent'+par.f).innerHTML = '';";
+						$ok="parDoc.getElementById('send'+par.f).value = 'false';";
 					}
-					else $title = $ABS[801].$DestFile."<br>".$ABS[802].' '.decode64($dest);
+					else $title = $ABS[801].$DestFile." - ".$ABS[802].' '.decode64($dest);
 				}
 				else $title = $ABS[803];
 			}
@@ -45,20 +45,13 @@ if($_POST['send'] == 'true')
 	<script language="JavaScript" type="text/javascript">
 	var parDoc = window.parent.document;
 	var par = parent;
-	if(par.i > par.f)
-	{
-		parDoc.getElementById('file'+par.f).src="<?php echo $img;?>";
-		parDoc.getElementById('file'+par.f).title="<?php echo $title;?>";
-		parDoc.getElementById('progress1').style.width=Math.round((par.f+1)/(par.i-1)*100)+"%";
-		parDoc.getElementById('box').innerHTML = Math.round((par.f+1)/(par.i-1)*100) + "%";
-		<?php echo $ok;?>
-		(par.f)++;
-		par.jsUpload();
-	}
-	else
-	{
-		par.f=0;
-	}
+	parDoc.getElementById('file'+par.f).src="<?php echo $img;?>";
+	parDoc.getElementById('file'+par.f).title="<?php echo $title;?>";
+	parDoc.getElementById('progress1').style.width=Math.round((par.f)/(par.i-1)*100)+"%";
+	parDoc.getElementById('box').innerHTML = Math.round((par.f)/(par.i-1)*100) + "%";
+	<?php echo $ok;?>
+	(par.f)++;
+	par.jsUpload();
 	</script>
 <?php
 	exit();
@@ -130,17 +123,15 @@ else
 		margin:0px;
 		border:0px;
 	}
+	#waitFile {
+		margin:5px;
+	}
 	</style>
 <span class='center'><?php echo decode64($dest);?></span>
 <div class='barre'><div id='progress1' class='progress'></div></div>
 <table>
 <colgroup> <col width='50%'><col width='50%'></colgroup>
 <tbody>
-	<tr>
-		<td colspan=2>
-			<br />
-		</td>
-	</tr>
 	<tr class="green">
 		<td>
 			<div id="waitFile">
@@ -157,8 +148,8 @@ else
 	<tr>
 		<td id="uploadContent">
 		</td>
-		<td style="text-align:center;">
-			<button onclick="jsUpload();"><?php echo $ABS[806];?></button>
+		<td style="text-align:center;" id="action">
+			<= <?php echo $ABS[807];?>
 		</td>
 	</tr>
 </tbody>
@@ -171,38 +162,59 @@ else
 <script language="JavaScript" type="text/javascript">
 
 var dest = "<?php echo $dest;?>";
-var i = 0;
-var f = 0;
+var i = 1;
+var f = 1;
 createNewUpload();
 
 function createNewUpload()
 {
-		document.getElementById('iframe').innerHTML += '<iframe class="zero" frameborder="0" height="15" width="100%" style="display:none;" id="iframe'+i+'" name="iframe'+i+'"></iframe>';
-		newform=document.createElement("div");
-		newform.setAttribute("id", "uploadContent"+i);
-		newform.setAttribute("title", "");
-		newform.setAttribute("class", "zero");
-		document.getElementById('uploadContent').appendChild(newform);
-		document.getElementById('uploadContent'+i).innerHTML = '<form action="" id="form'+i+'" method="post" target="iframe'+i+'" enctype="multipart/form-data"><input type="hidden" id="dest" name="dest" value="'+dest+'" /><input type="hidden" name="send" id="send" value="true" /><input type="file" name="file" id="file" onChange="AddWait(this);createNewUpload();" /></form>';
-		i++;
+	document.getElementById('iframe').innerHTML += '<iframe class="zero" frameborder="0" height="15" width="100%" style="display:none;" id="iframe'+i+'" name="iframe'+i+'"></iframe>';
+	newform=document.createElement("div");
+	newform.setAttribute("id", "uploadContent"+i);
+	newform.setAttribute("title", "");
+	newform.setAttribute("class", "zero");
+	document.getElementById('uploadContent').appendChild(newform);
+	document.getElementById('uploadContent'+i).innerHTML = '<form action="" id="form'+i+'" method="post" target="iframe'+i+'" enctype="multipart/form-data"><input type="hidden" id="dest" name="dest" value="'+dest+'" /><input type="hidden" name="send" id="send'+i+'" value="true" /><input type="file" name="file" id="file" onChange="i++;AddWait(this);createNewUpload();" /></form>';
 }
 function AddWait (ptrThis)
 {
 	if (ptrThis.value != undefined)
 	{
 		ptrThis.parentNode.style.display='none';
-		document.getElementById('waitFile').innerHTML += '<IMG id="file'+(i-1)+'" value="'+ptrThis.value+'" src="<?php echo INSTAL_DIR; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/> - '+ptrThis.value+'<br>';
+		document.getElementById('waitFile').innerHTML += '<IMG id="file'+(i-1)+'" num="'+(i-1)+'" onclick="toggle('+(i-1)+');" value="'+ptrThis.value+'" src="<?php echo INSTAL_DIR; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/> - '+ptrThis.value+'<br>';
+	}
+	document.getElementById('action').innerHTML = '<button onclick="jsUpload();"><?php echo $ABS[806];?></button><button onclick="location.reload();"><?php echo $ABS[40];?></button>';
+}
+function toggle (num)
+{
+	sendPtr=document.getElementById('send'+num);
+	if (sendPtr.value=="true")
+	{
+		sendPtr.value = false;
+		document.getElementById('file'+num).src="<?php echo INSTAL_DIR;?>icones/Sup.png";
+	}
+	else
+	{
+		sendPtr.value = true;
+		document.getElementById('file'+num).src="<?php echo INSTAL_DIR;?>icones/Upload.png";
 	}
 }
 function jsUpload ()
 {
-	formPtr=document.getElementById('form'+f);
-	if (formPtr)
+	while (document.getElementById('send'+f).value != "true" && f<i)
+	{
+		f++;
+	}
+	if (document.getElementById('form'+f) && document.getElementById('file'+(f)))
 	{
 		document.getElementById('file'+(f)).src="<?php echo INSTAL_DIR; ?>icones/Loading.gif";
-		document.getElementById('progress1').style.width=Math.round((f+0.5)/(i-1)*100)+"%";
-		document.getElementById('box').innerHTML = Math.round((f+0.5)/(i-1)*100) + "%";
-		formPtr.submit();
+		document.getElementById('progress1').style.width=Math.round((f-0.5)/(i-1)*100)+"%";
+		document.getElementById('box').innerHTML = Math.round((f-0.5)/(i-1)*100) + "%";
+		document.getElementById('form'+f).submit();
+	}
+	else
+	{
+		f=1;
 	}
 }
 </script>

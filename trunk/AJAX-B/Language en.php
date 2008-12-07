@@ -47,12 +47,14 @@ $ABS = array( // Ajax Browser Sentences
 36 => 'Uncompress here',
 37 => 'Contribuer financierement aux ameliorations.',
 38 => 'Please active Java Script to use AJAX-Browser',
+39 => 'Refresh',
+40 => 'Clear all',
 
 // fichier ManageSuperGlobales.php
 100 => 'Cannot create file "*.conf" in "AJAX-B", please check access rights',
 101 => 'Setting file not found',
 102 => 'Please create an admin account:',
-103 => '?', // Probleme de configuration des session dans PHP.ini, verifier que : session.use_cookies=1',
+103 => 'PHP.ini problem, try with "session.use_cookies=1"',
 
 // fichier InitHTML.php
 200 => 'Website powered by AJAX-Browser application',
@@ -69,7 +71,7 @@ $ABS = array( // Ajax Browser Sentences
 211 => 'User Accounts management',
 212 => 'My User Profile management',
 213 => 'About : AJAX-Browser',
-214 =>'Manage accounts',
+214 => 'Manage accounts',
 
 // fichier ExplorerTools.php
 // fichier ArchiveTools.php
@@ -172,7 +174,7 @@ $ABS = array( // Ajax Browser Sentences
 // fichier Arborescence.php
 // fichier GallerieAddon.php
 // fichier Gallerie.php
-'getFF' => 'Download Mowilla Firefox and get the best from AJAX-Browser',
+'getFF' => 'Download an real WEB-browser like "Mowilla Firefox", "Konqueror", "Opera", "Google Chrome", "Epiphany" and get the best from AJAX-Browser',
 
 // fichier Contact.php
 701 => 'Your message was sent:',
@@ -189,6 +191,7 @@ $ABS = array( // Ajax Browser Sentences
 804 => 'Error, file not received',
 805 => 'No file uploaded',
 806 => 'Uploaded file(s) now !',
+807 => 'Add another file',
 
 // fichiers *.JS
 900 => 'Server error!',
@@ -204,5 +207,4 @@ $ABS = array( // Ajax Browser Sentences
 915 => 'no extention',
 916 => 'example: ',
 917 => 'Do you really want to permanently delete the selected items?',
-918 => 'Add another file',
 );?>
