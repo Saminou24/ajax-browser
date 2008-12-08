@@ -31,7 +31,7 @@ if($_POST['send'] == 'true')
 						}
 						$title = $DestFile.' > Complet ('.SizeConvert(filesize ($DestFile)).')';
 						$img = INSTAL_DIR."icones/Download.png";
-						$ok="parDoc.getElementById('send'+par.f).value = 'false';";
+						$ok="parent.document.getElementById('send'+parent.f).value = 'false';";
 					}
 					else $title = $ABS[801].$DestFile." - ".$ABS[802].' '.decode64($dest);
 				}
@@ -43,15 +43,13 @@ if($_POST['send'] == 'true')
 	}
 ?>
 	<script language="JavaScript" type="text/javascript">
-	var parDoc = window.parent.document;
-	var par = parent;
-	parDoc.getElementById('file'+par.f).src="<?php echo $img;?>";
-	parDoc.getElementById('file'+par.f).title="<?php echo $title;?>";
-	parDoc.getElementById('progress1').style.width=Math.round((par.f)/(par.i-1)*100)+"%";
-	parDoc.getElementById('box').innerHTML = Math.round((par.f)/(par.i-1)*100) + "%";
+	parent.document.getElementById('file'+parent.f).src="<?php echo $img;?>";
+	parent.document.getElementById('file'+parent.f).title="<?php echo $title;?>";
+	parent.document.getElementById('progress1').style.width=Math.round((parent.f)/(parent.i-1)*100)+"%";
+	parent.document.getElementById('box').innerHTML = Math.round((parent.f)/(parent.i-1)*100) + "%";
 	<?php echo $ok;?>
-	(par.f)++;
-	par.jsUpload();
+	(parent.f)++;
+	parent.jsUpload();
 	</script>
 <?php
 	exit();
@@ -117,6 +115,7 @@ else
 	img {
 		padding:0px;
 		margin:0px 0px -3px 0px;
+		cursor:pointer;
 	}
 	.zero {
 		padding:0px;
@@ -183,7 +182,7 @@ function AddWait (ptrThis)
 		ptrThis.parentNode.style.display='none';
 		document.getElementById('waitFile').innerHTML += '<IMG id="file'+(i-1)+'" num="'+(i-1)+'" onclick="toggle('+(i-1)+');" value="'+ptrThis.value+'" src="<?php echo INSTAL_DIR; ?>icones/Upload.png" title="<?php echo $ABS[206];?>"/> - '+ptrThis.value+'<br>';
 	}
-	document.getElementById('action').innerHTML = '<button onclick="jsUpload();"><?php echo $ABS[806];?></button><button onclick="location.reload();"><?php echo $ABS[40];?></button>';
+	document.getElementById('action').innerHTML = '<button onclick="jsUpload();"><?php echo $ABS[806];?></button><button onclick="location.href=location.href;"><?php echo $ABS[40];?></button>';
 }
 function toggle (num)
 {
@@ -207,13 +206,16 @@ function jsUpload ()
 	}
 	if (document.getElementById('form'+f) && document.getElementById('file'+(f)))
 	{
+		pct = Math.round((f-0.5)/(i-1)*100)+"%";
+		document.getElementById('progress1').style.width = pct;
+		document.getElementById('box').innerHTML = pct;
 		document.getElementById('file'+(f)).src="<?php echo INSTAL_DIR; ?>icones/Loading.gif";
-		document.getElementById('progress1').style.width=Math.round((f-0.5)/(i-1)*100)+"%";
-		document.getElementById('box').innerHTML = Math.round((f-0.5)/(i-1)*100) + "%";
 		document.getElementById('form'+f).submit();
 	}
 	else
 	{
+		document.getElementById('progress1').style.width="100%";
+		document.getElementById('box').innerHTML = "100%";
 		f=1;
 	}
 }
