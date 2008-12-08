@@ -47,6 +47,8 @@ $ABS = array( // Ajax Browser Sentences
 36 => 'Decompresser ici',
 37 => 'Contribuer ou financer.',
 38 => 'Veuillez activer le Java Script pour utiliser AJAX-Browser',
+39 => 'Rafraichir', // 'Refresh',
+40 => 'Effacer tout', // 'Clear all',
 
 // fichier ManageSuperGlobales.php
 100 => 'Impossible de créer le fichier ´*.conf´ dans ´.AJAX-B´ veuillez verifier les droits',
@@ -188,6 +190,8 @@ $ABS = array( // Ajax Browser Sentences
 803 => 'Ce type de fichier ne vous est pas autorisé à l´upload.',
 804 => 'Erreur, fichier non reçu',
 805 => 'Aucun fichier uploadé',
+806 => 'Envoyer maintenant !', // 'Uploaded file(s) now !',
+807 => 'Ajouter un fichier', // 'Add another file',
 
 // fichiers *.JS
 900 => 'Erreur serveur !',
