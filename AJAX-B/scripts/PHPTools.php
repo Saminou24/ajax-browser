@@ -62,7 +62,7 @@ function decode64($str)
 {	global $no64, $yes64; return base64_decode(str_replace($yes64,$no64,$str));}
 function SizeConvert ($Size)
 {
-	if ($Size<0) return 'To Big!';
+	if ($Size<0) return '-';
 	$UnitArray = array('Oct','Ko','Mo','Go','To');
 	$Unit=0;
 	while ($Size/pow(1024, $Unit)>1024) $Unit++;

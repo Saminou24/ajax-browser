@@ -97,7 +97,7 @@ function SizeConvert (Size)		// converti un nombre d'octés en taille en Ko, Mo,
 	var UnitArray = new Array('Oct','Ko','Mo','Go','To');
 	var POW = new Array(1, 1024, 1048576, 1073741824, 1099511627776);
 	var Unit=0;
-	if (Size==-1){ return ' - - ';}
+	if (Size<0){ return '-';}
 	while (Size/POW[Unit]>1024) {Unit=Unit+1;}
 	return Math.round(Size/POW[Unit]*Math.pow(10,Unit))/Math.pow(10,Unit)+' '+UnitArray[Unit];
 }
