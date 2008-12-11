@@ -26,7 +26,7 @@ function InfosByURL ($url, $allinfos=true, $base64=false)
 	else
 	{
 		$infos['basename'] = $base64 ? encode64(UTF8basename($url).'/') : UTF8basename($url).'/';
-		$infos['size'] = SizeDir ($url);
+		$infos['size'] = "-1";//SizeDir ($url);
 		$infos['type'] = 'Dossier';
 	}
 	if ($allinfos)

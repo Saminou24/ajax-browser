@@ -1,6 +1,8 @@
 <script type="text/javascript">
 	model = "<?php echo str_replace(array('"',"\n"), array('\"','\n'), $modelArbs); ?>";
-ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
+	ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
+	LoadLst = array();
+	self.setTimeout("loadDirSize",1000);
 function RequestLoad(dir64, force)
 {
 	if (!(ptr64 = ID(dir64)) || !is_dir(base64.decode(dir64))) return false;
@@ -30,16 +32,38 @@ function OpenDir (dir64, array)
 	var i, Include='', IndentImg='',LstIndent='';
 	IndentImg =(Open_Dir= ID(dir64)).childNodes[0].childNodes[0].childNodes[0];
 	for (i=0;i<IndentImg.childNodes.length-1;i++)
+	{
 		LstIndent += "<IMG  src='"+IndentImg.childNodes[i].src+"' />";
+	}
 	if (IndentImg.lastChild.src.indexOf("End")!=-1)
+	{
 		LstIndent += "<IMG  src='"+InstallDir+"icones/Vide.png' />";
+	}
 	else
+	{
 		LstIndent += "<IMG  src='"+InstallDir+"icones/Next.png' />";
+	}
 	for (i=1;i<array.length;i++)
+	{
 		Include += AddItem (base64.decode(dir64), array[i],LstIndent, (i==array.length-1)?"End":"");
+	}
 	Open_Dir.childNodes[1].innerHTML = Include;
 	Open_Dir.childNodes[1].style.display = "block";
 	IndentImg.lastChild.src = IndentImg.lastChild.src.replace("Loading.gif", "DirMoin.png");
+	LoadLst.sort();
+}
+function loadDirSize()
+{
+//	var item;
+//	for (i=1;i<array.length;i++)
+//	{
+//		while (item == (item = LoadLst.pop()));
+//		if (is_dir(item))
+//		{
+//			alert(item);
+//		}
+//	}
+//	self.setTimeout("loadDirSize",1000);
 }
 function AddItem (dir, element, LstIndent, end)
 {
@@ -62,6 +86,11 @@ function AddItem (dir, element, LstIndent, end)
 	Item = Item.replace(/%gid%/g, item[8]);
 	Item = Item.replace(/%droits%/g, item[4]);
 	Item = Item.replace(/%link%/g, is_dir(dir+item[0])?location.search.replace(racine64, base64.encode(dir+item[0])):'?mode=request&view='+base64.encode(dir+item[0]));
+	if (is_dir(item[0]))
+	{
+		LoadLst.push(dir+item[0]); // pop()
+// 		LoadLst.unshift()(base64.encode(dir+item[0])); // shift()
+	}
 	return Item;
 }
 function findItem64 (ptr)
