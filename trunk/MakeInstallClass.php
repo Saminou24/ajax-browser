@@ -19,11 +19,13 @@ $intaller = new MakeIntall (
 
 	'addons' => '<li>For PRO Version <b>PHP5.0 is needed</b> but include</li>
 <li>Include Archives functions Download/Extract/Infos for <b>ZIP,TAR,GZIP,BZIP2</b></li>
-<li><b>EditArea</b> (Real Time Syntax Highlighting Editor) open, editing and saving your sources code</li>
+<li><b>EditArea</b> (Real Time Syntax Highlighting Editor) open, editing and saving your sources code by Christophe Dolivet (www.cdolivet.net) 2008.</li>
 <li>Since V1.0.00</li>
 <li>Firefox and epiphany run perfectly but IE7, Opera, G-Chrome, Konqueror runs partially</li>
 <li>Debug <b>Watermark</b> and improve method (now is on the middle and maximized for image fullsize)</li>
 <li>Debug <b>mime</b> detection.</li>
+<li><b>New Upload manager</b> Inspired By : Evrard Ludovic (Web-Creator.be) 2008.</li>
+<li><b>Improve treeView loading time</b> DirSize are loading after treeView.</li>
 ',
 
 	'comment' => '-------------------------------------------------

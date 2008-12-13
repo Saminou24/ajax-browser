@@ -201,8 +201,8 @@ function vibre (nbr)
 	
 	for (var i = 0; i < 2*nbr; i++)
 	{
-		window.setTimeout("ptr = document.body;ptr.style.marginRight=0; ptr.style.marginLeft=-30;", i*100);
-		window.setTimeout("ptr = document.body;ptr.style.marginRight=-30; ptr.style.marginLeft=0;", i*100+50);
+		window.setTimeout("ptr = document.body;ptr.style.marginRight=0; ptr.style.marginLeft=-30;", i*120);
+		window.setTimeout("ptr = document.body;ptr.style.marginRight=-30; ptr.style.marginLeft=0;", i*120+60);
 	}
 	window.setTimeout("ptr = document.body;ptr.style.marginRight=0; ptr.style.marginLeft=0;", i*200+75);
 }

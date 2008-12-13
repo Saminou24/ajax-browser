@@ -258,6 +258,13 @@ elseif (isset($infos))
 {
 	include (INSTAL_DIR.'scripts/Proprietes.php');
 }
+elseif (isset($size))
+{
+/*	echo $size."<br />\n";
+	echo decode64 ($size)."<br />\n";
+	echo SizeDir ("./");*/
+	echo SizeDir (decode64 ($size));
+}
 elseif(isset($maj) && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING'])
 {
 	$repositoryURL = 'http://'.$_SESSION['AJAX-B']['ajaxb_miror'].REPOSITORY_FOLDER.'LastVersion.php';
