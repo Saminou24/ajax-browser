@@ -101,6 +101,16 @@ function SizeConvert (Size)		// converti un nombre d'octés en taille en Ko, Mo,
 	while (Size/POW[Unit]>1024) {Unit=Unit+1;}
 	return Math.round(Size/POW[Unit]*Math.pow(10,Unit))/Math.pow(10,Unit)+' '+UnitArray[Unit];
 }
+function SizeOctal (Size)
+{
+	var Unit=Size, str='';
+	while (Unit/1000>1)
+	{
+		str = Unit%1000 + ' ' + str;
+		Unit = Math.round(Unit/1000);
+	}
+	return Unit+' '+str;
+}
 function getCheckedRadio(radioObj)
 {
 	if (!radioObj) {return "";}

@@ -60,8 +60,14 @@ function GetFileSize($file)
 function SizeDir ($Folder)
 {
 	global $speed, $StartPhpScripte, $OverTime, $match;
-	$OverTime=3;
-	if (microtime_float()-$StartPhpScripte < $OverTime && count(explode($Folder,'/')) < 30)
+	$OverTime=10;
+	$strSize = explode("\n",@trim(`du -cs $Folder`));
+	list($size, ) = sscanf(array_pop($strSize), "%s %s");
+	if (ereg ("^[1-9][0-9]{1,99}$", $size))
+	{
+		return $size;
+	}
+	elseif (microtime_float()-$StartPhpScripte < $OverTime && count(explode($Folder,'/')) < 30)
 	{
 		$SizeAll=0;
 		$dirLst=DirSort ($Folder,'dir');
@@ -76,7 +82,7 @@ function SizeDir ($Folder)
 			foreach ($fileLst as $key => $file)
 				$SizeAll += GetFileSize($Folder.$file);
 		}
-		return sprintf("%u", $SizeAll);
+		return sprintf("%u", $SizeAll); // $SizeAll;//
 	}
 	else
 		return -1;
@@ -91,7 +97,7 @@ function SizeAll($path)
 		if ($file!="." && $file !="..")
 		{
 			if (is_file($path."/".$file))
-				$size+=@filesize($path."/".$file);
+				$size += GetFileSize($path."/".$file);
 			elseif (is_dir($path."/".$file))
 				$size +=SizeAll($path."/".$file);
 		}
