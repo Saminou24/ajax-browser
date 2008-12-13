@@ -169,6 +169,8 @@ $ABS = array( // Ajax Browser Sentences
 651 => 'Will be allowed to decompress ZIP, TAR, GZIP, BZIP2',
 652 => 'Remove from BlackList',
 653 => 'Setup new username :',
+654 => 'Check folder size (recursive)',
+655 => 'Can block AjaxBrowser or server, if the folder contains too many items.',
 
 // fichier ArborescenceAddon.php
 // fichier Arborescence.php

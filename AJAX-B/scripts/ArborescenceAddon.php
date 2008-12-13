@@ -3,7 +3,6 @@
 	ID('All').oncontextmenu=function (event) { event.stopPropagation();return false; }; // block le click droit sous firefox
 	LoadLst = new Array("<?php echo decode64($racine64);?>");
 // 	LoadLstUsed = false;
-	window.setTimeout("loadDirSize()",1000);
 function RequestLoad(dir64, force)
 {
 	if (!(ptr64 = ID(dir64)) || !is_dir(base64.decode(dir64))) return false;
@@ -51,31 +50,43 @@ function OpenDir (dir64, array)
 	Open_Dir.childNodes[1].innerHTML = Include;
 	Open_Dir.childNodes[1].style.display = "block";
 	IndentImg.lastChild.src = IndentImg.lastChild.src.replace("Loading.gif", "DirMoin.png");
+	window.setTimeout("loadDirSize()",1000);
 }
 function loadDirSize()
 {
+<?php
+	if ($_SESSION['AJAX-B']['droits']['DIRSIZE']) {
+?>
 	var item;
 	if (LoadLst.length>0)
 	{
 		while (item == (item = LoadLst.shift()));
-		if (is_dir(item))
+		item64 = base64.encode(item);
+		if (is_dir(item) && ID(item64))
 		{
-			item64 = base64.encode(item);
 			loadimg = "<IMG src='"+InstallDir+"icones/Loading2.gif'/>";
 			RQT.get (ServActPage, // on joint la page en cour
 				{
 					onStart:'ID("'+item64+'").childNodes[0].childNodes[1].childNodes[0].innerHTML="'+loadimg+'";',
 					parameters:'mode=request&size='+item64+'&match='+match,
 					onEnd:'ptr=ID("'+item64+'").childNodes[0].childNodes[1].childNodes[0];ptr.setAttribute("title",SizeOctal(request.responseText)+"Oct(s)");ptr.innerHTML=SizeConvert (request.responseText);loadDirSize();',
-					onError:'alert('+item+');LoadLst.push('+item+')!");loadDirSize();'
+					onError:'alert("'+item+'");LoadLst.push("'+item+'")!");loadDirSize();'
 				}
 			);
+		}
+		else
+		{
+			loadDirSize();
 		}
 	}
 	else
 	{
 		window.setTimeout("loadDirSize()",2*<?php echo $_SESSION['AJAX-B']['mini_intervale']; ?>);
 	}
+
+<?php 
+	}
+?>
 }
 function AddItem (dir, element, LstIndent, end)
 {

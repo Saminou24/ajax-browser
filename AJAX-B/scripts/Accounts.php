@@ -132,6 +132,8 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
                                 <label for="COPY" title="<?php echo $ABS[630]; ?>"><?php echo $ABS[629]; ?></label><br/>
                         <input name="MOVE" id="MOVE" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['MOVE']?'checked':'');?>>
                                 <label for="MOVE" title="<?php echo $ABS[632]; ?>"><?php echo $ABS[631]; ?></label><br/>
+                        <input name="DIRSIZE" id="DIRSIZE" type="checkbox" <?php echo ($GLOBALS['AJAX-Var']['accounts'][$UserName]['droits']['DIRSIZE']?'checked':'');?>>
+                                <label for="DIRSIZE" title="<?php echo $ABS[655]; ?>"><?php echo $ABS[654]; ?></label><br/>
                 </td>
         </tr>
         <tr><td colspan="2"><br/><?php echo $ABS[633]; ?></td></tr>
@@ -175,14 +177,14 @@ if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['A
                 <td class="button center" style="width:50%;" onclick="PopBox('mode=request&accounts=','OpenBox(request.responseText);')"><?php echo $ABS[4]; ?></td>
                 <td class="button center" style="width:50%;" onclick="form=document.forms[0];PopBox('mode=request<?php echo $StrToSaveThis;?>'+
 (form.NewCode.checked?'&code='+form.code.value:'')+ '&def_mode='+getCheckedRadio(form.def_mode)+ '&mini_size='+getCheckedRadio(form.mini_size)+ '&usr_email='+base64.encode(form.usr_email.value)+ '&LANG='+getCheckedRadio(form.LANG)<?php if ($_SESSION['AJAX-B']['droits']['GLOBAL_ACCOUNTS'] || ($UserName==$_SESSION['AJAX-B']['login'] && $_SESSION['AJAX-B']['droits']['GLOBAL_SETTING']))
-echo "+ '&def_racine='+base64.encode(form.def_racine.value)+ '&VIEWhiden='+form.VIEWhiden.checked+ '&VIEWparent='+form.VIEWparent.checked+ '&DEL='+form.DEL.checked+ '&NEW='+form.NEW.checked+ '&REN='+form.REN.checked+ '&COPIE='+form.COPY.checked+ '&MOVE='+form.MOVE.checked+ '&CP_VIEW='+form.CP_VIEW.checked+ '&CP_EDIT='+form.CP_EDIT.checked+ '&DOWNLOAD='+form.DOWNLOAD.checked+ '&GLOBAL_SETTING='+form.GLOBAL_SETTING.checked+ '&GLOBAL_ACCOUNTS='+form.GLOBAL_ACCOUNTS.checked+ '&UPLOAD='+getCheckedRadio(form.UPLOAD)+ '&UNCOMP='+form.UNCOMP.checked";?>, '<?php echo $onend;?>')"><?php echo $ABS[10]; ?></td>
+echo "+ '&def_racine='+base64.encode(form.def_racine.value)+ '&VIEWhiden='+form.VIEWhiden.checked+ '&VIEWparent='+form.VIEWparent.checked+ '&DEL='+form.DEL.checked+ '&NEW='+form.NEW.checked+ '&REN='+form.REN.checked+ '&COPIE='+form.COPY.checked+ '&MOVE='+form.MOVE.checked+ '&DIRSIZE='+form.DIRSIZE.checked+ '&CP_VIEW='+form.CP_VIEW.checked+ '&CP_EDIT='+form.CP_EDIT.checked+ '&DOWNLOAD='+form.DOWNLOAD.checked+ '&GLOBAL_SETTING='+form.GLOBAL_SETTING.checked+ '&GLOBAL_ACCOUNTS='+form.GLOBAL_ACCOUNTS.checked+ '&UPLOAD='+getCheckedRadio(form.UPLOAD)+ '&UNCOMP='+form.UNCOMP.checked";?>, '<?php echo $onend;?>')"><?php echo $ABS[10]; ?></td>
         </tr>
 </table>
 <?php
 }
 function saveAccount($UserName)
 {
-        global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $LANG, $UNCOMP, $file_accounts;
+        global $usr_email, $def_mode, $def_racine, $mini_size, $code, $VIEWhiden, $VIEWparent, $REN, $NEW, $COPIE, $MOVE, $DIRSIZE, $DEL, $CP_VIEW, $CP_EDIT, $DOWNLOAD, $GLOBAL_SETTING, $GLOBAL_ACCOUNTS, $UPLOAD, $LANG, $UNCOMP, $file_accounts;
         $droit = $_SESSION['AJAX-B']['droits'];
         $is_admin = $droit['GLOBAL_ACCOUNTS'];
 
@@ -202,6 +204,7 @@ function saveAccount($UserName)
                         'NEW' => $is_admin?eval('return '.$NEW.';'):$droit['NEW'],
                         'COPY' => $is_admin?eval('return '.$COPIE.';'):$droit['COPY'],
                         'MOVE' => $is_admin?eval('return '.$MOVE.';'):$droit['MOVE'],
+                        'DIRSIZE' => $is_admin?eval('return '.$DIRSIZE.';'):$droit['DIRSIZE'],
                         'DEL' => $is_admin?eval('return '.$DEL.';'):$droit['DEL'],
                         'CP_VIEW' => $is_admin?eval('return '.$CP_VIEW.';'):$droit['CP_VIEW'],
                         'CP_EDIT' => $is_admin?eval('return '.$CP_EDIT.';'):$droit['CP_EDIT'],
