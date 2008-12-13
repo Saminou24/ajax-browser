@@ -29,6 +29,7 @@ $account_exemple = array (
 		'NEW' => FALSE, 				// make new folder or file
 		'COPY' => FALSE, 				// copy item(s)
 		'MOVE' => FALSE, 				// move item(s)
+		'DIRSIZE' => FALSE, 				// Check foldersize
 		'DEL' => FALSE, 				// remove definitively item(s)
 		'CP_VIEW' => FALSE, 			// view item with CodePress
 		'CP_EDIT' => FALSE, 			// edit item with CodePress

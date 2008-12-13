@@ -9,7 +9,7 @@
  | only if this copyright statement is not removed
  +--------------------------------------------------*/
  $parent64=encode64(UnRealPath(decode64($racine64).'../'));?>
-<div class="_DivGroup" id="<?php echo $parent64;?>">
+<div class="_DivGroup" id="_<?php echo $parent64;?>">
 	<div class="This" title="<?php echo decode64($parent64);?>" onclick="location.href='<?php echo str_replace($racine64, $parent64, RebuildURL())?>'">
 		<span class="left">
 			<span class="IndentImg"><IMG class="curshand" src="<?php echo INSTAL_DIR; ?>icones/type-folder...png"/></span>
