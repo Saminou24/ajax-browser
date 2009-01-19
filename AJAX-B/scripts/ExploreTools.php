@@ -61,8 +61,10 @@ function SizeDir ($Folder)
 {
 	global $speed, $StartPhpScripte, $OverTime, $match;
 	$OverTime=10;
-	$strSize = explode("\n",@trim(`du -cs $Folder`));
-	list($size, ) = sscanf(array_pop($strSize), "%s %s");
+	$conv = array('K'=>1024,'M'=>1024*1024,'G'=>1024*1024*1024,'T'=>1024*1024*1024*1024);
+	$strSize = explode("\n",@trim(`du -csh $Folder`));
+	list($size,$unit, ) = sscanf(array_pop($strSize), "%f%c %s");
+	$size = round($size*$conv[$unit]);
 	if (ereg ("^[1-9][0-9]{1,99}$", $size))
 	{
 		return $size;

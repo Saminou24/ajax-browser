@@ -126,11 +126,11 @@ function FileIco (File)
 	</td>
 	<td style='font-size:11px;font-weight:bold;font-style:italic;text-align:center;'>
 	<?php
-		$UrlLst = explode ('/', realpath(decode64($racine64)));
+		$UrlLst = explode ('/', @realpath(decode64($racine64)));
 		$url = '/';
 		foreach ($UrlLst as $dir)
 		{
-			$url = realpath($url.$dir).'/';
+			$url = @realpath($url.$dir).'/';
 			echo '<a href="'.str_replace($racine64, encode64(UnRealPath($url)), RebuildURL()).'">'.$dir.'/</a> ';
 		}
  	?>

@@ -15,7 +15,7 @@ foreach($_GET as $key=>$val)
 	${$key}=$val;
 
 define("INSTAL_DIR", "./AJAX-B/");
-define("VERSION", "1.0.057-Pro_DirSize_loading_after_treeView");
+define("VERSION", "1.0.58-Pro_DirSize_loading_after_treeView");
 define("REPOSITORY_FOLDER", "/AJAX-B_Pro/");
 
 require (INSTAL_DIR . 'scripts/PHPTools.php');
