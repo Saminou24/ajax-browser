@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>EditArea Test</title>
-<script language="javascript" type="text/javascript" src="<?php echo INSTAL_DIR; ?>/scripts/AJAX.js"></script>
-<script language="javascript" type="text/javascript" src="<?php echo INSTAL_DIR; ?>/scripts/UTF8Base64.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo INSTAL_DIR; ?>/scripts/Dom-AJAX.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo INSTAL_DIR; ?>/scripts/Dom-UTF8Base64.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo INSTAL_DIR; ?>/edit_area/edit_area.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo INSTAL_DIR; ?>/edit_area/edit_area_loader.js"></script>
 <script language="javascript" type="text/javascript" src="<?php echo INSTAL_DIR; ?>/edit_area/edit_area_functions.js"></script>

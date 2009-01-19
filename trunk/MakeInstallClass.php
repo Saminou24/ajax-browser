@@ -10,6 +10,7 @@
  +--------------------------------------------------*/
 
 /// ************ My exemple of use *************
+require 'jsmin.php';
 
 $intaller = new MakeIntall (
 	array
@@ -38,7 +39,7 @@ $intaller = new MakeIntall (
  | only if this copyright statement is not removed
  +--------------------------------------------------',
 
-	'includes'=>array('./AJAX-B/','./AJAX-Browser.php'),
+	'includes'=>array('./AJAX-B/','./AJAX-Browser.php','./UnInstall_AJAX-Browser.php'),
 	'excludes'=>array('*~','*.conf','*.svn/*','*Mini/*','*Spy/*', '*/Watermark-*.png'),
 	'filesName' => array('../AJAX-B_Pro/AJAX-B_%version%.php','./LastVersion.php','../AJAX-B_Pro/LastVersion.php'),
 	'no_replace'=>array('*.conf','*.png','*.gif'),
@@ -187,12 +188,18 @@ class MakeIntall
 			foreach ($this->options['excludes'] as $out)
 				if (fnmatch($out, $item)) $no++;
 			if (!$no && !in_array($item,$this->files_list))
-				$this->files_list[$item] = base64_encode(file_get_contents($item));
+				if (strtolower(pathinfo($item,PATHINFO_EXTENSION))=='js')
+					$this->files_list[$item] = base64_encode(JSMin::minify(file_get_contents($item)));
+				else
+					$this->files_list[$item] = base64_encode(file_get_contents($item));
 		}
 		foreach ($this->options['includes'] as $item)
 		{
 			if (!is_dir($item) && file_exists($item))
-				$this->files_list[$item] = base64_encode(file_get_contents($item));
+				if (strtolower(pathinfo($item,PATHINFO_EXTENSION))=='js')
+					$this->files_list[$item] = base64_encode(JSMin::minify(file_get_contents($item)));
+				else
+					$this->files_list[$item] = base64_encode(file_get_contents($item));
 		}
 		return $this->files_list;
 	}
