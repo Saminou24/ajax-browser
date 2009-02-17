@@ -1,0 +1,74 @@
+<?
+function lang()
+{
+	$GLOBALS['lang'] = 'en';
+	if (isset($_REQUEST['lang'])==TRUE and empty($_REQUEST['lang'])==FALSE)
+	{
+		$i18n = 'i18n-'.$_REQUEST['lang'].'.php';
+		if (file_exists($i18n)==TRUE)
+		{
+			$GLOBALS['lang'] = $_REQUEST['lang'];
+		} else { echo "<span id='unsup-lang'>You language isn't yet supported. Contact us to add it.</span>"; }
+	}
+
+	return $GLOBALS['lang'];
+}
+
+function i18n($key, $lang = FALSE, $dico = 'i18n')
+{// return the correspondant string in the set language (set $lang override the Globals set);
+	$i18n = 'i18n-'.lang().'.php';
+	if ($lang==FALSE)
+	{
+	} else
+	{// we request a special language dictionnary
+		if (file_exists('i18n-'.$lang.'.php')==TRUE)
+		{
+			$i18n = 'i18n-'.$lang.'.php';
+		}
+	}
+	require $i18n; //require_once doesn't overwrite the current $GLOBALS var !!
+// 	echo 'lang: '; dump($lang); echo 'key: '; dump($key); echo '$GLOBALS[\'i18n\'][$key]: '; dump($GLOBALS['i18n'][$key]);
+	return $GLOBALS[$dico][$key];
+
+}
+
+function get_i18n($trans, $dico = 'i18n')
+{// return the key of a translation
+	//echo 'get_i18n:'; dump(array_search($trans, $GLOBALS[$dico]));
+// 	dump($trans);
+	return array_search(strtolower($trans), $GLOBALS[$dico]);
+}
+
+function parse_query_string()
+{// drop the lang parameter
+	$GLOBALS['QS'] = ereg_replace('lang='.lang().'&?', '', $_SERVER['QUERY_STRING']);
+// 	dump($GLOBALS['QS']);
+}
+
+function translate_QS($lang = FALSE, $dico = 'i18n')
+{// Translate each parameter by is equivalent
+	parse_str($_SERVER['QUERY_STRING'], $arr);
+// 	dump($lang.'+'.$arr['lang']);
+	unset($arr['lang']);
+
+	if ($lang==lang() or $lang==FALSE)
+	{// no translation if request translation == current language
+		return http_build_query($arr, '', '&amp;');
+	} else
+	{
+		foreach ($arr as $key => $param)
+		{
+			$arr[$key] = i18n(get_i18n($param, $dico), $lang, $dico);
+		}
+		//dump($arr);
+		require 'i18n-'.lang().'.php'; // switch back to the current language
+		return http_build_query($arr, '', '&amp;');
+	}
+
+}
+
+
+
+
+
+?>
