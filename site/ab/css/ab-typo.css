@@ -1,0 +1,48 @@
+@charset "utf-8"
+
+p:first-letter {
+	margin-left: 1.5em;
+}
+img { border: none;}
+
+
+/* MENU (NAVIGATION) */
+#menu li {
+	list-style-type: none;
+}
+#menu .current {
+	border-bottom: 2px solid #999;
+}
+
+/* FOOTER */
+#footer, #lang {
+	text-align: center
+}
+#lang li {
+	list-style-type: none;
+	opacity: 0.4;
+}
+#lang li:hover, #lang .active {
+	opacity: 1;
+}
+button {
+/* 	background-color: #99ff33; */
+	border: thin outset #99ff33;
+}
+
+/* SCREENSHOTS */
+#screenshots li[title]:after {
+	content: attr(title);
+	text-align: center;
+	color: #bbb;
+}
+#screenshots li[title]:hover:after {
+	color: #333;
+}
+
+/* DEMO */
+object {
+	border: thin inset #aaa;
+	background-color: #ddd;
+	width: 25%;
+}

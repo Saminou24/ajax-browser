@@ -1,0 +1,12 @@
+<?
+	function downloadable_list()
+	{
+		for ($i=0; $i<8; $i++)
+		{
+			$file = 'fichier-'.$i.'.php';
+			$changelog = 'changelog-'.$i.'.txt';
+			echo "<li>download <a href='/_files/misc/downloads/{$file}'>{$file}</a>,
+			see the <a href='/_files/misc/releases_notes/{$changelog}'>{$changelog}</a>&thinsp;;</li>";
+		}
+	}
+?>
