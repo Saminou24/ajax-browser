@@ -1,0 +1,46 @@
+@charset "utf-8"
+
+.clear { clear: both; }
+.h {
+	position: absolute;
+	left: -999em;
+}
+
+/* MENU (NAVIGATION) */
+#menu li {
+	float: left;
+	padding: 0 .5em;
+}
+
+
+/* FOOTER */
+#lang {
+
+}
+#lang li {
+	float: left;
+	padding: 0 .5em;
+}
+#footer>br { margin-bottom: .5em;}
+
+
+
+/* SCREENSHOTS */
+#screenshots>li {
+	float: left;
+	display: table-cell;
+}
+#screenshots>li>a {
+	display:table-cell;
+	height: 275px;
+	vertical-align:middle;
+}
+#screenshots img {
+	padding: .25em;
+	margin: .5em;
+}
+#screenshots li[title]:after {
+	display: block;
+	margin-top: -.5em;
+	margin-bottom: .5em;
+}
