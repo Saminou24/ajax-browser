@@ -1,5 +1,0 @@
-<KrossScripting>
-  <collection comment="Tools" name="tools" text="Tools" >
-    <script icon="text-x-python" comment="Middle mouse click on a widget in any KDE app initiates TM search in all opened Lokalize windows" name="widget-text-capture" file="widget-text-capture.py" interpreter="python" text="Widget text capture" />
-  </collection>
-</KrossScripting>
