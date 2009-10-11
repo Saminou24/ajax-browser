@@ -1,0 +1,67 @@
+<?php
+class features {
+  PUBLIC $PROPERTIES = array();
+  PUBLIC $OBJECTS = array();
+
+function header()
+{
+  $result = "<th class='hrow'>&nbsp;</th>";
+  $k = 0;
+  foreach ($this->OBJECTS as $object => $status)
+  {
+    $k++;
+    $result .= "\t<th class='move{$k}' scope='col'>{$object}</th>\n";
+  }
+  return $result;
+}
+
+function content()
+{
+  $result = "";
+  for ($i=0; $i<count($this->PROPERTIES); $i++)
+  {
+    $row = "<tr class='row".($i%2+1)."'>\n";
+    $row .= "\t<th class='hrow' scope='row'>".$this->PROPERTIES[$i]."</th>";
+    $k = 0;
+    foreach ($this->OBJECTS as $object => $status)
+    {
+      $k++;
+      $row .= "\t<td class='move{$k}'>{$status[$i]}</td>\n";
+    }
+    $result .= $row."</tr>\n";
+  }
+  return $result;
+}
+
+function colgroup() {
+  $result = "<colgroup>";
+  for ($i=0; $i<=count($this->OBJECTS); $i++)
+  {
+  $result .= "<col class='col{$i}' />";
+  }
+  $result .= "</colgroup>";
+  return   $result;
+}
+
+function comparator($sum)
+{
+  $header = $this->header();
+  $content = $this->content();
+  $colgroup = $this->colgroup();
+  $result = <<<TAB
+<div class='scroll'>
+  <table class='comparison' summary='{$sum}'>
+    <tr class='row2'>{$header}</tr>
+    {$content}
+  </table>
+</div>
+TAB;
+
+  return $result;
+}
+
+  function __construct()
+  {
+  }
+}
+?>

@@ -1,0 +1,202 @@
+<?php
+require_once 'DB_query.phpc';
+
+/*
+ *  Cette fonction prend comme argument $_SERVER["HTTP_ACCEPT_LANGUAGE"], et
+ *  renvoie un tableau contenant les langues acceptï¿½es par l'utilisateur par
+ *  ordre de prï¿½fï¿½rence
+ */
+
+/*
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You can get a copy of this license at http://www.gnu.org/licenses/gpl.txt.
+*/
+
+
+function get_pref_language_array($str_http_languages)
+{
+  $langs = explode(',',$str_http_languages);
+  $qcandidat = 0;
+  $nblang = count($langs);
+
+  for ($i=0; $i<$nblang; $i++)
+  {
+    for ($j=0; $j<count($langs); $j++) {
+      $lang = trim($langs[$j]); // Supprime les espaces avant et aprï¿½s $lang
+      // Lang est de la forme langue;q=valeur
+
+      if (!strstr($lang, ';') && $qcandidat != 1) {
+        // Si la chaine ne contient pas de valeur de prï¿½fï¿½rence q
+        $candidat = $lang;
+        $qcandidat = 1;
+        $indicecandidat = $j;
+      }
+      else {
+        // On rï¿½cupï¿½re l'indice q
+        $q = ereg_replace('.*;q=(.*)', '\\1', $lang);
+
+        if ($q > $qcandidat) {
+          $candidat = ereg_replace('(.*);.*', '\\1', $lang); ;
+          $qcandidat = $q;
+          $indicecandidat = $j;
+        }
+      }
+    }
+
+    $resultat[$i] = $candidat;
+
+    $qcandidat=0;
+    // On supprime la valeur du tableau
+    unset($langs[$indicecandidat]);
+    $langs = array_values($langs);
+  }
+  return $resultat;
+}
+
+
+
+function lang()
+{
+  $iso639 = array(
+    'cn' => 'zh_CN',
+    'en' => 'en_US',
+    'fr' => 'fr_FR',
+    'tw' => 'zh_TW'
+  );
+  $codeiso = 'en'; // default language
+  $domain = 'website'; // *.mo files
+
+  if (isset($_REQUEST['lang'])==TRUE and empty($_REQUEST['lang'])==FALSE)
+  {
+    $codeiso = $_REQUEST['lang'];
+  }
+
+  $locale = $iso639[$codeiso].'.utf-8';
+  putenv("LC_ALL=$locale"); //
+  setlocale(LC_ALL, $locale); // On modifie les informations de localisation en fonction de la langue
+
+  bindtextdomain($domain, "./locale"); // On indique le chemin vers les fichiers .mo
+  textdomain($domain); // Le nom du domaine par dÃ©faut
+
+  return $codeiso;
+}
+
+// function lang()
+// {
+// 	$GLOBALS['lang'] = 'fr'; // default language
+// 	if (isset($_REQUEST['lang'])==TRUE and empty($_REQUEST['lang'])==FALSE)
+// 	{
+// 		$i18n = 'i18n-'.$_REQUEST['lang'].'.php';
+// 		if (file_exists($i18n)==TRUE)
+// 		{
+// 			$GLOBALS['lang'] = $_REQUEST['lang'];
+// 		} else { echo "<span id='unsup-lang'>You language isn't yet supported. Contact us to add it.</span>"; }
+// 	}
+//
+// 	return $GLOBALS['lang'];
+// }
+
+// function i18n_dico($key, $lang = FALSE, $dico = 'i18n')
+// {// return the correspondant string in the set language (set $lang override the Globals set);
+// 	$i18n = 'i18n-'.lang().'.php';
+// 	if ($lang==FALSE)
+// 	{
+// 	} else
+// 	{// we request a special language dictionnary
+// 		if (file_exists('i18n-'.$lang.'.php')==TRUE)
+// 		{
+// 			$i18n = 'i18n-'.$lang.'.php';
+// 		}
+// 	}
+// 	require $i18n; //require_once doesn't overwrite the current $GLOBALS var !!
+// // 	echo 'lang: '; dump($lang); echo 'key: '; dump($key); echo '$GLOBALS[\'i18n\'][$key]: '; dump($GLOBALS['i18n'][$key]);
+// 	return $GLOBALS[$dico][$key];
+// }
+// function i18n($key, $lang = FALSE, $dico = 'i18n')
+// {# developpement shortcut
+// 	#dump($key);
+// 	return i18n_dico($key);
+// // 	return i18n_SQL($key);
+// }
+// // SQL VERSION
+// function i18n_SQL($key, $lang = FALSE, $dico = 'i18n')
+// // function i18n($key, $lang = FALSE, $dico = 'i18n')
+// {// return the correspondant string in the set language (set $lang override the Globals set);
+// 	$result = NULL;
+// 	$DB = new DB_query();
+// 	$lang = lang();
+//
+// 	$q = "SELECT COUNT(*) as `count` FROM `i18n` WHERE `i18n_lang_code`=:lang;";
+// 	$check = $DB->request($q, array(':lang'=> $lang));
+// // 	dump($check);
+// 	if ($check[0]['count']==0)
+// 	{//default = english
+// 		$lang = 'en';
+// 	}
+// 	$q = "SELECT `translation_value` as `value` FROM `translations`
+// 		WHERE `translation_lang_code`=:lang
+// 		AND `translation_key`=:key;";
+// 	$select = $DB->request($q, array(':lang'=> $lang, ':key'=> $key));
+// 	$result = $select[0]['value'];
+//
+// 	return $result;
+// }
+//
+// function _($str)
+// {// shortcut method to look for a filename based on the text
+// 	return i18n_dico($str, FALSE, 'i18n:file');
+// }
+
+
+function get_i18n_key($trans, $dico = 'i18n')
+{// return the key of a translation
+	//echo 'get_i18n:'; dump(array_search($trans, $GLOBALS[$dico]));
+// 	dump($trans);
+	return array_search(strtolower($trans), $GLOBALS[$dico]);
+}
+
+function parse_query_string()
+{// drop the lang parameter
+	$GLOBALS['QS'] = ereg_replace('lang='.lang().'&?', '', $_SERVER['QUERY_STRING']);
+// 	dump($GLOBALS['QS']);
+}
+
+function translate_QS($lang = FALSE, $dico = 'i18n')
+{// Translate Query String = each parameter by is equivalent
+  $result = preg_replace('/\&?lang=\w{2}/', '', $_SERVER['QUERY_STRING']);
+  return $result;
+// 	parse_str($_SERVER['QUERY_STRING'], $arr);
+// // 	dump($lang.'+'.$arr['lang']);
+// 	unset($arr['lang']);
+//
+// 	if ($lang==lang() or $lang==FALSE)
+// 	{// no translation if request translation == current language
+// 		return http_build_query($arr, '', '&amp;');
+// 	} else
+// 	{
+// 		foreach ($arr as $key => $param)
+// 		{
+// //       $arr[$key] = i18n_dico(get_i18n_key($param, $dico), $lang, $dico);
+//       $arr[$key] = i18n_dico(get_i18n_key($param, $dico), $lang, $dico);
+// 		}
+// 		//dump($arr);
+// // 		require 'i18n-'.lang().'.php'; // switch back to the current language
+// 		return http_build_query($arr, '', '&amp;');
+// 	}
+
+}
+
+
+
+
+
+?>

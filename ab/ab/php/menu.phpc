@@ -1,0 +1,40 @@
+<?php
+function build_menu()
+{
+_("Home");
+_("Features");
+_("Screenshots");
+_("Demo");
+_("Download");
+_("Help");
+_("Team");
+	$menu = array();
+	$menu[] = menu_item('Home', _('Overview.'), 'O');
+	$menu[] = menu_item('Features', _('Complete features list.'), 'T');
+	$menu[] = menu_item('Screenshots', _('Screen captures.'), 'S');
+	$menu[] = menu_item('Demo', _("Live demo (Pro version's )."));
+	$menu[] = menu_item('Download', _('Free, Pro & older versions.'), 'L');
+  $menu[] = menu_item('Help', _('Support: FAQ, Docs, Forums.'), 'H');
+// 	$menu[] = menu_item('FAQ', _('Frequent Asked Questions.'), 'Q');
+// 	$menu[] = menu_item('Documentation', _('Install and use-cases howto.'), 'D');
+// 	$menu[] = menu_item('Forum', _('French or English forum.'), 'F');
+// 	$menu[] = menu_item('Contact', _('If you need help or for any other raison.'), 'C');
+	$menu[] = menu_item('Team', _('Project collaborators.'), 'M');
+
+	return implode("\n", $menu);
+}
+
+function menu_item($label, $title, $key = NULL)
+{
+	//echo $label;
+	$status = status(strtolower($label));
+	if ($key!=NULL)
+	{
+		$accesskey = "accesskey='{$key}'";
+	} else { $accesskey = NULL; }
+	$ulabel = urlencode($label);
+  $label = _($label);
+	$item = "<li class='{$status}'><a href='?p={$ulabel}' title='{$title}' $accesskey >{$label}</a></li>";
+	return $item;
+}
+?>
