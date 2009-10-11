@@ -1,0 +1,6 @@
+<div id='note'>Notes:
+	<ul>
+		<li>menu à gauche</li>
+		<li>design léger</li>
+	</ul>
+</div>
