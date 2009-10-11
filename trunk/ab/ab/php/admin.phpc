@@ -1,0 +1,173 @@
+<?php
+class admin
+{
+	PRIVATE $LOGGED = FALSE;
+	PRIVATE $ERROR;
+
+	PRIVATE $ALGO = 'sha256';
+	PRIVATE $KEY =  'alban.lopez+ajaxbrowser@gmail.com';
+	PRIVATE $ADMIN_LOGIN = 'Ã©douard';
+	PRIVATE $CRYPT_password = 'cc3b4636229e8abaccfcf0d404d36a10407d617c26df826e74830946ebb74b13';
+// #####################################################
+// #####################################################
+	PRIVATE $DATA = '4j4xbr0ws3r'; // <--- DANS LE RAPPORTTTTTTTTT
+// #####################################################
+// #####################################################
+// 	PUBLIC $STR_STATUS = NULL;
+
+	function check_admin()
+	{// check the admin login and password. Default assumption is that they are both wrong
+
+		$login = @$_REQUEST['login'];
+		$password = @$_REQUEST['password'];
+		$pwd_hash = hash_hmac($this->ALGO, $password, $this->KEY);
+// 		echo hash_hmac($this->ALGO, '4j4xbr0ws3r', $this->KEY);
+		$result = FALSE;
+// 		$result = array('login'=>FALSE, 'password'=>FALSE);//allow more complex tests
+
+		if ($login!=$this->ADMIN_LOGIN)
+		{// wrong login
+			$this->ERROR[] = '<a href=\'#login\'>'._('admin|form#logger.label:login').'</a>&thinsp;;';
+		} //else { $result['login'] = TRUE; }
+		if ($pwd_hash!=$this->CRYPT_password)
+		{
+			$this->ERROR[] = '<a href=\'#password\'>'._('admin|form#logger.label:password').'</a>&thinsp;;';
+		} //else { $result['password'] = TRUE; }
+
+		if (empty($this->ERROR)==TRUE)
+		{// no errors encoutered
+			return TRUE;
+		} else {// at lest one error
+			return $result;
+		}
+	}
+
+	function display_error()
+	{// build the error block.
+		$result = '';
+
+		if (count($this->ERROR)>0)
+		{// any error
+			$result =  '<div id=\'admin-error\'><span>'._('admin|form#admin-error.span').'&thinsp;:</span><ul>';
+			foreach ($this->ERROR as $error)
+			{
+				$result .= '<li>'.$error.'</li>';
+			}
+			$result .= '</ul></div>';
+		}
+		return $result;
+	}
+
+	function h1() {
+		$result = array('root' => '<a href=\'?p='._('admin').'\'>'._('admin.h1').'</a>');
+// 		dump($_REQUEST['mode']);
+// 		dump(get_i18n_key($_REQUEST['mode'], 'i18n:file'));
+		if (set_arg('mode', __FILE__, __LINE__)==TRUE)
+		{// a mode is set
+			$result['mode'] = ' âº '.mb_convert_case($_REQUEST['mode'], MB_CASE_TITLE);
+			if (set_arg('date_news', __FILE__, __LINE__)==TRUE)
+			{// request a news
+				list($date_news, $lang) = explode('|', $_REQUEST['date_news']); // date_news=YYYY-MM-DD HH:MM:SS|XX
+				$result['mode'] = ' âº <a href=\'?p='._('admin').'&amp;mode='.$_REQUEST['mode'].'\'>'.mb_convert_case($_REQUEST['mode'], MB_CASE_TITLE).'</a>';
+				$result['news'] = ' âº '.mb_convert_case($date_news, MB_CASE_TITLE);
+			}
+		}
+		return implode($result);
+	}
+
+	function display_content()
+	{
+		if ($this->LOGGED==FALSE)
+		{
+			$login = set_arg('login', __FILE__, __LINE__);
+			$email = set_arg('email', __FILE__, __LINE__);
+			$error = NULL;
+			if ($login==TRUE)
+			{//
+				$error = $this->display_error();
+			}
+			require_once 'admin-logger.php';
+		} else
+		{// we are logged in, display the requested mode
+			//set_arg('mode', __FILE__, __LINE__)
+			$requested_mode = $_REQUEST['mode'];
+//       $requested_mode = urldecode($_REQUEST['mode']);
+
+			//echo 'mode: '.$requested_mode.'<br/>';
+			switch ($requested_mode)
+			{
+				case _('news-edit'):
+					require_once 'news.phpc'; // news list
+					$news = new news();
+					$news->MODE = 'edit';
+					echo $news->edit_mode();
+// 					require_once 'news-edit.php'; // news list
+        break;
+				case _('news-insert'):
+					require_once 'news.phpc'; // news list
+					$news = new news();
+					#$news->display_edit_form(); // news form
+					$news->MODE = 'insert';
+					echo $news->display_edit_form();
+// 					require_once 'news-insert.php'; // news list
+        break;
+				case _('news-preview'):
+					require_once 'news.phpc'; // news list
+					$news = new news();
+					$news->MODE = 'preview';
+					echo $news->edit_mode();
+					#require_once 'news-edit.php'; // news list
+					//$news->display_edit_form(); // news form
+        break;
+				case _('news-l10n'):
+					require_once 'news.phpc'; // news list
+					$news = new news();
+					$news->MODE = 'l10n';
+					echo $news->display_news_list();
+					$news->display_edit_form(); // news form
+        break;
+				case 'stats':
+					require_once 'admin-stats.php';
+        break;
+				case 'l10n':
+					require_once 'admin-l10n.php';
+        break;
+				default :
+					require_once 'admin-office.php';
+			}
+		}
+	}
+
+	function logged()
+	{// check logged status
+		$result = NULL;
+
+		if (isset($_SESSION['admin'])==TRUE)
+		{// display mini log-OUT on top right corner of the page
+			$result .= "<span id='log-out' title='"._('index#logout@title')."'><a href='?p=".urlencode(_('admin'))."&amp;logout=yes'>"._('index#logout')."</a></span>";
+		} else
+		{// display mini log-IN on top right corner of the page
+			$result .= "<span id='log-in' title='"._('index#login@title')."'><a href='?p=".urlencode(_('admin'))."'>"._('index#login')."</a></span>";
+		}
+		return $result;
+	}
+
+	function __construct()
+	{
+		if (isset($_REQUEST['logout'])==TRUE)
+		{// logout destroy the session
+			session_destroy();
+			unset($_SESSION);
+			$this->LOGGED = FALSE;
+		} elseif ($this->check_admin()==TRUE or isset($_SESSION['admin'])==TRUE)
+		{// when the user asked to logged-in
+			$this->LOGGED = TRUE;
+			$this->ERROR = array();
+			$_SESSION['admin'] = TRUE;
+// 			$this->STR_STATUS = "<span id='logout' title='"._('admin|office#logout@title')."'>"
+// 														."<a href='?p="._('admin')."&amp;logout'>"._('admin|office#logout')
+// 													."</a></span>";
+		} else {}
+	}
+}
+?>

@@ -1,0 +1,113 @@
+<?php
+function team()
+{
+$role = _('Role');
+$aka = _("<abbr title='Also Known As'>aka</abbr>");
+$country = _('Country');
+$email = _('E-mail');
+$webpage = _('Web page');
+
+function PRE_role($Roles)
+{
+	$result = '';
+	foreach ($Roles as $key => $role)
+	{
+		if (is_array($role)==TRUE)
+		{
+			$result .= '<strong>'.$key.'</strong> ';
+			$result .= '('.implode(', ', $role).')';
+		} else
+		{
+			$result .= '<strong>'.$role.'</strong>';
+		}
+		array_shift($Roles);
+		if (count($Roles)>0) { $result .= ', ';}
+	}
+	return $result;
+}
+
+foreach (team_member() as $member)
+	{
+		$photoID = photoID($member['name']);
+
+		$member['role'] = PRE_role($member['role']);
+
+		if ($member['website']!=NULL and empty($member['website'])==FALSE)
+		{// member has a website
+		$site = <<<SITE
+			<dt>{$webpage}&thinsp;:</dt>
+				<dd><a href='{$member['website']}'>{$member['website']}</a></dd>
+SITE;
+		} else { $site = NULL; }
+
+		echo <<<MEMBER
+<dt class='mb-id'><h3>{$member['name']}</h3></dt>
+	{$photoID}
+	<dd class='mb-desc'>
+		<dl>
+			<dt>{$role}&thinsp;:</dt>
+				<dd>{$member['role']}</dd>
+			<dt>{$country}&thinsp;:</dt>
+				<dd>{$member['country']}</dd>
+			<dt>{$email}&thinsp;:</dt>
+				<dd><a href='mailto:{$member['mail']}'>{$member['mail']}</a></dd>
+			{$site}
+		</dl>
+	</dd>
+MEMBER;
+
+	}
+}
+
+function team_member()
+{// connected to the database to list all members
+	$team = array(
+		0 => array(
+			'name' => 'Alban Lopez',
+			'aka' => 'sctfic',
+			'role' => array('Project Manager', 'Main developer'),
+			'country' => 'France',
+			'mail' => 'alban.lopez+ajaxbrowser@gmail.com',
+			'website' => NULL
+		),
+		1 => array(
+			'name' => 'Ãdouard Lopez',
+			'aka' => 'lyhana8',
+			'role' => array('Webmaster', 'Translator' => array('French', 'English'), 'Web Developer'),
+			'country' => 'France',
+			'mail' => 'edouard.lopez+ajaxbrowser@gmail.com',
+			'website' => 'http://lyhana8.homelinux.org/'
+		),
+		2 => array(
+			'name' => 'Hugo Lopez â ç¾ç¦¹å',
+			'aka' => 'Yug',
+			'role' => array('Translator' => array('Traditional Chinese')),
+			'country' => 'France, TaÃ¯wan',
+			'mail' => 'hugo.lpz+ajaxbrowser@gmail.com',
+			'website' => NULL
+		),
+		3 => array(
+			'name' => 'Boris Graeff',
+			'aka' => '?',
+			'role' => array('Graphist'),
+			'country' => 'France',
+			'mail' => '???+ajaxbrowser@gmail.com',
+			'website' => NULL
+		),
+	);
+
+	return $team;
+}
+
+function photoID($name)
+{# return member photo block
+	$file = '../images/members/'.$name.'.jpg';
+	$url = '/images/members/'.rawurlencode($name).'.jpg';
+// 	dump($file); dump($url);
+
+	if (file_exists($file)==TRUE)
+		return "<dd><img src='{$url}' alt='{$name}_ID'></dd>";
+	else
+		return '';
+}
+?>

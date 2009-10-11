@@ -1,0 +1,12 @@
+[Desktop Entry]
+Icon=./.favicon.png
+
+[Dolphin]
+AdditionalInfo=63
+Sorting=6
+Timestamp=2009,9,9,19,2,6
+ViewMode=1
+
+[URL properties]
+ShowDotFiles=true
+ViewMode=konq_treeview
