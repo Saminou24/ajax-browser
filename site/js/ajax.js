@@ -144,23 +144,6 @@ function select_color(element,dropon)
 	}
 }
 
-function adddragndrop()
-{
-		new Draggable('r',{revert:true});
-		new Draggable('y',{revert:true});
-		new Draggable('g',{revert:true});
-		new Draggable('b',{revert:true});
-		new Draggable('o',{revert:true});
-		new Draggable('w',{revert:true});
-		new Draggable('p',{revert:true});
-		new Draggable('f',{revert:true});
-
-	Droppables.add('p0', { onDrop:function(element,dropon) { select_color(element.id,dropon.id);	} } );
-	Droppables.add('p1', { onDrop:function(element,dropon) { select_color(element.id,dropon.id);	} } );
-	Droppables.add('p2', { onDrop:function(element,dropon) { select_color(element.id,dropon.id);	} } );
-	Droppables.add('p3', { onDrop:function(element,dropon) { select_color(element.id,dropon.id);	} } );
-}
-
 function check_game()
 {// check that all pegs have been put/choose
 	for (var i=0; i<4; i++)
