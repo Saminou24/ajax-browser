@@ -1,0 +1,10 @@
+**AjaxBrowser**'s wiki home page. Below are some topics we need to improve. If you're not yet a member you'll //need to [[#do|register]]//.
+  * [[Browser support]]
+  * [[Installation]]
+  * [[Rights Management]]
+  * [[Icons Pack]]
+  * [[Languages Pack]]
+  * [[API]]
+  * [[Plugin]]
+
+

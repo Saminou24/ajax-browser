@@ -1,0 +1,428 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined variable: lang in &lt;b&gt;/mnt/data/Server/n3ora/alban/ab/php/index.php&lt;/b&gt; on line &lt;b&gt;95&lt;/b&gt;&lt;br /&gt;" dir="ltr" lang="&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined variable: lang in &lt;b&gt;/mnt/data/Server/n3ora/alban/ab/php/index.php&lt;/b&gt; on line &lt;b&gt;95&lt;/b&gt;&lt;br /&gt;"><head>
+
+
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Reply-to" content="alban.lopez+ajaxbrowser@gmail.com">
+	<meta http-equiv="Expires" content="1 weeks">
+	<meta http-equiv="Rating" content="general">
+	<meta http-equiv="Keywords" content="gestionnaire de fichiers, galerie, mode arborescent, mode miniatures, outils pour webmaster">
+	<meta http-equiv="Description" content="AJAX-Browser est un gestionnaire de fichier HTTP totalement écrit en &lt;abbr title='PHP: Hypertext Preprocessor'&gt;PHP&lt;/abbr&gt;/&lt;abbr title='Asynchronous Javascript And XML'&gt;AJAX&lt;/abbr&gt;. Il vous permet d'étendre la gestion de vos fichiers à votre serveur web, sans utiliser de client &lt;abbr title='File Transfer   Protocol'&gt;FTP&lt;/abbr&gt;. De plus le projet est sous licence LGPL.">
+	<meta http-equiv="ROBOTS" content="ALL, INDEX">
+	<meta http-equiv="Author" content="Alban Lopez, Ãdouard Lopez">
+	<meta http-equiv="Revised" content="2009-10-03">
+	<meta http-equiv="Language" content="&lt;br /&gt;
+&lt;b&gt;Notice&lt;/b&gt;:  Undefined variable: lang in &lt;b&gt;/mnt/data/Server/n3ora/alban/ab/php/index.php&lt;/b&gt; on line &lt;b&gt;106&lt;/b&gt;&lt;br /&gt;">
+	<meta name="revisit-after" content="2 days">
+	<link rel="stylesheet" type="text/css" href="Features_files/ab-typo.css">
+	<link rel="stylesheet" type="text/css" href="Features_files/ab-layout.css">
+	<link rel="icon" type="image/png" href="http://ab.homelinux.org/.favicon.png">
+	<link href="http://ab.homelinux.org/download/rss.xml" rel="alternate" title="News d'AJAX-Browser" type="application/rss+xml">
+	<title>Features</title>
+<link href="" id="aepref-styles.css.tables.enabled"><link href="" id="aepref-styles.author.css.enabled"><link href="" id="aepref-styles.css.tags.enabled"><link href="" id="aepref-styles.css.tables.enabled"><link href="" id="aepref-styles.author.css.enabled"><link href="" id="aepref-styles.css.tags.enabled"><style type="text/css" charset="utf-8">/* See license.txt for terms of usage */
+
+#firebugBody {
+    position: fixed;
+    top:0;
+    left:0;
+    margin:0;
+    padding:0;
+    width:1px;
+    height:1px;
+    overflow:visible;
+}
+
+.firebugCanvas {
+    position:fixed;
+    top: 0;
+    left: 0;
+    display:none;
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+.firebugHighlight {
+    z-index: 2147483647;
+    position: absolute;
+    background-color: #3875d7;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0 none;
+}
+
+.firebugLayoutBoxParent {
+    z-index: 2147483647;
+    position: absolute;
+    background-color: transparent;
+    border-top: 0 none;
+    border-right: 1px dashed #BBBBBB;
+    border-bottom: 1px dashed #BBBBBB;
+    border-left: 0 none;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+.firebugRuler {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0 none;
+}
+
+.firebugRulerH {
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    background: url(chrome://firebug/skin/rulerH.png) repeat-x;
+    border-top: 1px solid #BBBBBB;
+    border-right: 1px dashed #BBBBBB;
+    border-bottom: 1px solid #000000;
+}
+
+.firebugRulerV {
+    top: 0;
+    left: -15px;
+    width: 14px;
+    height: 100%;
+    background: url(chrome://firebug/skin/rulerV.png) repeat-y;
+    border-left: 1px solid #BBBBBB;
+    border-right: 1px solid #000000;
+    border-bottom: 1px dashed #BBBBBB;
+}
+
+.overflowRulerX > .firebugRulerV {
+    left: 0;
+}
+
+.overflowRulerY > .firebugRulerH {
+    top: 0;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.firebugLayoutBox {
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    outline: 0;
+}
+
+.firebugLayoutBoxOffset {
+    z-index: 2147483647;
+    position: absolute;
+    opacity: 0.8;
+}
+
+.firebugLayoutBoxMargin {
+    background-color: #EDFF64;
+}
+
+.firebugLayoutBoxBorder {
+    background-color: #666666;
+}
+
+.firebugLayoutBoxPadding {
+    background-color: SlateBlue;
+}
+
+.firebugLayoutBoxContent {
+    background-color: SkyBlue;
+}
+
+/*.firebugHighlightGroup .firebugLayoutBox {
+    background-color: transparent;
+}
+
+.firebugHighlightBox {
+    background-color: Blue !important;
+}*/
+
+.firebugLayoutLine {
+    z-index: 2147483647;
+    background-color: #000000;
+    opacity: 0.4;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0 none;
+}
+
+.firebugLayoutLineLeft,
+.firebugLayoutLineRight {
+    position: fixed;
+    width: 1px;
+    height: 100%;
+}
+
+.firebugLayoutLineTop,
+.firebugLayoutLineBottom {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+}
+
+.firebugLayoutLineTop {
+    margin-top: -1px;
+    border-top: 1px solid #999999;
+}
+
+.firebugLayoutLineRight {
+    border-right: 1px solid #999999;
+}
+
+.firebugLayoutLineBottom {
+    border-bottom: 1px solid #999999;
+}
+
+.firebugLayoutLineLeft {
+    margin-left: -1px;
+    border-left: 1px solid #999999;
+}
+</style><link href="" id="aepref-styles.css.tables.enabled"><link href="" id="aepref-styles.author.css.enabled"><link href="" id="aepref-styles.css.tags.enabled"></head><body>
+	<div id="layout">
+		<div id="logo" title="Page d'accueil">
+			<a href="#lang" class="h">changer de langue</a>
+			<a href="#content" class="h">allez au contenu principal</a>
+			<a href="http://ab.homelinux.org/fr/?p=Page%20d" accueil=""><img src="Features_files/logo.png" alt="allez à la page d'accueil"></a>
+		</div>
+    <!--MENU BLOCK-->
+<h2 class="h">Menu de navigation</h2>
+<div id="topmenu">
+
+	<ul id="menu" title="Menu de navigation">
+		<li id="lang0"><h3 class="h">Liste des Langues</h3>
+	<ol id="lang">
+		<li title="Switch to English" lang="en"><a href="http://ab.homelinux.org/en/?&amp;p=Features"><img src="Features_files/en.png" alt="English"></a></li>
+		<li title="Basculer en Français" class="active" lang="fr"><a href="http://ab.homelinux.org/fr/?&amp;p=Features"><img src="Features_files/fr_002.png" alt="Français"></a></li>
+	<!-- TRANSLATION TODO! -->
+		<!--<li lang='es' title='Cambiar por Español' ><a href='http://ab.homelinux.org/es/?&p=Features'><img src='/images/es.png' alt='Español' /></a></li>-->
+		<!--<li lang='zh' title='改变中国' ><a href='http://ab.homelinux.org/zh/?&p=Features'><img src='/images/zh.png' alt='中文' /></a></li>-->
+		<li title="改變中國" lang="tw"><a href="http://ab.homelinux.org/tw/?&amp;p=Features"><img src="Features_files/tw.png" alt="中國"></a></li>
+	</ol></li>
+		<li class=""><a href="http://ab.homelinux.org/fr/?p=Home" title="Présentation." accesskey="O">Accueil</a></li>
+<li class="current "><a href="http://ab.homelinux.org/fr/?p=Features" title="Liste complète des fonctionnalités." accesskey="T">Fonctionnalités</a></li>
+<li class=""><a href="http://ab.homelinux.org/fr/?p=Screenshots" title="Captures d" écran.="" accesskey="S">Aperçu</a></li>
+<li class=""><a href="http://ab.homelinux.org/fr/?p=Demo" title="Démo en ligne (version Pro).">Démo</a></li>
+<li class=""><a href="http://ab.homelinux.org/fr/?p=Download" title="Versions Free, Pro &amp; ultérieures." accesskey="L">Télécharger</a></li>
+<li class=""><a href="http://ab.homelinux.org/fr/?p=Help" title="Support: FAQ, Documentations, Forums." accesskey="H">Aide</a></li>
+<li class=""><a href="http://ab.homelinux.org/fr/?p=Team" title="Collaborateurs du projets." accesskey="M">Équipe</a></li>	</ul>
+</div><span id="log-in" title="index#login@title"><a href="http://ab.homelinux.org/fr/?p=admin">index#login</a></span>    <br class="clear">
+		<div id="content">
+			<h1>Fonctionnalités </h1>
+<div id="page">
+  <h3>Liste des fonctionnalités</h3>
+  <div>
+    <ul>
+      <li>Gestion des fichiers (glisser-déposer, sélection avancée, couper/copier/coller, etc.) ;</li>
+      <li>Pose de filigrane sur les images (<span lang="en">water-mark</span>) ;</li>
+      <li>Édition en ligne de fichiers, avec coloration syntaxique (<abbr title="confer" lang="la">cf</abbr>. <a href="http://codepress.org/">Codepress</a>) ;</li>
+      <li>Compression et extraction en ligne (<abbr title="confer" lang="la">cf</abbr>. <a href="http://ab.homelinux.org/fr/?p=documentation.easyarchive">EasyArchive</a>) ;</li>
+<!--       <li>Envois et téléchargements de fichiers sous formes d'archives&thinsp;;</li> -->
+      <li>Gestion avancée des droits (de type UNIX) ;</li>
+      <li>Journal d'activité ;</li>
+      <li>Support de thèmes et personnalisation ;</li>
+      <li>support <abbr title="Localisation">l10n</abbr> et <abbr title="Internationalisation">i18n</abbr>.</li>
+      <li>Lecture de fichiers audio et vidéo en ligne (basé sur le <abbr title="HyperText Markup Language">HTML</abbr>5) ;</li>
+    </ul>
+  </div>
+
+  <h3>Version <em>Pro</em> <abbr title="versus">vs</abbr> <em>Free</em></h3>
+  <div id="comparison">
+    <p>Le tableau suivant compare uniquement la version <em>Pro</em> et <em>Free</em> d'AjaxBrowser. Plus bas dans cette page vous trouverez un comparatif entre AjaxBrowser et les autres produits du marché </p>
+    <div class="scroll">
+  <table class="comparison" summary="comparaison de la version Pro et Free">
+    <tbody><tr class="row2"><th class="hrow">&nbsp;</th>	<th class="move1" scope="col"><abbr title="AjaxBrowser">AB</abbr>&nbsp;Pro</th>
+	<th class="move2" scope="col"><abbr title="AjaxBrowser">AB</abbr>&nbsp;Free</th>
+</tr>
+    <tr class="row1">
+	<th class="hrow" scope="row">Pose de filigrane</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row">Édition en ligne de fichier</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row1">
+	<th class="hrow" scope="row">Compression et extraction en ligne</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row">Journal d'activité</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row1">
+	<th class="hrow" scope="row">Thèmes et personnalisation</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row"><abbr title="Internationalisation">i18n</abbr></th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row1">
+	<th class="hrow" scope="row">Lecture audio et vidéo en ligne</th>	<td class="move1">à venir…</td>
+	<td class="move2"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row">yyy</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row1">
+	<th class="hrow" scope="row">zzz</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row">Prix</th>	<td class="move1">/37,50 €/</td>
+	<td class="move2">/0,00 €/</td>
+</tr>
+
+  </tbody></table>
+</div>  </div>
+  <h3>AjaxBrowser <abbr title="versus">vs</abbr> Autres produits</h3>
+  <div>
+    <p>Ce tableau est une <strong>simulation</strong>, les données réelles des concurrents non pas encore était récoltées. Revenez plus tard.</p>
+    <div class="scroll">
+  <table class="comparison" summary="comparaison d" ajaxbrowser="" et="" de="" ses="" concurrents="">
+    <tbody><tr class="row2"><th class="hrow">&nbsp;</th>	<th class="move1" scope="col"><abbr title="AjaxBrowser">AB</abbr>&nbsp;Pro</th>
+	<th class="move2" scope="col"><abbr title="AjaxBrowser">AB</abbr>&nbsp;Free</th>
+	<th class="move3" scope="col">Xplorer</th>
+	<th class="move4" scope="col">olphin</th>
+	<th class="move5" scope="col">haricot</th>
+	<th class="move6" scope="col">toto</th>
+</tr>
+    <tr class="row1">
+	<th class="hrow" scope="row">Pose de filigrane</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move3"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move4"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move5"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move6"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row">Édition en ligne de fichier</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move3"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move4"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move5"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move6"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+</tr>
+<tr class="row1">
+	<th class="hrow" scope="row">Compression et extraction en ligne</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move3"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move4"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move5"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move6"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row">Journal d'activité</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move3"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move4"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move5"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move6"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row1">
+	<th class="hrow" scope="row">Thèmes et personnalisation</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move3"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move4"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move5"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move6"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row"><abbr title="Internationalisation">i18n</abbr></th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move3"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move4"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move5"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move6"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row1">
+	<th class="hrow" scope="row">Lecture audio et vidéo en ligne</th>	<td class="move1">à venir…</td>
+	<td class="move2"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move3"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move4"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move5"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+	<td class="move6"><strong><img src="Features_files/no.png" alt="Non" title="Non"></strong></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row">yyy</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move3"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move4"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move5"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move6"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row1">
+	<th class="hrow" scope="row">zzz</th>	<td class="move1"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move2"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move3"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move4"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move5"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+	<td class="move6"><img src="Features_files/yes.png" alt="Oui" title="Oui"></td>
+</tr>
+<tr class="row2">
+	<th class="hrow" scope="row">Prix</th>	<td class="move1">/37,50 €/</td>
+	<td class="move2">/0,00 €/</td>
+	<td class="move3">/56,25 €/</td>
+	<td class="move4">/56,25 €/</td>
+	<td class="move5">/56,25 €/</td>
+	<td class="move6">/56,25 €/</td>
+</tr>
+
+  </tbody></table>
+</div>  </div>
+
+<h3>Langues Supporté</h3>
+  <div>
+		<ol id="flags">
+      <li><img src="Features_files/gb.png" title="English (British)"> English (British) ;</li>
+      <li><img src="Features_files/fr.png" title="Français"> Français ;</li>
+      <li><img src="Features_files/es.png" title="Español"> Español ;</li>
+      <li><img src="Features_files/tw_002.png" title="中文"> 中文 ;</li>
+      <li><img src="Features_files/cn.png" title="中國"> 中國 ;</li>
+      <li><img class="down" src="Features_files/add.png" title="Ajoutez une langue."> <a href="https://translations.launchpad.net/ajaxbrowser">Ajoutez une nouvelle langue.</a></li>
+    </ol>
+	</div>
+
+</div>
+		</div>
+
+		<h2 class="h">Pied de page</h2>
+<div id="footer">
+	<h3 class="h">Faire un don</h3>
+<form class="donation" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+  <fieldset>
+    <input name="cmd" value="_s-xclick" type="hidden">
+    <input name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" type="hidden">
+    <button type="submit" name="submit" title="paypal">
+      <span class="dwl">
+        <span>
+          <img src="Features_files/money_euro.png" alt="">
+          Faire un don !
+        </span>
+      </span>
+    </button>
+  </fieldset>
+</form>		<a href="http://jigsaw.w3.org/css-validator/check?uri=referer">
+		<img src="Features_files/valid_css_80x15-w.png" alt="Valide CSS 2.1" title="Valide CSS 2.1">
+		</a>
+	<a href="http://validator.w3.org/check?uri=referer">
+		<img src="Features_files/valid_xhtml_80x15-w.png" alt="Valide XHTML 1.0 Strict" title="Valide XHTML 1.0 Strict">
+	</a>
+	<a href="http://www.w3.org/WAI/intro/accessibility.php">
+		<img src="Features_files/valid_wai-aa_80x15-w.png" alt="WCAG-AA">
+	</a>
+	<br>
+	<span id="cr">© copyright 2006-2009 Alban Lopez – Tous droits réservés.</span>
+</div>
+	</div>
+</body></html>

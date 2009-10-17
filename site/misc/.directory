@@ -1,0 +1,15 @@
+[Desktop Entry]
+BgImage=
+Encoding=UTF-8
+Icon=./.favicon.png
+Name=Server
+Type=Directory
+
+[Dolphin]
+AdditionalInfo=63
+SortOrder=1
+Timestamp=2009,10,12,21,38,24
+ViewMode=1
+
+[Settings]
+ShowDotFiles=true

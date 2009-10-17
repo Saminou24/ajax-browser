@@ -1,0 +1,741 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AjaxBrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-13 18:34+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Édouard Lopez <edouard.lopez+poedit@gmail.com>\n"
+"Language-Team: AjaxBrowser Team <edouard.lopez+AB@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: /mnt/data/Server/n3ora/alban/ab/php/\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: menu.php:5
+#: menu.php:8
+msgid "Navigation menu"
+msgstr "導航"
+
+#: team.php:1
+msgid "Team"
+msgstr "隊員們"
+
+#: gallery.php:1
+msgid "Screenshots"
+msgstr "截圖"
+
+#: menu-lang.php:1
+msgid "Languages list"
+msgstr "語言單子"
+
+#: faq.php:1
+msgid "<abbr title='Frequently Asked Question'>FAQ</abbr>"
+msgstr "<abbr title='常見問題（英文）'>常見問題</abbr>"
+
+#: snippets.php:4
+msgid "Buy <em>Pro</em>!"
+msgstr "買<em>職業版</em>!"
+
+#: snippets.php:20
+msgid "Get <em>Free</em>"
+msgstr "下载<em>免费版</em>!"
+
+#: snippets.php:36
+msgid "Donation"
+msgstr "捐款"
+
+#: snippets.php:37
+msgid "Donation&thinsp;!"
+msgstr "贊助我&thinsp;!"
+
+#: snippets.php:61
+msgid "Yes"
+msgstr "是"
+
+#: snippets.php:65
+msgid "No"
+msgstr "否"
+
+#: documentation.php:1
+msgid "doc.h1"
+msgstr "-"
+
+#: home.php:1
+#: index.php:119
+msgid "Home page"
+msgstr "首頁"
+
+#: home.php:3
+msgid "Overview"
+msgstr "快介紹<!-- Quick overview ；摘要zhaiyao summary -->"
+
+#: home.php:5
+msgid "About"
+msgstr "關於AB"
+
+#: home.php:8
+msgid "screenshots"
+msgstr "截圖"
+
+#: home.php:9
+msgid "Screenshots gallery."
+msgstr "截圖畫廊"
+
+#: home.php:9
+msgid "see screenshots"
+msgstr "看截圖"
+
+#: home.php:12
+msgid "The AjaxBrowser project begin in 2006 as a personnal script to manage my own files on a remote server. At this time I was juggling between Windows® and Linux so I was looking for a <strong>cross-platform solution</strong>. As I was highly disappointed with <abbr title='File Transfer Protocol'>FTP</abbr>, I decided to create this project upon the <strong>popularity</strong> and <strong>portability</strong> of web browser."
+msgstr "Le projet AjaxBrowser a vu le jour en 2006 comme une script personnel pour gérer mes fichiers sur un serveur distant. À cette époque j'utilisais Windows® et Linux, j'étais donc à la recherche d'une <strong>solution multi-plateforme</strong>. Étant déçu par les clients <abbr title='File Transfer Protocol'>FTP</abbr> qui sont peu conviviaux et pas toujours disponibles sur les deux <abbr title='Système d'exploitation'>OS</abbr>, j'ai décidé de créer mon propre projet en m'appuyant sur la <strong>popularité</strong> et la<strong>portabilité</strong> des navigateurs web."
+
+#: home.php:15
+msgid "Quick Download"
+msgstr "快下載"
+
+#: home.php:22
+msgid "Description"
+msgstr "介紹"
+
+#: home.php:24
+msgid "The whole project is written in <abbr title='Asynchronous Javascript And XML'>AJAX</abbr> and <abbr title='PHP: Hypertext Preprocessor'>PHP</abbr>, which are two highly spread technologies among modern web browsers and web servers. Thus, <abbr title='PHP: Hypertext Preprocessor'>PHP</abbr> make it an <strong>easy to install</strong> application and <abbr title='Asynchronous Javascript And XML'>AJAX</abbr> allow instantaneous reactivity and <strong>intuitive use</strong>."
+msgstr "Le projet est écrit en <abbr title='Asynchronous Javascript And XML'>AJAX</abbr> et <abbr title='PHP: Hypertext Preprocessor'>PHP</abbr>, qui sont toutes deux des technologies très répandues dans les navigateurs web moderne et sur les serveurs web. De plus, <abbr title='PHP: Hypertext Preprocessor'>PHP</abbr> rends l'application <strong>facile à installer</strong> et <abbr title='Asynchronous Javascript And XML'>AJAX</abbr> permet une réactivité et une <strong>utilisation intuitive</strong>."
+
+#: home.php:25
+msgid "You will find the following features, <em>similar to the one you will find in your <abbr title='Operating System'>OS</abbr> file manager</em>&thinsp;:"
+msgstr "<em>相你<abbr title='Operating System'>OS</abbr>的資源管理器<!--file manager-->一樣</em>，AB讓你用那些功能："
+
+#: home.php:28
+#: features.php:105
+msgid "Files management (drag'n'drop, advanced selection, cut/copy/paste, etc.)&thinsp;;"
+msgstr "Gestion des fichiers (glisser-déposer, sélection avancée, couper/copier/coller, etc.)&thinsp;;"
+
+#: home.php:29
+#: features.php:106
+msgid "Images watermarking&thinsp;;"
+msgstr "Pose de filigrane sur les images (<span lang='en'>water-mark</span>)&thinsp;;"
+
+#: home.php:30
+#: features.php:107
+msgid "Online files edition with syntax highlightment (<abbr title='confer' lang='la'>cf</abbr>. <a href='http://codepress.org/'>Codepress</a>)&thinsp;;"
+msgstr "Édition en ligne de fichiers, avec coloration syntaxique (<abbr title='confer' lang='la'>cf</abbr>. <a href='http://codepress.org/'>Codepress</a>)&thinsp;;"
+
+#: home.php:31
+#: features.php:108
+msgid "Online compression and extraction (<abbr title='confer' lang='la'>cf</abbr>. <a href='?p=documentation.easyarchive'>EasyArchive</a>)&thinsp;;"
+msgstr "Compression et extraction en ligne (<abbr title='confer' lang='la'>cf</abbr>. <a href='?p=documentation.easyarchive'>EasyArchive</a>)&thinsp;;"
+
+#: home.php:32
+#: features.php:109
+msgid "Uploads and downloads of files as archive&thinsp;;"
+msgstr "上傳和下載壓縮檔案&thinsp;;<!-- 數據壓縮與歸檔打包 -->"
+
+#: home.php:33
+#: features.php:110
+msgid "Advanced rights management (UNIX-like)&thinsp;;"
+msgstr "Gestion avancée des droits (de type UNIX)&thinsp;;"
+
+#: home.php:34
+#: features.php:111
+msgid "Log journal&thinsp;;"
+msgstr "Journal d'activité&thinsp;;"
+
+#: home.php:35
+#: features.php:112
+msgid "Themes support and customisation&thinsp;;"
+msgstr "Support de thèmes et personnalisation&thinsp;;"
+
+#: home.php:36
+#: features.php:113
+#, fuzzy
+msgid "<abbr title='Localization'>l10n</abbr> and <abbr title='Internationalization'>i18n</abbr> support."
+msgstr "support <abbr title='Localisation'>l10n</abbr>和<abbr title='Internationalisation'>i18n</abbr>."
+
+#: home.php:38
+#, php-format
+msgid "See the <a href='?p=Features'>full features list</a> and the <a href='?p=Features#comparison'>features comparison</a> between <em>pro</em> and <em>free</em> versions."
+msgstr "看<a href='?p=Features'>全功能單</a>和<em>專業版</em>跟<em>免费版</em>的<a href='?p=Features#comparison'>全功能比較</a>。"
+
+#: home.php:41
+msgid "News"
+msgstr "消息"
+
+#: index.php:101
+msgid "file manager, domain, gallery, tree view mode, thumbnails mode, webmaster tool"
+msgstr "資源管理器, file manager,站點, domain,圖片集, gallery,樹視圖, Tree view,預覽視圖, Preview mode, thumbnails mode ,分欄視圖, colones view,圖標視圖, icon view,網站管理員的工具, webmaster tool,文件夾, folder,文件, file,檔案, file,"
+
+#: index.php:102
+msgid "AJAX-Browser is a HTTP file manager fully written in PHP/AJAX, it will extend your file management experience to your web server without any FTP client. It&#039;s a project under LGPL licence."
+msgstr "AJAX-Browser是一個HTTP文件管理器，根本上用<abbr title='PHP: Hypertext Preprocessor'>PHP</abbr>/<abbr title='Asynchronous Javascript And XML'>AJAX</abbr>寫得，讓你欣賞更順的網路<->電腦文件管理器作業，就不用<abbr title='File Transfer   Protocol'>FTP</abbr>客戶端。 AJAX-B是用LGPL許可證共享的。"
+
+# RSS
+#: index.php:111
+msgid "AJAX-Browser News"
+msgstr "AJAX-Browser的消息！"
+
+# interface web
+#: index.php:120
+msgid "switch language"
+msgstr "换語言"
+
+#: index.php:121
+msgid "skip to main content"
+msgstr "跳到内文"
+
+#: index.php:122
+msgid "home"
+msgstr "首頁"
+
+#: index.php:122
+msgid "go to home page"
+msgstr "回首頁"
+
+#: demo.php:1
+msgid "Live Demo"
+msgstr "Live示範"
+
+#: demo.php:3
+msgid "Be aware that <strong>this demo is based upon the Pro version</strong>. That means some features won't be avaible on standard version."
+msgstr "請注意，你正在試驗的示範是<strong>利用<em>職業版</em>。 </strong>.因此，這個示範的功能們比<em>免費版</em>的功能多。"
+
+#: demo.php:5
+msgid "<em>Tree view</em> mode"
+msgstr "<em>樹視圖</em>方式<!--樹Tree view ;分欄colones-->"
+
+#: demo.php:9
+msgid "<em>Preview</em> mode"
+msgstr "<em>預覽視圖</em>方式<!--Preview預覽; icon圖標view-->"
+
+#: forum.php:1
+msgid "forum.h1"
+msgstr ""
+
+#: features.php:3
+msgid "Images watermark"
+msgstr "Pose de filigrane"
+
+#: features.php:4
+msgid "Online files edition"
+msgstr "Édition en ligne de fichier"
+
+#: features.php:5
+msgid "Online compression and extraction"
+msgstr "Compression et extraction en ligne"
+
+#: features.php:6
+msgid "Log journal"
+msgstr "Journal d'activité"
+
+# thèmes ? apparences ?
+#: features.php:7
+msgid "Themes support"
+msgstr "Thèmes et personnalisation"
+
+#: features.php:8
+msgid "<abbr title='Internationalization'>i18n</abbr>"
+msgstr "<abbr title='Internationalisation'>i18n</abbr>"
+
+#: features.php:9
+msgid "Online audio and video"
+msgstr "Lecture audio et vidéo en ligne"
+
+#: features.php:10
+msgid "yyy"
+msgstr ""
+
+#: features.php:11
+msgid "zzz"
+msgstr ""
+
+#: features.php:12
+msgid "Price"
+msgstr "價錢"
+
+#: features.php:15
+msgid "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;Pro"
+msgstr "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;職業版"
+
+#: features.php:16
+msgid "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;Free"
+msgstr "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;免費版"
+
+#: features.php:31
+#, fuzzy
+msgid "Coming soon&hellip;"
+msgstr "下功能們&hellip;"
+
+#: features.php:100
+msgid "Features"
+msgstr "功能"
+
+#: features.php:102
+msgid "Features list"
+msgstr "功能單子"
+
+#: features.php:114
+msgid "Online audio and video (using <abbr title='HyperText Markup Language'>HTML</abbr>5)&thinsp;;"
+msgstr "Lecture de fichiers audio et vidéo en ligne (basé sur le <abbr title='HyperText Markup Language'>HTML</abbr>5)&thinsp;;"
+
+#: features.php:118
+#, fuzzy
+msgid "<em>Pro</em> <abbr title='versus'>vs</abbr> <em>Free</em> version"
+msgstr "<em>職業</em>和<em>免費</em>版的比較"
+
+#: features.php:120
+msgid "This table compare only <em>Pro</em> and <em>Free</em> version of AjaxBrowser. Further on this page you will find a comparison between AjaxBrowser and others products on the market. "
+msgstr "下面的第一張表格比一比AjaxBrowser<em>職業</em>和<em>免費</em>版本。下一張來比較AjaxBrowser和市場上其他資源管理器。"
+
+# attribut summary, du <table>
+#: features.php:128
+msgid "comparison between Pro and Free versions"
+msgstr "<em>職業</em>和<em>免費</em>版的比較"
+
+#: features.php:131
+#, fuzzy
+msgid "AjaxBrowser <abbr title='versus'>vs</abbr> Others products"
+msgstr "比較－ AjaxBrowser和其他資源管理器"
+
+#: features.php:133
+msgid "This is a <strong>mockery</strong>, real data for others products are currently not avaible. Come later to check for real data"
+msgstr "這一張表格還<strong>是實驗而已</strong>，裡面的數字、資料是假的。請你完一點回來看看。"
+
+# attribut summary, du <table>
+#: features.php:138
+msgid "comparison between AjaxBrowser and Others products"
+msgstr "比較－ AjaxBrowser和其他資源管理器"
+
+#: features.php:142
+msgid "Supported Languages"
+msgstr "提供語言們"
+
+#: features.php:150
+msgid "Add another."
+msgstr "加入新的語言。"
+
+#: features.php:150
+msgid "Translate into a new language."
+msgstr "加入新的語言翻譯  "
+
+#: footer.php:1
+msgid "Footer"
+msgstr "頁腳"
+
+#: footer.php:7
+#, fuzzy
+msgid "Valid CSS 2.1"
+msgstr "Valid CSS 2.1"
+
+#: footer.php:11
+#, fuzzy
+msgid "Valid XHTML 1.0 Strict"
+msgstr "Valid XHTML 1.0 Strict"
+
+#: footer.php:15
+msgid "WCAG-AA"
+msgstr "WCAG-AA"
+
+#: footer.php:18
+msgid " – All rights reserved."
+msgstr " – 版權"
+
+#: download.php:3
+#: menu.phpc:8
+msgid "Download"
+msgstr "下載"
+
+#: download.php:6
+msgid "<em>Pro</em> version"
+msgstr "<em>職業</em>版本"
+
+#: download.php:9
+msgid "The <em>Pro</em> version offer <strong>more features</strong> than the free one (see <a href='?p=Features#comparison'>versions comparison</a>). However, its use and redistribution are limited under copyright laws. All pro versions are listed below (newest first)&thinsp;:"
+msgstr "<em>職業</em>版本有比<em>免費</em>版本的功能還多 (查看<a href='?p=Features#comparison'>AB免費跟職業版本的比較</a>，讓你們做更多檔案管理。這一版本要尊重<a href='?p=Team'>程式設計</a>的版權。所有的<em>職業</em>版本都在這下面的列出(先最新的)&thinsp;:"
+
+#: download.php:15
+msgid "<em>Free</em> version"
+msgstr "<em>免費</em>版本"
+
+# last sentence, pro -> free
+#: download.php:18
+#, fuzzy
+msgid "The <em>free</em> version keep main features as shown on the <a href='?p=Features#comparison'>versions comparison</a> table. You can use and redistribute it under the GNU GPL licence. All <em>free</em> versions are listed below (newest first)&thinsp;:"
+msgstr "<em>免費</em>版本有<em>職業</em>版本最重要的功能 (查看<a href='?p=Features#comparison'>AB免費跟職業版本的比較</a>，讓你們做不少檔案管理。送他，把他加入别的軟體，你要用和尊重免費的<a href='http://www.gnu.org/licenses/licenses.zh-tw.html'>LGPL許可證</a>，就可以。所有的<em>免費</em>版本都在這下面的列出(先最新的)&thinsp;:"
+
+# pluriel ?
+#: download.php:25
+msgid "Icons set"
+msgstr "圖標們"
+
+#: download.php:32
+msgid "Languages pack"
+msgstr "語言檔案們"
+
+#: help.php:1
+msgid "Support"
+msgstr "用戶端支援"
+
+#: help.php:3
+msgid "<abbr title='Frequently Asked Questions'>FAQ</abbr>"
+msgstr "<abbr title='Frequently Asked Questions'>FAQ</abbr>"
+
+#: help.php:5
+msgid "You will find here some of the most common mistakes encountered by user and their solution. The <a href='?p=faq'>complete <abbr title='Frequently Asked Questions'>FAQ</abbr> list</a> is avaible on there."
+msgstr "在這一頁，你能找到我們用戶提過的常問題。請你查看<a href='?p=faq'>全常見問題的列表</a>。"
+
+#: help.php:7
+msgid "Documentation"
+msgstr "指南"
+
+#: help.php:9
+#, fuzzy
+msgid "Below are some quick links to the documentation. For further research go on <a href='/wiki/'>our wiki</a>."
+msgstr "La liste suivante présente quelques liens utiles de la documentation指南. Pour une recheche plus de détaillée <a href='/wiki/'>consultez le wiki</a>."
+
+#: help.php:11
+msgid "Browser support"
+msgstr "網頁瀏覽器支援"
+
+#: help.php:12
+msgid "Installation"
+msgstr "安裝"
+
+#: help.php:13
+msgid "Rights Management"
+msgstr "權限管理"
+
+#: help.php:14
+msgid "Icons Pack"
+msgstr "圖標們"
+
+#: help.php:15
+msgid "Languages Pack"
+msgstr "語言檔案們"
+
+#: help.php:16
+msgid "<abbr title='Application Program Interface'>API</abbr>"
+msgstr "<abbr title='Application Program Interface'>API</abbr>"
+
+#: help.php:17
+msgid "Plugin"
+msgstr "插件"
+
+#: help.php:20
+msgid "Forums"
+msgstr "會館"
+
+#: help.php:22
+msgid "Here are some hot topics of the forums, and useful thread. For further details have a <a href='/forum/'>look at the forum</a>."
+msgstr "Vous trouverez ci-dessous quelques uns des thèmes les plus actifs du forums會館, ainsi que des fils de discussions utiles. Pour plus de détails <a href='/forum/'>reportez-vous au forum會館</a>."
+
+#: menu.phpc:4
+msgid "Home"
+msgstr "首頁"
+
+#: menu.phpc:7
+msgid "Demo"
+msgstr "示範"
+
+#: menu.phpc:9
+msgid "Help"
+msgstr "幫助"
+
+#: menu.phpc:12
+msgid "Overview."
+msgstr "介紹."
+
+#: menu.phpc:13
+msgid "Complete features list."
+msgstr "全功能單"
+
+#: menu.phpc:14
+msgid "Screen captures."
+msgstr "看屏幕捕捉"
+
+#: menu.phpc:15
+msgid "Live demo (Pro version's )."
+msgstr "來試試AB的Online示範 (職業版本)"
+
+#: menu.phpc:16
+msgid "Free, Pro & older versions."
+msgstr "免費版，本版，和其他舊版"
+
+#: menu.phpc:17
+#, fuzzy
+msgid "Support: FAQ, Docs, Forums."
+msgstr "Support：常見問題，指南，會館。"
+
+#: menu.phpc:22
+msgid "Project collaborators."
+msgstr "AB的隊員"
+
+#: team.phpc:4
+msgid "Role"
+msgstr "責任"
+
+#: team.phpc:5
+msgid "<abbr title='Also Known As'>aka</abbr>"
+msgstr "小名"
+
+#: team.phpc:6
+msgid "Country"
+msgstr "國家"
+
+#: team.phpc:7
+msgid "E-mail"
+msgstr "e-mail<!--電子郵件-->"
+
+#: team.phpc:8
+msgid "Web page"
+msgstr "網頁"
+
+#: admin.phpc:30
+msgid "admin|form#logger.label:login"
+msgstr ""
+
+#: admin.phpc:34
+msgid "admin|form#logger.label:password"
+msgstr ""
+
+#: admin.phpc:51
+msgid "admin|form#admin-error.span"
+msgstr ""
+
+#: admin.phpc:62
+#: admin.phpc:71
+#: admin.phpc:147
+#: admin.phpc:150
+msgid "admin"
+msgstr ""
+
+#: admin.phpc:62
+msgid "admin.h1"
+msgstr ""
+
+#: admin.phpc:99
+msgid "news-edit"
+msgstr ""
+
+#: admin.phpc:106
+msgid "news-insert"
+msgstr ""
+
+#: admin.phpc:114
+msgid "news-preview"
+msgstr ""
+
+#: admin.phpc:122
+msgid "news-l10n"
+msgstr ""
+
+#: admin.phpc:147
+msgid "index#logout@title"
+msgstr ""
+
+#: admin.phpc:147
+msgid "index#logout"
+msgstr ""
+
+#: admin.phpc:150
+msgid "index#login@title"
+msgstr ""
+
+#: admin.phpc:150
+msgid "index#login"
+msgstr ""
+
+#: download.phpc:39
+#, php-format
+msgid "%s language pack"
+msgstr "語言檔案們%s"
+
+#: download.phpc:41
+#, php-format
+msgid "help <a href='http://launchpad.net/~ajaxbrowser/%s'>translate <span class='h'> %s</span></a>"
+msgstr "幫我們<a href='http://launchpad.net/~ajaxbrowser/%s'>翻譯<span class='h'> %s</span></a>"
+
+#: download.phpc:47
+#, php-format
+msgid "see %s full icons set."
+msgstr "看圖標的單子%s"
+
+#: download.phpc:48
+#, php-format
+msgid "preview %s"
+msgstr "%s的預覽"
+
+#: news.phpc:5
+msgid "news.todo"
+msgstr ""
+
+#, fuzzy
+#~ msgid "title"
+#~ msgstr "Titre"
+#~ msgid "<strong>No</strong>"
+#~ msgstr "<strong>Non</strong>"
+#~ msgid "Quick overview."
+#~ msgstr "Présentation"
+
+# parameter
+#~ msgid "mFeatures"
+#~ msgstr "Features"
+# parameter
+#~ msgid "mScreenshots"
+#~ msgstr "Screenshots"
+# parameter
+#~ msgid "mDownload"
+#~ msgstr "Download"
+# parameter
+#~ msgid "mTeam"
+#~ msgstr "Team"
+#, fuzzy
+#~ msgid "faq.h1"
+#~ msgstr "Lisez-moi…"
+
+#, fuzzy
+#~ msgid "home.h3-5"
+#~ msgstr "<h3>Format personnalisé</h3>"
+
+#, fuzzy
+#~ msgid "team.h1"
+#~ msgstr "(c) 2008 L'équipe de Yakuake"
+#~ msgid "See the <a href='?p=%s'>full features list</a>"
+#~ msgstr "Voir aussi <a href='?p=%s'>la liste des fonctionnalités</a>"
+#~ msgid "features"
+#~ msgstr "fonctionnalités"
+#~ msgid "download"
+#~ msgstr "télécharger"
+#~ msgid "latest version"
+#~ msgstr "la dernière version"
+
+#, fuzzy
+#~ msgid "htmldesc"
+#~ msgstr "Nombre de relations description/fichier : "
+
+#, fuzzy
+#~ msgid "logo.div@title"
+#~ msgstr "Les commentaires configurent le titre"
+
+#, fuzzy
+#~ msgid "logo.a"
+#~ msgstr "Logo"
+
+#, fuzzy
+#~ msgid "logo.a@alt"
+#~ msgstr "Ajouter un logo"
+
+#, fuzzy
+#~ msgid "footer.h2-last"
+#~ msgstr "Dernière modification de contenu"
+
+#, fuzzy
+#~ msgid "CSS@alt"
+#~ msgstr "Utiliser la table de scan alternative"
+
+#, fuzzy
+#~ msgid "CSS@title"
+#~ msgstr "Titre du créateur :"
+
+#, fuzzy
+#~ msgid "XHTML@alt"
+#~ msgstr "Utiliser la table de scan alternative"
+
+#, fuzzy
+#~ msgid "XHTML@title"
+#~ msgstr "Titre du créateur :"
+
+#, fuzzy
+#~ msgid "WCAG@href"
+#~ msgstr "Cliquez pour <a href=%1>annuler</a>."
+
+#, fuzzy
+#~ msgid "WCAG@alt"
+#~ msgstr "Utiliser la table de scan alternative"
+
+#, fuzzy
+#~ msgid "get.h1"
+#~ msgstr "Récupérer les logs"
+
+#, fuzzy
+#~ msgid "get.pro"
+#~ msgstr "Récupérer les logs"
+
+#, fuzzy
+#~ msgid "get.pro.latest"
+#~ msgstr "Information de dernière version:"
+
+#, fuzzy
+#~ msgid "get.pro.older"
+#~ msgstr "&Obtenir plus de scripts"
+
+#, fuzzy
+#~ msgid "get.free"
+#~ msgstr " Blocs libres : "
+
+#, fuzzy
+#~ msgid "get.free.latest"
+#~ msgstr "Information de dernière version:"
+
+#, fuzzy
+#~ msgid "get.free.older"
+#~ msgstr "Mode courbe libre"
+
+#, fuzzy
+#~ msgid "get.lang"
+#~ msgstr "Récupérer les logs"
+
+#, fuzzy
+#~ msgid "get.icons"
+#~ msgstr "Récupérer les logs"
+
+#, fuzzy
+#~ msgid "help.h1"
+#~ msgstr "Aide de %(appname)s"
+
+#, fuzzy
+#~ msgid "screenshots.h1"
+#~ msgstr "aperçu"
+
+#, fuzzy
+#~ msgid "demo.info"
+#~ msgstr "Informations de récupération"
+
+#, fuzzy
+#~ msgid "demo.h2-1"
+#~ msgstr "<h2>Correction terminée</h2>"
+
+#, fuzzy
+#~ msgid "demo.h2-2"
+#~ msgstr "<h2>Correction terminée</h2>"
+
+#, fuzzy
+#~ msgid "features.h1"
+#~ msgstr "Capacités CPU"
+
+#, fuzzy
+#~ msgid "home.h3-2"
+#~ msgstr "<h3>Format personnalisé</h3>"
+
+#, fuzzy
+#~ msgid "home.desc"
+#~ msgstr "Nombre de relations description/fichier : "
+
+#, fuzzy
+#~ msgid "See the"
+#~ msgstr "cf aussi:"
+
+#, fuzzy
+#~ msgid "home#sample"
+#~ msgstr "Échantillonnage"
+
+#, fuzzy
+#~ msgid "home.h3-3"
+#~ msgstr "<h3>Format personnalisé</h3>"
+
+#, fuzzy
+#~ msgid "home.h3-4"
+#~ msgstr "<h3>Format personnalisé</h3>"
+

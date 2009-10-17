@@ -1,0 +1,79 @@
+<?php class gallery
+{
+  PRIVATE $DIR = '/misc/screenshots/';
+  PUBLIC $SCAN = array();
+  function set_wd($dir)
+  {// set working directory
+    $this->DIR = $dir;
+  }
+  function get_wd()
+  {// set working directory
+    return $this->DIR;
+  }
+
+  function list_files()
+  {
+    $this->SCAN = scandir('../'.$this->DIR);
+    $this->SCAN = array_slice($this->SCAN, 2);
+//     dump($this->SCAN);
+    $ddir = array_search('.directory', $this->SCAN);
+    if ($ddir==TRUE) unset($this->SCAN[$ddir]);
+
+    return $this->SCAN;
+  }
+
+  function filter($list, $pattern)
+  {
+//     echo 'pattern: '; dump($pattern);
+    $result = array();
+    foreach ($list as $file)
+    {
+      if (preg_match($pattern, $file))
+      {
+        $result[] = $file;
+      }
+    }
+//     echo 'result: '; dump($result);
+    return $result;
+  }
+
+  function list_screenshots()
+  {// remove '.', '..' and 'thumbs' folder.
+    $this->SCAN = scandir('../'.$this->DIR); # we're in /php/
+
+    $this->SCAN = array_slice($this->SCAN, 2);
+    $thumbs_key = array_search('thumbs', $this->SCAN);
+    unset($this->SCAN[$thumbs_key]);
+    //dump($this->SCAN);
+
+    return $this->SCAN;
+  }
+
+  function htmlizer()
+  {
+    $list = $this->list_screenshots($this->DIR);
+
+    foreach ($list as $file)
+    {
+      $path2thumbs = ''.$this->DIR.'thumbs/'.rawurlencode($file);
+      $path2file = ''.$this->DIR.rawurlencode($file);
+      $fz = round(filesize($_SERVER["DOCUMENT_ROOT"].'/'.$this->DIR.$file)/pow(2,10));
+      $title = basename($file, '.jpg');
+      $title = basename($file, '.png');
+      $title .=  " ({$fz} Ko)";
+      echo <<<IMG
+  <li title='$title'>
+    <a href='{$path2file}' title='{$title}' rel="lightbox[screenshots]">
+      <img src='{$path2thumbs}' alt='{$title}' />
+    </a>
+  </li>
+
+IMG;
+    }
+  }
+
+  function __construct()
+  {}
+}
+
+?>

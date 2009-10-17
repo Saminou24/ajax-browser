@@ -1,0 +1,63 @@
+<?php
+require_once 'gallery.phpc';
+function downloadable_list($item)
+{
+  $result = '';
+  $list = new gallery();
+  $list->set_wd('./misc/downloads/'.$item);
+  $path = $list->get_wd();
+  $items = $list->list_files();
+  $items = $list->filter($items, '/\.tar\.gz|php$/');
+
+  foreach ($items as $file)
+  {
+    $pre = '';
+    $post = '';
+    $prein = '';
+    $postin = '';
+    $changelog = '';
+    $label = preg_replace('/\.tar\.gz|\.php$/', '', $file);
+//     dump($item);
+    switch ($item)
+    {
+      case 'pro':
+        $pre = '';
+        $post = '';
+        $log = preg_replace('/\.tar\.gz|\.php$/', '.log', $file);
+        $changelog = " | <dd> see <a href='/misc/downloads/{$item}/{$log}' alt='{$log} changelog'><span class='h'>{$log} </span>changelog</a></dd>";
+        break;
+      case 'free':
+        $pre = '';
+        $post = '';
+        $log = preg_replace('/\.tar\.gz|\.php$/', '.log', $file);
+        $changelog = " | <dd> see <a href='/misc/downloads/{$item}/{$log}' alt='{$log} changelog'><span class='h'>{$log} </span>changelog</a></dd>";
+        break;
+      case 'languages':
+        preg_match_all('/_([A-Z]{2})/', $file, $match);
+        $flag = strtolower($match[1][0]);
+        preg_match_all('/([a-z]{2}_[A-Z]{2})/', $file, $match);
+        $label = "\n<img class='down' src='/images/flags/{$flag}.png' alt='".sprintf(_("%s language pack"), $match[1][0])."' /> &ndash; <code>".$match[1][0]."</code>";
+        $prein = "";
+        $post = " | ".sprintf(_("help <a href='http://launchpad.net/~ajaxbrowser/%s'>translate <span class='h'> %s</span></a>"), $match[1][0], $match[1][0]);
+        break;
+      case 'icons':
+        preg_match_all('/(.*)\.tar\.gz/', $file, $match);
+        $label = $match[1][0];
+        $preview = preg_replace('/\.tar\.gz$/', '.log', $label);
+        $post = " | <a href='/misc/downloads/icons/{$label}-full.png' rel='lightbox[icons]' title='".htmlspecialchars(sprintf(_('see %s full icons set.'), $preview), ENT_QUOTES)."'>
+        \n<img class='down' src='/misc/downloads/icons/{$preview}-preview.png' alt='".htmlspecialchars(sprintf(_('preview %s'), $file), ENT_QUOTES)."' /></a>";
+        break;
+    }
+    $result .= <<<ITEM
+    <dt>{$label}&thinsp;:</dt>
+      <dd class='sub'>
+        {$pre}<a href='{$path}/{$file}' title='{$file}'>
+        {$prein} download<span class='h'> {$label}</span></a>
+        {$post}
+        {$changelog}&thinsp;;
+      </dd>
+ITEM;
+  }
+  return $result;
+}
+?>

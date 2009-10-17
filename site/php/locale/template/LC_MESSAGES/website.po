@@ -1,0 +1,558 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AjaxBrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-13 18:34+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Édouard Lopez <edouard.lopez+poedit@gmail.com>\n"
+"Language-Team: AjaxBrowser Team <edouard.lopez+AB@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: TAIWAN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: /mnt/data/Server/n3ora/alban/ab/php\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: menu.php:5
+#: menu.php:8
+msgid "Navigation menu"
+msgstr ""
+
+#: team.php:1
+msgid "Team"
+msgstr ""
+
+#: gallery.php:1
+msgid "Screenshots"
+msgstr ""
+
+#: menu-lang.php:1
+msgid "Languages list"
+msgstr ""
+
+#: faq.php:1
+msgid "<abbr title='Frequently Asked Question'>FAQ</abbr>"
+msgstr ""
+
+#: snippets.php:4
+msgid "Buy <em>Pro</em>!"
+msgstr ""
+
+#: snippets.php:20
+msgid "Get <em>Free</em>"
+msgstr ""
+
+#: snippets.php:36
+msgid "Donation"
+msgstr ""
+
+#: snippets.php:37
+msgid "Donation&thinsp;!"
+msgstr ""
+
+#: snippets.php:61
+msgid "Yes"
+msgstr ""
+
+#: snippets.php:65
+msgid "No"
+msgstr ""
+
+#: documentation.php:1
+msgid "doc.h1"
+msgstr ""
+
+#: home.php:1
+#: index.php:119
+msgid "Home page"
+msgstr ""
+
+#: home.php:3
+msgid "Overview"
+msgstr ""
+
+#: home.php:5
+msgid "About"
+msgstr ""
+
+#: home.php:8
+msgid "screenshots"
+msgstr ""
+
+#: home.php:9
+msgid "Screenshots gallery."
+msgstr ""
+
+#: home.php:9
+msgid "see screenshots"
+msgstr ""
+
+#: home.php:12
+#, fuzzy
+msgid "The AjaxBrowser project begin in 2006 as a personnal script to manage my own files on a remote server. At this time I was juggling between Windows® and Linux so I was looking for a <strong>cross-platform solution</strong>. As I was highly disappointed with <abbr title='File Transfer Protocol'>FTP</abbr>, I decided to create this project upon the <strong>popularity</strong> and <strong>portability</strong> of web browser."
+msgstr "關於AJAX-Browser是一個共享软体的用於Firefox或Konqueror系統的HTTP文件管理器，根本上用PHP/AJAX写得和利用 HTTP協議。AJAX-Browser极大地利用AJAX技术，增加网页的交互性，速度，流动性，官能和可用性，就赛过有名可是有限制的FireFTP FTP客戶端，尤其是在速度跟可用性的方面。它擁有內置HTTP協議让用戶、存檔文件導航、文件比較／同步，online还名和編輯，及多用途重命名工具等功能。欢迎你看那在右边的屏幕录 影。"
+
+#: home.php:15
+msgid "Quick Download"
+msgstr ""
+
+#: home.php:22
+msgid "Description"
+msgstr ""
+
+#: home.php:24
+msgid "The whole project is written in <abbr title='Asynchronous Javascript And XML'>AJAX</abbr> and <abbr title='PHP: Hypertext Preprocessor'>PHP</abbr>, which are two highly spread technologies among modern web browsers and web servers. Thus, <abbr title='PHP: Hypertext Preprocessor'>PHP</abbr> make it an <strong>easy to install</strong> application and <abbr title='Asynchronous Javascript And XML'>AJAX</abbr> allow instantaneous reactivity and <strong>intuitive use</strong>."
+msgstr ""
+
+#: home.php:25
+msgid "You will find the following features, <em>similar to the one you will find in your <abbr title='Operating System'>OS</abbr> file manager</em>&thinsp;:"
+msgstr ""
+
+#: home.php:28
+#: features.php:105
+msgid "Files management (drag'n'drop, advanced selection, cut/copy/paste, etc.)&thinsp;;"
+msgstr ""
+
+#: home.php:29
+#: features.php:106
+msgid "Images watermarking&thinsp;;"
+msgstr ""
+
+#: home.php:30
+#: features.php:107
+msgid "Online files edition with syntax highlightment (<abbr title='confer' lang='la'>cf</abbr>. <a href='http://codepress.org/'>Codepress</a>)&thinsp;;"
+msgstr ""
+
+#: home.php:31
+#: features.php:108
+msgid "Online compression and extraction (<abbr title='confer' lang='la'>cf</abbr>. <a href='?p=documentation.easyarchive'>EasyArchive</a>)&thinsp;;"
+msgstr ""
+
+#: home.php:32
+#: features.php:109
+msgid "Uploads and downloads of files as archive&thinsp;;"
+msgstr ""
+
+#: home.php:33
+#: features.php:110
+msgid "Advanced rights management (UNIX-like)&thinsp;;"
+msgstr ""
+
+#: home.php:34
+#: features.php:111
+msgid "Log journal&thinsp;;"
+msgstr ""
+
+#: home.php:35
+#: features.php:112
+msgid "Themes support and customisation&thinsp;;"
+msgstr ""
+
+#: home.php:36
+#: features.php:113
+msgid "<abbr title='Localization'>l10n</abbr> and <abbr title='Internationalization'>i18n</abbr> support."
+msgstr ""
+
+#: home.php:38
+#, php-format
+msgid "See the <a href='?p=Features'>full features list</a> and the <a href='?p=Features#comparison'>features comparison</a> between <em>pro</em> and <em>free</em> versions."
+msgstr ""
+
+#: home.php:41
+msgid "News"
+msgstr ""
+
+#: index.php:101
+msgid "file manager, domain, gallery, tree view mode, thumbnails mode, webmaster tool"
+msgstr ""
+
+#: index.php:102
+msgid "AJAX-Browser is a HTTP file manager fully written in PHP/AJAX, it will extend your file management experience to your web server without any FTP client. It&#039;s a project under LGPL licence."
+msgstr ""
+
+#: index.php:111
+msgid "AJAX-Browser News"
+msgstr ""
+
+#: index.php:120
+msgid "switch language"
+msgstr ""
+
+#: index.php:121
+msgid "skip to main content"
+msgstr ""
+
+#: index.php:122
+msgid "home"
+msgstr ""
+
+#: index.php:122
+msgid "go to home page"
+msgstr ""
+
+#: demo.php:1
+msgid "Live Demo"
+msgstr ""
+
+#: demo.php:3
+msgid "Be aware that <strong>this demo is based upon the Pro version</strong>. That means some features won't be avaible on standard version."
+msgstr ""
+
+#: demo.php:5
+msgid "<em>Tree view</em> mode"
+msgstr ""
+
+#: demo.php:9
+msgid "<em>Preview</em> mode"
+msgstr ""
+
+#: forum.php:1
+msgid "forum.h1"
+msgstr ""
+
+#: features.php:3
+msgid "Images watermark"
+msgstr ""
+
+#: features.php:4
+msgid "Online files edition"
+msgstr ""
+
+#: features.php:5
+msgid "Online compression and extraction"
+msgstr ""
+
+#: features.php:6
+msgid "Log journal"
+msgstr ""
+
+#: features.php:7
+msgid "Themes support"
+msgstr ""
+
+#: features.php:8
+msgid "<abbr title='Internationalization'>i18n</abbr>"
+msgstr ""
+
+#: features.php:9
+msgid "Online audio and video"
+msgstr ""
+
+#: features.php:10
+msgid "yyy"
+msgstr ""
+
+#: features.php:11
+msgid "zzz"
+msgstr ""
+
+#: features.php:12
+msgid "Price"
+msgstr ""
+
+#: features.php:15
+msgid "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;Pro"
+msgstr ""
+
+#: features.php:16
+msgid "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;Free"
+msgstr ""
+
+#: features.php:31
+msgid "Coming soon&hellip;"
+msgstr ""
+
+#: features.php:100
+msgid "Features"
+msgstr ""
+
+#: features.php:102
+msgid "Features list"
+msgstr ""
+
+#: features.php:114
+msgid "Online audio and video (using <abbr title='HyperText Markup Language'>HTML</abbr>5)&thinsp;;"
+msgstr ""
+
+#: features.php:118
+msgid "<em>Pro</em> <abbr title='versus'>vs</abbr> <em>Free</em> version"
+msgstr ""
+
+#: features.php:120
+msgid "This table compare only <em>Pro</em> and <em>Free</em> version of AjaxBrowser. Further on this page you will find a comparison between AjaxBrowser and others products on the market. "
+msgstr ""
+
+#: features.php:128
+msgid "comparison between Pro and Free versions"
+msgstr ""
+
+#: features.php:131
+msgid "AjaxBrowser <abbr title='versus'>vs</abbr> Others products"
+msgstr ""
+
+#: features.php:133
+msgid "This is a <strong>mockery</strong>, real data for others products are currently not avaible. Come later to check for real data"
+msgstr ""
+
+#: features.php:138
+msgid "comparison between AjaxBrowser and Others products"
+msgstr ""
+
+#: features.php:142
+msgid "Supported Languages"
+msgstr ""
+
+#: features.php:150
+msgid "Add another."
+msgstr ""
+
+#: features.php:150
+msgid "Translate into a new language."
+msgstr ""
+
+#: footer.php:1
+msgid "Footer"
+msgstr ""
+
+#: footer.php:7
+msgid "Valid CSS 2.1"
+msgstr ""
+
+#: footer.php:11
+msgid "Valid XHTML 1.0 Strict"
+msgstr ""
+
+#: footer.php:15
+msgid "WCAG-AA"
+msgstr ""
+
+#: footer.php:18
+msgid " – All rights reserved."
+msgstr ""
+
+#: download.php:3
+#: menu.phpc:8
+msgid "Download"
+msgstr ""
+
+#: download.php:6
+msgid "<em>Pro</em> version"
+msgstr ""
+
+#: download.php:9
+msgid "The <em>Pro</em> version offer <strong>more features</strong> than the free one (see <a href='?p=Features#comparison'>versions comparison</a>). However, its use and redistribution are limited under copyright laws. All pro versions are listed below (newest first)&thinsp;:"
+msgstr ""
+
+#: download.php:15
+msgid "<em>Free</em> version"
+msgstr ""
+
+#: download.php:18
+msgid "The <em>free</em> version keep main features as shown on the <a href='?p=Features#comparison'>versions comparison</a> table. You can use and redistribute it under the GNU GPL licence. All <em>free</em> versions are listed below (newest first)&thinsp;:"
+msgstr ""
+
+#: download.php:25
+msgid "Icons set"
+msgstr ""
+
+#: download.php:32
+msgid "Languages pack"
+msgstr ""
+
+#: help.php:1
+msgid "Support"
+msgstr ""
+
+#: help.php:3
+msgid "<abbr title='Frequently Asked Questions'>FAQ</abbr>"
+msgstr ""
+
+#: help.php:5
+msgid "You will find here some of the most common mistakes encountered by user and their solution. The <a href='?p=faq'>complete <abbr title='Frequently Asked Questions'>FAQ</abbr> list</a> is avaible on there."
+msgstr ""
+
+#: help.php:7
+msgid "Documentation"
+msgstr ""
+
+#: help.php:9
+msgid "Below are some quick links to the documentation. For further research go on <a href='/wiki/'>our wiki</a>."
+msgstr ""
+
+#: help.php:11
+msgid "Browser support"
+msgstr ""
+
+#: help.php:12
+msgid "Installation"
+msgstr ""
+
+#: help.php:13
+msgid "Rights Management"
+msgstr ""
+
+#: help.php:14
+msgid "Icons Pack"
+msgstr ""
+
+#: help.php:15
+msgid "Languages Pack"
+msgstr ""
+
+#: help.php:16
+msgid "<abbr title='Application Program Interface'>API</abbr>"
+msgstr ""
+
+#: help.php:17
+msgid "Plugin"
+msgstr ""
+
+#: help.php:20
+msgid "Forums"
+msgstr ""
+
+#: help.php:22
+msgid "Here are some hot topics of the forums, and useful thread. For further details have a <a href='/forum/'>look at the forum</a>."
+msgstr ""
+
+#: menu.phpc:4
+msgid "Home"
+msgstr ""
+
+#: menu.phpc:7
+msgid "Demo"
+msgstr ""
+
+#: menu.phpc:9
+msgid "Help"
+msgstr ""
+
+#: menu.phpc:12
+msgid "Overview."
+msgstr ""
+
+#: menu.phpc:13
+msgid "Complete features list."
+msgstr ""
+
+#: menu.phpc:14
+msgid "Screen captures."
+msgstr ""
+
+#: menu.phpc:15
+msgid "Live demo (Pro version's )."
+msgstr ""
+
+#: menu.phpc:16
+msgid "Free, Pro & older versions."
+msgstr ""
+
+#: menu.phpc:17
+msgid "Support: FAQ, Docs, Forums."
+msgstr ""
+
+#: menu.phpc:22
+msgid "Project collaborators."
+msgstr ""
+
+#: team.phpc:4
+msgid "Role"
+msgstr ""
+
+#: team.phpc:5
+msgid "<abbr title='Also Known As'>aka</abbr>"
+msgstr ""
+
+#: team.phpc:6
+msgid "Country"
+msgstr ""
+
+#: team.phpc:7
+msgid "E-mail"
+msgstr ""
+
+#: team.phpc:8
+msgid "Web page"
+msgstr ""
+
+#: admin.phpc:30
+msgid "admin|form#logger.label:login"
+msgstr ""
+
+#: admin.phpc:34
+msgid "admin|form#logger.label:password"
+msgstr ""
+
+#: admin.phpc:51
+msgid "admin|form#admin-error.span"
+msgstr ""
+
+#: admin.phpc:62
+#: admin.phpc:71
+#: admin.phpc:147
+#: admin.phpc:150
+msgid "admin"
+msgstr ""
+
+#: admin.phpc:62
+msgid "admin.h1"
+msgstr ""
+
+#: admin.phpc:99
+msgid "news-edit"
+msgstr ""
+
+#: admin.phpc:106
+msgid "news-insert"
+msgstr ""
+
+#: admin.phpc:114
+msgid "news-preview"
+msgstr ""
+
+#: admin.phpc:122
+msgid "news-l10n"
+msgstr ""
+
+#: admin.phpc:147
+msgid "index#logout@title"
+msgstr ""
+
+#: admin.phpc:147
+msgid "index#logout"
+msgstr ""
+
+#: admin.phpc:150
+msgid "index#login@title"
+msgstr ""
+
+#: admin.phpc:150
+msgid "index#login"
+msgstr ""
+
+#: download.phpc:39
+#, php-format
+msgid "%s language pack"
+msgstr ""
+
+#: download.phpc:41
+#, php-format
+msgid "help <a href='http://launchpad.net/~ajaxbrowser/%s'>translate <span class='h'> %s</span></a>"
+msgstr ""
+
+#: download.phpc:47
+#, php-format
+msgid "see %s full icons set."
+msgstr ""
+
+#: download.phpc:48
+#, php-format
+msgid "preview %s"
+msgstr ""
+
+#: news.phpc:5
+msgid "news.todo"
+msgstr ""
+
