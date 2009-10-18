@@ -101,10 +101,17 @@ function currency($price)
   } else
   {
     require_once("GoogleCurrencyConvertor.phpc");
-    $gcc = new GoogleCurrencyConvertor($price, $current_currency, $dest_currency);
+//     $gcc = new GoogleCurrencyConvertor($price, $current_currency, $dest_currency);
 
-    return money_format($out, round($gcc->getRate()));
+//     return money_format($out, round($gcc->getRate()));
+      return $price;
   }
 }
+
+function urlizer($str)
+{
+  return htmlspecialchars($str, ENT_QUOTES);
+}
+
 ?>
 

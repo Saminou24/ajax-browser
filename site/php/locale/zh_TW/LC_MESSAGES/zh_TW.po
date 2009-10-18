@@ -269,7 +269,7 @@ msgstr "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;免費版"
 #: features.php:31
 #, fuzzy
 msgid "Coming soon&hellip;"
-msgstr "Dès que la piste est ajoutée à la liste de lecture"
+msgstr "下功能們&hellip;"
 
 #: features.php:100
 msgid "Features"

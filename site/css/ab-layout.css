@@ -71,8 +71,6 @@ display: inline;
   height:inherit;
   margin:0 25px;
   padding: 0;
-/*   width:94.3%; */
-/*   position: absolute; */
 }
 #topmenu .bgl, #topmenu .bgr {
   display:block;
@@ -85,25 +83,21 @@ display: inline;
 #topmenu .bgr { right:0; }
 #menu {
   display:inline-block;
-/*   height:inherit; */
   margin:0 auto;
   padding:0 1em;
-  position:absolute;
+  position:relative;
   top:0.6em;
-  width:90%;
   z-index:2;
-/*   border: thin solid red; */
-/*
-  position: relative;
-  top: -3.1em;
-  margin: 0;
-*/
 }
 #menu li {
-/* border: thin solid red; */
   line-height:2.5em;
-  display:inline-block;
   padding: 0 .25em;
+  float: left;
+}
+#menu span {
+  display:inline-block;
+  line-height:2.5em;
+  padding-right:10px;
 }
 #menu a {
   display:inline-block;
@@ -113,18 +107,19 @@ display: inline;
 /*   padding: 0; */
 }
 #menu #lang0 {
+  left: -6em;
   position: absolute;
-  z-index: 0;
-  left: 0;
+  border: thin solid green;
 }
 #menu #lang {
 /*  margin-left: 0;
   padding-left: 0;*/
   position: relative;
   top: 2.6em;
+  left: 3em;
   padding:0 0.5em;
-  width: 6em;
-z-index: 0;
+  z-index: 2;
+  border: thin solid red;
 }
 #lang img {
   vertical-align:baseline;
@@ -132,22 +127,20 @@ z-index: 0;
 #menu #lang li {
   visibility: hidden;
   position: relative;
-/*   top: 2.5em; */
   padding: 0;
   z-index: 2;
-/*   line-height: 1.5em; */
-/*   left: 0; */
+}
+#menu #lang0:hover #lang, #lang:hover {
+  height:2.5em;
 }
 #menu #lang0:hover li { visibility: visible; }
 #menu #lang li:hover, #menu #lang .active {
   opacity: 1;
-/*   z-index: 2; */
 }
 #menu #lang .active {
   visibility: visible;
   position: absolute;
   top: -2.6em;
-/*   left: 0.2em; */
   margin: 0;
 }
 
@@ -157,12 +150,19 @@ z-index: 0;
   right: .5em;
   padding-left:20px;
 }
-
+#menu .first {
+/*   margin-left: 6%; */
+}
+#menu li {
+/*   min-width: 10%; */
+/*   min-width: 5em; */
+}
 
 /* CONTENT */
 #content {
   position: relative;
   margin: 0 auto;
+  margin-top: 1.5em;
 /*   width: 50em; */
 }
 #page {
@@ -188,7 +188,6 @@ z-index: 0;
   max-width: 196px;
   margin-left:1.5em;
   padding: .25em;
-  z-index: 5;
 }
 #home-download {
   display: block;
@@ -197,6 +196,7 @@ z-index: 0;
   white-space:nowrap;
   position: relative;
   top: -1em;
+  margin-right: 250px;
 }
 #home-download .dwld {
   display: inline-block;

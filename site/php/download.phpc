@@ -44,8 +44,8 @@ function downloadable_list($item)
         preg_match_all('/(.*)\.tar\.gz/', $file, $match);
         $label = $match[1][0];
         $preview = preg_replace('/\.tar\.gz$/', '.log', $label);
-        $post = " | <a href='/misc/downloads/icons/{$label}-full.png' rel='lightbox[icons]' title='".htmlspecialchars(sprintf(_('see %s full icons set.'), $preview), ENT_QUOTES)."'>
-        \n<img class='down' src='/misc/downloads/icons/{$preview}-preview.png' alt='".htmlspecialchars(sprintf(_('preview %s'), $file), ENT_QUOTES)."' /></a>";
+        $post = " | <a href='/misc/downloads/icons/{$label}-full.png' rel='lightbox[icons]' title='".urlizer(sprintf(_('see %s full icons set.'), $preview))."'>
+        \n<img class='down' src='/misc/downloads/icons/{$preview}-preview.png' alt='".urlizer(sprintf(_('preview %s'), $file))."' /></a>";
         break;
     }
     $result .= <<<ITEM

@@ -6,7 +6,7 @@
     <div>
       <div id='sample'>
         <a href='?p=screenshots' >
-          <img id='sample' src='/misc/screenshots/thumbs/gallery-view.png' title='<?php echo htmlspecialchars(_('Screenshots gallery.'), ENT_QUOTES);?>' alt='<?php echo htmlspecialchars(_('see screenshots'), ENT_QUOTES);?>' />
+          <img id='sample' src='/misc/screenshots/thumbs/gallery-view.png' title='<?php echo urlizer(_('Screenshots gallery.'));?>' alt='<?php echo urlizer(_('see screenshots'));?>' />
         </a>
       </div>
       <p><?php echo _("The AjaxBrowser project begin in 2006 as a personnal script to manage my own files on a remote server. At this time I was juggling between Windows® and Linux so I was looking for a <strong>cross-platform solution</strong>. As I was highly disappointed with <abbr title='File Transfer Protocol'>FTP</abbr>, I decided to create this project upon the <strong>popularity</strong> and <strong>portability</strong> of web browser."); ?></p>

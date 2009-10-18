@@ -190,7 +190,9 @@ function parse_query_string()
 
 function translate_QS($lang = FALSE, $dico = 'i18n')
 {// Translate Query String = each parameter by is equivalent
-  $result = preg_replace('/\&?lang=\w{2}/', '', $_SERVER['QUERY_STRING']);
+// dump($_SERVER['QUERY_STRING']);
+  $result = preg_replace('/\&*lang=\w{2}/', '', $_SERVER['QUERY_STRING']);
+  $result = preg_replace('/\&{2,}/', '&', $result);
   return $result;
 // 	parse_str($_SERVER['QUERY_STRING'], $arr);
 // // 	dump($lang.'+'.$arr['lang']);

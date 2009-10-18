@@ -133,7 +133,7 @@ img { border: none;}
   font-weight: bold;
   color: #fff;
 }
-#menu .current, #menu li:hover/*, #lang li:hover*/ {
+#menu .current span, #menu li:hover span /*, #lang li:hover*/ {
   background:transparent url('/images/bg-menu:active-shadow.png') no-repeat scroll 100% 0;
 }
 #menu .current a, #menu li:hover a {/*, #menu #lang0 li:hover a*/
@@ -154,6 +154,8 @@ img { border: none;}
 #menu li.active { background: transparent url('./images/bullet_arrow_down.png') no-repeat center bottom; }
 #menu #lang0:hover li.active {
 /* background-image: none; */
+}
+#menu #lang {
 }
 #menu #lang:hover .active {
 /* border-bottom: thin inset #555; */

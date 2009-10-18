@@ -1,13 +1,16 @@
 <?php
 function build_menu()
 {
-_("Home");
-_("Features");
-_("Screenshots");
-_("Demo");
-_("Download");
-_("Help");
-_("Team");
+  // allow gettext to know this string
+  _("Home");
+  _("Features");
+  _("Screenshots");
+  _("Demo");
+  _("Download");
+  _("Help");
+  _("Team");
+
+  // URL parameters are in english
 	$menu = array();
 	$menu[] = menu_item('Home', _('Overview.'), 'O');
 	$menu[] = menu_item('Features', _('Complete features list.'), 'T');
@@ -27,14 +30,22 @@ _("Team");
 function menu_item($label, $title, $key = NULL)
 {
 	//echo $label;
+  $first = NULL;
+  $accesskey = NULL;
 	$status = status(strtolower($label));
 	if ($key!=NULL)
 	{
 		$accesskey = "accesskey='{$key}'";
-	} else { $accesskey = NULL; }
+	}
+  if ($label=='Home')
+  {
+    $first = 'first';
+  }
+
 	$ulabel = urlencode($label);
   $label = _($label);
-	$item = "<li class='{$status}'><a href='?p={$ulabel}' title='{$title}' $accesskey >{$label}</a></li>";
+  $utitle = urlizer($title);
+	$item = "<li class='{$status} {$first}'><span><a href='?p={$ulabel}' title='{$utitle}' $accesskey >{$label}</a></span></li>";
 	return $item;
 }
 ?>
