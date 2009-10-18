@@ -188,6 +188,7 @@ z-index: 0;
   max-width: 196px;
   margin-left:1.5em;
   padding: .25em;
+  z-index: 5;
 }
 #home-download {
   display: block;

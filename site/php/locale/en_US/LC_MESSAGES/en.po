@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AjaxBrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-13 18:34+0100\n"
+"POT-Creation-Date: 2009-10-17 22:27+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Édouard Lopez <edouard.lopez+poedit@gmail.com>\n"
 "Language-Team: AjaxBrowser Team <edouard.lopez+AB@gmail.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: menu.php:5
-#: menu.php:8
+#: menu.php:9
 msgid "Navigation menu"
 msgstr "Navigation menu"
 
@@ -65,7 +65,7 @@ msgid "doc.h1"
 msgstr "c"
 
 #: home.php:1
-#: index.php:119
+#: index.php:125
 msgid "Home page"
 msgstr "Home page"
 
@@ -176,20 +176,20 @@ msgstr "AJAX-Browser is a HTTP file manager fully written in PHP/AJAX, it will e
 msgid "AJAX-Browser News"
 msgstr "AJAX-Browser News"
 
-#: index.php:120
+#: index.php:126
 msgid "switch language"
 msgstr "switch language"
 
-#: index.php:121
+#: index.php:127
 msgid "skip to main content"
 msgstr "skip to main content"
 
 # url parameter
-#: index.php:122
+#: index.php:128
 msgid "home"
 msgstr "home"
 
-#: index.php:122
+#: index.php:128
 msgid "go to home page"
 msgstr "go to home page"
 
@@ -509,36 +509,44 @@ msgid "admin.h1"
 msgstr ""
 
 #: admin.phpc:99
+#, fuzzy
 msgid "news-edit"
-msgstr ""
+msgstr "Edit Controlpoints"
 
 #: admin.phpc:106
+#, fuzzy
 msgid "news-insert"
-msgstr ""
+msgstr "Insert Point"
 
 #: admin.phpc:114
+#, fuzzy
 msgid "news-preview"
-msgstr ""
+msgstr "Anim Preview"
 
 #: admin.phpc:122
+#, fuzzy
 msgid "news-l10n"
-msgstr ""
+msgstr "News Management Mode"
 
 #: admin.phpc:147
+#, fuzzy
 msgid "index#logout@title"
-msgstr ""
+msgstr "Comment sets Title"
 
 #: admin.phpc:147
+#, fuzzy
 msgid "index#logout"
-msgstr ""
+msgstr "Creating Index"
 
 #: admin.phpc:150
+#, fuzzy
 msgid "index#login@title"
-msgstr ""
+msgstr "Comment sets Title"
 
 #: admin.phpc:150
+#, fuzzy
 msgid "index#login"
-msgstr ""
+msgstr "&Test Login"
 
 #: download.phpc:39
 #, php-format
@@ -562,8 +570,9 @@ msgid "preview %s"
 msgstr "preview %s"
 
 #: news.phpc:5
+#, fuzzy
 msgid "news.todo"
-msgstr ""
+msgstr "News Management Mode"
 
 #~ msgid "<strong>No</strong>"
 #~ msgstr "<strong>No</strong>"

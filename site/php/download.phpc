@@ -7,9 +7,9 @@ function downloadable_list($item)
   $list->set_wd('./misc/downloads/'.$item);
   $path = $list->get_wd();
   $items = $list->list_files();
-  $items = $list->filter($items, '/\.tar\.gz|php$/');
+  $items = $list->filter('/\.tar\.gz|php$/');
 
-  foreach ($items as $file)
+  foreach ($items['match'] as $file)
   {
     $pre = '';
     $post = '';

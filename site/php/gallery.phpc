@@ -2,10 +2,12 @@
 {
   PRIVATE $DIR = '/misc/screenshots/';
   PUBLIC $SCAN = array();
+
   function set_wd($dir)
   {// set working directory
     $this->DIR = $dir;
   }
+
   function get_wd()
   {// set working directory
     return $this->DIR;
@@ -22,15 +24,20 @@
     return $this->SCAN;
   }
 
-  function filter($list, $pattern)
+  function filter($pattern)
   {
+//     echo 'list: '; dump($this->SCAN);
 //     echo 'pattern: '; dump($pattern);
-    $result = array();
-    foreach ($list as $file)
+    $result = array('match' => array(), 'nomatch' => array());
+    foreach ($this->SCAN as $file)
     {
+      //dump($file);
       if (preg_match($pattern, $file))
       {
-        $result[] = $file;
+        $result['match'][] = $file;
+      } else
+      {
+        $result['nomatch'][] = $file;
       }
     }
 //     echo 'result: '; dump($result);
@@ -49,9 +56,13 @@
     return $this->SCAN;
   }
 
-  function htmlizer()
+  function htmlizer($list=FALSE)
   {
-    $list = $this->list_screenshots($this->DIR);
+    if (isset($list)==FALSE)
+    {
+      $list = $this->SCAN;
+    }
+    //$list = $this->list_screenshots();
 
     foreach ($list as $file)
     {

@@ -7,8 +7,9 @@ Type=Directory
 
 [Dolphin]
 AdditionalInfo=63
-SortOrder=1
-Timestamp=2009,10,12,21,38,24
+ShowPreview=false
+Sorting=6
+Timestamp=2009,10,17,22,8,18
 ViewMode=1
 
 [Settings]

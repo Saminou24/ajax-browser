@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AjaxBrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-13 18:34+0100\n"
+"POT-Creation-Date: 2009-10-17 22:29+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Édouard Lopez <edouard.lopez+poedit@gmail.com>\n"
 "Language-Team: AjaxBrowser Team <edouard.lopez+AB@gmail.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: menu.php:5
-#: menu.php:8
+#: menu.php:9
 msgid "Navigation menu"
 msgstr "Menu de navigation"
 
@@ -65,7 +65,7 @@ msgid "doc.h1"
 msgstr ""
 
 #: home.php:1
-#: index.php:119
+#: index.php:125
 msgid "Home page"
 msgstr "Page d'accueil"
 
@@ -177,19 +177,19 @@ msgid "AJAX-Browser News"
 msgstr "News d'AJAX-Browser"
 
 # interface web
-#: index.php:120
+#: index.php:126
 msgid "switch language"
 msgstr "changer de langue"
 
-#: index.php:121
+#: index.php:127
 msgid "skip to main content"
 msgstr "allez au contenu principal"
 
-#: index.php:122
+#: index.php:128
 msgid "home"
 msgstr "Page d'accueil"
 
-#: index.php:122
+#: index.php:128
 msgid "go to home page"
 msgstr "allez à la page d'accueil"
 
@@ -210,8 +210,9 @@ msgid "<em>Preview</em> mode"
 msgstr "Mode <em>miniature</em>"
 
 #: forum.php:1
+#, fuzzy
 msgid "forum.h1"
-msgstr ""
+msgstr "Forum en ligne…"
 
 #: features.php:3
 msgid "Images watermark"
@@ -491,51 +492,62 @@ msgid "admin|form#logger.label:password"
 msgstr ""
 
 #: admin.phpc:51
+#, fuzzy
 msgid "admin|form#admin-error.span"
-msgstr ""
+msgstr "<span·foreground=\"red\">[Erreur au chargement de l'image!]</span>"
 
 #: admin.phpc:62
 #: admin.phpc:71
 #: admin.phpc:147
 #: admin.phpc:150
+#, fuzzy
 msgid "admin"
-msgstr ""
+msgstr "Admin Subversion"
 
 #: admin.phpc:62
+#, fuzzy
 msgid "admin.h1"
-msgstr ""
+msgstr "Admin Subversion"
 
 #: admin.phpc:99
+#, fuzzy
 msgid "news-edit"
-msgstr ""
+msgstr "Éditer les propriétés"
 
 #: admin.phpc:106
+#, fuzzy
 msgid "news-insert"
-msgstr ""
+msgstr "Inséré un fichier texte"
 
 #: admin.phpc:114
+#, fuzzy
 msgid "news-preview"
-msgstr ""
+msgstr "Aperçu de la destination"
 
 #: admin.phpc:122
+#, fuzzy
 msgid "news-l10n"
-msgstr ""
+msgstr "Flux d'informations"
 
 #: admin.phpc:147
+#, fuzzy
 msgid "index#logout@title"
-msgstr ""
+msgstr "Les commentaires configurent le titre"
 
 #: admin.phpc:147
+#, fuzzy
 msgid "index#logout"
-msgstr ""
+msgstr "Création d'index"
 
 #: admin.phpc:150
+#, fuzzy
 msgid "index#login@title"
-msgstr ""
+msgstr "Les commentaires configurent le titre"
 
 #: admin.phpc:150
+#, fuzzy
 msgid "index#login"
-msgstr ""
+msgstr "&Tester le login"
 
 #: download.phpc:39
 #, php-format
@@ -558,8 +570,9 @@ msgid "preview %s"
 msgstr "aperçu de %s"
 
 #: news.phpc:5
+#, fuzzy
 msgid "news.todo"
-msgstr ""
+msgstr "/ToDo/_Préférences"
 
 #, fuzzy
 #~ msgid "title"

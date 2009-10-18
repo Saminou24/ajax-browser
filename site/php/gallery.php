@@ -4,7 +4,11 @@
 		<?php 			require_once 'gallery.phpc';
       $gallery = new gallery();
       $gallery->set_wd('/misc/screenshots/');
-			$gallery->htmlizer();
+      $gallery->list_screenshots();
+      $filter = $gallery->filter('/^\./');
+//       dump($filter['match']);
+//       dump($filter['nomatch']);
+			$gallery->htmlizer($filter['nomatch']);
 		?>
 	</ul>
 <br class='clear'/>

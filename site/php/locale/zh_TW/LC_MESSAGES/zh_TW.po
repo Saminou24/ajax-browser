@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AjaxBrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-10 10:44+0100\n"
+"POT-Creation-Date: 2009-10-17 22:29+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: hugo lopez <hugo.lpz+poedit@gmail.com>\n"
+"Last-Translator: Édouard Lopez <edouard.lopez+poedit@gmail.com>\n"
 "Language-Team: AjaxBrowser Team <edouard.lopez+AB@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: menu.php:5
-#: menu.php:8
+#: menu.php:9
 msgid "Navigation menu"
 msgstr "導航"
 
@@ -52,11 +52,11 @@ msgstr "捐款"
 msgid "Donation&thinsp;!"
 msgstr "贊助我&thinsp;!"
 
-#: snippets.php:59
+#: snippets.php:61
 msgid "Yes"
 msgstr "是"
 
-#: snippets.php:63
+#: snippets.php:65
 msgid "No"
 msgstr "否"
 
@@ -65,7 +65,7 @@ msgid "doc.h1"
 msgstr ""
 
 #: home.php:1
-#: index.php:116
+#: index.php:125
 msgid "Home page"
 msgstr "首頁"
 
@@ -89,7 +89,10 @@ msgstr "截圖畫廊"
 msgid "see screenshots"
 msgstr "看截圖"
 
+# 移 Protocol'>英
+# why the ' and the > ?
 #: home.php:12
+#, fuzzy
 msgid "The AjaxBrowser project begin in 2006 as a personnal script to manage my own files on a remote server. At this time I was juggling between Windows® and Linux so I was looking for a <strong>cross-platform solution</strong>. As I was highly disappointed with <abbr title='File Transfer Protocol'>FTP</abbr>, I decided to create this project upon the <strong>popularity</strong> and <strong>portability</strong> of web browser."
 msgstr "這套AjaxBrowser軟體與始於2006年，作為個人腳本來管理自己在遠程服務器上的文件。在這同時，我正在研究Windows ®和Linux，所以我一直在尋找<strong>跨平台解決方案</strong>”。而且我對FTP感到非常失望，<abbr title='File Transfer Protocol'>FTP</abbr>轉移 Protocol'>英文縮寫”，所以我決定創造這套受到<strong>普遍使用</strong>以及<strong>高便利性的</strong>在瀏覽器上。"
 
@@ -110,38 +113,47 @@ msgid "You will find the following features, <em>similar to the one you will fin
 msgstr "<em>像你的<abbr title='Operating System'>OS</abbr>檔案管理器<!--file manager-->一樣</em>，AB讓你用那些功能："
 
 #: home.php:28
+#: features.php:105
 msgid "Files management (drag'n'drop, advanced selection, cut/copy/paste, etc.)&thinsp;;"
 msgstr "檔案管理 (檔案的拖曳與貼上，進階選單,，剪下/複製/貼上，等等。)&thinsp;;"
 
 #: home.php:29
+#: features.php:106
 msgid "Images watermarking&thinsp;;"
 msgstr "照片的浮水印(<span lang='en'>water-mark</span>)&thinsp;;"
 
 #: home.php:30
+#: features.php:107
 msgid "Online files edition with syntax highlightment (<abbr title='confer' lang='la'>cf</abbr>. <a href='http://codepress.org/'>Codepress</a>)&thinsp;;"
 msgstr "線上的文件編輯與高亮度文字 (請參照<a href='http://codepress.org/'>Codepress</a>)&thinsp;;"
 
 #: home.php:31
+#: features.php:108
 msgid "Online compression and extraction (<abbr title='confer' lang='la'>cf</abbr>. <a href='?p=documentation.easyarchive'>EasyArchive</a>)&thinsp;;"
 msgstr "線上解/壓縮以及抽出 (請參照<a href='?p=documentation.easyarchive'>EasyArchive</a>)&thinsp;;"
 
 #: home.php:32
+#: features.php:109
 msgid "Uploads and downloads of files as archive&thinsp;;"
 msgstr "上傳和下載壓縮檔案&thinsp;;"
 
 #: home.php:33
+#: features.php:110
 msgid "Advanced rights management (UNIX-like)&thinsp;;"
 msgstr "高級權限管理(UNIX-like)&thinsp;;"
 
 #: home.php:34
+#: features.php:111
 msgid "Log journal&thinsp;;"
 msgstr "歷史紀錄&thinsp;;"
 
 #: home.php:35
+#: features.php:112
 msgid "Themes support and customisation&thinsp;;"
 msgstr "Support de thèmes et personnalisation&thinsp;;"
 
 #: home.php:36
+#: features.php:113
 msgid "<abbr title='Localization'>l10n</abbr> and <abbr title='Internationalization'>i18n</abbr> support."
 msgstr "支援<abbr title='本地化'>l10n</abbr>與<abbr title='國際化 Internationalisation'>i18n</abbr>。"
 
@@ -168,19 +180,19 @@ msgid "AJAX-Browser News"
 msgstr "AJAX-Browser的消息！"
 
 # interface web
-#: index.php:117
+#: index.php:126
 msgid "switch language"
 msgstr "切換語言"
 
-#: index.php:118
+#: index.php:127
 msgid "skip to main content"
 msgstr "跳到内文"
 
-#: index.php:119
+#: index.php:128
 msgid "home"
 msgstr "首頁"
 
-#: index.php:119
+#: index.php:128
 msgid "go to home page"
 msgstr "回首頁"
 
@@ -201,8 +213,9 @@ msgid "<em>Preview</em> mode"
 msgstr "<em>預覽視圖</em>方式<!--Preview預覽; icon圖標view-->"
 
 #: forum.php:1
+#, fuzzy
 msgid "forum.h1"
-msgstr ""
+msgstr "Forum en ligne…"
 
 #: features.php:3
 msgid "Images watermark"
@@ -256,7 +269,7 @@ msgstr "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;免費版"
 #: features.php:31
 #, fuzzy
 msgid "Coming soon&hellip;"
-msgstr "下功能們&hellip;"
+msgstr "Dès que la piste est ajoutée à la liste de lecture"
 
 #: features.php:100
 msgid "Features"
@@ -317,12 +330,12 @@ msgstr "頁尾"
 #: footer.php:7
 #, fuzzy
 msgid "Valid CSS 2.1"
-msgstr "Valid CSS 2.1"
+msgstr "Valide depuis"
 
 #: footer.php:11
 #, fuzzy
 msgid "Valid XHTML 1.0 Strict"
-msgstr "Valid XHTML 1.0 Strict"
+msgstr "SAP mode strict"
 
 #: footer.php:15
 msgid "WCAG-AA"
@@ -333,6 +346,7 @@ msgid " – All rights reserved."
 msgstr " – 版權所有<!--，翻印必究-->"
 
 #: download.php:3
+#: menu.phpc:8
 msgid "Download"
 msgstr "下載"
 
@@ -348,8 +362,10 @@ msgstr "<em>專業</em>版本有比<em>免費</em>版本的功能還多 (查看<
 msgid "<em>Free</em> version"
 msgstr "<em>免費</em>版本"
 
+# last sentences 'pro' -> free
 #: download.php:18
-msgid "The <em>free</em> version keep main features as shown on the <a href='?p=Features#comparison'>versions comparison</a> table. You can use and redistribute it under the GNU GPL licence. All pro versions are listed below (newest first)&thinsp;:"
+#, fuzzy
+msgid "The <em>free</em> version keep main features as shown on the <a href='?p=Features#comparison'>versions comparison</a> table. You can use and redistribute it under the GNU GPL licence. All <em>free</em> versions are listed below (newest first)&thinsp;:"
 msgstr "<em>免費</em>版本有<em>專業</em>版本最重要的功能 (查看<a href='?p=Features#comparison'>AB免費跟職業版本的比較</a>)，讓你們做不少檔案管理。你可以複製並轉送，前提示你要尊重<a href='http://www.gnu.org/licenses/licenses.zh-tw.html'>LGPL許可證</a>，就可以。所有的<em>免費</em>版本都在這下面的列出(最新的)&thinsp;:"
 
 # pluriel ?
@@ -487,51 +503,62 @@ msgid "admin|form#logger.label:password"
 msgstr ""
 
 #: admin.phpc:51
+#, fuzzy
 msgid "admin|form#admin-error.span"
-msgstr ""
+msgstr "<span·foreground=\"red\">[Erreur au chargement de l'image!]</span>"
 
 #: admin.phpc:62
 #: admin.phpc:71
 #: admin.phpc:147
 #: admin.phpc:150
+#, fuzzy
 msgid "admin"
-msgstr ""
+msgstr "Admin Subversion"
 
 #: admin.phpc:62
+#, fuzzy
 msgid "admin.h1"
-msgstr ""
+msgstr "Admin Subversion"
 
 #: admin.phpc:99
+#, fuzzy
 msgid "news-edit"
-msgstr ""
+msgstr "Éditer les propriétés"
 
 #: admin.phpc:106
+#, fuzzy
 msgid "news-insert"
-msgstr ""
+msgstr "Inséré un fichier texte"
 
 #: admin.phpc:114
+#, fuzzy
 msgid "news-preview"
-msgstr ""
+msgstr "Aperçu de la destination"
 
 #: admin.phpc:122
+#, fuzzy
 msgid "news-l10n"
-msgstr ""
+msgstr "Flux d'informations"
 
 #: admin.phpc:147
+#, fuzzy
 msgid "index#logout@title"
-msgstr ""
+msgstr "Les commentaires configurent le titre"
 
 #: admin.phpc:147
+#, fuzzy
 msgid "index#logout"
-msgstr ""
+msgstr "Création d'index"
 
 #: admin.phpc:150
+#, fuzzy
 msgid "index#login@title"
-msgstr ""
+msgstr "Les commentaires configurent le titre"
 
 #: admin.phpc:150
+#, fuzzy
 msgid "index#login"
-msgstr ""
+msgstr "&Tester le login"
 
 #: download.phpc:39
 #, php-format
@@ -554,8 +581,9 @@ msgid "preview %s"
 msgstr "%s的預覽"
 
 #: news.phpc:5
+#, fuzzy
 msgid "news.todo"
-msgstr ""
+msgstr "/ToDo/_Préférences"
 
 #, fuzzy
 #~ msgid "title"

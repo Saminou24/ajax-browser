@@ -5,7 +5,7 @@
 		<h3><?php echo _('About'); ?></h3>
     <div>
       <div id='sample'>
-        <a href='?p=<?php echo _('screenshots');?>' >
+        <a href='?p=screenshots' >
           <img id='sample' src='/misc/screenshots/thumbs/gallery-view.png' title='<?php echo htmlspecialchars(_('Screenshots gallery.'), ENT_QUOTES);?>' alt='<?php echo htmlspecialchars(_('see screenshots'), ENT_QUOTES);?>' />
         </a>
       </div>
