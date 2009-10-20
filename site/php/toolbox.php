@@ -1,4 +1,22 @@
 <?php
+// ALLOWED PAGES !
+$GLOBALS['i18n:file'] = array(
+// PAGE FILE
+  'home' => 'home',
+  'features' => 'features',
+  'gallery' => 'screenshots',
+  'demo' => 'demo',
+  'download' => 'download',
+  'help' => 'help',
+  'faq' => 'faq',
+  'documentation' => 'documentation',
+  'forum' => 'forum',
+  'contact' => 'contact',
+  'team' => 'team',
+  'admin' => 'administration',
+  '' => ''
+);
+
 // error_reporting(E_ALL);
 // ini_set('display_errors', 'on');
 
@@ -113,5 +131,64 @@ function urlizer($str)
   return htmlspecialchars($str, ENT_QUOTES);
 }
 
+
+function last_version()
+{
+  return '2.03-FAKE';
+}
+
+function is_locale($env, $me)
+{
+  if ($env==$me)
+  {
+    return "class='active'";
+  } else
+  {
+    return '';
+  }
+}
+
+function status($item)
+{// add a CSS-class to the menu entry of the requested page
+  //dump($_REQUEST['p']); dump($item);
+  if (isset($_REQUEST['p'])==FALSE)
+  {// aucune page demander = page d'acceuil
+    if ($item==$GLOBALS['i18n:file']['home'])
+    {
+      return 'current ';
+    }
+  } else
+  {// client ask a page
+    if ($item==strtolower($_REQUEST['p']))
+    {
+      return 'current ';
+    }
+  }
+}
+
+
+function include_page()
+{// we include the requested file if it's a valid one, else homepage
+
+  // default page
+  $key = 'home';
+  $file = str_replace('', '', $key);
+
+  if (isset($_REQUEST['p'])==TRUE)
+  {
+    $req = mb_strtolower($_REQUEST['p']); # some issue on capital character
+//     dump($req);
+    if (in_array($req, $GLOBALS['i18n:file'])==TRUE)
+    {// the requested page is a valid file
+      $key = array_search($req, $GLOBALS['i18n:file']);
+      $file = str_replace('', '', $key);
+    }
+  }
+//   dump($file);
+  $page['file'] = $file.'.php';
+  $page['title'] = ucfirst($GLOBALS['i18n:file'][$key]);
+
+  return $page;
+}
 ?>
 

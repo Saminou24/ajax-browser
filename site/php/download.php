@@ -1,7 +1,7 @@
 <?php require_once 'download.phpc'; ?>
 
 <h1><?php echo _('Download'); ?></h1>
-<div id='page'>
+<div id='site' class='page'>
   <div id='download'>
     <h3 id='pro'><?php echo _('<em>Pro</em> version'); ?></h3>
     <div id='dwl-pro'>

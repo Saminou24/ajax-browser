@@ -1,5 +1,5 @@
 <h1><?php echo _('Live Demo'); ?></h1>
-<div id='page'>
+<div id='site' class='page'>
 	<p><?php echo _('Be aware that <strong>this demo is based upon the Pro version</strong>. That means some features won\'t be avaible on standard version.'); ?></p>
 
 	<h3><?php echo _('<em>Tree view</em> mode'); ?></h3>

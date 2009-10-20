@@ -1,5 +1,5 @@
 <h1><?php echo _('Support'); ?></h1>
-<div id='page'>
+<div id='site' class='page'>
   <h3><?php echo _("<abbr title='Frequently Asked Questions'>FAQ</abbr>"); ?></h3>
   <div>
     <p><?php echo _("You will find here some of the most common mistakes encountered by user and their solution. The <a href='?p=faq'>complete <abbr title='Frequently Asked Questions'>FAQ</abbr> list</a> is avaible on there."); ?></p>

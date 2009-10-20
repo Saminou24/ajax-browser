@@ -60,6 +60,10 @@ list-style-type: disc;
 
 img { border: none;}
 
+#skip a {
+  background-color: #fff;
+  color: #88BA00 /*(green)*/;
+}
 
 
 /* BUTTON */
@@ -181,7 +185,7 @@ h1 {
   font-family: serif;
 }
 
-#page {
+.page {
   border: thin solid #bbb;
   background-color: #fff;
   background: #fff url('/images/bg-round.png') repeat-x scroll 0% 100%;
@@ -189,21 +193,19 @@ h1 {
   -moz-border-radius: .35em;
   -webkit-border-radius: .35em;
 }
-#page a {
+#site a {
   color: #88BA00 /*(green)*/;
-/*   border-bottom:thin dotted; */
-/*   height:1.25em; */
 }
-#page h2, #page h3, #page h4, #page h5, #page h6 {
+#site h2, #site h3, #site h4, #site h5, #site h6 {
 /*   font-weight: normal; */
   font-family: 'DejaVu Serif', 'Times New Roman', serif;
   color: #666;
   border-bottom: thin inset #ddd;
 }
 /* donation button */
-#page .donation button { font-size: xx-large; }
-#page .donation img { display: none; }
-/*#page .donation span { text-shadow: #eee 2px 2px 5px;}*/
+#site .donation button { font-size: xx-large; }
+#site .donation img { display: none; }
+/*#site .donation span { text-shadow: #eee 2px 2px 5px;}*/
 
 /* FOOTER */
 #footer {

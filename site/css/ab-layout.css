@@ -37,7 +37,13 @@ display: inline;
   left: 0;
   top: 0;
 }
-
+#skip a {
+}
+#skip .h:active, #skip .h:focus {
+  /* position: relative; */
+  white-space:pre;
+  left: 0;
+}
 
 /* BUTTON */
 #dwl-pro, #dwl-free {
@@ -62,7 +68,7 @@ display: inline;
 /* MENU (NAVIGATION) */
 #topmenu {
   position: relative;
-  margin: 1em 0 .25em auto;
+  margin: .25em auto;
   padding: 0;
   text-align: center;
   height:55px;
@@ -109,7 +115,7 @@ display: inline;
 #menu #lang0 {
   left: -6em;
   position: absolute;
-  border: thin solid green;
+  border:thin solid transparent;
 }
 #menu #lang {
 /*  margin-left: 0;
@@ -119,10 +125,10 @@ display: inline;
   left: 3em;
   padding:0 0.5em;
   z-index: 2;
-  border: thin solid red;
 }
 #lang img {
   vertical-align:baseline;
+  border:thin solid transparent;
 }
 #menu #lang li {
   visibility: hidden;
@@ -165,14 +171,14 @@ display: inline;
   margin-top: 1.5em;
 /*   width: 50em; */
 }
-#page {
-  padding: 0 .75em .75em .75em;
+.page {
+  padding: 0 1em;
   min-height: 32em  ;
   }
-#page h2, #page h3, #page h4, #page h5, #page h6 {
+#site h2, #site h3, #site h4, #site h5, #site h6 {
   margin-top: .5em;
 }
-#page .donation {
+#site .donation {
   float: right;
 }
 

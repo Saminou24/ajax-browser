@@ -1,5 +1,5 @@
 <h1><?php echo _('Screenshots'); ?></h1>
-<div id='page'>
+<div id='site' class='page'>
 	<ul id='screenshots'>
 		<?php 			require_once 'gallery.phpc';
       $gallery = new gallery();

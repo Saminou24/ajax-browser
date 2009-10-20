@@ -1,5 +1,5 @@
 <h1><?php echo _('Home page'); ?></h1>
-<div id='page'>
+<div id='site' class='page'>
 	<h2 class='h'><?php echo _('Overview'); ?></h2>
 	<div>
 		<h3><?php echo _('About'); ?></h3>

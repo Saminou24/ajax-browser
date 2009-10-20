@@ -6,4 +6,4 @@ a:2:{s:7:"current";a:6:{s:8:"relation";a:1:{s:10:"references";a:7:{s:15:"browser
 	*  Icons Pack
 	*  Languages Pack
 	*  API
-	*  Plugin";}s:4:"date";a:1:{s:7:"created";i:1255440962;}s:7:"creator";s:13:"Edouard.lopez";s:11:"last_change";a:7:{s:4:"date";i:1255440962;s:2:"ip";s:11:"192.168.0.8";s:4:"type";s:1:"C";s:2:"id";s:5:"start";s:4:"user";s:13:"edouard_lopez";s:3:"sum";s:7:"created";s:5:"extra";s:0:"";}}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1255440962;}s:7:"creator";s:13:"Edouard.lopez";s:11:"last_change";a:7:{s:4:"date";i:1255440962;s:2:"ip";s:11:"192.168.0.8";s:4:"type";s:1:"C";s:2:"id";s:5:"start";s:4:"user";s:13:"edouard_lopez";s:3:"sum";s:7:"created";s:5:"extra";s:0:"";}}}
+	*  Plugin";}s:4:"date";a:1:{s:7:"created";i:1255440962;}s:7:"creator";s:13:"Edouard.lopez";s:11:"last_change";b:0;}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1255440962;}s:7:"creator";s:13:"Edouard.lopez";s:11:"last_change";b:0;}}

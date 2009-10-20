@@ -3,9 +3,12 @@ Icon=./.favicon.png
 
 [Dolphin]
 AdditionalInfo=63
-Sorting=2
-Timestamp=2009,10,13,14,38,47
+ShowPreview=false
+Timestamp=2009,10,19,23,49,1
 ViewMode=1
+
+[Settings]
+ShowDotFiles=true
 
 [URL properties]
 ShowDotFiles=true

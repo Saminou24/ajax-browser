@@ -311,3 +311,4 @@ unset($main_elements);
 
 if (!defined('FORUM_HEADER'))
 	define('FORUM_HEADER', 1);
+

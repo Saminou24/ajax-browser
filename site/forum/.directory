@@ -7,8 +7,10 @@ Type=Directory
 
 [Dolphin]
 AdditionalInfo=63
-Timestamp=2009,10,11,14,56,1
+ShowPreview=false
+Sorting=6
+Timestamp=2009,10,20,3,6,28
 ViewMode=1
 
 [Settings]
-ShowDotFiles=true
+ShowDotFiles=false

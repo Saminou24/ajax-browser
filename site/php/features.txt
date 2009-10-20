@@ -98,7 +98,7 @@
       );
 ?>
 <h1><?php echo _('Features'); ?> </h1>
-<div id='page'>
+<div id='site' class='page'>
   <h3><?php echo _('Features list'); ?></h3>
   <div>
     <ul>

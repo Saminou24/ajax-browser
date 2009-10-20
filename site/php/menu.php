@@ -1,5 +1,9 @@
 <!--MENU BLOCK-->
-<?php 	require_once 'menu.phpc';
+<?php
+  require_once 'menu.phpc';
+  require_once 'i18n.phpc';
+  require_once 'toolbox.php';
+
 	$menu_items = build_menu();
 ?>
 <h2 class='h'><?php echo _('Navigation menu'); ?></h2>

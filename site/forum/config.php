@@ -8,7 +8,8 @@ $db_password = 'alhued3';
 $db_prefix = 'pbb_';
 $p_connect = false;
 
-$base_url = 'http://ajaxb.homelinux.org/forum';
+// $base_url = 'http://ajaxb.homelinux.org/forum';
+$base_url = '/forum';
 
 $cookie_name = 'forum_cookie';
 $cookie_domain = '';
@@ -16,4 +17,5 @@ $cookie_path = '/';
 $cookie_secure = 0;
 
 define('FORUM', 1);
+define('FORUM_DEBUG', 1);
 ?>

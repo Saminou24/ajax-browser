@@ -1,5 +1,5 @@
 <h1><?php echo _("<abbr title='Frequently Asked Question'>FAQ</abbr>"); ?></h1>
-<div id='page'>
+<div id='site' class='page'>
 <?php
 ?>
   <dl>

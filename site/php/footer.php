@@ -1,7 +1,7 @@
 <h2 class='h'><?php echo _('Footer'); ?></h2>
 <div id='footer'>
+  <?php require_once 'snippets.php'; ?>
 	<?php echo snippets_donate(); ?>
-	<?php /*require 'menu-lang.php';*/ ?>
 	<a href="http://jigsaw.w3.org/css-validator/check?uri=referer">
 		<img src="/images/valid_css_80x15-w.png"
 			alt="<?php echo _('Valid CSS 2.1'); ?>" title="<?php echo _('Valid CSS 2.1'); ?>" />

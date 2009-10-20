@@ -51,7 +51,7 @@ function downloadable_list($item)
     $result .= <<<ITEM
     <dt>{$label}&thinsp;:</dt>
       <dd class='sub'>
-        {$pre}<a href='{$path}/{$file}' title='{$file}'>
+        {$pre}<a href='/{$path}/{$file}' title='{$file}'>
         {$prein} download<span class='h'> {$label}</span></a>
         {$post}
         {$changelog}&thinsp;;

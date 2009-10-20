@@ -7,7 +7,8 @@ Type=Directory
 
 [Dolphin]
 AdditionalInfo=63
-Timestamp=2009,10,11,14,56,1
+ShowPreview=false
+Timestamp=2009,10,19,19,23,26
 ViewMode=1
 
 [Settings]

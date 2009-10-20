@@ -13,7 +13,25 @@ $forum_ranks = array (
   array (
     'id' => '2',
     'rank' => 'Member',
-    'min_posts' => '10',
+    'min_posts' => '5',
+  ),
+  2 => 
+  array (
+    'id' => '3',
+    'rank' => 'Experienced Member',
+    'min_posts' => '20',
+  ),
+  3 => 
+  array (
+    'id' => '4',
+    'rank' => 'Skilled Member',
+    'min_posts' => '50',
+  ),
+  4 => 
+  array (
+    'id' => '5',
+    'rank' => 'High Skilled Member',
+    'min_posts' => '100',
   ),
 );
 

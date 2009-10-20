@@ -48,4 +48,6 @@ function menu_item($label, $title, $key = NULL)
 	$item = "<li class='{$status} {$first}'><span><a href='?p={$ulabel}' title='{$utitle}' $accesskey >{$label}</a></span></li>";
 	return $item;
 }
+// echo $_SERVER['DOCUMENT_ROOT'];
+// phpinfo();
 ?>

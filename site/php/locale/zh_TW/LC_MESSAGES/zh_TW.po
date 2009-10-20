@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-17 22:29+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Édouard Lopez <edouard.lopez+poedit@gmail.com>\n"
+"Last-Translator: hugo lopez <hugo.lpz+poedit@gmail.com>\n"
 "Language-Team: AjaxBrowser Team <edouard.lopez+AB@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr "<abbr title='常見問題（英文）'>常見問題</abbr>"
 
 #: snippets.php:4
 msgid "Buy <em>Pro</em>!"
-msgstr "買<em>職業版</em>!"
+msgstr "買<em>專業版</em>!"
 
 #: snippets.php:20
 msgid "Get <em>Free</em>"
@@ -89,12 +89,9 @@ msgstr "截圖畫廊"
 msgid "see screenshots"
 msgstr "看截圖"
 
-# 移 Protocol'>英
-# why the ' and the > ?
 #: home.php:12
-#, fuzzy
 msgid "The AjaxBrowser project begin in 2006 as a personnal script to manage my own files on a remote server. At this time I was juggling between Windows® and Linux so I was looking for a <strong>cross-platform solution</strong>. As I was highly disappointed with <abbr title='File Transfer Protocol'>FTP</abbr>, I decided to create this project upon the <strong>popularity</strong> and <strong>portability</strong> of web browser."
-msgstr "這套AjaxBrowser軟體與始於2006年，作為個人腳本來管理自己在遠程服務器上的文件。在這同時，我正在研究Windows ®和Linux，所以我一直在尋找<strong>跨平台解決方案</strong>”。而且我對FTP感到非常失望，<abbr title='File Transfer Protocol'>FTP</abbr>轉移 Protocol'>英文縮寫”，所以我決定創造這套受到<strong>普遍使用</strong>以及<strong>高便利性的</strong>在瀏覽器上。"
+msgstr "這套AjaxBrowser軟體與始於2006年，作為個人腳本來管理自己在遠程服務器上的文件。在這同時，我正在研究Windows ®和Linux，所以我一直在尋找<strong>跨平台解決方案</strong>”。而且我對<abbr title='File Transfer Protocol'>FTP</abbr>感到非常失望，所以我決定創造這套受到<strong>普遍使用</strong>以及<strong>高便利性的</strong>在瀏覽器上。"
 
 #: home.php:15
 msgid "Quick Download"
@@ -150,7 +147,7 @@ msgstr "歷史紀錄&thinsp;;"
 #: home.php:35
 #: features.php:112
 msgid "Themes support and customisation&thinsp;;"
-msgstr "Support de thèmes et personnalisation&thinsp;;"
+msgstr "支援個人化主題&thinsp;;"
 
 #: home.php:36
 #: features.php:113
@@ -168,7 +165,7 @@ msgstr "消息"
 
 #: index.php:101
 msgid "file manager, domain, gallery, tree view mode, thumbnails mode, webmaster tool"
-msgstr "檔案管理器, file manager,站點, domain,圖片集, gallery,樹視圖, Tree view,預覽視圖, Preview mode, 小縮圖,thumbnails mode ,分欄視圖, colones view,圖標視圖, icon view,網站管理員的工具, webmaster tool,文件夾, folder,文件, file,檔案, file,"
+msgstr "檔案管理器, file manager,站點, domain,圖片集, gallery,樹視圖, Tree view,預覽視圖, Preview mode, 小縮圖,thumbnails mode ,分欄視圖, colones view,圖標視圖, icon view,網站管理員的工具, webmaster tool,文件夾, folder,文件, file,檔案, file"
 
 #: index.php:102
 msgid "AJAX-Browser is a HTTP file manager fully written in PHP/AJAX, it will extend your file management experience to your web server without any FTP client. It&#039;s a project under LGPL licence."
@@ -239,6 +236,7 @@ msgid "Themes support"
 msgstr "個人化主題"
 
 #: features.php:8
+#, fuzzy
 msgid "<abbr title='Internationalization'>i18n</abbr>"
 msgstr "<abbr title='國際化 Internationalisation'>i18n</abbr>"
 
@@ -267,7 +265,6 @@ msgid "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;Free"
 msgstr "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;免費版"
 
 #: features.php:31
-#, fuzzy
 msgid "Coming soon&hellip;"
 msgstr "下功能們&hellip;"
 
@@ -284,9 +281,8 @@ msgid "Online audio and video (using <abbr title='HyperText Markup Language'>HTM
 msgstr "線上語音與影片(利用<abbr title='HyperText Markup Language'>HTML</abbr>5)&thinsp;;"
 
 #: features.php:118
-#, fuzzy
 msgid "<em>Pro</em> <abbr title='versus'>vs</abbr> <em>Free</em> version"
-msgstr "<em>職業</em>和<em>免費</em>版的比較"
+msgstr "<em>專業</em>和<em>免費</em>版的比較"
 
 #: features.php:120
 msgid "This table compare only <em>Pro</em> and <em>Free</em> version of AjaxBrowser. Further on this page you will find a comparison between AjaxBrowser and others products on the market. "
@@ -298,9 +294,8 @@ msgid "comparison between Pro and Free versions"
 msgstr "<em>專業</em>和<em>免費</em>版的比較"
 
 #: features.php:131
-#, fuzzy
 msgid "AjaxBrowser <abbr title='versus'>vs</abbr> Others products"
-msgstr "比較－ AjaxBrowser和其他資源管理器"
+msgstr "比較－ AjaxBrowser和其他檔案管理器"
 
 #: features.php:133
 msgid "This is a <strong>mockery</strong>, real data for others products are currently not avaible. Come later to check for real data"
@@ -321,7 +316,7 @@ msgstr "加入新的語言。"
 
 #: features.php:150
 msgid "Translate into a new language."
-msgstr "加入新的語言翻譯  "
+msgstr "加入新的語言翻譯。"
 
 #: footer.php:1
 msgid "Footer"
@@ -330,12 +325,12 @@ msgstr "頁尾"
 #: footer.php:7
 #, fuzzy
 msgid "Valid CSS 2.1"
-msgstr "Valide depuis"
+msgstr "Valid CSS 2.1"
 
 #: footer.php:11
 #, fuzzy
 msgid "Valid XHTML 1.0 Strict"
-msgstr "SAP mode strict"
+msgstr "Valide XHTML 1.0 Strict"
 
 #: footer.php:15
 msgid "WCAG-AA"
@@ -362,13 +357,10 @@ msgstr "<em>專業</em>版本有比<em>免費</em>版本的功能還多 (查看<
 msgid "<em>Free</em> version"
 msgstr "<em>免費</em>版本"
 
-# last sentences 'pro' -> free
 #: download.php:18
-#, fuzzy
 msgid "The <em>free</em> version keep main features as shown on the <a href='?p=Features#comparison'>versions comparison</a> table. You can use and redistribute it under the GNU GPL licence. All <em>free</em> versions are listed below (newest first)&thinsp;:"
 msgstr "<em>免費</em>版本有<em>專業</em>版本最重要的功能 (查看<a href='?p=Features#comparison'>AB免費跟職業版本的比較</a>)，讓你們做不少檔案管理。你可以複製並轉送，前提示你要尊重<a href='http://www.gnu.org/licenses/licenses.zh-tw.html'>LGPL許可證</a>，就可以。所有的<em>免費</em>版本都在這下面的列出(最新的)&thinsp;:"
 
-# pluriel ?
 #: download.php:25
 msgid "Icons set"
 msgstr "圖標集"
@@ -394,9 +386,8 @@ msgid "Documentation"
 msgstr "指南"
 
 #: help.php:9
-#, fuzzy
 msgid "Below are some quick links to the documentation. For further research go on <a href='/wiki/'>our wiki</a>."
-msgstr "La liste suivante présente quelques liens utiles de la documentation指南. Pour une recheche plus de détaillée <a href='/wiki/'>consultez le wiki</a>."
+msgstr "以下是一些快速連接指南。想要得到更多的資訊，請連接到<a href='/wiki/'>我們的wiki</a><!-- 維基 -->。"
 
 #: help.php:11
 msgid "Browser support"
@@ -420,7 +411,7 @@ msgstr "語言檔案們"
 
 #: help.php:16
 msgid "<abbr title='Application Program Interface'>API</abbr>"
-msgstr "<abbr title='Application Program Interface'>API</abbr>"
+msgstr "<abbr title='應用程式介面 Application Program Interface'>API</abbr>"
 
 #: help.php:17
 msgid "Plugin"

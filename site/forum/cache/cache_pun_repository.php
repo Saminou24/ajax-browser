@@ -29,7 +29,7 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_admin_broadcast_email',
     'title' => 'Broadcast e-mail.',
-    'version' => '0.1',
+    'version' => '0.2',
     'description' => 'Add posibility to send e-mail messages to groups of users.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
@@ -109,23 +109,11 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_antispam',
     'title' => 'Antispam System',
-    'version' => '1.3.1',
-    'description' => 'Adds CAPTCHA to the register, login and guest post form. Allow setting restrictions for adding user signatures, web link.',
+    'version' => '1.3.2',
+    'description' => 'Adds CAPTCHA to registration, login and guest posting forms. Puts restrictions on adding user signatures and website links.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
     'maxtestedon' => '1.3.4',
-    'note' => 
-    array (
-      1 => 
-      array (
-        'content' => 'WARNING! If pun_antispam 1.3 is already installed on your forum, web links and signatures of the users whose number of posts is fewer than the "Minimal posts" parameter will be cleared.',
-        'attributes' => 
-        array (
-          'type' => 'install',
-          'timing' => 'pre',
-        ),
-      ),
-    ),
   ),
   'pun_attachment' => 
   array (
@@ -144,7 +132,7 @@ $pun_repository_extensions = array (
     'maxtestedon' => '1.3.4',
     'note' => 
     array (
-      2 => 
+      1 => 
       array (
         'content' => 'WARNING: your web-server should have write access to FORUM_ROOT/extensions/pun_attachment/attachments/.',
         'attributes' => 
@@ -153,7 +141,7 @@ $pun_repository_extensions = array (
           'timing' => 'pre',
         ),
       ),
-      3 => 
+      2 => 
       array (
         'content' => 'WARNING: all users\' attachments will be removed during the uninstallation process. It is recommended that you disable the "pun_attachment" extension instead, or upgrade it without uninstalling.',
         'attributes' => 
@@ -206,14 +194,14 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_pm',
     'title' => 'Private Messaging',
-    'version' => '1.2.6.1',
+    'version' => '1.2.7',
     'description' => 'Allows users to send private messages. This is the first simple version with minimum functions.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
     'maxtestedon' => '1.3.4',
     'note' => 
     array (
-      4 => 
+      3 => 
       array (
         'content' => 'WARNING! All users\' messages will be removed during the uninstall process. It is strongly recommended you to disable \'Private Messages\' extension instead or to upgrade it without uninstalling.',
         'attributes' => 
@@ -257,7 +245,7 @@ $pun_repository_extensions = array (
     'maxtestedon' => '1.3.2',
     'note' => 
     array (
-      5 => 
+      4 => 
       array (
         'content' => 'Tested in Internet Explorer 7, FireFox 3, Opera 9.63 and Google Chrome 1.0.',
         'attributes' => 
@@ -285,7 +273,7 @@ $pun_repository_extensions = array (
     'maxtestedon' => '1.3.4',
     'note' => 
     array (
-      6 => 
+      5 => 
       array (
         'content' => 'Warning: web server should have write access to your extensions directory.',
         'attributes' => 
@@ -314,6 +302,6 @@ $pun_repository_extensions = array (
   ),
 );
 
-$pun_repository_extensions_timestamp = 1255429644;
+$pun_repository_extensions_timestamp = 1255982956;
 
 ?>

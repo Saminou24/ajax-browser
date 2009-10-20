@@ -97,7 +97,7 @@ function lang()
   }
 
   $domain = gettext_domain($codeiso); // *.mo files
-//   dump($domain);
+//   dump($_REQUEST['lang']);
   $locale = $iso639[$codeiso].'.utf-8';
   putenv("LC_ALL=$locale"); //
   setlocale(LC_ALL, $locale); // On modifie les informations de localisation en fonction de la langue
