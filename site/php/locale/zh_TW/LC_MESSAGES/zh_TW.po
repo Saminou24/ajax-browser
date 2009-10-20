@@ -236,7 +236,6 @@ msgid "Themes support"
 msgstr "個人化主題"
 
 #: features.php:8
-#, fuzzy
 msgid "<abbr title='Internationalization'>i18n</abbr>"
 msgstr "<abbr title='國際化 Internationalisation'>i18n</abbr>"
 
@@ -266,7 +265,7 @@ msgstr "<abbr title='AjaxBrowser'>AB</abbr>&nbsp;免費版"
 
 #: features.php:31
 msgid "Coming soon&hellip;"
-msgstr "下功能們&hellip;"
+msgstr "敬請期待&hellip;"
 
 #: features.php:100
 msgid "Features"
@@ -323,14 +322,12 @@ msgid "Footer"
 msgstr "頁尾"
 
 #: footer.php:7
-#, fuzzy
 msgid "Valid CSS 2.1"
 msgstr "Valid CSS 2.1"
 
 #: footer.php:11
-#, fuzzy
 msgid "Valid XHTML 1.0 Strict"
-msgstr "Valide XHTML 1.0 Strict"
+msgstr "Valid XHTML 1.0 Strict"
 
 #: footer.php:15
 msgid "WCAG-AA"

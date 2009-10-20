@@ -1,0 +1,325 @@
+@charset "utf-8";
+
+/* #dfdfe3 (silver), #1a1a1a (dark), #264E80 (marine) */
+body.bg1 {
+  font-family: 'DejaVu Sans', Arial, sans-serif;
+  font-size: 10pt;
+  background:#4A91B2 url(/images/bg-blue.png) repeat-x scroll 50% 0;
+}
+body.bg2 {
+  background:#62A6CA url(/images/bg-bot-blue.png) repeat-x fixed 50% 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #264E80;/* dark_blue */
+}
+
+/*⬂⬊⬀⬈□▣*/
+#content a:after { content: url(/images/url-in.png); }
+#content a:hover:after { content: url(/images/url-in:hover.png); }
+#content a[href^='http://']:after { content: url(/images/url-out.png); }
+#content a[href^='http://']:hover:after { content: url(/images/url-out:hover.png); }
+a.lb:after { content: url(/images/pop-in.png); }
+a.lb:hover:after { content: url(/images/pop-in:hover.png); }
+a[rel^='lightbox[screenshots]']:after {
+  position: relative;
+  right: 3.1em;
+  width: 16px;
+  bottom: 2.05em;
+  float: right;
+  background: #fff;
+  padding: .1em;
+  text-align: center;
+  vertical-align: top;
+  border-top: thin solid #ddd;
+  border-left: thin solid #ddd;
+}
+
+abbr {
+  border-bottom: thin dashed #264E80 /*(marine)*/;
+  font-family: 'DejaVu Serif', 'Times New Roman', serif;
+  cursor: help;
+  font-variant: normal;
+}
+abbr:after {
+  content: '⋆';/*★✸❖⋆ */
+  vertical-align: top;
+  font-size: xx-small;
+  color: #264E80 /*(marine)*/;
+}
+code {
+  font-family: serif;
+/*   font-weight: bold; */
+font-style: italic;
+}
+.mark dt {
+display: list-item;
+list-style-type: disc;
+}
+
+img { border: none;}
+
+#skip a {
+  background-color: #fff;
+  color: #88BA00 /*(green)*/;
+}
+
+
+/* BUTTON */
+.dwld a:after { display: none;}
+#download .dwld {
+  margin:1em;
+  float:right;
+}
+.dwld {
+  font-size: x-large;
+  font-weight: bold;
+}
+#dl-pro .dwl {
+ background:  #3B7BC6 url('../images/bga-button-donate.png') repeat-x scroll top center;
+/*  background:  #CA5900 url('../images/bga-button-donate.png') repeat-x scroll top center; */
+}
+#dl-free .dwl {
+/*  background:  #CA5900 url('../images/bga-button-donate.png') repeat-x scroll top center; */
+  background:  #80BA00 url('../images/bga-button-donate.png') repeat-x scroll top center;
+}
+#dl-pro:hover .dwl, #dl-free:hover .dwl  { background-position: center bottom; }
+
+.dwl {
+/*  border-left:thin solid #555;
+  border-right:thin solid #555;
+  margin: 0;
+  padding: 3px 0;*/
+  color: #FFF;
+}
+.dwl span {
+  border-top: thin solid #555;
+  border-bottom: thin solid #555;
+  padding: 3px 0.4em;
+}
+.dwld:hover .dwl span {
+  border-top:thin solid #888;
+  border-bottom:thin solid #888;
+}
+
+#dwl-icons dt {
+  font-family: serif;
+  font-style: italic;
+/*font-variant: small-caps;*/
+}
+#dwl-icons img { vertical-align: middle;}
+.dwl {
+  border-left:thin solid #555;
+  border-right:thin solid #555;
+  margin: 0;
+  padding: 3px 0;
+}
+.dwl {
+  white-space: nowrap;
+}
+
+
+/* MENU (NAVIGATION) */
+#topmenu .bgl  {
+  background:transparent url('/images/bg-menu_l.png') no-repeat scroll 0 0;
+}
+#topmenu .bgc {
+  background:transparent url('/images/bg-menu.png') repeat-x scroll 0 0;
+}
+#topmenu .bgr  {
+  background:transparent url('/images/bg-menu_r.png') no-repeat scroll 100% 0;
+}
+#topmenu li { list-style-type: none; }
+#menu li {
+}
+#menu a {
+  font-weight: bold;
+  color: #fff;
+}
+#menu .current span, #menu li:hover span /*, #lang li:hover*/ {
+  background:transparent url('/images/bg-menu:active-shadow.png') no-repeat scroll 100% 0;
+}
+#menu .current a, #menu li:hover a {/*, #menu #lang0 li:hover a*/
+  background:transparent url('/images/bg-menu:active.png') no-repeat scroll 0 0;
+}
+#menu li#lang0, li#lang0:hover a, #lang li:hover {
+  background: transparent none no-repeat scroll 100% 0;
+}
+#menu #lang0:hover #lang {
+   background:transparent url('/images/bg-menu-sub.png') no-repeat scroll 0 100%;
+}
+/*#menu #lang li {
+  opacity: 0.4;
+  border: thin solid transparent;
+}
+#menu #lang li:hover, #menu #lang .active { opacity: 1; }*/
+/* #menu #lang li:hover { background-color: #fff;} */
+#menu li.active { background: transparent url('./images/bullet_arrow_down.png') no-repeat center bottom; }
+#menu #lang0:hover li.active {
+/* background-image: none; */
+}
+#menu #lang {
+}
+#menu #lang:hover .active {
+/* border-bottom: thin inset #555; */
+}
+
+  /* login button */
+#log-in { background: transparent url('../images/logged-out.png') no-repeat left center; }
+#log-in:hover { background: transparent url('../images/logged-out_in.png') no-repeat left center; }
+#log-out { background: transparent url('../images/logged-in.png') no-repeat left center; }
+#log-out:hover { background: transparent url('../images/logged-in_out.png') no-repeat left center; }
+
+
+/* CONTENT */
+h1:before {
+  content: '›\2008';
+}
+h1 {
+  font-size: x-small;
+  display: inline;
+/*   font-weight: bold; */
+  color: #f5f5f5;
+  font-style: italic;
+  font-family: serif;
+}
+
+.site-page {
+  border: thin solid #bbb;
+  background-color: #fff;
+  background: #fff url('/images/bg-round.png') repeat-x scroll 0% 100%;
+  border-radius: .35em;
+  -moz-border-radius: .35em;
+  -webkit-border-radius: .35em;
+}
+#page a {
+  color: #88BA00 /*(green)*/;
+}
+#page h2, #page h3, #page h4, #page h5, #page h6 {
+/*   font-weight: normal; */
+  font-family: 'DejaVu Serif', 'Times New Roman', serif;
+  color: #666;
+  border-bottom: thin inset #ddd;
+}
+/* donation button */
+#page .donation button { font-size: xx-large; }
+#page .donation img { display: none; }
+/*#page .donation span { text-shadow: #eee 2px 2px 5px;}*/
+
+/* FOOTER */
+#footer {
+  text-align: center;
+  color: #fff;
+}
+#footer .donation button * {
+  margin: 0;
+  padding: 0;
+}
+#footer .donation img {
+  height: 12px;
+  vertical-align:middle;
+  left:0.2em;
+  position:relative;
+}
+button {
+  border: thin outset #dfdfe3;/* (silver)*/
+}
+.donation fieldset {
+  padding: 1em;
+  border: none;
+}
+
+.donation button {
+/*   padding: 0; */
+  font-variant: small-caps;
+  font-weight: bold;
+  background: transparent none repeat scroll 0 0;
+  border-width: 0;
+  display: inline-block;
+  margin: 0;
+  overflow: visible;
+  padding: 3px 0;
+/*   color: #333; */
+}
+
+.donation .dwl {
+/*   background:  #3B7BC6 url('../images/bga-button-donate.png') repeat-x scroll top center; */
+/*   background:  #CA5900 url('../images/bga-button-donate.png') repeat-x scroll top center; */
+/*   background:  #88BA00 url('../images/bga-button-donate.png') repeat-x scroll top center; */
+/*   background:  #80BA00 url('../images/bga-button-donate.png') repeat-x scroll top center; */
+  background:  #FFE900 url('../images/bga-button-donate.png') repeat-x scroll top center;
+}
+
+.donation button:hover .dwl { background-position: center bottom; }
+.dwl span {
+  border-top: thin solid #555;
+  border-bottom: thin solid #555;
+  padding: 3px 0.4em;
+}
+.donation button:hover .dwl span {
+  border-top:thin solid #888;
+  border-bottom:thin solid #888;
+}
+
+
+/* HOME */
+#sample img {
+  border: thin solid #eee;
+}
+
+/* FEATURES */
+/* #flags li { list-style-type: none; } */
+.comparison {
+  background-color: #fff;
+}
+
+.comparison th.hrow {
+  text-align: left;
+  font-weight: normal;
+  border-right:thin solid #DDDDDD;
+}
+.comparison td {
+/*   border: thin solid #fff; */
+}
+.row1 * {
+  background-color: #E1E7ED;
+}
+.row2 * {
+  background-color: #fff;
+}
+
+/* SCREENSHOTS */
+#screenshots li[title]:after {
+  content: attr(title);
+  text-align: center;
+  color: #aaa;
+  font-size: smaller;
+}
+#screenshots li[title]:hover:after {
+  color: #333;
+}
+#screenshots img {
+  border: thin solid #ddd;
+}
+
+/* DEMO */
+object {
+  border: thin inset #f5f5f5;
+  background-color: #ddd;
+}
+
+/* DOWNLOAD */
+
+
+/* TEAM */
+#team img {
+  margin: .25em;
+  padding: .25em;
+  border: thin solid #eee;
+}
+
+#team .mb-desc dt:before {
+  content: '›\2009';
+  color: #666;
+}

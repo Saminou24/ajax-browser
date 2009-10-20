@@ -1,0 +1,22 @@
+#content .brd-page {
+  float: none;
+}
+#content .brd {
+  width: auto;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+#content #brd-navlinks {
+/*   background: transparent url('/images/bg-menu.png') repeat-x scroll 0 42%; */
+  background: #317C99 none repeat scroll 0 0;
+  border-color: #DDD;
+}
+#content #brd-navlinks, #content .brd .main-head span {
+  color: #e8e8e8;
+  font-weight: bold;
+}
+#content .brd .main-head, #content .brd .main-foot {
+  background: #569CBE none repeat scroll 0 0;
+  border-color: #DDD;
+}
