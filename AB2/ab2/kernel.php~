@@ -1,8 +1,8 @@
 <?php
 /*# -------- INCLUDE -------- */
-require(INSTALLPATH.'core.php');
+require('./core.php');
 // Load all modules in sorting order
-$modules = glob(MODPATH.'*/core.php');
+$modules = glob('./modules/*/core.php');
 foreach($modules as $m)
 {
 	require ($m);
